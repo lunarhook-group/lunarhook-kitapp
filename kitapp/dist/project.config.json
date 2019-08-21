@@ -1,0 +1,16 @@
+{
+  "miniprogramRoot": "./",
+  "projectname": "kitapp",
+  "description": "kitapp",
+  "appid": "wx9bd010e0e76e1001",
+  "setting": {
+    "urlCheck": true,
+    "es6": false,
+    "postcss": false,
+    "minified": false
+  },
+  "compileType": "miniprogram",
+  "simulatorType": "wechat",
+  "simulatorPluginLibVersion": {},
+  "condition": {}
+}
