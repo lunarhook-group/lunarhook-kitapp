@@ -1,8 +1,5 @@
 
-import React, {Component} from 'react';
 import IconConfig from './IconConfig'
-import Taro, { Component } from '@tarojs/taro'
-import { View, Text ,Image,Button} from '@tarojs/components'
 /*
 系统的设计主要从探索这个步骤开始，我们碰到问题：首先是需要探索的，我们是通过测试（扩散社交行为）来完成的
 当探索到问题的本质以后，需要去理解这个问题，以及背后的逻辑，那些是安全的，那些是不确定的，那些是有利的，那些是不利的，因此需要内容来进行识别，因此需要内容来解答自己的问题

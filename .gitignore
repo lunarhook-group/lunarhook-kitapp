@@ -2,3 +2,4 @@ kitapp/node_modules/
 .DS_Store
 *.log
 kitapp/dist/npm/
+kitapp/dist/

@@ -1,11 +1,9 @@
-
-import Taro, { Component } from '@tarojs/taro'
 import {StyleSheet,View, Text,ScrollView,Image} from '@tarojs/components';
 import { AtAccordion ,AtGrid } from 'taro-ui'
-import RouteConfig from '../config/RouteConfig';
-import StyleConfig from '../config/StyleConfig';
-
+//import RouteConfig from '../config/RouteConfig';
+import './litekitPage.scss'
 var kitlist = new Array();
+/*
 const data = [
   //{icon: RouteConfig['CalendarPage'].icon,text: RouteConfig['CalendarPage'].name,url:RouteConfig['CalendarPage'].route},
   {icon: RouteConfig['SixrandomNewPage'].icon,text: RouteConfig['SixrandomNewPage'].name,url:RouteConfig['SixrandomNewPage'].route},
@@ -60,9 +58,23 @@ const data2 = [
   {icon: RouteConfig['HollandModule'].icon,text: RouteConfig['HollandModule'].name,url:RouteConfig['HollandModule'].route},
 ]
 
+*/
 
+export default class litekitPage extends Component {
+  config = {
+    navigationBarTitleText: '鹿鸣测评'
+  }
 
-class litekitPage extends React.Component {
+  componentWillMount () { }
+
+  componentDidMount () { }
+
+  componentWillUnmount () { }
+
+  componentDidShow () { }
+
+  componentDidHide () { }
+  /*
   constructor(props) {
       super(props);
       this.state = {
@@ -133,15 +145,13 @@ class litekitPage extends React.Component {
     this.setState({datahistory:datahistory})
     navigate(el.url)
   }
-
+*/
 
   
   render(){
-      const { navigate } = this.props.navigation;
       return(
-          <View style={StyleConfig.container}>
-          
-          <ScrollView>
+          <View >
+
           <AtAccordion  onChange={this.onChange} activeSections={this.state.activeSections}>
           <AtList header={RouteConfig['PsychTestPage'].name}>
           <AtGrid
@@ -150,69 +160,13 @@ class litekitPage extends React.Component {
           isCarousel
           onPress={(_el: any, index: any) => {this.onPress(_el,navigate)}}
         /></AtList>
-          <AtList header={RouteConfig['UniversechangesPage'].name}>
-          <AtGrid
-          data={data}
-          columnNum={4}
-          isCarousel
-          onPress={(_el: any, index: any) => {this.onPress(_el,navigate)}}
-        /></AtList>
-          <AtList header={RouteConfig['ThreechangesPage'].name}>
-          <AtGrid
-          data={data3}
-          columnNum={4}
-          isCarousel
-          onPress={(_el: any, index: any) => {this.onPress(_el,navigate)}}
-        /></AtList>
-        <AtList header={RouteConfig['TarotTab'].name}>
-          <AtGrid
-          data={data1}
-          columnNum={4}
-          isCarousel
-          onPress={(_el: any, index: any) => {this.onPress(_el,navigate)}}
-        /></AtList>
-        <AtList header={RouteConfig['ChangesuniversePage'].name}>
-          <AtGrid
-          data={data4}
-          columnNum={4}
-          isCarousel
-          onPress={(_el: any, index: any) => {this.onPress(_el,navigate)}}
-        /></AtList>
-                 <AtList header={"其它"}>
-          <AtGrid
-          data={kitlist["tools"]}
-          columnNum={4}
-          isCarousel
-          onPress={(_el: any, index: any) => {this.onPress(_el,navigate)}}
-        /></AtList>
         </AtAccordion >
 
 
         <Text></Text>
-          </ScrollView>
+
                         
               </View>  
               )
     }
   };
-var styles = StyleSheet.create ({
-
-   button:{
-    height: 50,
-    backgroundColor:'transparent',
-   justifyContent:'center',
-   borderRadius: 4,
-    },
-  index:
-  {
-    lineHeight:24,
-    textAlign:'center', 
-    fontSize:15,
-    justifyContent: 'center', //虽然样式中设置了 justifyContent: 'center'，但无效  
-    alignItems: 'center',
-  },  dateContainer: {
-    justifyContent:'space-between',
-    flexDirection: 'row',
-  },
-});
-module.exports=litekitPage;  
