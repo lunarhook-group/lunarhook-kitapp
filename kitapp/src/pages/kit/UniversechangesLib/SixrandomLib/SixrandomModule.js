@@ -3279,7 +3279,7 @@ var m = {
 		var lunarDay = ""
 		var isLeap =""
 		var isBigMonth =""
-		objDate=new Date(u) 
+		var objDate=new Date(u) 
 		var i, leap=0, temp=0; 
 		var offset   = (Date.UTC(objDate.getFullYear(),objDate.getMonth(),objDate.getDate()) - Date.UTC(1900,0,31))/86400000; 
 
@@ -3556,7 +3556,7 @@ get_six_random_myth()
 	var b = h.indexOf(m);
 	var c = a.indexOf(n[b])
 
-	for(index = 0;index<randomtime;index++)
+	for(var index = 0;index<randomtime;index++)
     {
         six_random_myth[randomtime - index] = a[(c+index)%6];
     }
@@ -3586,7 +3586,7 @@ get_six_original_random()
 */
 {
 
-    for(index = 0;index<randomtime;index++)
+    for(var index = 0;index<randomtime;index++)
     {
         six_random[randomtime - index] = this.get_one_random();
     }
@@ -3596,7 +3596,7 @@ get_six_original_random()
 获取本卦六爻
 */
 {
-    for(index = 0;index<randomtime;index++)
+    for(var index = 0;index<randomtime;index++)
     {
         six_random[randomtime - index] = lunardate[randomtime-index-1];
 	}
@@ -3609,7 +3609,7 @@ get_six_original_random()
 老阳变少阴
 */
 {
-    for(index = 0;index<randomtime;index++)
+    for(var index = 0;index<randomtime;index++)
     {
         if(oldnegativevalue == six_random[randomtime-index])
         {
@@ -3709,8 +3709,11 @@ get_six_original_random()
 	six_random_date[3] = "旬空：" + six_random_empty[0] + " " + six_random_empty[1] + " " + six_random_empty[2] + " " + six_random_empty[3] 
 	six_random_date[4] = "神煞：" + "驿马-" + six_random_help_myth[0] + " 桃花-" + six_random_help_myth[1] + " 日禄-" + six_random_help_myth[2] + " 贵人-" + six_random_help_myth[3] 
 	//ooup oodown 本卦的上下主客卦 ocup ocdown 变卦的上下主客卦
-	var ooup=oodown=ocup=ocdown="";
-	for(index = 0;index<randomtime;index++)
+	var ooup=""
+	var oodown=""
+	var ocup=""
+	var ocdown="";
+	for(var index = 0;index<randomtime;index++)
     {
 		if(oldnegativevalue==six_random[index+1])
 		{
@@ -3794,7 +3797,7 @@ fix_najia(random,change)
 	//console.log(change);
 	//console.log(change[index].slice(0,2))
 	
-	for(index = 1 ;index < 7;index++)
+	for(var index = 1 ;index < 7;index++)
 	{
 		change[index]=kindtable[changekind[index]] + change[index].slice(2)
 	}
@@ -3842,7 +3845,7 @@ get_simple_random_draw()
 	
 
 
-	for(index = 0;index<randomtime;index++)
+	for(var index = 0;index<randomtime;index++)
     {
 		if(oldnegativevalue==six_random[randomtime-index])
 		{
@@ -3862,7 +3865,7 @@ get_simple_random_draw()
 		}
 	}
 
-	for(index = 0;index<randomtime;index++)
+	for(var index = 0;index<randomtime;index++)
     {
 		_build.push(six_random_draw[index+1]);
 	}
@@ -3912,7 +3915,7 @@ get_simple_random_draw()
 	//console.log();
 	var o = ["","上爻","五爻","四爻","三爻","二爻","初爻"]
 
-	for(index = 0;index<randomtime;index++)
+	for(var index = 0;index<randomtime;index++)
     {
 		six_random_draw[randomtime-index] = six_random_myth[randomtime-index]+":"+o[randomtime-index]+"          ";
 		if(oldnegativevalue==six_random[randomtime-index])
@@ -3933,7 +3936,7 @@ get_simple_random_draw()
 		}
 	}
 
-	for(index = 0;index<randomtime;index++)
+	for(var index = 0;index<randomtime;index++)
     {
 		if(oldnegativevalue==six_change_random[randomtime-index])
 		{
@@ -3953,13 +3956,13 @@ get_simple_random_draw()
 		}
 	}
 
-	for(index = 0;index<randomtime;index++)
+	for(var index = 0;index<randomtime;index++)
     {
 		_build.push(six_random_draw[index+1]);
 	}
 
 	_build.push("")
-	for(index = 0;index<randomtime;index++)
+	for(var index = 0;index<randomtime;index++)
     {
 		var t = index+1
 		var n = six_random_date[7][t]
