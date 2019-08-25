@@ -1,6 +1,0 @@
-<block wx:if="{{$taroCompReady}}">
-    <view class="index">
-        <image style="width: 600px;height: 300px;background: #fff;" src="{{imgtime}}"></image><text>Hello world!fanxl</text>
-        <button bindtap="anonymousFunc0">test</button>
-    </view>
-</block>
