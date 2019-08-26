@@ -13,7 +13,7 @@ class App extends Component {
   config = {
     pages: [
       'pages/index/index',
-      //'pages/kit/litekitPage',
+      'pages/kit/litekitPage',
       'pages/kit/test',
     ],
     window: {

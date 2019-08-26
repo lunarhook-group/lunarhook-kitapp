@@ -70,7 +70,7 @@ export default class Index extends Component {
   componentDidHide () { }
 
   jump(){
-    Taro.navigateTo({url:'../../pages/kit/test'})
+    Taro.navigateTo({url:'../../pages/kit/litekitPage'})
   }
 
 

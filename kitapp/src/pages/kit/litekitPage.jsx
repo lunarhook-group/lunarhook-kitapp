@@ -1,172 +1,60 @@
-import {StyleSheet,View, Text,ScrollView,Image} from '@tarojs/components';
-import { AtAccordion ,AtGrid } from 'taro-ui'
-//import RouteConfig from '../config/RouteConfig';
+import Taro, { Component } from '@tarojs/taro'
+import { View, Text ,Image,Button} from '@tarojs/components'
+import { AtAccordion, AtGrid } from 'taro-ui'
 import './litekitPage.scss'
-var kitlist = new Array();
-/*
-const data = [
-  //{icon: RouteConfig['CalendarPage'].icon,text: RouteConfig['CalendarPage'].name,url:RouteConfig['CalendarPage'].route},
-  {icon: RouteConfig['SixrandomNewPage'].icon,text: RouteConfig['SixrandomNewPage'].name,url:RouteConfig['SixrandomNewPage'].route},
-  {icon: RouteConfig['EightrandomNewPage'].icon,text: RouteConfig['EightrandomNewPage'].name,url:RouteConfig['EightrandomNewPage'].route},
-  {icon: RouteConfig['NumberMainPage'].icon,text: RouteConfig['NumberMainPage'].name,url:RouteConfig['NumberMainPage'].route}, 
-]
-
-const data3 = [
-  
-  {icon: RouteConfig['SixCourseNewPage'].icon,text: RouteConfig['SixCourseNewPage'].name,url:RouteConfig['SixCourseNewPage'].route},
-  {icon: RouteConfig['qimenNewPage'].icon,text: RouteConfig['qimenNewPage'].name,url:RouteConfig['qimenNewPage'].route},
-  {icon: RouteConfig['taiyiNewPage'].icon,text: RouteConfig['taiyiNewPage'].name,url:RouteConfig['taiyiNewPage'].route},
-]
-
-const data1 = [
-  {icon: RouteConfig['TarotPage'].icon,text: RouteConfig['TarotPage'].name,url:RouteConfig['TarotPage'].route},
-  {icon: RouteConfig['TarotVenusPage'].icon,text: RouteConfig['TarotVenusPage'].name,url:RouteConfig['TarotVenusPage'].route},
-  {icon: RouteConfig['TarotStarofDavidPage'].icon,text: RouteConfig['TarotStarofDavidPage'].name,url:RouteConfig['TarotStarofDavidPage'].route},
-  {icon: RouteConfig['TarotCeltsPage'].icon,text: RouteConfig['TarotCeltsPage'].name,url:RouteConfig['TarotCeltsPage'].route},
-]
-
-const data4 = [
-  {icon: RouteConfig['GamblePage'].icon,text: RouteConfig['GamblePage'].name,url:RouteConfig['GamblePage'].route},
-  //{icon: RouteConfig['ChangesuniversePage'].icon,text: RouteConfig['ChangesuniversePage'].name,url:RouteConfig['ChangesuniversePage'].route},
-  {icon: RouteConfig['StarInfoPage'].icon,text: RouteConfig['StarInfoPage'].name,url:RouteConfig['StarInfoPage'].route},
-]
-
-const consultants = [
-  {icon: RouteConfig['malecall'].icon,text: "刘老师",url:"tel:18911832827"},
-  {icon: RouteConfig['femalecall'].icon,text: "郑老师",url:"tel:13391909968"},
-  {icon: RouteConfig['femalecall'].icon,text: "菅老师",url:"tel:15330231513"},
-  {icon: RouteConfig['business'].icon,text: "郑女士（商务）",url:"tel:13391909968"},
-  {icon: RouteConfig['business'].icon,text: "菅女士（商务）",url:"tel:15330231513"},
-  {icon: RouteConfig['email'].icon,text:RouteConfig['email'].name,url:"mailto:1140669231@qq.com"},
-  {icon: RouteConfig['wechat'].icon,text:RouteConfig['wechat'].name,url:"wechat"},
-  {icon: RouteConfig['qrcode'].icon,text:RouteConfig['qrcode'].name,url:"openqrcode"},
-
-  
-]
-
-
-kitlist["tools"] = [
-
-  {icon: RouteConfig['SloganShare'].icon,text: RouteConfig['SloganShare'].name,url:RouteConfig['SloganShare'].route},
-
-  
-  
-]
-const data2 = [
-  {icon: RouteConfig['MBTIModule'].icon,text: RouteConfig['MBTIModule'].name,url:RouteConfig['MBTIModule'].route},
-  {icon: RouteConfig['EnneagramModule'].icon,text: RouteConfig['EnneagramModule'].name,url:RouteConfig['EnneagramModule'].route},
-  {icon: RouteConfig['HollandModule'].icon,text: RouteConfig['HollandModule'].name,url:RouteConfig['HollandModule'].route},
-]
-
-*/
 
 export default class litekitPage extends Component {
   config = {
     navigationBarTitleText: '鹿鸣测评'
   }
 
-  componentWillMount () { }
+  componentWillMount() { }
 
-  componentDidMount () { }
+  componentDidMount() { }
 
-  componentWillUnmount () { }
+  componentWillUnmount() { }
 
-  componentDidShow () { }
+  componentDidShow() { }
 
-  componentDidHide () { }
-  /*
+  componentDidHide() { }
+
   constructor(props) {
-      super(props);
-      this.state = {
-        date:"",
-        datahistory:[],
-        historySection:[0],
-        activeSections:  [0,1,2,3,4,5,6],
-        historyactiveSections: [0],
-      };
-      this.onChange = (activeSections: number[]) => {
-        
-        var re = this.state.activeSections
-        
-        if(activeSections.length>1)
-        {
-          this.setState({activeSections:activeSections})
-        }
-        else
-        {
-          re.push(activeSections[0])
-          this.setState({activeSections:re})
-        }
-        
-        
-      };
-      this.historyonChange = (historyactiveSections: number[]) => {
-        
-        var re = this.state.historyactiveSections
-        
-        if(historyactiveSections.length>1)
-        {
-          this.setState({historyactiveSections:historyactiveSections})
-        }
-        else
-        {
-          re.push(historyactiveSections[0])
-          this.setState({historyactiveSections:re})
-        }
-        
-        
-      };
+    super(props);
+    this.state = {
     };
-  static navigationOptions = ({navigation})=>{
-    const { navigate } = navigation;
-    return{
-      
-      title: RouteConfig["litekitPage"].titlename,
-    }
   };
-
-
-
-  keyExtractor = (item,index) => item.id
-  
-  onPress(el, navigate)
-  {
-    //console.log(el)
-    var datahistory = this.state.datahistory
-    
-    while(datahistory.length>5)
+  render() {
+    return (
+      <View className={'contain'}>
+        <AtGrid mode='rect' data={
+ [
     {
-        datahistory.pop()
+      image: 'https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png',
+      value: '领取中心'
+    },
+    {
+      image: 'https://img20.360buyimg.com/jdphoto/s72x72_jfs/t15151/308/1012305375/2300/536ee6ef/5a411466N040a074b.png',
+      value: '找折扣'
+    },
+    {
+      image: 'https://img10.360buyimg.com/jdphoto/s72x72_jfs/t5872/209/5240187906/2872/8fa98cd/595c3b2aN4155b931.png',
+      value: '领会员'
+    },
+    {
+      image: 'https://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png',
+      value: '新品首发'
+    },
+    {
+      image: 'https://img14.360buyimg.com/jdphoto/s72x72_jfs/t17251/336/1311038817/3177/72595a07/5ac44618Na1db7b09.png',
+      value: '领京豆'
+    },
+    {
+      image: 'https://img30.360buyimg.com/jdphoto/s72x72_jfs/t5770/97/5184449507/2423/294d5f95/595c3b4dNbc6bc95d.png',
+      value: '手机馆'
     }
-    datahistory.reverse()
-    datahistory.push( {icon: el.icon,text: el.text,url:el.url})
-    datahistory.reverse()
-    //console.log(datahistory)
-    this.setState({datahistory:datahistory})
-    navigate(el.url)
+  ]
+} />
+      </View>
+    )
   }
-*/
-
-  
-  render(){
-      return(
-          <View >
-
-          <AtAccordion  onChange={this.onChange} activeSections={this.state.activeSections}>
-          <AtList header={RouteConfig['PsychTestPage'].name}>
-          <AtGrid
-          data={data2}
-          columnNum={4}
-          isCarousel
-          onPress={(_el: any, index: any) => {this.onPress(_el,navigate)}}
-        /></AtList>
-        </AtAccordion >
-
-
-        <Text></Text>
-
-                        
-              </View>  
-              )
-    }
-  };
+};
