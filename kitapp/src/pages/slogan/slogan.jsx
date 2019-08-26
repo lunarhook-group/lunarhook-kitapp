@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text ,Image,Button} from '@tarojs/components'
 import SixrandomModule from '../kit/UniversechangesLib/SixrandomLib/SixrandomModule'
-import './index.scss'
+import './slogan.scss'
 
 
 import imgtime1 from '../img/time/1s.jpg'
