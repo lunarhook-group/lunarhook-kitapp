@@ -73,23 +73,29 @@ export default class Index extends Component {
     Taro.navigateTo({url:'../../pages/kit/test'})
   }
 
+
   render () {
     const res = Taro.getSystemInfoSync()
     var wanNianLiInfo = this.state.wanNianLiInfo;
     var selectday = new Date()
     var curtimelucky = this.state.wanNianLiInfo.info.gzTime
-    var curgztime = this.state.wanNianLiInfo.info.gzQuarter;
+    //var curgztime = this.state.wanNianLiInfo.info.gzQuarter;
     var imgindex = imgtime[curtimelucky[1]]
-    //var infoindex = infotime[curtimelucky[1]]
-    console.log(res)
+    var second_height = 600
+    var second_width = 375
+    second_height= res.screenHeight
+    second_width = res.screenWidth
+    console.log(res,second_height)
+
     return (
-      <View >
-        <Image
-          style='width:100%;height:800px'
+      <View className={'contain'}>
+        <Image className={'slogan'}
+          mode='widthFix'
+          style='width:90%'
           src={imgindex}
         />
 
-        <Button onClick={this.jump}>test</Button>
+        <Button  onClick={this.jump}>test</Button>
       </View>
     )
   }

@@ -3,3 +3,4 @@ kitapp/node_modules/
 *.log
 kitapp/dist/npm/
 kitapp/dist/
+kitapp/yarn.lock
