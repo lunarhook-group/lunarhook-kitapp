@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import Index from './pages/index'
+import Slogan from './pages/slogan'
 import './app.scss'
 
 // 如果需要在 h5 环境中开启 React Devtools
@@ -12,7 +12,7 @@ class App extends Component {
 
   config = {
     pages: [
-      'pages/index/index',
+      'pages/slogan/slogan',
       'pages/kit/litekitPage',
       'pages/kit/test',
     ],
@@ -20,7 +20,8 @@ class App extends Component {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
       navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black'
+      navigationBarTextStyle: 'black',
+      navigationBarTitleText: '月如钩'
     }
   }
 
@@ -36,7 +37,7 @@ class App extends Component {
   // 请勿修改此函数
   render () {
     return (
-      <Index />
+      <Slogan />
     )
   }
 }

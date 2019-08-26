@@ -31,11 +31,11 @@ imgtime["酉"] = imgtime10
 imgtime["戌"] = imgtime11
 imgtime["亥"] = imgtime12
 
-export default class Index extends Component {
+export default class Slogan extends Component {
 
 
   config = {
-    navigationBarTitleText: '乾坤爻'
+    navigationBarTitleText: '月如钩'
   }
 
   constructor (props) {
@@ -52,26 +52,19 @@ export default class Index extends Component {
 
   componentDidMount () { 
     this.timer = setInterval(() => {
-      var wanNianLiInfo = SixrandomModule.lunarsix();
-      var curtimelucky = wanNianLiInfo.info.gzTime
-      var imgindex = imgtime[curtimelucky[1]]
-      if(this.state.imgindex != imgindex)
-      {
-        this.setState({imgindex:imgindex})
-      }
-      this.setState({ wanNianLiInfo: wanNianLiInfo})//每分钟一跳，当系统
-    }, 1000 * 60);
+      clearInterval(this.timer)
+      Taro.redirectTo({url:'../../pages/kit/litekitPage'})
+    }, 1000 * 5);
   }
 
-  componentWillUnmount () { }
+  componentWillUnmount () { 
+
+  }
 
   componentDidShow () { }
 
   componentDidHide () { }
 
-  jump(){
-    Taro.navigateTo({url:'../../pages/kit/litekitPage'})
-  }
 
 
   render () {
@@ -94,8 +87,6 @@ export default class Index extends Component {
           style='width:90%'
           src={imgindex}
         />
-
-        <Button  onClick={this.jump}>test</Button>
       </View>
     )
   }
