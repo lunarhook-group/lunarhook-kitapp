@@ -1,34 +1,9 @@
 
-var Dimensions = require('Dimensions');
-import React, {Component} from 'react';
-import {StyleSheet,View,PixelRatio,Alert,Text,FlatList,ScrollView,CameraRoll} from 'react-native';
-import { Grid, Accordion, WhiteSpace, WingBlank ,List} from '@ant-design/react-native';
-import { CheckBox,Button } from 'react-native-elements'
-import TabNavigator from 'react-native-tab-navigator';  
-import { captureRef } from "react-native-view-shot";
-import ScreenConfig from '../../../config/ScreenConfig';
-import WechatShare from '../../../config/WechatShare'
-import StyleConfig from '../../../config/StyleConfig';
-import {VictoryPie,VictoryLegend,} from 'victory-native';
+import Taro, { Component } from '@tarojs/taro'
+import {StyleSheet,View,PixelRatio,Alert,Text,FlatList,ScrollView,CameraRoll, Label} from '@tarojs/components'
+import { AtAccordion, AtGrid,AtTabBar ,AtCheckbox,AtRadio} from 'taro-ui'
+import './MBTIModule.scss'
 
-import Svg,{
-  Ellipse,
-  G,
-  LinearGradient,
-  RadialGradient,
-  Line,
-  Path,
-  Polygon,
-  Polyline,
-  Rect,
-  Symbol,
-  Use,
-  Defs,
-  Stop
-} from 'react-native-svg';
-
-const dp2px = dp=>PixelRatio.getPixelSizeForLayoutSize(dp);
-const px2dp = px=>PixelRatio.roundToNearestPixel(px);
 var MBTIs=Array();
 MBTIs[0]={
   "key":"0",
@@ -1240,7 +1215,7 @@ MBTIs[92]={
   "sel":"",
 }
 
-MBTIresultinfo=
+var MBTIresultinfo=
 [
 "MBTI主要指标解释","",
 "态度倾向　(我们与世界相互作用方式):","外向Extraversion(E) 内向Introversion(I)","",
@@ -1256,7 +1231,7 @@ MBTIresultinfo=
 "J 判断 喜欢做计划和决定，愿意进行管理和控制，希望生活井然有序,例如：重视结果(重点在于完成任务)、按部就班、有条理、尊重时间期限、喜欢做决定","",
 "P 知觉 灵活、试图去理解、适应环境、倾向于留有余地，喜欢宽松自由的生活方式 例如：重视过程、随信息的变化不断调整目标，喜欢有多种选择","",
 ]
-MBTIresulttable = new Array();
+var MBTIresulttable = new Array();
 MBTIresulttable["ESTJ"]="外倾感觉思维判断 大男人型"
 MBTIresulttable["ESTP"]="外倾感觉思维知觉 挑战者型"
 MBTIresulttable["ESFJ"]="外倾感觉情感判断 主人型"
@@ -1274,7 +1249,7 @@ MBTIresulttable["INTP"]="内倾直觉思维知觉 学者型"
 MBTIresulttable["INFJ"]="内倾直觉情感判断 作家型"
 MBTIresulttable["INFP"]="内倾直觉情感知觉 哲学家"
 
-resulttabledetail = new Array();
+var resulttabledetail = new Array();
 resulttabledetail["ESTJ"]=[
   "理智、善分析、果断、意志坚定，以系统化的方式组织具体事实。喜欢事先组织细节和操作程序与他人一起完成任务","",
   "ESTJ喜欢根据相关的事实和细节进行逻辑分析，从而控制情境，为达到理想结果，会考虑更广阔的前景以及对人们和自己的影响","", 
@@ -1356,15 +1331,12 @@ resulttabledetail["INFP"]=[
   "您适合的领域有：创作性、艺术类 教育、研究、咨询类等","",
   ]
 const  limitquestMBTI=36
-class MBTIModule extends React.Component {
+export default class MBTIModule extends Taro.Component {
+  config = {
+    navigationBarTitleText: '职业性格测试'
+  }
    constructor(props) {
     super(props);
-    
-    this.randominit()
-  }
-
-  randominit()
-  {
     this.state = {
       checked:[],
       MBTIs:[],
@@ -1375,7 +1347,9 @@ class MBTIModule extends React.Component {
       closetest:false,
       pie:"",
     }
+    this.clear()
   }
+
   clear()
   {
     var ret = new Array();
@@ -1388,7 +1362,7 @@ class MBTIModule extends React.Component {
       runtimeMBTIs.splice(p,1)
     }
     var checked = new Array();
-    for(i=0;i<runtimeMBTIs.length;i++)
+    for(var i=0;i<runtimeMBTIs.length;i++)
     {
       checked[i]=""
       runtimeMBTIs[i].index=i
@@ -1406,31 +1380,19 @@ class MBTIModule extends React.Component {
     })
   }
 
-    
-  componentDidMount()
-  {
-    const action = this.props.navigation.getParam('action', 'action');
-    if(action=='new')
-    {
-      //this.props.navigation.setParams({action:''});
-      //this.randominit()
-      // console.log('refresh',action)
-    }
-    this.clear()
-    //this.props.navigation.setParams({fresh:this.randominit})
-  }
-  
+  componentWillMount() { }
 
-  static navigationOptions = ({navigation})=>{
-    const { navigate } = navigation;
-    return{
-      
-    title: 'MBTI职业性格测试',
-    }
-  };
+  componentDidMount() { }
 
-  updateIndex(key,sel)
+  componentWillUnmount() { }
+
+  componentDidShow() { }
+
+  componentDidHide() { }
+
+  updateIndex(sel,key)
   {
+    console.log(key,sel)
     if(false==this.state.closetest)
     {
       //console.log(key,sel)
@@ -1440,27 +1402,7 @@ class MBTIModule extends React.Component {
       }
       this.state.checked[Number(key)]=sel
       this.setState({ checked: this.state.checked });
-      for(i=0;i<MBTIs.length;i++)
-      {
-        //console.log(MBTIs[i].sel)
-      }
     }
-  }
-  checkrender_C(item)
-  {
-    if(""!=item.ret_c)
-    {return(
-      <CheckBox containerStyle={styles.CheckBox} title = {"C"} checked={this.state.checked[Number(item.key)]==item.ret_c}  onPress={()=>this.updateIndex(item.key,item.ret_c)}/>
-    )}
-    return null
-  }
-  checkrender_D(item)
-  {
-    if(""!=item.ret_d)
-    {return(
-      <CheckBox containerStyle={styles.CheckBox} title = {"D"} checked={this.state.checked[Number(item.key)]==item.ret_d}  onPress={()=>this.updateIndex(item.key,item.ret_d)}/>
-    )}
-    return null
   }
   check(){
     if(__DEV__)
@@ -1469,11 +1411,11 @@ class MBTIModule extends React.Component {
     {
       if(this.state.checked[i]=="")
       {
-        alert("请检查题目："+(i+1))
         return false;
       }
     }
   }
+
   result()
   {
     if(false==this.check())
@@ -1483,7 +1425,7 @@ class MBTIModule extends React.Component {
     var testMBTIs = this.state.MBTIs
     var ret = new Array();
     ret["e"]=ret["i"]=ret["n"]=ret["s"]=ret["t"]=ret["f"]=ret["j"]=ret["p"]=ret[""]=0
-    for(i=0;i<testMBTIs.length;i++)
+    for(var i=0;i<testMBTIs.length;i++)
     {
       var _p = testMBTIs[i].sel;
       ret[_p] = ret[_p] + 1; 
@@ -1532,56 +1474,8 @@ class MBTIModule extends React.Component {
       pie:ret,
     })
   }
-  renderItem(item) {
-    return (
-      <View>
-        <Text key={item.item} style={styles.list}>{item.item}</Text>
-        </View>
-    );
-  }
 
-
-  switchbar()
-  {
-    const { navigate } = this.props.navigation;
-    console.log("swithchbar",this.state.ret)
-    if(this.state.ret!="")
-    
-    {
-      return(
-        <TabNavigator  tabBarStyle={[{height:ScreenConfig.getTabBarHeight()}]}>
-             <TabNavigator.Item
-                                  title={RouteConfig["RefreshImage"].name}
-                                  renderIcon={() => RouteConfig["RefreshImage"].icon}
-                                  onPress={()=>this.clear()}  
-                                  titleStyle={StyleConfig.menufont}>  
-                              </TabNavigator.Item>  
-        <TabNavigator.Item
-              title={RouteConfig["ScreenImage"].name}
-              renderIcon={() => RouteConfig["ScreenImage"].icon} 
-              onPress={()=>WechatShare.snapshot(this.refs["MBTIlocation"],"MBTI测试结果")}  
-              onPress={() => {this.setState({shareimg:true}),WechatShare.snapshot(this.refs['MBTIlocation'], "MBTI测试结果",this)}}
-                                  
-              titleStyle={StyleConfig.menufont}>  
-          </TabNavigator.Item>  
-      </TabNavigator>   
-      )
-    }
-    else
-    {
-      return(
-        <TabNavigator  tabBarStyle={[{height:ScreenConfig.getTabBarHeight()}]}>
-        <TabNavigator.Item
-              title={RouteConfig["PsychTestPage"].name}
-              renderIcon={() => RouteConfig["PsychTestPage"].icon} 
-              onPress={()=>this.result()}  
-              titleStyle={StyleConfig.menufont}>  
-          </TabNavigator.Item>  
-      </TabNavigator>   
-      )
-    }
-  }
-
+/*
   createpie()
   {
     if (this.state.ret != "") {
@@ -1608,120 +1502,56 @@ class MBTIModule extends React.Component {
       )
     }
   }
+  */
 
-
-  keyExtractor = (item, index) => index.toString();
+ handleChange (value) {
+//console.log(value)
+}
   render()
   {
-    var sqr = 0
+    const {MBTIs} = this.state;
+    const content = MBTIs.map((item)=>{
+      console.log(this.state.checked[Number(item.key)],item.key)
+      return (
+        
+      <View key={item.id}>
+      <Text >第{item.index+1}题：{item.q}</Text>
+      <AtRadio options = {[{label:item.a,value:item.ret_a},{label:item.b,value:item.ret_b}]} 
+      value={this.state.checked[Number(item.key)]}  
+      onClick={(value)=>this.updateIndex(value,item.key)}/>
+      <Text> </Text>
+
+    </View>)
+    })
+
+
 
     return (
-      <View style={styles.container}>
-      <ScrollView style={[styles.ScrollView,{backgroundColor:'#ffffff'}]} ref='MBTIlocation'>
-      <View style={styles.container} >
-      <Text style={styles.list}></Text>
-      <Text style={styles.list}></Text>
-      <Text style={[{textAlign:'center',alignItems: 'center'}]}>MBTI测试</Text>
-      <FlatList
-
-            data={this.state.MBTIs}
-            extraData={this.state}
-            keyExtractor={this.keyExtractor}
-						renderItem={({ item }) => (
-              <View id={item.id}>
-              <Text style={styles.list}></Text>
-              <Text style={styles.list}>第{item.index+1}题：{item.q}</Text>
-              <Text style={styles.list}>{item.a}</Text>
-              <Text style={styles.list}>{item.b}</Text>
-              <View style = {styles.dateContainer}>
-              <CheckBox containerStyle={styles.CheckBox} title = {"A"} checked={this.state.checked[Number(item.key)]==item.ret_a}  onPress={()=>this.updateIndex(Number(item.key),item.ret_a)}/>
-              <CheckBox containerStyle={styles.CheckBox} title = {"B"} checked={this.state.checked[Number(item.key)]==item.ret_b}  onPress={()=>this.updateIndex(Number(item.key),item.ret_b)}/>
-              {this.checkrender_C(item)}
-              {this.checkrender_D(item)}         
-              </View>
-              <Text></Text>
-              </View>
-            )}
-        />
-        
+      <View >
+      <ScrollView >
+      <View  >
+      <Text>MBTI测试</Text>
+        {content}
         
         <View>
-        <Text style={styles.list}></Text>
-        {this.createpie()}
-        <Text style={styles.list}></Text>
-        <Text style={styles.list}>{this.state.ret}</Text>
-        <Text style={styles.list}></Text>
-        <Text style={styles.list}></Text>
-        
+{/*}
         <FlatList  
               data={this.state.retdetail}
               keyExtractor={this.keyExtractor}
               renderItem={this.renderItem}
               />
-        <Text style={styles.list}></Text>
-        <Text style={styles.list}></Text>
+
         <FlatList  
               data={this.state.extrainfo}
               keyExtractor={this.keyExtractor}
               renderItem={this.renderItem}
               />
-              <Text style={styles.list}></Text>
-        <Text style={styles.list}></Text>
-        <Text style={styles.list}></Text>
-        <Text style={styles.list}></Text>
-        <Text style={styles.list}></Text>
-        <Text style={styles.list}></Text>
-        <WhiteSpace size="xl" />
-            {
-             (WechatShare.shareimg(this.state.shareimg))
-            }
-            
-            <WhiteSpace size="xl" />
-            <WhiteSpace size="xl" />
-            <WhiteSpace size="xl" />
-            <WhiteSpace size="xl" />
-            <WhiteSpace size="xl" />
+    {*/}
               </View>
               </View>
         </ScrollView>
-        {this.switchbar()}
         </View>
 		)
   }
 
-}  
-var styles = StyleSheet.create ({
-  container: {
-    flex:1,
-    backgroundColor:'#ffffff'
-  },
-  CheckBox:{
-    borderColor:'#ffffff',
-    backgroundColor:'#ffffff'
-  },
-  dateContainer: {
-    justifyContent:'space-around',
-    flexDirection: 'row',
-    
-  },
-  ScrollView:{
-    backgroundColor:'#fafafa'
-  },
-  list:{
-    marginLeft: 15,
-    paddingLeft:15,
-    borderRadius: 4,
-    marginRight: 15,
-    paddingRight:15,
-    justifyContent: 'center', //虽然样式中设置了 justifyContent: 'center'，但无效 
-    flexWrap:'wrap',
-    alignItems: 'flex-start',
-  },
-  menufont:{
-    fontSize:15,
-    color: '#333333', 
-    height:ScreenConfig.getFontheight()
-  },
-})
-
-module.exports=MBTIModule;  
+} 
