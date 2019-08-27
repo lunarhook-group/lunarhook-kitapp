@@ -1,2 +1,9 @@
 @import "~taro-ui/dist/style/components/radio.scss";
 @import "~taro-ui/dist/style/components/icon.scss";
+
+.title{
+    flex: 0%;
+    text-align: center;
+    font: 16pt sans-serif;
+    vertical-align: middle;
+}

@@ -14,7 +14,9 @@ class App extends Component {
     pages: [
       'pages/slogan/slogan',
       'pages/kit/litekitPage',
-      'pages/kit/LunarMotionsLib/PsychLib/MBTIModule'
+      'pages/kit/LunarMotionsLib/PsychLib/MBTIModule',
+      'pages/user/userCenter',
+      'pages/kit/tools/sloganShare'
     ],
     window: {
       backgroundTextStyle: 'light',

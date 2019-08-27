@@ -1530,7 +1530,10 @@ export default class MBTIModule extends Taro.Component {
       <View >
       <ScrollView >
       <View  >
-      <Text>MBTI测试</Text>
+        <View className={'title'}> 
+        <Text >MBTI测试</Text>
+        </View>
+     
         {content}
         
         <View>

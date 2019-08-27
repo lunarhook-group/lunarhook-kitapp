@@ -35,7 +35,7 @@ class UserCenter extends Taro.Component {
             <View className="userinfo-nickname">
               <open-data type="userNickName" lang="zh_CN"></open-data>
             </View>
-            <View className="userinfo-tip">查看个人主页或编辑简介</View>
+            <View className="userinfo-tip"></View>
           </View>
         </View>
         {/*  用户列表信息   */}
