@@ -1,9 +1,21 @@
 @import "~taro-ui/dist/style/components/radio.scss";
 @import "~taro-ui/dist/style/components/icon.scss";
-
+@import "~taro-ui/dist/style/components/button.scss";
+@import "~taro-ui/dist/style/components/loading.scss";
+@import "~taro-ui/dist/style/components/divider.scss";
+@import "~taro-ui/dist/style/components/icon.scss";
+@import "~taro-ui/dist/style/components/toast.scss";
+@import "~taro-ui/dist/style/components/icon.scss";
 .title{
     flex: 0%;
     text-align: center;
     font: 16pt sans-serif;
     vertical-align: middle;
 }
+
+.question{
+    font: 11pt sans-serif;
+} 
+.result{
+    font: 20px sans-serif;
+} 

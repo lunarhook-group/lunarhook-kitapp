@@ -54,7 +54,7 @@ export default class Slogan extends Component {
     this.timer = setInterval(() => {
       clearInterval(this.timer)
       Taro.redirectTo({url:'../../pages/kit/litekitPage'})
-    }, 1000 * 5);
+    }, 1000 * 2);
   }
 
   componentWillUnmount () { 

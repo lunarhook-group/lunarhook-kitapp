@@ -1,7 +1,7 @@
 
 import Taro, { Component } from '@tarojs/taro'
-import {StyleSheet,View,PixelRatio,Alert,Text,FlatList,ScrollView,CameraRoll, Label} from '@tarojs/components'
-import { AtAccordion, AtGrid,AtTabBar ,AtCheckbox,AtRadio} from 'taro-ui'
+import {StyleSheet,View,PixelRatio,Alert,Text,FlatList,ScrollView,CameraRoll} from '@tarojs/components'
+import { AtToast, AtGrid,AtTabBar ,AtCheckbox,AtRadio,AtButton,AtDivider,AtIcon} from 'taro-ui'
 import './MBTIModule.scss'
 
 var MBTIs=Array();
@@ -1342,8 +1342,8 @@ export default class MBTIModule extends Taro.Component {
       MBTIs:[],
       ret:"",
       percent:"",
-      extrainfo:"",
-      retdetail:"",
+      extrainfo:[],
+      retdetail:[],
       closetest:false,
       pie:"",
     }
@@ -1373,10 +1373,11 @@ export default class MBTIModule extends Taro.Component {
       MBTIs:runtimeMBTIs,
       ret:"",
       percent:"",
-      extrainfo:"",
-      retdetail:"",
+      extrainfo:[],
+      retdetail:[],
       closetest:false,
       pie:"",
+      showtip:false,
     })
   }
 
@@ -1405,12 +1406,12 @@ export default class MBTIModule extends Taro.Component {
     }
   }
   check(){
-    if(__DEV__)
-    {return true}
-    for(i=0;i<limitquestMBTI;i++)
+
+    for(var i=0;i<limitquestMBTI;i++)
     {
       if(this.state.checked[i]=="")
       {
+        this.setState({showtip:true})
         return false;
       }
     }
@@ -1420,6 +1421,7 @@ export default class MBTIModule extends Taro.Component {
   {
     if(false==this.check())
     {
+      
       return
     }
     var testMBTIs = this.state.MBTIs
@@ -1464,7 +1466,7 @@ export default class MBTIModule extends Taro.Component {
       person_ret=person_ret+"P"
     }
 
-    //console.log(resulttable,person_ret)
+    console.log(person_ret)
     this.setState({
       ret:"您是:"+person_ret+" "+MBTIresulttable[person_ret],
       percent:"E:"+ret["e"]+" I:"+ret["i"]+" S:"+ret["s"]+" N:"+ret["n"]+" T:"+ret["t"]+" F:"+ret["f"]+" J:"+ret["j"]+" P:"+ret["p"],
@@ -1511,46 +1513,60 @@ export default class MBTIModule extends Taro.Component {
   {
     const {MBTIs} = this.state;
     const content = MBTIs.map((item)=>{
-      console.log(this.state.checked[Number(item.key)],item.key)
+      //console.log(this.state.checked[Number(item.key)],item.key)
       return (
         
       <View key={item.id}>
-      <Text >第{item.index+1}题：{item.q}</Text>
+        <View className={'question'}><Text >第{item.index+1}题：{item.q}</Text></View>
+      
       <AtRadio options = {[{label:item.a,value:item.ret_a},{label:item.b,value:item.ret_b}]} 
       value={this.state.checked[Number(item.key)]}  
       onClick={(value)=>this.updateIndex(value,item.key)}/>
-      <Text> </Text>
 
     </View>)
     })
 
+ const {retdetail} = this.state;
+    const content1 = retdetail.map((item)=>{
+      console.log(item.item)
+      return (
+        <View key={item.index}>
+        <Text  >{item}</Text>
+        </View>)
+    })
+     const {extrainfo} = this.state;
+    const content2 = extrainfo.map((item)=>{
+      console.log(item)
+      return (
+        <View key={item.index}>
+        <Text  >{item}</Text>
+        </View>)
+    })
 
 
     return (
       <View >
       <ScrollView >
       <View  >
+        <AtToast isOpened = {this.state.showtip} text="请先完成题目" icon="alert-circle" onClose={()=>this.setState({showtip:false})}></AtToast>
         <View className={'title'}> 
         <Text >MBTI测试</Text>
         </View>
      
         {content}
         
-        <View>
-{/*}
-        <FlatList  
-              data={this.state.retdetail}
-              keyExtractor={this.keyExtractor}
-              renderItem={this.renderItem}
-              />
-
-        <FlatList  
-              data={this.state.extrainfo}
-              keyExtractor={this.keyExtractor}
-              renderItem={this.renderItem}
-              />
-    {*/}
+        <View className={'result'}>
+{content1}
+{content2}
               </View>
+              <AtDivider>
+  <AtIcon  fontColor='#2d8cf0' lineColor='#2d8cf0' value='check-circle'></AtIcon>
+</AtDivider>
+              <AtButton type='primary' circle={true} onClick={(value)=>this.result()}>提交结果</AtButton>
+              <AtDivider>
+  <AtIcon  fontColor='#2d8cf0' lineColor='#2d8cf0' value='reload'></AtIcon>
+</AtDivider>
+              <AtButton type='primary' circle={true} onClick={(value)=>this.clear()}>随机重测</AtButton>
               </View>
         </ScrollView>
         </View>

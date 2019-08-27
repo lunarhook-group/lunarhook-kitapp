@@ -2,7 +2,8 @@
     flex: 0;
     //vertical-align:middle;
     align-content: flex-start;
-    padding-top: 200px;
+    text-align:left;
+    padding-top: 20px;
     padding-left: 50px;
     padding-right: 50px;
     line-height: 50px;
@@ -14,4 +15,16 @@
     align-content: flex-end;
     text-align: right;
     padding-right: 50px;
+}
+
+.imagecontain {
+    flex: 0;
+    //vertical-align:middle;
+    text-align: center;
+}
+.imageslogan {
+    //width: 100%;
+    //height: 800px;
+    vertical-align:middle;
+    //text-align: center;
 }
