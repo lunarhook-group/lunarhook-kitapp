@@ -5,18 +5,18 @@ import sloganshow from '../../config/SloganModule'
 import './SloganShare.scss'
 import SixrandomModule from '../UniversechangesLib/SixrandomLib/SixrandomModule'
 
-import imgtime1 from '../../img/time/1s.jpg'
-import imgtime2 from '../../img/time/2s.jpg'
-import imgtime3 from '../../img/time/3s.jpg'
-import imgtime4 from '../../img/time/4s.jpg'
-import imgtime5 from '../../img/time/5s.jpg'
-import imgtime6 from '../../img/time/6s.jpg'
-import imgtime7 from '../../img/time/7s.jpg'
-import imgtime8 from '../../img/time/8s.jpg'
-import imgtime9 from '../../img/time/9s.jpg'
-import imgtime10 from '../../img/time/10s.jpg'
-import imgtime11 from '../../img/time/11s.jpg'
-import imgtime12 from '../../img/time/12s.jpg'
+import imgtime1 from '../../img/time/1.jpg'
+import imgtime2 from '../../img/time/2.jpg'
+import imgtime3 from '../../img/time/3.jpg'
+import imgtime4 from '../../img/time/4.jpg'
+import imgtime5 from '../../img/time/5.jpg'
+import imgtime6 from '../../img/time/6.jpg'
+import imgtime7 from '../../img/time/7.jpg'
+import imgtime8 from '../../img/time/8.jpg'
+import imgtime9 from '../../img/time/9.jpg'
+import imgtime10 from '../../img/time/10.jpg'
+import imgtime11 from '../../img/time/11.jpg'
+import imgtime12 from '../../img/time/12.jpg'
 
 var imgtime = new Array()
 imgtime["子"] = imgtime1
@@ -75,9 +75,10 @@ export default class SloganShare extends Component {
         <ScrollView>
         <Image className={'imageslogan'}
           mode='widthFix'
-          style='width:80%'
+          style='width:90%'
           src={imgindex}
         />
+
               <View className={"contain"}>
                   <Text >
                     {sloganshow[this.state.cur].contect}
@@ -88,7 +89,7 @@ export default class SloganShare extends Component {
                     {sloganshow[this.state.cur].name}
                   </Text>
                   </View>
-             
+
         </ScrollView>
       </View>
     );

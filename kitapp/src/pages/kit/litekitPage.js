@@ -73,7 +73,7 @@ export default class litekitPage extends Component {
     }
     if(0==value)
     {
-      Taro.navigateTo({url:'../../pages/kit/tools/sloganShare'})
+      Taro.navigateTo({url:'../../pages/kit/tools/SloganShare'})
     }
    
   }
