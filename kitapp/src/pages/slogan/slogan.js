@@ -84,7 +84,7 @@ export default class Slogan extends Component {
       <View className={'contain'}>
         <Image className={'slogan'}
           mode='widthFix'
-          style='width:90%'
+          style='width:80%'
           src={imgindex}
         />
       </View>

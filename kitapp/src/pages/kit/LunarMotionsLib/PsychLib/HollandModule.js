@@ -979,12 +979,12 @@ export default class HollandModule extends Component {
   
   result()
   {
-    /*
+    
     if(false==this.check())
     {
       return
     }
-    */
+    
     var testHollands = this.state.Hollands
     var ret = new Array();
     ret["r"]=ret["i"]=ret["a"]=ret["s"]=ret["e"]=ret["c"]=0
@@ -1072,7 +1072,7 @@ export default class HollandModule extends Component {
           <View  >
             <AtToast isOpened={this.state.showtip} text="请先完成题目" icon="alert-circle" onClose={() => this.setState({ showtip: false })}></AtToast>
             <View className={'title'}>
-              <Text >MBTI</Text>
+              <Text >Holland</Text>
             </View>
 
             {content}

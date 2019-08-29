@@ -75,7 +75,7 @@ export default class SloganShare extends Component {
         <ScrollView>
         <Image className={'imageslogan'}
           mode='widthFix'
-          style='width:90%'
+          style='width:80%'
           src={imgindex}
         />
               <View className={"contain"}>

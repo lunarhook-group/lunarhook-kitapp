@@ -13,7 +13,7 @@ var data1 =
      },
     {
       image: testimage,
-      value: '九形人格测试'
+      value: '九型人格测试'
     },
      
     {
@@ -63,7 +63,7 @@ export default class litekitPage extends Component {
     {
       Taro.navigateTo({url:'../../pages/kit/LunarMotionsLib/PsychLib/MBTIModule'})
     }
-    else if ("九形人格测试" == item.value) {
+    else if ("九型人格测试" == item.value) {
       Taro.navigateTo({ url: '../../pages/kit/LunarMotionsLib/PsychLib/EnneagramModule' })
     }
     else if ("霍兰德职业测试" == item.value) {
