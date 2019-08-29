@@ -35,7 +35,7 @@ export default class Slogan extends Component {
 
 
   config = {
-    navigationBarTitleText: '月如钩'
+    navigationBarTitleText: '乾坤爻'
   }
 
   constructor (props) {

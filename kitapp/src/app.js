@@ -15,6 +15,7 @@ class App extends Component {
       'pages/slogan/slogan',
       'pages/kit/litekitPage',
       'pages/kit/LunarMotionsLib/PsychLib/MBTIModule',
+      'pages/kit/LunarMotionsLib/PsychLib/EnneagramModule',
       'pages/user/userCenter',
       'pages/kit/tools/sloganShare'
     ],
@@ -23,7 +24,7 @@ class App extends Component {
       navigationBarBackgroundColor: '#fff',
       navigationBarTitleText: 'WeChat',
       navigationBarTextStyle: 'black',
-      navigationBarTitleText: '月如钩'
+      navigationBarTitleText: '乾坤爻'
     }
   }
 

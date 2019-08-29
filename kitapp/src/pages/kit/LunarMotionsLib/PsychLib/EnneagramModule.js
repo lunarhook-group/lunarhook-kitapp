@@ -1,15 +1,7 @@
-
-var Dimensions = require('Dimensions');
-import React, {Component} from 'react';
-import {StyleSheet,View,RefreshControl,Alert,Text,FlatList,ScrollView,CameraRoll} from 'react-native';
-import { Grid, Accordion, WhiteSpace, WingBlank ,List} from '@ant-design/react-native';
-import { CheckBox,Button } from 'react-native-elements'
-import TabNavigator from 'react-native-tab-navigator';  
-import { captureRef } from "react-native-view-shot";
-import ScreenConfig from '../../../config/ScreenConfig';
-import StyleConfig from '../../../config/StyleConfig';
-import WechatShare from '../../../config/WechatShare'
-import {VictoryPie,VictoryLegend,} from 'victory-native';
+import Taro, { Component } from '@tarojs/taro'
+import { StyleSheet, View, PixelRatio, Alert, Text, FlatList, ScrollView, CameraRoll } from '@tarojs/components'
+import { AtToast, AtGrid, AtTabBar, AtCheckbox, AtRadio, AtButton, AtDivider, AtIcon } from 'taro-ui'
+import './EnneagramModule.scss'
 
 import Svg,{
   Ellipse,
@@ -26,7 +18,7 @@ import Svg,{
   Defs,
   Stop
 } from 'react-native-svg';
-var Enneagram=Array();
+var Enneagram=new Array();
 Enneagram[0]={
   "key":"0",
   "q":"你倾向于",
@@ -1953,7 +1945,7 @@ Enneagram[146]={
 
 
 
-Enneagramresulttable = new Array();
+var Enneagramresulttable = new Array();
 Enneagramresulttable["1"]="完美型(Reformer/Perfectionist) 追求不断进步。你是典型的完美主义者，显浅易明。正因为你事事追求完美，你很少讲出称赞的说话，很多时只有批评，无论是对自己，或是对身边的人也是！又因为你对自己的超超高标准，你给自己很大压力，会很难放松自己去尽情的玩、开心的笑！"
 Enneagramresulttable["2"]="全爱型、助人型(Helper) 追求服待。你很喜欢帮人，而且主动，慷慨大方！虽然你对别人的需要很敏锐，但却很多时忽略了自己的需要。在你来说，满足别人的需要比满足自己的需要更重要，所以你很少向人提出请求。这样说来，你的自我并不强，很多时要主动帮助别人去肯定自己。"
 Enneagramresulttable["3"]="成就型(Reformer/Perfectionist) 追求成果。你很害怕亲密关系，不是说你们会没有朋友，只是当关系进深的时候，你可能会因怕真面目被看见而避开、逃掉。所以，亲密/好朋友关系对第三型说并不容易建立，因为他们害怕被人看见自己的真面目，也因此很难开放自己与人坦诚交往。第三型的你好胜心颇强，通常认为自己不能在朋友面前「认衰」，所以会表现得「很棒很棒」的，但世界上没有一个人是十全十美的完人啊！当能容许自己以真面目视人，你的生活将很快乐！ "
@@ -1966,23 +1958,24 @@ Enneagramresulttable["9"]="和平型，和谐型(Peacemaker) 追求和平。和�
 
 
 const limitquestEnneagram = 72
-class EnneagramModule extends React.Component {
+export default class EnneagramModule extends Component {
    constructor(props) {
     super(props);
-    
+     this.state = {
+       checked: [],
+       Enneagram: [],
+       ret: [],
+       percent: "",
+       closetest: false,
+       pie: "",
+       showtip: false,
+     }
     this.randominit();
   }
 
   randominit()
   {
-    this.state= {
-      checked:[],
-      Enneagram:[],
-      ret:"",
-      percent:"",
-      closetest:false,
-      pie:"",
-    }
+    this.clear()
   }
   clear(){
     var ret = new Array();
@@ -1995,7 +1988,7 @@ class EnneagramModule extends React.Component {
       runtimeEnneagram.splice(p,1)
     }
     var checked = new Array();
-    for(i=0;i<runtimeEnneagram.length;i++)
+    for(var i=0;i<runtimeEnneagram.length;i++)
     {
       checked[i]=""
       runtimeEnneagram[i].index=i
@@ -2005,10 +1998,11 @@ class EnneagramModule extends React.Component {
     this.setState( {
       checked:checked,
       Enneagram:runtimeEnneagram,
-      ret:"",
+      ret:[],
       percent:"",
       closetest:false,
       pie:"",
+      showtip: false,
     })
   }
 
@@ -2020,63 +2014,42 @@ class EnneagramModule extends React.Component {
     }
   };
 
-  updateIndex(key,sel)
+  updateIndex(sel, key)
   {
-    if(false==this.state.closetest)
-    {
+    console.log(key, sel)
+    if (false == this.state.closetest) {
       //console.log(key,sel)
-      if(""!=sel)
-      {
-        this.state.Enneagram[Number(key)].sel=sel
-        
+      if ("" != sel) {
+        this.state.Enneagram[Number(key)].sel = sel
       }
-      this.state.checked[Number(key)]=sel
+      this.state.checked[Number(key)] = String(sel)
       this.setState({ checked: this.state.checked });
-      for(i=0;i<Enneagram.length;i++)
-      {
-        //console.log(Enneagram[i].sel)
-      }
     }
 
   }
-  checkrender_C(item)
-  {
-    if(""!=item.ret_c)
-    {return(
-      <CheckBox containerStyle={styles.CheckBox} title = {"C"} checked={this.state.checked[Number(item.key)]==item.ret_c}  onPress={()=>this.updateIndex(item.key,item.ret_c)}/>
-    )}
-    return null
-  }
-  checkrender_D(item)
-  {
-    if(""!=item.ret_d)
-    {return(
-      <CheckBox containerStyle={styles.CheckBox} title = {"D"} checked={this.state.checked[Number(item.key)]==item.ret_d}  onPress={()=>this.updateIndex(item.key,item.ret_d)}/>
-    )}
-    return null
-  }
+
   check(){
-    if(__DEV__)
-    {return true}
-    for(i=0;i<limitquestEnneagram;i++)
+    for(var i=0;i<limitquestEnneagram;i++)
     {
       if(this.state.checked[i]=="")
       {
-        alert("请检查题目："+(i+1))
+        this.setState({ showtip: true })
         return false;
       }
     }
   }
   result()
   {
+    /*
     if(false==this.check())
     {
       return
     }
+    */
     var testEnneagram = this.state.Enneagram
     var ret = new Array();
     ret["1"]=ret["2"]=ret["3"]=ret["4"]=ret["5"]=ret["6"]=ret["7"]=ret["8"]=ret["9"]=0
-    for(i=0;i<testEnneagram.length;i++)
+    for(var i=0;i<testEnneagram.length;i++)
     {
       var _p = testEnneagram[i].sel;
       ret[_p] = ret[_p] + 1; 
@@ -2124,8 +2097,7 @@ class EnneagramModule extends React.Component {
       pie:ret,
     })
   }
-  keyExtractor = (item, index) => index.toString();
-  
+  /*
   createpie()
   {
     if (this.state.ret != "") {
@@ -2153,158 +2125,70 @@ class EnneagramModule extends React.Component {
       )
     }
   }
+  */
 
-  componentDidMount()
-  {
-    const action = this.props.navigation.getParam('action', 'action');
-    if(action=='new')
-    {
-      //this.props.navigation.setParams({action:''});
-      //this.randominit()
-      //console.log('refresh',action)
-    }
-    this.clear()
-  }
-  switchbar()
-  {
-    const { navigate } = this.props.navigation;
-    if(this.state.ret!="")
-    
-    {
-      return(
-        <TabNavigator  tabBarStyle={[{height:ScreenConfig.getTabBarHeight()}]}>
-             <TabNavigator.Item
-                                  title={RouteConfig["RefreshImage"].name}
-                                  renderIcon={() => RouteConfig["RefreshImage"].icon}
-                                  onPress={()=>this.clear()}  
-                                  titleStyle={StyleConfig.menufont}>  
-                              </TabNavigator.Item>  
-        <TabNavigator.Item
-              title={RouteConfig["ScreenImage"].name}
-              renderIcon={() => RouteConfig["ScreenImage"].icon} 
-              onPress={() => {this.setState({shareimg:true}),WechatShare.snapshot(this.refs['location'], "九型人格测试结果",this)}}
-                                   
-              titleStyle={StyleConfig.menufont}>  
-          </TabNavigator.Item>  
-      </TabNavigator>   
-      )
-    }
-    else
-    {
-      return(
-        <TabNavigator  tabBarStyle={[{height:ScreenConfig.getTabBarHeight()}]}>
-        <TabNavigator.Item
-              title={RouteConfig["PsychTestPage"].name}
-              renderIcon={() => RouteConfig["PsychTestPage"].icon} 
-              onPress={()=>this.result()}  
-              titleStyle={StyleConfig.menufont}>  
-          </TabNavigator.Item>  
-      </TabNavigator>   
-      )
-    }
-  }
+
+  componentWillMount() { }
+
+  componentDidMount() { }
+
+  componentWillUnmount() { }
+
+  componentDidShow() { }
+
+  componentDidHide() { }
 
   render()
   {
-    const { navigate } = this.props.navigation;
-    var sqr = 0
-    return (
-      <View style={styles.container}>
-      <ScrollView style={[styles.ScrollView,{backgroundColor:'#ffffff'}]} ref='location' >
-      <View style={styles.container} >
-      <Text style={styles.list}></Text>
-      <Text style={styles.list}></Text>
-      <Text style={[{textAlign:'center',alignItems: 'center'}]}>九型人格测试</Text>
-      <FlatList
-            data={this.state.Enneagram}
-            extraData={this.state}
-            keyExtractor={this.keyExtractor}
-						renderItem={({ item }) => (
-              <View>
-              <Text style={styles.list}>第{item.index+1}题：{item.q}</Text>
-              <Text style={styles.list}>{item.a}</Text>
-              <Text style={styles.list}>{item.b}</Text>
-              <View style = {styles.dateContainer}>
-              <CheckBox containerStyle={styles.CheckBox} title = {"A"} checked={this.state.checked[Number(item.key)]==item.ret_a}  onPress={()=>this.updateIndex(Number(item.key),item.ret_a)}/>
-              <CheckBox containerStyle={styles.CheckBox} title = {"B"} checked={this.state.checked[Number(item.key)]==item.ret_b}  onPress={()=>this.updateIndex(Number(item.key),item.ret_b)}/>
-              {this.checkrender_C(item)}
-              {this.checkrender_D(item)}         
-              </View>
-              <Text></Text>
-              </View>
-            )}
-        />
-        <Text style={styles.list}></Text>
-        <Text style={styles.list}></Text>
-        <Text style={styles.list}></Text>
-        {this.createpie()}
-        <Text style={styles.list}></Text>
-        <FlatList
-            data={this.state.ret}
-            extraData={this.state}
-            keyExtractor={this.keyExtractor}
-						renderItem={({ item }) => (
-              <View style={styles.list}>
-              <Text style={styles.rowhigth}>{item}</Text>   
-              <Text style={styles.rowhigth}></Text> 
-              </View>
-            )}
-        />
-        <Text style={styles.list}></Text>
-            {
-             (WechatShare.shareimg(this.state.shareimg))
-            }
-        <Text style={styles.list}></Text> 
-        <Text style={styles.list}></Text>
-        <Text style={styles.list}></Text> 
-        <Text style={styles.list}></Text>
-        <Text style={styles.list}></Text> 
-        <Text style={styles.list}></Text>
-        <Text style={styles.list}></Text>
-        </View>
-        </ScrollView>
-        {this.switchbar()}
+    const { Enneagram } = this.state;
+    const content = Enneagram.map((item) => {
+      //console.log(this.state.checked[Number(item.key)],item.key)
+      return (
 
+        <View key={item.id}>
+          <View className={'question'}><Text >第{item.index + 1}题：{item.q}</Text></View>
+
+          <AtRadio options={[{ label: item.a, value: item.ret_a }, { label: item.b, value: item.ret_b }]}
+            value={this.state.checked[Number(item.key)]}
+            onClick={(value) => this.updateIndex(value, item.key)} />
+
+        </View>)
+    })
+    const { ret } = this.state;
+    const content1 = ret.map((item) => {
+      //console.log(item.item)
+      return (
+        <View key={item.index}>
+          <Text  >{item}</Text>
+        </View>)
+    })
+
+    return (
+      <View >
+
+       
+      <ScrollView >
+          <View  >
+            <AtToast isOpened={this.state.showtip} text="请先完成题目" icon="alert-circle" onClose={() => this.setState({ showtip: false })}></AtToast>
+          <View className={'title'}>
+            <Text >九形人格测试</Text>
+          </View>
+          {content}
+          <View className={'result'}>
+            {content1}
+          </View>
+          <AtDivider>
+            <AtIcon fontColor='#2d8cf0' lineColor='#2d8cf0' value='check-circle'></AtIcon>
+          </AtDivider>
+          <AtButton type='primary' circle={true} onClick={(value) => this.result()}>提交结果</AtButton>
+          <AtDivider>
+            <AtIcon fontColor='#2d8cf0' lineColor='#2d8cf0' value='reload'></AtIcon>
+          </AtDivider>
+          <AtButton type='primary' circle={true} onClick={(value) => this.clear()}>随机重测</AtButton>
+              </View>
+        </ScrollView>
         </View>
 		)
   }
 
 }  
-var styles = StyleSheet.create ({
-  container: {
-    flex:1,
-    backgroundColor:'#ffffff'
-  },
-  CheckBox:{
-    borderColor:'#ffffff',
-    backgroundColor:'#ffffff'
-  },
-  dateContainer: {
-    justifyContent:'space-around',
-    flexDirection: 'row',
-    
-  },
-  ScrollView:{
-    backgroundColor:'#fafafa'
-  },
-  rowhigth:{
-    lineHeight:25,
-  },
-  list:{
-    marginLeft: 15,
-    paddingLeft:15,
-    borderRadius: 4,
-    marginRight: 15,
-    paddingRight:15,
-    justifyContent: 'center', //虽然样式中设置了 justifyContent: 'center'，但无效 
-    flexWrap:'wrap',
-    alignItems: 'flex-start',
-  },
-  menufont:{
-    fontSize:15,
-    color: '#333333', 
-    height:ScreenConfig.getFontheight()
-  },
-})
-
-module.exports=EnneagramModule;  

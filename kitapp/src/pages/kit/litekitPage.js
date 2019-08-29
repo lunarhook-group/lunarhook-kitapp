@@ -10,7 +10,10 @@ var data1 =
        image: 'https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png',
        value: '职业性格测试'
      },
-
+    {
+      image: 'https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png',
+      value: '九形人格测试'
+    },
      
    ];
  
@@ -44,7 +47,7 @@ var data1 =
     ];
 export default class litekitPage extends Component {
   config = {
-    navigationBarTitleText: '月如钩'
+    navigationBarTitleText: '乾坤爻'
   }
 
   componentWillMount() { }
@@ -82,6 +85,9 @@ export default class litekitPage extends Component {
     if("职业性格测试"==item.value)
     {
       Taro.navigateTo({url:'../../pages/kit/LunarMotionsLib/PsychLib/MBTIModule'})
+    }
+    if ("九形人格测试" == item.value) {
+      Taro.navigateTo({ url: '../../pages/kit/LunarMotionsLib/PsychLib/EnneagramModule' })
     }
   }
   render() {
