@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text ,Image,Button, ScrollView} from '@tarojs/components'
 import { AtAccordion, AtGrid,AtTabBar } from 'taro-ui'
 import './litekitPage.scss'
-import { object } from 'prop-types';
+
 
 import testimage from '../../assets/images/answer.png'
 var data1 = 
@@ -21,6 +21,23 @@ var data1 =
       value: '霍兰德职业测试'
     },
    ];
+
+var data2 =
+  [
+    {
+      image: testimage,
+      value: '职业性格测试'
+    },
+    {
+      image: testimage,
+      value: '九型人格测试'
+    },
+
+    {
+      image: testimage,
+      value: '数字八星'
+    },
+  ];
  
 export default class litekitPage extends Component {
   config = {
@@ -41,8 +58,11 @@ export default class litekitPage extends Component {
 
   constructor () {
     super(...arguments)
+    var open = new Array()
+    open[1]=true
+    open[2]=true
     this.state = {
-      current: 1
+      open: open,
     }
   }
   handleClick (value) {
@@ -69,15 +89,42 @@ export default class litekitPage extends Component {
     else if ("霍兰德职业测试" == item.value) {
       Taro.navigateTo({ url: '../../pages/kit/LunarMotionsLib/PsychLib/HollandModule' })
     }
+    else if ("数字八星" == item.value)
+    {
+      Taro.navigateTo({ url: '../../pages/kit/UniversechangesLib/NumberLib/NumberMainPage' })
+    }
     
+  }
+  handleAccordionClick(index, value)
+  {
+    //console.log(value,index)
+    var open = this.state.open
+    open[index] = value;
+    this.setState({open:open})
+
   }
   render() {
     return (
       <View className={'contain'}>
         <ScrollView>
+          <AtAccordion
+            open={this.state.open[1]}
+            onClick={this.handleAccordionClick.bind(this,1)}
+            title='心理测试'
+          >
         <AtGrid mode='square' data={data1}
         onClick={this.GridHander.bind(this)}
         />
+            </AtAccordion>
+          <AtAccordion
+            open={this.state.open[2]}
+            onClick={this.handleAccordionClick.bind(this,2)}
+            title='周易测试'
+          >
+          <AtGrid mode='square' data={data2}
+            onClick={this.GridHander.bind(this)}
+          />
+          </AtAccordion>
          </ScrollView>
  <AtTabBar
   fixed

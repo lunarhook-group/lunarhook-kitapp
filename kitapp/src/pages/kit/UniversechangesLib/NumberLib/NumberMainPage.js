@@ -1,22 +1,8 @@
 
-var Dimensions = require('Dimensions');
-import React, {Component} from 'react';
-import {StyleSheet,View, Text,TextInput,FlatList,ScrollView,Image} from 'react-native';
-import TabNavigator from 'react-native-tab-navigator';  
-import Storage from 'react-native-storage';
-import { AsyncStorage } from 'react-native';
-import { StackNavigator } from 'react-navigation';
-import { ListItem ,Card,Button} from 'react-native-elements';
-import { NavigationActions } from 'react-navigation'
-import { captureRef } from "react-native-view-shot";
-import Icon from 'react-native-vector-icons/Ionicons';
-import { InputItem,WhiteSpace, List ,Switch } from '@ant-design/react-native';
-
-import ScreenConfig from '../../../config/ScreenConfig';
-import StyleConfig from '../../../config/StyleConfig';
-import WechatShare from '../../../config/WechatShare'
-const {width, height} = Dimensions.get('window');  
-
+import Taro, { Component } from '@tarojs/taro'
+import { View, Text, Image, Button, ScrollView } from '@tarojs/components'
+import { AtAccordion, AtDivider, AtTabBar, AtInput , AtForm, AtSwitch} from 'taro-ui'
+import './NumberMainPage.scss'
 var jump = false
 let curyear = 0
 
@@ -75,7 +61,7 @@ var spnumlucky = new Array()
 spnumlucky["19"]=spnumlucky["91"]="延年有碍，易女强人"
 spnumlucky["43"]=spnumlucky["34"]="延年有碍，若女性格"
 
-class NumberMainPage extends React.Component {
+export default class NumberMainPage extends Component {
   constructor(props) {
 
   super(props);
@@ -83,24 +69,19 @@ class NumberMainPage extends React.Component {
       switchstate:true,
       selectedValue: '男',
       number:"",
-      info:"",
-      extra:"",
-      spextra:"",
+      info:[],
+      extra: [],
+      spextra: [],
     };
     };
 
-  static navigationOptions = ({navigation})=>{
-    const { navigate } = navigation;
-    return{
-      
-    title: '数字八星',
-    }
-  };
+  config = {
+    navigationBarTitleText: '数字八星'
+  }
 
  clear(val)
  {
-    this.props.navigation.setParams({ numberstat: 'off' })
-    this.setState({number:"",info:"",extra:"",spextra:"",switchstate:"男"==val?true:false,selectedValue: val})
+   this.setState({ number: "", info: [], extra: [], spextra: [],switchstate:"男"==val?true:false,selectedValue: val})
  }
   
 
@@ -150,7 +131,7 @@ class NumberMainPage extends React.Component {
           info.push(index+(any[key-1]!=""?any[key-1]:""))
       }
       var extralist = new Array()
-      for(variable  in extra){   //variable  为 index
+      for(var variable  in extra){   //variable  为 index
         if(-1==extralist.indexOf(luckyinfo[variable]))
         {
           extralist.push(luckyinfo[variable])
@@ -179,19 +160,9 @@ class NumberMainPage extends React.Component {
       }
       console.log("number",number)
       this.setState({number:number,info:info,extra:extralist,spextra:spextra})
-      this.props.navigation.setParams({ numberstat: 'on' })
       return number;
   }      
 
-  keyExtractor = (item,index) => index.toString()
-
-  renderItem(item) {
-    return (
-
-        <Text key={item.item} style={[{paddingLeft:60}]}>{item.item}</Text>
-
-    );
-  }
   begin(pagename)
   {
     const resetAction = NavigationActions.reset({
@@ -202,234 +173,74 @@ class NumberMainPage extends React.Component {
       })
       this.props.navigation.dispatch(resetAction)
   }
-  switchbar()
-  {
-    if('on'==this.props.navigation.getParam( 'numberstat', 'off' ))
-    {
-        return(
-          <TabNavigator tabBarStyle={[{height:ScreenConfig.getTabBarHeight()}]}>
-          <TabNavigator.Item
-                title={RouteConfig["RefreshImage"].name}
-                renderIcon={() => RouteConfig["RefreshImage"].icon}
-                onPress={()=>this.clear("男")}  
-                titleStyle={StyleConfig.menufont}>  
-            </TabNavigator.Item>  
-          <TabNavigator.Item
-                title={RouteConfig["ScreenImage"].name}
-                renderIcon={() => RouteConfig["ScreenImage"].icon}
-                onPress={()=>{this.setState({shareimg:true}),WechatShare.snapshot(this.refs['location'],"八星起运",this)} } 
-
-                titleStyle={StyleConfig.menufont}>  
-            </TabNavigator.Item>  
-        </TabNavigator>  
-        )
-    }
-  }
+  
   render(){
-
-      
-      
-      
+    const {info} = this.state
+    const contentinfo = info.map((item) => {
+      console.log(item)
+      return (
+        <View key={item.index}>
+          <Text key={item.item}>{item}</Text>
+        </View>)
+    })
+    const { extra } = this.state
+    const contentextra = extra.map((item) => {
+      console.log(item)
+      return (
+        <View key={item.index}>
+          <Text key={item.item}>{item}</Text>
+        </View>)
+    })
+    const { spextra } = this.state
+    const contentspextra = spextra.map((item) => {
+      console.log(item)
+      return (
+        <View key={item.index}>
+          <Text key={item.item}>{item}</Text>
+        </View>)
+    })
         return(
-        <View style={styles.container} >
-          <ScrollView ref="location" style={{backgroundColor:'#ffffff'}}>
-          <View style={styles.container} >
+        <View  >
+          <ScrollView>
+  
           <View> 
-          <List style={styles.inputpicker}>
-          <Text style={styles.textbutton}>请输入电话或者数字</Text>
-          <WhiteSpace size="xl" />
-          <List.Item
-            extra={
-              <Switch
-                checked={this.state.switchstate}
-                onChange={(value) =>this.clear(false==value?"女":"男")}
-              />
-            }
-          >{this.state.selectedValue}
-          </List.Item>
+                  <AtInput
+                    name='value'
+                    title='输入数字'
+                    type='text'
+                    placeholder=''
+                    value={this.state.number}
+                    onChange={(value) =>
+                      this.setState({ number: this.updatenumber(value) })}
+                  />
+                  <AtForm>
+                    <AtSwitch title={this.state.selectedValue} checked={"男"==this.state.selectedValue?true:false} onChange={()=>{
+                      if("男"==this.state.selectedValue)
+                      {
+                        this.setState({ selectedValue:"女"})
+                      }
+                      else
+                      {
+                      this.setState({ selectedValue: "男" })
+                      }
+                    }
+                  } />
+                  </AtForm>
           
-          <WhiteSpace size="xl" />
-             <InputItem
-            clear
-            type="number"
-            value={this.state.number}
-            onChange={(value: any) => {
-              this.setState({number:this.updatenumber(value)})
-            }}
-            extra="输入数字"
-          >
-          数字:
-          </InputItem>
-            </List>
             </View>
-            <Text></Text>
-            <FlatList  
-              data={this.state.info}
-              keyExtractor={this.keyExtractor}
-              renderItem={this.renderItem}
-              //numColumns ={8}
-              //horizontal={true}
-              //showsHorizontalScrollIndicator={false}
-              />
-              <Text></Text>
-            <FlatList  
-              data={this.state.extra}
-              keyExtractor={this.keyExtractor}
-              renderItem={this.renderItem}
-              //numColumns ={8}
-              //horizontal={true}
-              //showsHorizontalScrollIndicator={false}
-              />
-                            <Text></Text>
-                            <FlatList  
-              data={this.state.spextra}
-              keyExtractor={this.keyExtractor}
-              renderItem={this.renderItem}
-              //numColumns ={8}
-              //horizontal={true}
-              //showsHorizontalScrollIndicator={false}
-              />
-              <Text></Text>
-              <WhiteSpace size="xl" />
-              {
-             (WechatShare.shareimg(this.state.shareimg))
-            }
-            
-            <WhiteSpace size="xl" />
-            <WhiteSpace size="xl" />
-            <WhiteSpace size="xl" />
-            <WhiteSpace size="xl" />
-            <WhiteSpace size="xl" />
+              <View className={"result"}>
+                <AtDivider lineColor='#ffffff' />
+                {contentinfo}
+                <AtDivider lineColor='#ffffff' />
+                {contentextra}
+                <AtDivider lineColor='#ffffff' />
+                {contentspextra}
+
               </View>
           </ScrollView>
-          {this.switchbar()}
                          
                           </View>
                          
     )
   }
   };
-
-
-    
-
-
-
-
-var styles = StyleSheet.create ({
-  container: {
-    flex:1,
-    backgroundColor:'#ffffff'
-  },
-  inputname: {
-    //justifyContent: 'center', //虽然样式中设置了 justifyContent: 'center'，但无效 
-    alignItems:'center',
-    justifyContent: 'space-between', //虽然样式中设置了 justifyContent: 'center'，但无效  
-    //justifyContent:'space-between',
-    flexDirection: 'row',
-    marginLeft: 30, 
-    marginRight: 30, 
-    marginTop: 30,
-  },
-  textbutton:{
-    textAlign:'center', 
-  },
-  menufont:{
-    fontSize:15,
-    color: '#333333', 
-    height:ScreenConfig.getFontheight()
-  },
- rowhigth:{
-    lineHeight:25,
-  },
-  input:{
-    width:300,
-    height:35,
-    borderWidth:1,
-    //marginLeft: 5,
-    //paddingLeft:5,
-    borderColor: '#ccc',
-    borderRadius: 0,
-    //fontSize:15,
-    alignItems:'center',
-    justifyContent: 'center', //虽然样式中设置了 justifyContent: 'center'，但无效  
-  },
-  list:{
-    height:30,
-    marginLeft: 1,
-    paddingLeft:1,
-    borderRadius: 4,
-    justifyContent: 'center', //虽然样式中设置了 justifyContent: 'center'，但无效 
-    flexWrap:'wrap',
-    alignItems: 'flex-start',
-    flexDirection: 'row',
-  },
-  textbutton:{
-    textAlign:'center', 
-    marginTop: 30,
-  },
-   button:{
-    height: 50,
-    backgroundColor:'transparent',
-   justifyContent:'center',
-   borderRadius: 4,
-    },
-  tabBarStyle:{
-    flex: 1,
-    height:40,
-    flex:1
-  },
-  EightstyleLinewithfont:{
-    justifyContent: 'center', //虽然样式中设置了 justifyContent: 'center'，但无效  
-    fontSize:18
-  },
-  Eightstylewithfont:{
-    justifyContent: 'space-around', //虽然样式中设置了 justifyContent: 'center'，但无效  
-    fontSize:18
-  },
-  Eightstylewithfontmultline:{
-    width:40,
-    justifyContent: 'space-around', //虽然样式中设置了 justifyContent: 'center'，但无效  
-    fontSize:18
-  },
-  EightstyleSectionline: {
-    justifyContent: 'space-around', //虽然样式中设置了 justifyContent: 'center'，但无效  
-    flexDirection: 'row',
-    marginLeft: 30, 
-    marginRight: 30, 
-    marginTop: 30,
-  },
-  EightstyleCoreline: {
-    justifyContent: 'space-around', //虽然样式中设置了 justifyContent: 'center'，但无效  
-    flexDirection: 'row',
-    marginLeft: 30, 
-    marginRight: 30, 
-  },
-  Eightstylebetweenline: {
-    justifyContent:'center',
-    flexDirection: 'column',
-    //flexwrap:'nowrap',
-    paddingLeft:15
-  },
-  flatText: {
-    justifyContent: 'space-around', //虽然样式中设置了 justifyContent: 'center'，但无效  
-    flexDirection: 'row',
-    marginLeft: 30, 
-    marginRight: 30, 
-  },
-  flatTextfone:{
-    justifyContent: 'space-around', //虽然样式中设置了 justifyContent: 'center'，但无效  
-    paddingLeft:15
-  },
-  buttonstyle:{
-    justifyContent: 'space-between', //虽然样式中设置了 justifyContent: 'center'，但无效  
-    alignItems:'baseline',
-  },
-  inputpicker: {
-
-    marginLeft: 15, 
-    marginRight: 15, 
-    marginTop: 50,
-  },
-});
-module.exports=NumberMainPage;  

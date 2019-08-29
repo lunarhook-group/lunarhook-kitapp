@@ -18,7 +18,8 @@ class App extends Component {
       'pages/kit/LunarMotionsLib/PsychLib/EnneagramModule',
       'pages/kit/LunarMotionsLib/PsychLib/HollandModule',
       'pages/user/userCenter',
-      'pages/kit/tools/sloganShare'
+      'pages/kit/tools/sloganShare',
+      'pages/kit/UniversechangesLib/NumberLib/NumberMainPage'
     ],
     window: {
       backgroundTextStyle: 'light',
