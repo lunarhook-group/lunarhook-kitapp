@@ -1957,7 +1957,7 @@ Enneagramresulttable["8"]="领袖型，能力型(Reformer/Perfectionist) 追求�
 Enneagramresulttable["9"]="和平型，和谐型(Peacemaker) 追求和平。和平型(Peacemaker)在很多情况，你们都是和平使者，善解人意，随和。你们很容易了解别人，却不是太清楚自己想要什么，会显得优柔寡断。相对地说，你们的主见会比较少，宁愿配合其他人的安排，做一个很好的支持者，所以你是心较被动的。"
 
 
-const limitquestEnneagram = 72
+const limitquestEnneagram = 27
 export default class EnneagramModule extends Component {
    constructor(props) {
     super(props);
@@ -2006,13 +2006,9 @@ export default class EnneagramModule extends Component {
     })
   }
 
-  static navigationOptions = ({navigation})=>{
-    const { navigate } = navigation;
-    return{
-      
-    title: '九型人格测试',
-    }
-  };
+  config = {
+    navigationBarTitleText: '九型人格测试小程序版'
+  }
 
   updateIndex(sel, key)
   {
@@ -2040,12 +2036,12 @@ export default class EnneagramModule extends Component {
   }
   result()
   {
-    /*
+
     if(false==this.check())
     {
       return
     }
-    */
+
     var testEnneagram = this.state.Enneagram
     var ret = new Array();
     ret["1"]=ret["2"]=ret["3"]=ret["4"]=ret["5"]=ret["6"]=ret["7"]=ret["8"]=ret["9"]=0
@@ -2171,7 +2167,7 @@ export default class EnneagramModule extends Component {
           <View  >
             <AtToast isOpened={this.state.showtip} text="请先完成题目" icon="alert-circle" onClose={() => this.setState({ showtip: false })}></AtToast>
           <View className={'title'}>
-            <Text >九形人格测试</Text>
+            <Text >ENNEAGRAM</Text>
           </View>
           {content}
           <View className={'result'}>
