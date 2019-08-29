@@ -24,14 +24,6 @@ var data1 =
 
 var data2 =
   [
-    {
-      image: testimage,
-      value: '职业性格测试'
-    },
-    {
-      image: testimage,
-      value: '九型人格测试'
-    },
 
     {
       image: testimage,
