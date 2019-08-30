@@ -1,22 +1,18 @@
+import Taro, { Component } from '@tarojs/taro'
+import { View, Text, Image, Button, ScrollView, Picker } from '@tarojs/components'
+import { AtButton, AtDivider, AtTabBar, AtInput, AtForm, AtSwitch } from 'taro-ui'
+import './EightrandomNewPage.scss'
 
-var Dimensions = require('Dimensions');
-import React, {Component} from 'react';
-import {StyleSheet,Keyboard,View,Button, TextInput,TouchableOpacity, Text,TouchableWithoutFeedback} from 'react-native';
-import TabNavigator from 'react-native-tab-navigator';  
-import { AsyncStorage } from 'react-native';
-import { StackNavigator } from 'react-navigation';
-import { NavigationActions } from 'react-navigation'
-import { InputItem,DatePicker, List ,Switch,WhiteSpace,Provider } from '@ant-design/react-native';
+Date.prototype.format = function (formatStr) {
+  var str = formatStr;
+  var Week = ['日', '一', '二', '三', '四', '五', '六'];
+  str = str.replace(/yyyy|YYYY/, this.getFullYear());
+  str = str.replace(/MM/, (this.getMonth() + 1) > 9 ? (this.getMonth() + 1).toString() : '0' + (this.getMonth() + 1));
+  str = str.replace(/dd|DD/, this.getDate() > 9 ? this.getDate().toString() : '0' + this.getDate());
+  return str;
+} 
 
-import StorageModule from '../../../config/StorageModule'
-import ValueTypeModule from '../../../config/ValueTypeModule'
-import SixrandomModule from '../SixrandomLib/SixrandomModule'
-import RouteConfig from '../../../config/RouteConfig';
-import ScreenConfig from '../../../config/ScreenConfig';
-import StyleConfig from '../../../config/StyleConfig';
-
-
-class EightrandomNewPage extends React.Component {
+export default class EightrandomNewPage extends Component {
 
   constructor(porp) {
         var curday = new Date();
@@ -30,22 +26,14 @@ class EightrandomNewPage extends React.Component {
             switchleap:false,
             leaptype:"常年",
             Tip: "",
-            value:curday
+          value: curday.format("yyyy-MM-dd")
     }
    
   }
 
-
-  static navigationOptions = ({navigation})=>{
-    const { navigate } = navigation;
-    //headerRight:(<Button title="返回" />),
-    return{
-      
-    title: '八字格局',
-    }
-    
-  };
-
+  config = {
+    navigationBarTitleText: '八字格局'
+  }
 
   onSelect(index, value){
     this.setState({
@@ -71,20 +59,18 @@ class EightrandomNewPage extends React.Component {
     }
 
     leapmonth(){
-        if(false==this.state.switchtype)
+      const { switchleap } = this.state
+      const { switchtype } = this.state
+      if (false == switchtype)
         {
             return(
+
+              <AtForm>
+                <AtSwitch title={this.state.leaptype} checked={("常年" == switchleap) ? true : false} onChange={(value) => {this.setState({ switchleap: value, leaptype: value == false ? "常年" : "闰月" })
+                } }/>
+              </AtForm>
+            )
               
-                    <List.Item
-                    extra={
-                      <Switch
-                        checked={this.state.switchleap}
-                        onChange={(value) =>this.setState({switchleap:value,leaptype:value==false?"常年":"闰月"})}
-                      />
-                    }
-                    >{this.state.leaptype}
-                    </List.Item>
-                  )
         }
         
 
@@ -94,96 +80,72 @@ class EightrandomNewPage extends React.Component {
         console.log(value);
         this.setState({ value });
         var selecttime = new Date(value)
-        this.setState({datepicker:selecttime})
+        this.setState({datepicker:selecttime.toString()})
       }
+  onDateChange = e => {
+    this.setState({
+      value: e.detail.value
+    })
+  }
 
   render()
   {
-    const { navigate } = this.props.navigation;
 
     
   
     //alert(ValueTypeModule["emotion"])
     return (
-      <Provider>
-        <View style={styles.container}>
+
+        <View>
         
             
             <View > 
-                
-            <List style={styles.inputpicker}>
-            <InputItem
-            clear
-            //error
-            onErrorPress={() => alert('clicked me')}
+          <AtForm>
+            <AtInput
+            title='输入名字'
             value={this.state.Tip}
             onChange={(value: any) => {
               this.setState({Tip:value});
             }}
-            extra="输入名字"
             placeholder="陈长生"
           >
-          姓名:
-          </InputItem>
-          <WhiteSpace size="xl" />
-          <DatePicker
-            backgroundColor='#ff00ff'
-            value={this.state.value}
-            mode="datetime"
-            minDate={new Date(1950, 1, 1)}
-            //maxDate={new Date(2026, 11, 3)}
-            onChange={this.onChange}
-            format="YYYY-MM-DD-HH"
-          >
-            <List.Item arrow="horizontal">生辰:</List.Item>
-          </DatePicker>
-          <WhiteSpace size="xl" />
-          <List.Item
-            extra={
-              <Switch
-                checked={this.state.switchstate}
-                onChange={(value) =>this.setState({switchstate: value,selectedValue:false==value?"女":"男"})}
-              />
-            }
-          >{this.state.selectedValue}
-          </List.Item>
-          <WhiteSpace size="xl" />
-          <List.Item
-            extra={
-              <Switch
-                checked={this.state.switchtype}
-                onChange={(value) =>this.setState({switchtype:value,datatype:value==false?"农历":"公历"})}
-              />
-            }
-          >{this.state.datatype}
-          </List.Item>
-          <WhiteSpace size="xl" />
+
+          </AtInput>
+            <View >
+              <Text >日期选择器</Text>
+            <View>
+              <Picker mode='date' onChange={this.onDateChange}>
+                <View className='picker'>
+                  当前选择：{this.state.value}
+                </View>
+              </Picker>
+            </View>
+          </View>
+
+            
+              <AtSwitch title={this.state.selectedValue} checked={"男" == this.state.selectedValue ? true : false} onChange={(value) => this.setState({ switchstate: value, selectedValue: false == value ? "女" : "男" }) 
+              } />
+            <AtSwitch title={this.state.datatype} checked={"公历" == this.state.datatype ? true : false} onChange={(value)=> this.setState({ switchtype: value, datatype: value == false ? "农历" : "公历" })
+            } />
+            
+
           {this.leapmonth()}
-        </List>
+          </AtForm>
                 
             </View>
             
-            <View style={styles.inputbutton}>
-            <Button
+            <View>
+          <AtButton
                 onPress={()=>this.bazipaipan()}
-                title="八字排盘"
+            type='secondary'
         
-            />
+          >八字测评</AtButton>
 </View>
 
 
             
-            <TabNavigator tabBarStyle={[{height:ScreenConfig.getTabBarHeight()}]}>
-                            <TabNavigator.Item
-                                  title={RouteConfig["EightrandomHistoryPage"].name}
-                                  renderIcon={() => RouteConfig["EightrandomHistoryPage"].icon}
-                                  onPress={() => navigate(RouteConfig["EightrandomHistoryPage"].route) }  
-                                  titleStyle={StyleConfig.menufont}>  
-                              </TabNavigator.Item>  
-                          </TabNavigator>  
-            
         </View> 
-        </Provider>
+
             )
     }
     bazipaipan()
@@ -250,64 +212,3 @@ class EightrandomNewPage extends React.Component {
         this.props.navigation.dispatch(resetAction)
     }
 }
-
-var styles = StyleSheet.create ({
-
-  input:{
-    width:240,
-    height:35,
-    borderWidth:1,
-    //marginLeft: 5,
-    //paddingLeft:5,
-    borderColor: '#ccc',
-    borderRadius: 4,
-    //fontSize:15,
-    alignItems:'center',
-    justifyContent: 'center', //虽然样式中设置了 justifyContent: 'center'，但无效  
-  },
-  menufont:{
-    fontSize:15,
-    color: '#333333', 
-    height:25
-  },
-  container: {
-    flex:1,
-    backgroundColor: 'white',
-  },
-  inputname: {
-    //justifyContent: 'center', //虽然样式中设置了 justifyContent: 'center'，但无效 
-    alignItems:'center',
-    justifyContent: 'space-between', //虽然样式中设置了 justifyContent: 'center'，但无效  
-    //justifyContent:'space-between',
-    flexDirection: 'row',
-    marginLeft: 30, 
-    marginRight: 30, 
-    marginTop: 50,
-  },
-  inputbutton: {
-    //justifyContent: 'center', //虽然样式中设置了 justifyContent: 'center'，但无效 
-    alignItems:'center',
-    justifyContent: 'center', //虽然样式中设置了 justifyContent: 'center'，但无效  
-    //justifyContent:'space-between',
-    flexDirection: 'row',
-    marginLeft: 30, 
-    marginRight: 30, 
-    marginTop: 50,
-  },
-  inputpicker: {
-
-    marginLeft: 15, 
-    marginRight: 15, 
-    marginTop: 50,
-  },
-  buttonstyle:{
-    justifyContent: 'space-between', //虽然样式中设置了 justifyContent: 'center'，但无效  
-    alignItems:'baseline',
-  },
-  bottonstylewithfont:{
-    //justifyContent: 'space-between', //虽然样式中设置了 justifyContent: 'center'，但无效  
-    alignItems:'baseline',
-    fontSize:18
-  }
-});
-module.exports=EightrandomNewPage;  

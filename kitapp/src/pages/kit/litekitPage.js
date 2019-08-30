@@ -38,7 +38,26 @@ var data1 =
 
 var data2 =
   [
-
+    {
+      iconInfo: {
+        prefixClass: 'fa',
+        size: 30,
+        color: 'darkblue',
+        value: 'moon-o'
+      },
+      //image: testimage,
+      value: '六爻测试'
+    },
+    {
+      iconInfo: {
+        prefixClass: 'fa',
+        size: 30,
+        color: 'orange',
+        value: 'trophy'
+      },
+      //image: testimage,
+      value: '八字测评'
+    },
     {
       iconInfo: {
         prefixClass: 'fa',
@@ -100,6 +119,9 @@ export default class litekitPage extends Component {
     }
     else if ("霍兰德职业测试" == item.value) {
       Taro.navigateTo({ url: '../../pages/kit/LunarMotionsLib/PsychLib/HollandModule' })
+    }
+    else if ("八字测评" == item.value) {
+      Taro.navigateTo({ url: '../../pages/kit/UniversechangesLib/EightrandomLib/EightrandomNewPage' })
     }
     else if ("数字八星" == item.value)
     {

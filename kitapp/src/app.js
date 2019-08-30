@@ -20,7 +20,8 @@ class App extends Component {
       'pages/kit/LunarMotionsLib/PsychLib/HollandModule',
       'pages/user/userCenter',
       'pages/kit/tools/SloganShare',
-      'pages/kit/UniversechangesLib/NumberLib/NumberMainPage'
+      'pages/kit/UniversechangesLib/NumberLib/NumberMainPage',
+      'pages/kit/UniversechangesLib/EightrandomLib/EightrandomNewPage'
     ],
     window: {
       backgroundTextStyle: 'light',
