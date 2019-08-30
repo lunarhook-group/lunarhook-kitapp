@@ -1,23 +1,37 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text ,Image,Button, ScrollView} from '@tarojs/components'
-import { AtAccordion, AtGrid,AtTabBar } from 'taro-ui'
+import { AtAccordion, AtGrid, AtTabBar, AtIcon } from 'taro-ui'
 import './litekitPage.scss'
-
 
 import testimage from '../../assets/images/answer.png'
 var data1 = 
   [
      {
-      image: testimage,
+           iconInfo: {
+        prefixClass: 'fa',
+        size: 30,
+        color: 'orange',
+             value: 'podcast'
+      },
        value: '职业性格测试'
      },
     {
-      image: testimage,
+      iconInfo: {
+        prefixClass: 'fa',
+        size: 30,
+        color: 'red',
+        value: 'universal-access'
+      },
       value: '九型人格测试'
     },
      
     {
-      image: testimage,
+      iconInfo: {
+        prefixClass: 'fa',
+        size: 30,
+        color: 'blue',
+        value: 'tachometer'
+      },
       value: '霍兰德职业测试'
     },
    ];
@@ -26,7 +40,13 @@ var data2 =
   [
 
     {
-      image: testimage,
+      iconInfo: {
+        prefixClass: 'fa',
+        size: 30,
+        color: 'green',
+        value: 'signal'
+      },
+      //image: testimage,
       value: '数字八星'
     },
   ];
