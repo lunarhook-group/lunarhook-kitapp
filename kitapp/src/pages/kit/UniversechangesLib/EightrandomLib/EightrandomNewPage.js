@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image, Button, ScrollView, Picker } from '@tarojs/components'
 import { AtButton, AtDivider, AtTabBar, AtInput, AtForm, AtSwitch } from 'taro-ui'
+import SixrandomModule from '../SixrandomLib/SixrandomModule'
 import './EightrandomNewPage.scss'
 
 Date.prototype.format = function (formatStr) {
@@ -26,7 +27,8 @@ export default class EightrandomNewPage extends Component {
             switchleap:false,
             leaptype:"常年",
             Tip: "",
-          value: curday.format("yyyy-MM-dd")
+          value: curday.format("yyyy-MM-dd"),
+          valuetime:0
     }
    
   }
@@ -60,13 +62,14 @@ export default class EightrandomNewPage extends Component {
 
     leapmonth(){
       const { switchleap } = this.state
+      const { leaptype } = this.state
       const { switchtype } = this.state
       if (false == switchtype)
         {
             return(
 
               <AtForm>
-                <AtSwitch title={this.state.leaptype} checked={("常年" == switchleap) ? true : false} onChange={(value) => {this.setState({ switchleap: value, leaptype: value == false ? "常年" : "闰月" })
+                <AtSwitch title={leaptype} checked={("常年" == switchleap) ? true : false} onChange={(value) => {this.setState({ switchleap: value, leaptype: value == false ? "常年" : "闰月" })
                 } }/>
               </AtForm>
             )
@@ -88,6 +91,12 @@ export default class EightrandomNewPage extends Component {
     })
   }
 
+  onTimeChange = e => {
+    this.setState({
+      valuetime: e.detail.value
+    })
+  }
+
   render()
   {
 
@@ -97,8 +106,6 @@ export default class EightrandomNewPage extends Component {
     return (
 
         <View>
-        
-            
             <View > 
           <AtForm>
             <AtInput
@@ -108,43 +115,41 @@ export default class EightrandomNewPage extends Component {
               this.setState({Tip:value});
             }}
             placeholder="陈长生"
-          >
-
-          </AtInput>
+          ></AtInput>
             <View >
-              <Text >日期选择器</Text>
-            <View>
+              <Text >日期</Text>
+            </View>
               <Picker mode='date' onChange={this.onDateChange}>
                 <View className='picker'>
-                  当前选择：{this.state.value}
+                  {this.state.value}
                 </View>
-              </Picker>
+                
+                </Picker>
+
+                  <View >
+                    <Text >时间</Text>
+                    <View>
+
+                <Picker mode='time' onChange={this.onTimeChange}>
+                  <View className='picker'>
+                    {this.state.valuetime}
+                  </View>
+                </Picker>
             </View>
           </View>
 
             
-              <AtSwitch title={this.state.selectedValue} checked={"男" == this.state.selectedValue ? true : false} onChange={(value) => this.setState({ switchstate: value, selectedValue: false == value ? "女" : "男" }) 
-              } />
-            <AtSwitch title={this.state.datatype} checked={"公历" == this.state.datatype ? true : false} onChange={(value)=> this.setState({ switchtype: value, datatype: value == false ? "农历" : "公历" })
-            } />
+              <AtSwitch title={this.state.selectedValue} checked={"男" == this.state.selectedValue ? true : false} onChange={(value) => this.setState({ switchstate: value, selectedValue: false == value ? "女" : "男" }) } />
+            <AtSwitch title={this.state.datatype} checked={"公历" == this.state.datatype ? true : false} onChange={(value)=> this.setState({ switchtype: value, datatype: value == false ? "农历" : "公历" })} />
             
 
           {this.leapmonth()}
-          </AtForm>
-                
+           </AtForm>
             </View>
-            
             <View>
-          <AtButton
-                onPress={()=>this.bazipaipan()}
-            type='secondary'
-        
-          >八字测评</AtButton>
-</View>
-
-
-            
-        </View> 
+          <AtButton onClick={()=>this.bazipaipan()} type='secondary'>八字测评</AtButton>
+</View> 
+</View> 
 
             )
     }
@@ -197,18 +202,10 @@ export default class EightrandomNewPage extends Component {
       savedate[4]=myDate.getFullYear()+"/"+(myDate.getMonth()+1)+"/"+myDate.getDate()+" "+myDate.getHours();
       console.log(savedate[3])
       var parameter = "?EightDate="+savedate[1] + "&sex=" + savedate[2] + "&birth=" + savedate[4]
-      StorageModule.save({key:"name",id:index,data:savedate})
-      StorageModule.save({key:"lastname",data:savedate})
-      this.props.navigation.navigate('EightrandomMainPage',parameter)
+      //StorageModule.save({key:"name",id:index,data:savedate})
+      //StorageModule.save({key:"lastname",data:savedate})
+      console.log("EightrandomMainPage"+parameter)
+      Taro.navigateTo({ url: 'EightrandomMainPage'+parameter})
     }
-  begin(pagename)
-    {
-      const resetAction = NavigationActions.reset({
-          index: 0,
-          actions: [
-              NavigationActions.navigate({ routeName: pagename}),
-          ]
-        })
-        this.props.navigation.dispatch(resetAction)
-    }
+
 }

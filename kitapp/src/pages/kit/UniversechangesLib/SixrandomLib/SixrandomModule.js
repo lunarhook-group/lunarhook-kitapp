@@ -1,5 +1,5 @@
 
-import React, {Component} from 'react';
+import Taro, { Component } from '@tarojs/taro'
 import ValueTypeModule from '../../../config/ValueTypeModule'
 import chineseLunar from '../solar2lunar/chinese-lunar'
 
@@ -3501,7 +3501,7 @@ var c = {
                                       日期计算 
 *****************************************************************************/ 
 
-class SixrandomModule extends React.Component {
+class SixrandomModule extends Component {
 
 getTerm(y,n)
 {

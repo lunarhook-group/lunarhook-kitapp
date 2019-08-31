@@ -21,7 +21,8 @@ class App extends Component {
       'pages/user/userCenter',
       'pages/kit/tools/SloganShare',
       'pages/kit/UniversechangesLib/NumberLib/NumberMainPage',
-      'pages/kit/UniversechangesLib/EightrandomLib/EightrandomNewPage'
+      'pages/kit/UniversechangesLib/EightrandomLib/EightrandomNewPage',
+      'pages/kit/UniversechangesLib/EightrandomLib/EightrandomMainPage',
     ],
     window: {
       backgroundTextStyle: 'light',
