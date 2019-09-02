@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image, Button, ScrollView, Picker } from '@tarojs/components'
-import { AtButton, AtDivider, AtTabBar, AtGrid, AtForm, AtSwitch, AtList} from 'taro-ui'
+import { AtButton, AtDivider, AtTabBar, AtGrid, AtForm, AtSwitch, AtList, AtListItem,AtCard} from 'taro-ui'
 import SixrandomModule from '../SixrandomLib/SixrandomModule'
 import EightrandomModule from './EightrandomModule'
 import './EightrandomMainPage.scss'
@@ -356,7 +356,7 @@ export default class EightrandomMainPage extends Component {
     
     
     var luckyyearposition = this.state.luckyyearposition;
-    var minluckyyear = new Array()
+    var minluckyyeararray = new Array()
     var luckyearrelation = this.state.luckyearrelation;
     //拍出所有小运
     var birthdayyear = new Date()
@@ -365,100 +365,112 @@ export default class EightrandomMainPage extends Component {
     birthdayyear = SixrandomModule.lunar_f(birthdayyear)
     birthdayyear = birthdayyear.gzYear  + birthdayyear.gzMonth  + birthdayyear.gzDate +birthdayyear.gzTime;
     console.log("birthdayyear",birthdayyear)
-    minluckyyear = EightrandomModule.getminlucky(birthdayyear, this.state.sex, curyear);
-
-
+    minluckyyeararray = EightrandomModule.getminlucky(birthdayyear, this.state.sex, curyear);
+    var minluckyyear = new Array()
+    for (var i = 0;i<minluckyyeararray.length;i++)
+    {
+      minluckyyear.push({ value: minluckyyeararray[i]})
+    }
     //console.log(minluckyyear)
 
     var test = new Array()
-    test.push({ info: "时辰", hide: '' })
-    test.push({ info: "运", hide: '' })
-    test.push({ info: "流", hide: '' })
-    test.push({ info: "年", hide: '' })
-    test.push({ info: "月", hide: '' })
-    test.push({ info: "日", hide: '' })
-    test.push({ info: "时", hide: '' })
+    test.push({ value: "时辰", hide: '' })
+    test.push({ value: "运", hide: '' })
+    test.push({ value: "流", hide: '' })
+    test.push({ value: "年", hide: '' })
+    test.push({ value: "月", hide: '' })
+    test.push({ value: "日", hide: '' })
+    test.push({ value: "时", hide: '' })
 
-    test.push({ info: "十神", hide: '' })
+    test.push({ value: "十神", hide: '' })
     //console.log(gzYear[0],this.state.EightDate[4])
-    test.push({ info:EightrandomModule.parentday(curluckyear[0],this.state.EightDate[4]), hide: '' })
-    test.push({ info:EightrandomModule.parentday(gzYear[0],this.state.EightDate[4]), hide: '' })
+    test.push({ value:EightrandomModule.parentday(curluckyear[0],this.state.EightDate[4]), hide: '' })
+    test.push({ value:EightrandomModule.parentday(gzYear[0],this.state.EightDate[4]), hide: '' })
     for (var i = 0; i < 4; i++) {
-      test.push({ info: this.state.buildeight[i * 2], hide: '' })
+      test.push({ value: this.state.buildeight[i * 2], hide: '' })
     }
 
-    test.push({ info: "天干", hide: '' })
-    test.push({ info: curluckyear[0], hide: '' })
-    test.push({ info: gzYear[0], hide: '' })
+    test.push({ value: "天干", hide: '' })
+    test.push({ value: curluckyear[0], hide: '' })
+    test.push({ value: gzYear[0], hide: '' })
     for (var i = 0; i < 4; i++) {
-      test.push({ info: this.state.EightDate[i * 2], hide: '' })
+      test.push({ value: this.state.EightDate[i * 2], hide: '' })
     }
 
-    test.push({ info: "地支", hide: '藏干' })
-    test.push({ info: curluckyear[1],hide: EightrandomModule.gethide(curluckyear[1])})
-    test.push({ info: gzYear[1], hide: EightrandomModule.gethide(gzYear[1]) })
+    test.push({ value: "地支", hide: '藏干' })
+    test.push({ value: curluckyear[1],hide: EightrandomModule.gethide(curluckyear[1])})
+    test.push({ value: gzYear[1], hide: EightrandomModule.gethide(gzYear[1]) })
     for (var i = 0; i < 4; i++) {
-      test.push({ info: this.state.EightDate[i * 2 + 1], hide: this.state.buildeightExt[i * 2] })
+      test.push({ value: this.state.EightDate[i * 2 + 1], hide: this.state.buildeightExt[i * 2] })
     }
 
-    test.push({ info: "十神", hide: '副星' })
-    test.push({ info:EightrandomModule.parentearth(curluckyear[1],this.state.EightDate[4]), hide:EightrandomModule.gethideshishen(EightrandomModule.gethide(curluckyear[1]),this.state.EightDate[4])})
-    test.push({ info:EightrandomModule.parentearth(gzYear[1],this.state.EightDate[4]), hide:EightrandomModule.gethideshishen(EightrandomModule.gethide(gzYear[1]),this.state.EightDate[4])})
+    test.push({ value: "十神", hide: '副星' })
+    test.push({ value:EightrandomModule.parentearth(curluckyear[1],this.state.EightDate[4]), hide:EightrandomModule.gethideshishen(EightrandomModule.gethide(curluckyear[1]),this.state.EightDate[4])})
+    test.push({ value:EightrandomModule.parentearth(gzYear[1],this.state.EightDate[4]), hide:EightrandomModule.gethideshishen(EightrandomModule.gethide(gzYear[1]),this.state.EightDate[4])})
     
     for (var i = 0; i < 4; i++) {
-      test.push({ info: this.state.buildeight[i * 2 + 1], hide: this.state.buildeightExt[i * 2 + 1] })
+      test.push({ value: this.state.buildeight[i * 2 + 1], hide: this.state.buildeightExt[i * 2 + 1] })
     }
 
-    test.push({ info: "长生", hide: '' })
-    test.push({ info:  EightrandomModule.gettwelfthposition(this.state.EightDate[4] + curluckyear[1]), hide: '' })
-    test.push({ info:  EightrandomModule.gettwelfthposition(this.state.EightDate[4] + gzYear[1]), hide: '' })
+    test.push({ value: "长生", hide: '' })
+    test.push({ value:  EightrandomModule.gettwelfthposition(this.state.EightDate[4] + curluckyear[1]), hide: '' })
+    test.push({ value:  EightrandomModule.gettwelfthposition(this.state.EightDate[4] + gzYear[1]), hide: '' })
     for (var i = 0; i < 4; i++) {
       var x = EightrandomModule.gettwelfthposition(this.state.EightDate[4] + this.state.EightDate[i * 2 + 1])
-      test.push({ info: x, hide: "" })
+      test.push({ value: x, hide: "" })
     }
 
-    test.push({ info: "纳音", hide: '' })
-    test.push({ info:  EightrandomModule.gettwelfth( curluckyear[0] + curluckyear[1]), hide: '' })
-    test.push({ info:  EightrandomModule.gettwelfth( gzYear[0] + gzYear[1]), hide: '' })
+    test.push({ value: "纳音", hide: '' })
+    test.push({ value:  EightrandomModule.gettwelfth( curluckyear[0] + curluckyear[1]), hide: '' })
+    test.push({ value:  EightrandomModule.gettwelfth( gzYear[0] + gzYear[1]), hide: '' })
     for (var i = 0; i < 4; i++) {
       var x = EightrandomModule.gettwelfth(this.state.EightDate[i * 2] + this.state.EightDate[i * 2 + 1])
-      test.push({ info: x, hide: "" })
+      test.push({ value: x, hide: "" })
     }
 
     var years = new Array()
-    years = luckyearrelation.concat(this.state.luckyyear, luckyyearposition)
+    var yearsarray = new Array()
+    yearsarray = luckyearrelation.concat(this.state.luckyyear, luckyyearposition)
     //console.log("years", years, luckyearrelation, this.state.luckyyear, luckyyearposition)
-
+    for (var i = 0; i < yearsarray.length; i++) {
+      //var x = EightrandomModule.gettwelfth(this.state.EightDate[i * 2] + this.state.EightDate[i * 2 + 1])
+      years.push({ value: yearsarray[i] })
+    }
     
 
 
     var day = EightrandomModule.getselfinfo(this.state.EightDate[4] + this.state.EightDate[5])
 
-    var shensha = new Array()
-    shensha[0] = '年柱：'
-    shensha[1] = '月柱：'
-    shensha[2] = '日柱：'
-    shensha[3] = '时柱：'
+    var shenshaarray = new Array()
+    shenshaarray[0] = '年柱：'
+    shenshaarray[1] = '月柱：'
+    shenshaarray[2] = '日柱：'
+    shenshaarray[3]= '时柱：'
     for(var i=0;i<4;i++)
     {
       this.state.EightDate[i]
-      shensha[i] =shensha[i] +  EightrandomModule.shensha_dayg2earthz(this.state.EightDate[4],this.state.EightDate[i*2+1]);
-      shensha[i] =shensha[i] +  EightrandomModule.shensha_moon(this.state.EightDate[3],this.state.EightDate[i*2]);
+      shenshaarray[i] = shenshaarray[i] +  EightrandomModule.shensha_dayg2earthz(this.state.EightDate[4],this.state.EightDate[i*2+1]);
+      shenshaarray[i] = shenshaarray[i] +  EightrandomModule.shensha_moon(this.state.EightDate[3],this.state.EightDate[i*2]);
       if(i!=1)
       {
-        shensha[i] =shensha[i] +  EightrandomModule.shensha_moon(this.state.EightDate[3],this.state.EightDate[i*2+1]);//月支不见月支
+        shenshaarray[i] = shenshaarray[i] +  EightrandomModule.shensha_moon(this.state.EightDate[3],this.state.EightDate[i*2+1]);//月支不见月支
       }
       if(i!=2)
       {
-        shensha[i] =shensha[i] +  EightrandomModule.shensha_dayz2earthz(this.state.EightDate[5],this.state.EightDate[i*2+1]);//日支不见自己
+        shenshaarray[i] = shenshaarray[i] +  EightrandomModule.shensha_dayz2earthz(this.state.EightDate[5],this.state.EightDate[i*2+1]);//日支不见自己
       }
       if(i!=0)
       {
-        shensha[i] =shensha[i] +  EightrandomModule.shensha_tianluo(this.state.EightDate[0]+this.state.EightDate[1],this.state.EightDate[i*2+1]);//年支不见年支
-        shensha[i] =shensha[i] +  EightrandomModule.shensha_diwang(this.state.EightDate[0]+this.state.EightDate[1],this.state.EightDate[i*2+1]);//年支不见年支
-        shensha[i] =shensha[i] +  EightrandomModule.shensha_yearz2earthz(this.state.EightDate[1],this.state.EightDate[i*2+1]);//年支不见年支
+        shenshaarray[i] = shenshaarray[i] +  EightrandomModule.shensha_tianluo(this.state.EightDate[0]+this.state.EightDate[1],this.state.EightDate[i*2+1]);//年支不见年支
+        shenshaarray[i] = shenshaarray[i] +  EightrandomModule.shensha_diwang(this.state.EightDate[0]+this.state.EightDate[1],this.state.EightDate[i*2+1]);//年支不见年支
+        shenshaarray[i] = shenshaarray[i] +  EightrandomModule.shensha_yearz2earthz(this.state.EightDate[1],this.state.EightDate[i*2+1]);//年支不见年支
       }
       
+    }
+    var shensha = new Array()
+    for (var i = 0; i < 4; i++)
+    {
+      shensha.push({ value: shenshaarray[i]})
     }
 
     var marryinfo = EightrandomModule.getmarryinfo(this.state.EightDate,this.state.sex,r,this.state.buildeight)
@@ -476,17 +488,20 @@ export default class EightrandomMainPage extends Component {
 
 
           <View >
-
-            <AtGrid
-                    data={base}
-                    columnNum={4}
-                    hasLine={true}
-                    />
+            <AtList>
+            {base.map((item, itemIndex)=>{
+              console.log(item)
+                  return(
+                    <View key={itemIndex.id}>
+                    <AtListItem title={item.value}  />
+                    </View>
+                  )
+                })}
+            </AtList>
             <AtGrid
                     data={test}
                     columnNum={7}
                     hasLine={true}
-                    itemStyle={{ height: 40 }}
                     
                     /*renderItem={dataItem => (
                       <View>
@@ -501,35 +516,23 @@ export default class EightrandomMainPage extends Component {
                   //isCarousel
                   //onClick={()}
                   />
-                  <AtGrid
-                    data={shensha}
-                    columnNum={1}
-                    hasLine={true}
-                    
-                  //isCarousel
-                  //onClick={()}
-                  />
+            <AtList>
+              {shensha.map((item, itemIndex) => {
+                console.log(item)
+                return (
+                  <View key={itemIndex.id}>
+                    <AtListItem title={item.value} />
+                  </View>
+                )
+              })}
+            </AtList>
             <AtGrid
                     data={years}
                     columnNum={8}
                     hasLine={true}
-                    itemStyle={{ height: 25 }}
                     //当选择大运的时候，相当于选择了流年小运
-                    onPress={(_el: any, index: any) => this.changeyear(Number(index%8),"")}
-                    /*
-                    renderItem={(dataItem, itemIndex) => (
-                      <View >
-
-
-                          {this.testselectyear(dataItem,itemIndex%8)}
-
-                      </View>
-
-
-                    )}
-                    */
-                  //isCarousel
-                  //onClick={()}
+                    onClick={(_el: any, index: any) => this.changeyear(Number(index%8),"")}
+                   
                   />
 
                   <AtGrid
@@ -550,27 +553,46 @@ export default class EightrandomMainPage extends Component {
                   
                   
             <AtList>
-              <AtListItem wrap multipleLine
-              ><Text > {r.dr}</Text></AtListItem>
-                    
-              <AtListItem wrap multipleLine
-              ><Text > {r.er}</Text></AtListItem>
-              <AtListItem wrap multipleLine
-              ><Text > {r.lr}</Text></AtListItem>
-              <AtListItem wrap multipleLine
-              ><Text > {r.br}</Text></AtListItem>
+              <AtCard
+                title='天干信息'
+              >
+                {r.dr}
+</AtCard>
+              <AtCard
+                title='地支冲克'
+              >
+                {r.er}
+              </AtCard>
+              <AtCard
+                title='流年冲克信息'
+              >
+                {r.lr}
+              </AtCard>
+              <AtCard
+                title='大运冲克'
+              >
+                {r.br}
+              </AtCard>
             </AtList>
             <AtList>
-              <AtListItem
-                    >
-                    <Text > {day.self}</Text>
-                    <Text > {day.tip}</Text>
-              </AtListItem>
+              <AtCard
+                title='日柱信息'
+              >
+                {day.self}
+              </AtCard>
+              <AtCard
+                title='日柱喜用'
+              >
+                {day.tip}
+              </AtCard>
                     
             </AtList>
             <AtList>
-              <AtListItem wrap multipleLine
-              ><Text > {marryinfo}</Text></AtListItem>
+              <AtCard
+                title='婚姻提示（受流年大运影响）'
+              >
+                {marryinfo}
+              </AtCard>
             </AtList>
 
 
