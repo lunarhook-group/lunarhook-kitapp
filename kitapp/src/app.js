@@ -13,7 +13,6 @@ class App extends Component {
 
   config = {
     pages: [
-      'pages/slogan/slogan',
       'pages/kit/litekitPage',
       'pages/kit/LunarMotionsLib/PsychLib/MBTIModule',
       'pages/kit/LunarMotionsLib/PsychLib/EnneagramModule',

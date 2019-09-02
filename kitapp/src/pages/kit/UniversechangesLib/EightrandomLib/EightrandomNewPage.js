@@ -3,6 +3,7 @@ import { View, Text, Image, Button, ScrollView, Picker } from '@tarojs/component
 import { AtButton, AtDivider, AtTabBar, AtInput, AtForm, AtSwitch } from 'taro-ui'
 import SixrandomModule from '../SixrandomLib/SixrandomModule'
 import './EightrandomNewPage.scss'
+import '../../../../theme.scss'
 
 Date.prototype.format = function (formatStr) {
   var str = formatStr;

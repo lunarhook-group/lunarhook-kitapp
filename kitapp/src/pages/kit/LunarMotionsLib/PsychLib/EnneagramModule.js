@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { StyleSheet, View, PixelRatio, Alert, Text, FlatList, ScrollView, CameraRoll } from '@tarojs/components'
 import { AtToast, AtGrid, AtTabBar, AtCheckbox, AtRadio, AtButton, AtDivider, AtIcon } from 'taro-ui'
 import './EnneagramModule.scss'
+import '../../../../theme.scss'
 
 import Svg,{
   Ellipse,

@@ -3,6 +3,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image, Button, ScrollView } from '@tarojs/components'
 import { AtAccordion, AtDivider, AtTabBar, AtInput , AtForm, AtSwitch} from 'taro-ui'
 import './NumberMainPage.scss'
+import '../../../../theme.scss'
 var jump = false
 let curyear = 0
 

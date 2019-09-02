@@ -3,6 +3,7 @@ import { View, Text, Image, Button, ScrollView, Picker } from '@tarojs/component
 import { AtButton, AtDivider, AtTabBar, AtGrid, AtForm, AtSwitch, AtList, AtListItem, AtCard } from 'taro-ui'
 import SixrandomModule from 'SixrandomModule'
 import './SixrandomFullinfoPage.scss'
+import '../../../../theme.scss'
 class SixrandomFullinfoPage extends Component {
     constructor(props) {
     super(props);

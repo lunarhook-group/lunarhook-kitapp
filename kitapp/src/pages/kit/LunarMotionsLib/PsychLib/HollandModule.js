@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { StyleSheet, View, PixelRatio, Alert, Text, FlatList, ScrollView, CameraRoll } from '@tarojs/components'
 import { AtToast, AtGrid, AtTabBar, AtCheckbox, AtRadio, AtButton, AtDivider, AtIcon } from 'taro-ui'
 import './HollandModule.scss'
-
+import '../../../../theme.scss'
 var Hollands=Array();
 Hollands[1]={
   "key":"1",

@@ -4,6 +4,7 @@ import { AtButton, AtDivider, AtTabBar, AtGrid, AtForm, AtSwitch, AtList, AtList
 import SixrandomModule from 'SixrandomModule'
 import ValueTypeModule from '../../../config/ValueTypeModule'
 import './SixrandomNewPage.scss'
+import '../../../../theme.scss'
 
 var randArray = []
 

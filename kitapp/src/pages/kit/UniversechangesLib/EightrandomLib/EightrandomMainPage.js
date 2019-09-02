@@ -4,7 +4,7 @@ import { AtButton, AtDivider, AtTabBar, AtGrid, AtForm, AtSwitch, AtList, AtList
 import SixrandomModule from '../SixrandomLib/SixrandomModule'
 import EightrandomModule from './EightrandomModule'
 import './EightrandomMainPage.scss'
-
+import '../../../../theme.scss'
 
 var jump = false
 let curyear = 0

@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text ,Image,Button, ScrollView} from '@tarojs/components'
 import { AtAccordion, AtGrid, AtTabBar, AtIcon } from 'taro-ui'
 import './litekitPage.scss'
-
+import '../../theme.scss'
 import testimage from '../../assets/images/answer.png'
 var data1 = 
   [
