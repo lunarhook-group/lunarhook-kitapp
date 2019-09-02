@@ -4145,21 +4145,8 @@ get_sixrandom_name(lunar)
 
 	 build(msg)
 	{
-		//console.log(msg)
-		var info = null;
-		
-		var ret;
-		var args = {};
-        var match = null;
-        var search = decodeURIComponent(msg.substring(1));
-        var reg = /(?:([^&]+)=([^&]+))/g;
-        while((match = reg.exec(search))!==null){
-            args[match[1]] = match[2];
-        }
-		info = args
-		//alert(info)
-		
-		ret = this.recoverlunarsix(info)
+	
+    var  ret = this.recoverlunarsix(msg)
 		return ret
 	}
 

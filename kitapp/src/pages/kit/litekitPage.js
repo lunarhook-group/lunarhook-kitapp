@@ -120,6 +120,10 @@ export default class litekitPage extends Component {
     else if ("霍兰德职业测试" == item.value) {
       Taro.navigateTo({ url: '../../pages/kit/LunarMotionsLib/PsychLib/HollandModule' })
     }
+    else if ("六爻测试" == item.value) {
+      Taro.navigateTo({url: '../../pages/kit/UniversechangesLib/SixrandomLib/SixrandomNewPage'})
+    }
+    
     else if ("八字测评" == item.value) {
       Taro.navigateTo({ url: '../../pages/kit/UniversechangesLib/EightrandomLib/EightrandomNewPage' })
     }
