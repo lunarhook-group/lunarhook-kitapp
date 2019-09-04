@@ -51,30 +51,31 @@ class SixrandomNewPage extends Component {
   {
     const {data} = this.state
     return (
-      <View>
+      <View className='contain'>
         <ScrollView>
           <Text></Text>
 
           <Text></Text>
           <Picker mode='selector' range={this.state.selector} onChange={this.onChange}>
-            <View className='picker'>
+            <View className='list'>
               当前选择：{this.state.selectorChecked}
             </View>
           </Picker>
 
-          <View >
-            <AtButton type='secondary' onClick={() => this.random()}>出爻</AtButton>
+          <View className='button'>
+            <Button type='secondary' onClick={() => this.random()}>出爻</Button>
           </View>
           <AtList>
             {data.map((item, itemIndex) => {
               console.log(item)
               return (
-                <View key={itemIndex.id}>
-                  <AtListItem title={item} />
+                <View className='list' key={itemIndex.id}>
+                  <Text>{item}</Text>
                 </View>
               )
             })}
           </AtList>
+
         </ScrollView>
       </View>
     )

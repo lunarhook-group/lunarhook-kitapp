@@ -5,6 +5,7 @@ import SixrandomModule from '../SixrandomLib/SixrandomModule'
 import './EightrandomNewPage.scss'
 import '../../../../theme.scss'
 
+
 Date.prototype.format = function (formatStr) {
   var str = formatStr;
   var Week = ['日', '一', '二', '三', '四', '五', '六'];
