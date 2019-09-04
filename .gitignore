@@ -4,3 +4,4 @@ kitapp/node_modules/
 kitapp/dist/npm/
 kitapp/dist/
 kitapp/yarn.lock
+*.lock
