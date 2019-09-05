@@ -23,7 +23,7 @@ export default class EightrandomNewPage extends Component {
         this.state= {
             switchstate:true,
             selectedValue: '男',
-            datepicker:"",
+          datepicker: curday.toString(),
             switchtype:true,
             datatype:"公历",
             switchleap:false,
@@ -81,22 +81,39 @@ export default class EightrandomNewPage extends Component {
 
     }
 
-    onChange = (value: any) => {
-        console.log(value);
-        this.setState({ value });
-        var selecttime = new Date(value)
-        this.setState({datepicker:selecttime.toString()})
+    onChange(dd,tt){
+      
+      if(""!=tt)
+      {
+        tt = tt.toString()
+        tt = tt.split(":")
+        var selecttime = new Date(this.state.datepicker)
+        selecttime.setHours(tt[0]);
+        console.log(dd,"tt", tt, selecttime, this.state.datepicker);
+        this.setState({ datepicker: selecttime.toString() })
+      }
+      else if ("" != dd) {
+        var selectdd = new Date(dd)
+        var selecttime = new Date(this.state.datepicker)
+        selectdd.setHours(selecttime.getHours())
+        console.log("dd",dd, tt, selectdd, this.state.datepicker);
+        this.setState({ datepicker: selectdd.toString() })
+      }
+      
+      
       }
   onDateChange = e => {
     this.setState({
       value: e.detail.value
     })
+    this.onChange(e.detail.value,"")
   }
 
   onTimeChange = e => {
     this.setState({
       valuetime: e.detail.value
     })
+    this.onChange("", e.detail.value)
   }
 
   render()
@@ -118,24 +135,26 @@ export default class EightrandomNewPage extends Component {
             }}
             placeholder="陈长生"
           ></AtInput>
-            <View className='page-section'>
-              <Text >日期</Text>
+            <View className='panel__title'>
+
             </View>
               <Picker mode='date' onChange={this.onDateChange}>
-                <View className='picker'>
-                当前选择：{this.state.value}
+                <View className='demo-list-item'>
+                <View className='demo-list-item__label'>请选择时间</View>
+                    <View className='demo-list-item__value'>{this.state.value}</View>
                 </View>
                 
                 </Picker>
 
-            <View className='page-section'>
-                    <Text >时间</Text>
+            <View className='panel__title'>
+
                     <View>
 
                 <Picker mode='time' onChange={this.onTimeChange}>
-                  <View className='picker'>
-                    当前选择：{this.state.valuetime}
-                  </View>
+                <View className='demo-list-item'>
+                <View className='demo-list-item__label'>请选择时间</View>
+                    <View className='demo-list-item__value'>{this.state.valuetime}</View>
+                    </View>
                 </Picker>
             </View>
           </View>
