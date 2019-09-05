@@ -5,3 +5,4 @@ kitapp/dist/npm/
 kitapp/dist/
 kitapp/yarn.lock
 *.lock
+kitapp/package-lock.json

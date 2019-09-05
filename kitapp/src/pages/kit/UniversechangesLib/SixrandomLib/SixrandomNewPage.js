@@ -53,9 +53,11 @@ class SixrandomNewPage extends Component {
     return (
       <View className='contain'>
         <ScrollView>
-          <Text></Text>
+          
+          <Text>{" "}</Text>
 
-          <Text></Text>
+          <Text className='list'>{"点击改选"}</Text>
+          <Text>{" "}</Text>
           <Picker mode='selector' range={this.state.selector} onChange={this.onChange}>
             <View className='list'>
               当前选择：{this.state.selectorChecked}

@@ -1,5 +1,4 @@
-
-
+@import "~taro-ui/dist/style/components/flex.scss";
 .contain {
     flex: 0%;
     //vertical-align:middle;
@@ -8,3 +7,19 @@
 .result {
     padding-left: 40px;
 }
+.begin{
+    padding-left: 20px;
+    width: 200px;
+}
+.mid {
+    padding-left: 20px;
+   width: 200px;
+}
+.third {
+    padding-left: 20px;
+    width: 320px;
+ }
+ .extion{
+    flex-direction:'row';
+    text-align: 'left'
+ }

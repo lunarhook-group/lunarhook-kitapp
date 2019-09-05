@@ -118,23 +118,23 @@ export default class EightrandomNewPage extends Component {
             }}
             placeholder="陈长生"
           ></AtInput>
-            <View >
+            <View className='page-section'>
               <Text >日期</Text>
             </View>
               <Picker mode='date' onChange={this.onDateChange}>
                 <View className='picker'>
-                  {this.state.value}
+                当前选择：{this.state.value}
                 </View>
                 
                 </Picker>
 
-                  <View >
+            <View className='page-section'>
                     <Text >时间</Text>
                     <View>
 
                 <Picker mode='time' onChange={this.onTimeChange}>
                   <View className='picker'>
-                    {this.state.valuetime}
+                    当前选择：{this.state.valuetime}
                   </View>
                 </Picker>
             </View>

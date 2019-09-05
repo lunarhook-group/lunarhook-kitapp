@@ -3878,172 +3878,198 @@ get_simple_random_draw()
  get_random_draw()
 {
 	
-	var _build = new Array();
-	_build.push("")
-	_build.push("求测："+six_random_question)
-	_build.push(six_random_date[7]["base"]);
-	if(""!=six_random_question)
-	{
-		try {
-			_build.push(six_random_question);
-			_build.push("")
-			
-		} catch (error) {
-			
-		}
-	}
-	else
-		{
-			_build.push(six_random_date[7]["general"]);
-			_build.push("")
-		}
-		
-	
-	_build.push(six_random_date[0]);
-	_build.push(six_random_date[1]);
-	_build.push(six_random_date[2]);
-	_build.push(six_random_date[3]);
-	_build.push(six_random_date[4]);
-	//console.log(six_random_date[5]);
-	//console.log(six_random_date[6]);
-	_build.push("")
-		
-		
-	_build.push("")
-	_build.push(("      本卦：  "+six_random_date[7].name+"   变卦：  "+six_random_date[8].name))
-	
-	//console.log();
-	var o = ["","上爻","五爻","四爻","三爻","二爻","初爻"]
+   var infobase = new Array()
+   var infogrid = new Array();
+   var _build = new Array();
+   _build.push("")
+   _build.push("求测：" + six_random_question)
+   _build.push(six_random_date[7]["base"]);
+   if ("" != six_random_question) {
+     try {
+       _build.push(six_random_question);
+       _build.push("")
 
-	for(var index = 0;index<randomtime;index++)
-    {
-		six_random_draw[randomtime-index] = six_random_myth[randomtime-index]+":"+o[randomtime-index]+"          ";
-		if(oldnegativevalue==six_random[randomtime-index])
-		{
-			six_random_draw[randomtime-index] = six_random_draw[randomtime-index] + negativedraw +" "+ negativechangedraw +" "
-		}
-		else if(oldpositivevalue==six_random[randomtime-index])
-		{
-			six_random_draw[randomtime-index] = six_random_draw[randomtime-index] + positivedraw +" "+ positivechangedraw +" "
-		}
-		else if(positivevalue==six_random[randomtime-index])
-		{
-			six_random_draw[randomtime-index] = six_random_draw[randomtime-index] + positivedraw +" "+ nonechangedraw +" "
-		}
-		else if(negativevalue==six_random[randomtime-index])
-		{
-			six_random_draw[randomtime-index] = six_random_draw[randomtime-index] + negativedraw +" "+ nonechangedraw +" "
-		}
-	}
+     } catch (error) {
 
-	for(var index = 0;index<randomtime;index++)
-    {
-		if(oldnegativevalue==six_change_random[randomtime-index])
-		{
-			six_random_draw[randomtime-index] = six_random_draw[randomtime-index] + negativedraw
-		}
-		else if(oldpositivevalue==six_change_random[randomtime-index])
-		{
-			six_random_draw[randomtime-index] = six_random_draw[randomtime-index] + positivedraw
-		}
-		else if(positivevalue==six_change_random[randomtime-index])
-		{
-			six_random_draw[randomtime-index] = six_random_draw[randomtime-index] + positivedraw
-		}
-		else if(negativevalue==six_change_random[randomtime-index])
-		{
-			six_random_draw[randomtime-index] = six_random_draw[randomtime-index] + negativedraw
-		}
-	}
+     }
+   }
+   else {
+     _build.push(six_random_date[7]["general"]);
+     _build.push("")
+   }
 
-	for(var index = 0;index<randomtime;index++)
-    {
-		_build.push(six_random_draw[index+1]);
-	}
 
-	_build.push("")
-	for(var index = 0;index<randomtime;index++)
-    {
-		var t = index+1
-		var n = six_random_date[7][t]
-		var change = 5==n.length?true:false;
-		var fs = "f"+t
-		if(undefined === six_random_date[7][fs])
-		{
-			n = "                " + n
-		}
-		else
-		{
-			n =  six_random_date[7][fs]+ " " + n
-		}
-		var c = six_random[t]
-		var cc = ""
-		if(3==c)
-		{
+   _build.push(six_random_date[0]);
+   _build.push(six_random_date[1]);
+   _build.push(six_random_date[2]);
+   _build.push(six_random_date[3]);
+   _build.push(six_random_date[4]);
+   //console.log(six_random_date[5]);
+   //console.log(six_random_date[6]);
+   _build.push("")
 
-					cc= positivechangedraw + " "
 
-			
-		}
-		else if(0==c)
-		{
+   _build.push("")
+   infobase = _build;
+   //console.log("infobase",infobase)
+   //_build.push(("      本卦：  "+six_random_date[7].name+"   变卦：  "+six_random_date[8].name))
+   //infogrd目前是按一行5列设计的
+   //卦的名称
+   infogrid[0] = new Array()
 
-					cc=negativechangedraw + " "
+   infogrid[0].push("")
+   infogrid[0].push("")
+   infogrid[0].push("本卦:" + six_random_date[7].name)
 
-			
-		}
-		else
-		{
+   infogrid[0].push("变卦:" + six_random_date[8].name)
 
-					cc= "     "
 
-			
-		}
+   //console.log();
+   var o = ["", "上爻", "五爻", "四爻", "三爻", "二爻", "初爻"]
 
-		if(true==change)
-		{
-			n = six_random_myth[t] +" "+ n + " "
+   for (var index = 0; index < randomtime; index++) {
+     infogrid[randomtime - index + 1] = new Array()
+     six_random_draw[randomtime - index] = six_random_myth[randomtime - index] + ":" + o[randomtime - index] + "          ";
+     infogrid[randomtime - index + 1].push(six_random_myth[randomtime - index] + ":" + o[randomtime - index])
+     infogrid[randomtime - index + 1].push("")
+     if (oldnegativevalue == six_random[randomtime - index]) {
+       six_random_draw[randomtime - index] = six_random_draw[randomtime - index] + negativedraw + " " + negativechangedraw + " "
+       infogrid[randomtime - index + 1].push(negativedraw + " " + negativechangedraw)
 
-			_build.push(n+"     "+cc+six_random_date[8][t]);
+     }
+     else if (oldpositivevalue == six_random[randomtime - index]) {
+       six_random_draw[randomtime - index] = six_random_draw[randomtime - index] + positivedraw + " " + positivechangedraw + " "
+       infogrid[randomtime - index + 1].push(positivedraw + " " + positivechangedraw)
 
-		}
-		else
-		{
-			n = six_random_myth[t] +" "+ n + " "
+     }
+     else if (positivevalue == six_random[randomtime - index]) {
+       six_random_draw[randomtime - index] = six_random_draw[randomtime - index] + positivedraw + " " + nonechangedraw + " "
+       infogrid[randomtime - index + 1].push(positivedraw + " " + nonechangedraw)
 
-			_build.push(n+cc+six_random_date[8][t]);
-			
-		}
-		
-	}
-_build.push("")
-	_build.push(six_random_date[7].extname)
-	_build.push(six_random_date[7].extnameexp)
-	_build.push(six_random_date[7].extexp)
-	_build.push(six_random_date[7].ext)
-	_build.push("")
-	for(index =1 ;index < 13 ;index++)
-	{
-		var x = "exp"+index
-		_build.push(six_random_date[7][x])
-	}
-	_build.push("")
-	_build.push("")
-	_build.push("")
-	_build.push(six_random_date[8].extname)
-	_build.push(six_random_date[8].extnameexp)
-	_build.push(six_random_date[8].extexp)
-	_build.push(six_random_date[8].ext)
-	_build.push("")
-	for(index =1 ;index < 13 ;index++)
-	{
-		var x = "exp"+index
-		_build.push(six_random_date[8][x])
-	}
-	_build.push("")
-	_build.push("")
-	_build.push("")
-	return _build
+     }
+     else if (negativevalue == six_random[randomtime - index]) {
+       six_random_draw[randomtime - index] = six_random_draw[randomtime - index] + negativedraw + " " + nonechangedraw + " "
+       infogrid[randomtime - index + 1].push(negativedraw + " " + nonechangedraw)
+     }
+   }
+
+   for (var index = 0; index < randomtime; index++) {
+     if (oldnegativevalue == six_change_random[randomtime - index]) {
+       six_random_draw[randomtime - index] = six_random_draw[randomtime - index] + negativedraw
+       infogrid[randomtime - index + 1].push(negativedraw)
+     }
+     else if (oldpositivevalue == six_change_random[randomtime - index]) {
+       six_random_draw[randomtime - index] = six_random_draw[randomtime - index] + positivedraw
+       infogrid[randomtime - index + 1].push(positivedraw)
+     }
+     else if (positivevalue == six_change_random[randomtime - index]) {
+       six_random_draw[randomtime - index] = six_random_draw[randomtime - index] + positivedraw
+       infogrid[randomtime - index + 1].push(positivedraw)
+     }
+     else if (negativevalue == six_change_random[randomtime - index]) {
+       six_random_draw[randomtime - index] = six_random_draw[randomtime - index] + negativedraw
+       infogrid[randomtime - index + 1].push(negativedraw)
+     }
+   }
+
+   for (index = 0; index < randomtime; index++) {
+     //_build.push(six_random_draw[index+1]);
+   }
+
+   //console.log("infogrid",infogrid)
+   //_build.push("")
+   //下面是纳甲
+   var curlenght = infogrid.length
+   for (var index = 0; index < randomtime; index++) {
+     var t = index + 1
+     //先装用神
+     infogrid[curlenght + index + 1] = new Array();
+     infogrid[curlenght + index + 1].push(six_random_myth[index + 1])
+
+
+
+     var n = six_random_date[7][t]
+     var change = 5 == n.length ? true : false;
+     var fs = "f" + t
+     if (undefined === six_random_date[7][fs]) {
+       n = "                " + n
+       //再装伏神
+       infogrid[curlenght + index + 1].push("")
+     }
+     else {
+       n = six_random_date[7][fs] + " " + n
+       //再装伏神
+       infogrid[curlenght + index + 1].push(six_random_date[7][fs])
+     }
+     //再装卦
+     infogrid[curlenght + index + 1].push(six_random_date[7][t])
+     var c = six_random[t]
+     var cc = ""
+     if (3 == c) {
+
+       cc = positivechangedraw + " "
+       infogrid[curlenght + index + 1] = infogrid[curlenght + index + 1] + " " + positivechangedraw
+
+     }
+     else if (0 == c) {
+
+       cc = negativechangedraw + " "
+       infogrid[curlenght + index + 1] = infogrid[curlenght + index + 1] + " " + negativechangedraw
+
+
+     }
+     else {
+
+       cc = "     "
+
+
+     }
+
+     if (true == change) {
+       n = six_random_myth[t] + " " + n + " "
+
+       //_build.push(n+"     "+cc+six_random_date[8][t]);
+
+
+     }
+     else {
+       n = six_random_myth[t] + " " + n + " "
+
+       //_build.push(n+cc+six_random_date[8][t]);
+
+     }
+     //再装变卦
+     infogrid[curlenght + index + 1].push(six_random_date[8][t])
+
+   }
+
+   var infoext = new Array()
+   infoext.push("")
+   infoext.push(six_random_date[7].extname)
+   infoext.push(six_random_date[7].extnameexp)
+   infoext.push(six_random_date[7].extexp)
+   infoext.push(six_random_date[7].ext)
+   infoext.push("")
+   for (var index = 1; index < 13; index++) {
+     var x = "exp" + index
+     infoext.push(six_random_date[7][x])
+   }
+   infoext.push("")
+   infoext.push("")
+   infoext.push("")
+   infoext.push(six_random_date[8].extname)
+   infoext.push(six_random_date[8].extnameexp)
+   infoext.push(six_random_date[8].extexp)
+   infoext.push(six_random_date[8].ext)
+   infoext.push("")
+   for (var index = 1; index < 13; index++) {
+     var x = "exp" + index
+     infoext.push(six_random_date[8][x])
+   }
+   infoext.push("")
+   infoext.push("")
+   infoext.push("")
+   return { _build, infobase, infogrid, infoext }
 }
 get_sixrandom_name(lunar)
 {
