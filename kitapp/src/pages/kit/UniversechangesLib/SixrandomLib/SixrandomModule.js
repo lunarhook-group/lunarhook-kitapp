@@ -3770,7 +3770,7 @@ get_six_original_random()
 	six_random_date[7] = six_random_NaJia[six_random_date[5]]
 	six_random_date[8] = six_random_NaJia[six_random_date[6]];
 	//fix_najia
-	this.fix_najia(six_random_date[7],six_random_date[8])
+	six_random_date[8] = this.fix_najia(six_random_date[7],six_random_date[8])
 }
 fix_najia(random,change)
 {
@@ -3786,6 +3786,7 @@ fix_najia(random,change)
 	//console.log(orignalkind);
 	//console.log(change);
 	var changekind = new Array();
+	var changerandom = change
 
 	changekind[1]= orignalkind+change[1].slice(4,5)
 	changekind[2]= orignalkind+change[2].slice(4,5)
@@ -3799,11 +3800,11 @@ fix_najia(random,change)
 	
 	for(var index = 1 ;index < 7;index++)
 	{
-		change[index]=kindtable[changekind[index]] + change[index].slice(2)
+		changerandom[index] = kindtable[changekind[index]] + change[index].slice(2,5)
 	}
 	
 	//console.log(change);
-	return change
+	return changerandom
 
 
 }
