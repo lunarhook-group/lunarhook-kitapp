@@ -2,7 +2,7 @@ import Taro from '@tarojs/taro';
 import { AtAvatar, AtList, AtListItem } from 'taro-ui';
 import { View } from '@tarojs/components';
 import './userCenter.scss';
-
+import service from '../../assets/service.jpeg'
 class UserCenter extends Taro.Component {
   constructor() {
     super(...arguments);
@@ -57,6 +57,12 @@ class UserCenter extends Taro.Component {
             </AtList>
           );
         })}
+        <Image
+          className={'imageslogan'}
+          mode='widthFix'
+          style='width:50%'
+          src={service}
+        />
       </View>
     );
   }
