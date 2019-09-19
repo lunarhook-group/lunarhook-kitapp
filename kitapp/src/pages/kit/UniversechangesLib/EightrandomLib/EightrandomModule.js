@@ -1,6 +1,4 @@
-
-var Dimensions = require('Dimensions');
-import React, {Component} from 'react';
+import Taro, { Component } from '@tarojs/taro'
 //import DatePicker from 'react-native-datepicker'
 //import DateTimePicker from 'react-native-modal-datetime-picker';
 /*
@@ -249,7 +247,7 @@ dayrelationship['戊']['癸'] = '戊癸合化火,为无情之合,主妩媚多情
 dayrelationship['戊']['癸'] = dayrelationship['癸']['戊'] 
 var earthrelationship = new Array()
 var earthcombe = new Array
-for(i = 0;i<earthkey.length;i++)
+for(var i = 0;i<earthkey.length;i++)
 {
     var index = earthkey[i]
     earthrelationship[index] = new Array();
@@ -387,7 +385,7 @@ twelfthposition["甲戌"]=twelfthposition["乙未"]=twelfthposition["丙丑"]=tw
 twelfthposition["己戌"]=twelfthposition["庚辰"]=twelfthposition["辛丑"]=twelfthposition["壬未"]=twelfthposition["癸辰"]="养地"
 
 
-class EightrandomModule extends React.Component {
+ class EightrandomModule extends Component {
 
   constructor(porp) {
         super(porp);
@@ -405,8 +403,8 @@ class EightrandomModule extends React.Component {
 
     in_array(stringToSearch, arrayToSearch)
      {
-    for (s = 0; s < arrayToSearch.length; s++) {
-     thisEntry = arrayToSearch[s].toString();
+    for (var s = 0; s < arrayToSearch.length; s++) {
+     var thisEntry = arrayToSearch[s].toString();
      if (thisEntry == stringToSearch) {
       return true;
      }
@@ -491,20 +489,20 @@ class EightrandomModule extends React.Component {
       var p = new Array()
       var q = new Array()
       var i = 0;
-      for(i=0;i<10;i++)
+      for(var i=0;i<10;i++)
       {
           var m = daykey[i]
             p[m] = 0;
             q[i] = 0;
       }
       
-      for(i=0;i<8;i=i+2)
+      for(var i=0;i<8;i=i+2)
       {
             var m = key[i]
             p[m] = p[m] + 36
       }
       //console.log(p);
-      for(i=1;i<8;i=i+2)
+      for(var i=1;i<8;i=i+2)
       {
         var n = 0
         var m = key[i]
@@ -516,7 +514,7 @@ class EightrandomModule extends React.Component {
             n++
         }
       }
-      for(i=1;i<=5;i++)
+      for(var i=1;i<=5;i++)
       {
         var m = daykey[i*2-1]
         var n = daykey[i*2-2]
@@ -601,7 +599,7 @@ class EightrandomModule extends React.Component {
     var e = new Array();
     var bdyear = bigyears[0]
     var bzyear = bigyears[1]
-    for(i=0;i<4;i++)
+    for(var i=0;i<4;i++)
     {
         d[i] = key[i*2]
         e[i] = key[i*2+1]
@@ -1249,7 +1247,7 @@ class EightrandomModule extends React.Component {
     getYearTerm(year){
         var solarTerm= ['小寒', '大寒', '立春', '雨水', '惊蛰', '春分', '清明', '谷雨', '立夏', '小满', '芒种', '夏至', '小暑', '大暑', '立秋', '处暑', '白露', '秋分', '寒露', '霜降', '立冬', '小雪', '大雪','冬至'] //二十四节气
         var res = []
-        for(i=0;i<400;i++)
+        for(var i=0;i<400;i++)
         {
             res[i] = 0;
         }
@@ -1362,7 +1360,7 @@ class EightrandomModule extends React.Component {
             else if((eightkey[4]=="庚" || eightkey[4]=="辛") && (eightkey[3] == "申" || eightkey[3] == "酉")) info=info+"官星过旺，财星入墓"
             else if((eightkey[4]=="壬" || eightkey[4]=="癸") && (eightkey[3] == "亥" || eightkey[3] == "子")) info=info+"官星过旺，财星入墓"
             var count = 0
-            for(i=0;i<shishen.length;i++)
+            for(var i=0;i<shishen.length;i++)
             {
                 if("财"==shishen[i] || "才"==shishen[i]) count++
             }
@@ -1377,7 +1375,7 @@ class EightrandomModule extends React.Component {
             else if((eightkey[4]=="庚" || eightkey[4]=="辛") && (eightkey[3] == "亥" || eightkey[3] == "子")) info=info+"金水伤官，官星入墓（易金白水清）"
             else if((eightkey[4]=="壬" || eightkey[4]=="癸") && (eightkey[3] == "寅" || eightkey[3] == "卯")) info=info+"水木伤官，官星入墓"
             var count = 0
-            for(i=0;i<shishen.length;i++)
+            for(var i=0;i<shishen.length;i++)
             {
                 if("官"==shishen[i] || "杀"==shishen[i]) count++
             }
@@ -1458,4 +1456,4 @@ class EightrandomModule extends React.Component {
     }
 }
 var e = new EightrandomModule()
-module.exports=e;  
+export default e;

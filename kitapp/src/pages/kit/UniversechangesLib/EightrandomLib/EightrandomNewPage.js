@@ -1,22 +1,21 @@
-
-var Dimensions = require('Dimensions');
-import React, {Component} from 'react';
-import {StyleSheet,Keyboard,View,Button, TextInput,TouchableOpacity, Text,TouchableWithoutFeedback} from 'react-native';
-import TabNavigator from 'react-native-tab-navigator';  
-import { AsyncStorage } from 'react-native';
-import { StackNavigator } from 'react-navigation';
-import { NavigationActions } from 'react-navigation'
-import { InputItem,DatePicker, List ,Switch,WhiteSpace,Provider } from '@ant-design/react-native';
-
-import StorageModule from '../../../config/StorageModule'
-import ValueTypeModule from '../../../config/ValueTypeModule'
+import Taro, { Component } from '@tarojs/taro'
+import { View, Text, Image, Button, ScrollView, Picker } from '@tarojs/components'
+import { AtButton, AtDivider, AtTabBar, AtInput, AtForm, AtSwitch } from 'taro-ui'
 import SixrandomModule from '../SixrandomLib/SixrandomModule'
-import RouteConfig from '../../../config/RouteConfig';
-import ScreenConfig from '../../../config/ScreenConfig';
-import StyleConfig from '../../../config/StyleConfig';
+import './EightrandomNewPage.scss'
+import '../../../../theme.scss'
 
 
-class EightrandomNewPage extends React.Component {
+Date.prototype.format = function (formatStr) {
+  var str = formatStr;
+  var Week = ['日', '一', '二', '三', '四', '五', '六'];
+  str = str.replace(/yyyy|YYYY/, this.getFullYear());
+  str = str.replace(/MM/, (this.getMonth() + 1) > 9 ? (this.getMonth() + 1).toString() : '0' + (this.getMonth() + 1));
+  str = str.replace(/dd|DD/, this.getDate() > 9 ? this.getDate().toString() : '0' + this.getDate());
+  return str;
+} 
+
+export default class EightrandomNewPage extends Component {
 
   constructor(porp) {
         var curday = new Date();
@@ -24,28 +23,21 @@ class EightrandomNewPage extends React.Component {
         this.state= {
             switchstate:true,
             selectedValue: '男',
-            datepicker:"",
+          datepicker: curday.toString(),
             switchtype:true,
             datatype:"公历",
             switchleap:false,
             leaptype:"常年",
             Tip: "",
-            value:curday
+          value: curday.format("yyyy-MM-dd"),
+          valuetime:0
     }
    
   }
 
-
-  static navigationOptions = ({navigation})=>{
-    const { navigate } = navigation;
-    //headerRight:(<Button title="返回" />),
-    return{
-      
-    title: '八字格局',
-    }
-    
-  };
-
+  config = {
+    navigationBarTitleText: '八字格局'
+  }
 
   onSelect(index, value){
     this.setState({
@@ -71,119 +63,115 @@ class EightrandomNewPage extends React.Component {
     }
 
     leapmonth(){
-        if(false==this.state.switchtype)
+      const { switchleap } = this.state
+      const { leaptype } = this.state
+      const { switchtype } = this.state
+      if (false == switchtype)
         {
             return(
+
+              <AtForm>
+                <AtSwitch title={leaptype} checked={("常年" == switchleap) ? true : false} onChange={(value) => {this.setState({ switchleap: value, leaptype: value == false ? "常年" : "闰月" })
+                } }/>
+              </AtForm>
+            )
               
-                    <List.Item
-                    extra={
-                      <Switch
-                        checked={this.state.switchleap}
-                        onChange={(value) =>this.setState({switchleap:value,leaptype:value==false?"常年":"闰月"})}
-                      />
-                    }
-                    >{this.state.leaptype}
-                    </List.Item>
-                  )
         }
         
 
     }
 
-    onChange = (value: any) => {
-        console.log(value);
-        this.setState({ value });
-        var selecttime = new Date(value)
-        this.setState({datepicker:selecttime})
+    onChange(dd,tt){
+      
+      if(""!=tt)
+      {
+        tt = tt.toString()
+        tt = tt.split(":")
+        var selecttime = new Date(this.state.datepicker)
+        selecttime.setHours(tt[0]);
+        console.log(dd,"tt", tt, selecttime, this.state.datepicker);
+        this.setState({ datepicker: selecttime.toString() })
       }
+      else if ("" != dd) {
+        var selectdd = new Date(dd)
+        var selecttime = new Date(this.state.datepicker)
+        selectdd.setHours(selecttime.getHours())
+        console.log("dd",dd, tt, selectdd, this.state.datepicker);
+        this.setState({ datepicker: selectdd.toString() })
+      }
+      
+      
+      }
+  onDateChange = e => {
+    this.setState({
+      value: e.detail.value
+    })
+    this.onChange(e.detail.value,"")
+  }
+
+  onTimeChange = e => {
+    this.setState({
+      valuetime: e.detail.value
+    })
+    this.onChange("", e.detail.value)
+  }
 
   render()
   {
-    const { navigate } = this.props.navigation;
 
     
   
     //alert(ValueTypeModule["emotion"])
     return (
-      <Provider>
-        <View style={styles.container}>
-        
-            
+
+        <View>
             <View > 
-                
-            <List style={styles.inputpicker}>
-            <InputItem
-            clear
-            //error
-            onErrorPress={() => alert('clicked me')}
+          <AtForm>
+            <AtInput
+            title='输入名字'
             value={this.state.Tip}
             onChange={(value: any) => {
               this.setState({Tip:value});
             }}
-            extra="输入名字"
             placeholder="陈长生"
-          >
-          姓名:
-          </InputItem>
-          <WhiteSpace size="xl" />
-          <DatePicker
-            backgroundColor='#ff00ff'
-            value={this.state.value}
-            mode="datetime"
-            minDate={new Date(1950, 1, 1)}
-            //maxDate={new Date(2026, 11, 3)}
-            onChange={this.onChange}
-            format="YYYY-MM-DD-HH"
-          >
-            <List.Item arrow="horizontal">生辰:</List.Item>
-          </DatePicker>
-          <WhiteSpace size="xl" />
-          <List.Item
-            extra={
-              <Switch
-                checked={this.state.switchstate}
-                onChange={(value) =>this.setState({switchstate: value,selectedValue:false==value?"女":"男"})}
-              />
-            }
-          >{this.state.selectedValue}
-          </List.Item>
-          <WhiteSpace size="xl" />
-          <List.Item
-            extra={
-              <Switch
-                checked={this.state.switchtype}
-                onChange={(value) =>this.setState({switchtype:value,datatype:value==false?"农历":"公历"})}
-              />
-            }
-          >{this.state.datatype}
-          </List.Item>
-          <WhiteSpace size="xl" />
-          {this.leapmonth()}
-        </List>
-                
+          ></AtInput>
+            <View className='panel__title'>
+
             </View>
-            
-            <View style={styles.inputbutton}>
-            <Button
-                onPress={()=>this.bazipaipan()}
-                title="八字排盘"
-        
-            />
-</View>
+              <Picker mode='date' onChange={this.onDateChange}>
+                <View className='demo-list-item'>
+                <View className='demo-list-item__label'>请选择时间</View>
+                    <View className='demo-list-item__value'>{this.state.value}</View>
+                </View>
+                
+                </Picker>
 
+            <View className='panel__title'>
+
+                    <View>
+
+                <Picker mode='time' onChange={this.onTimeChange}>
+                <View className='demo-list-item'>
+                <View className='demo-list-item__label'>请选择时间</View>
+                    <View className='demo-list-item__value'>{this.state.valuetime}</View>
+                    </View>
+                </Picker>
+            </View>
+          </View>
 
             
-            <TabNavigator tabBarStyle={[{height:ScreenConfig.getTabBarHeight()}]}>
-                            <TabNavigator.Item
-                                  title={RouteConfig["EightrandomHistoryPage"].name}
-                                  renderIcon={() => RouteConfig["EightrandomHistoryPage"].icon}
-                                  onPress={() => navigate(RouteConfig["EightrandomHistoryPage"].route) }  
-                                  titleStyle={StyleConfig.menufont}>  
-                              </TabNavigator.Item>  
-                          </TabNavigator>  
+              <AtSwitch title={this.state.selectedValue} checked={"男" == this.state.selectedValue ? true : false} onChange={(value) => this.setState({ switchstate: value, selectedValue: false == value ? "女" : "男" }) } />
+            <AtSwitch title={this.state.datatype} checked={"公历" == this.state.datatype ? true : false} onChange={(value)=> this.setState({ switchtype: value, datatype: value == false ? "农历" : "公历" })} />
             
-        </View> 
-        </Provider>
+
+          {this.leapmonth()}
+           </AtForm>
+            </View>
+            <View>
+          <AtButton onClick={()=>this.bazipaipan()} type='secondary'>八字测评</AtButton>
+</View> 
+</View> 
+
             )
     }
     bazipaipan()
@@ -235,79 +223,10 @@ class EightrandomNewPage extends React.Component {
       savedate[4]=myDate.getFullYear()+"/"+(myDate.getMonth()+1)+"/"+myDate.getDate()+" "+myDate.getHours();
       console.log(savedate[3])
       var parameter = "?EightDate="+savedate[1] + "&sex=" + savedate[2] + "&birth=" + savedate[4]
-      StorageModule.save({key:"name",id:index,data:savedate})
-      StorageModule.save({key:"lastname",data:savedate})
-      this.props.navigation.navigate('EightrandomMainPage',parameter)
+      //StorageModule.save({key:"name",id:index,data:savedate})
+      //StorageModule.save({key:"lastname",data:savedate})
+      console.log("EightrandomMainPage"+parameter)
+      Taro.navigateTo({ url: 'EightrandomMainPage'+parameter})
     }
-  begin(pagename)
-    {
-      const resetAction = NavigationActions.reset({
-          index: 0,
-          actions: [
-              NavigationActions.navigate({ routeName: pagename}),
-          ]
-        })
-        this.props.navigation.dispatch(resetAction)
-    }
+
 }
-
-var styles = StyleSheet.create ({
-
-  input:{
-    width:240,
-    height:35,
-    borderWidth:1,
-    //marginLeft: 5,
-    //paddingLeft:5,
-    borderColor: '#ccc',
-    borderRadius: 4,
-    //fontSize:15,
-    alignItems:'center',
-    justifyContent: 'center', //虽然样式中设置了 justifyContent: 'center'，但无效  
-  },
-  menufont:{
-    fontSize:15,
-    color: '#333333', 
-    height:25
-  },
-  container: {
-    flex:1,
-    backgroundColor: 'white',
-  },
-  inputname: {
-    //justifyContent: 'center', //虽然样式中设置了 justifyContent: 'center'，但无效 
-    alignItems:'center',
-    justifyContent: 'space-between', //虽然样式中设置了 justifyContent: 'center'，但无效  
-    //justifyContent:'space-between',
-    flexDirection: 'row',
-    marginLeft: 30, 
-    marginRight: 30, 
-    marginTop: 50,
-  },
-  inputbutton: {
-    //justifyContent: 'center', //虽然样式中设置了 justifyContent: 'center'，但无效 
-    alignItems:'center',
-    justifyContent: 'center', //虽然样式中设置了 justifyContent: 'center'，但无效  
-    //justifyContent:'space-between',
-    flexDirection: 'row',
-    marginLeft: 30, 
-    marginRight: 30, 
-    marginTop: 50,
-  },
-  inputpicker: {
-
-    marginLeft: 15, 
-    marginRight: 15, 
-    marginTop: 50,
-  },
-  buttonstyle:{
-    justifyContent: 'space-between', //虽然样式中设置了 justifyContent: 'center'，但无效  
-    alignItems:'baseline',
-  },
-  bottonstylewithfont:{
-    //justifyContent: 'space-between', //虽然样式中设置了 justifyContent: 'center'，但无效  
-    alignItems:'baseline',
-    fontSize:18
-  }
-});
-module.exports=EightrandomNewPage;  

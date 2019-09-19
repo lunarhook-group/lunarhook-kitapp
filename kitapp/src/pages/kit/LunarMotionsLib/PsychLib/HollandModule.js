@@ -1,15 +1,8 @@
-
-var Dimensions = require('Dimensions');
-import React, {Component} from 'react';
-import {StyleSheet,View,RefreshControl,Alert,Text,FlatList,ScrollView,CameraRoll} from 'react-native';
-import { Grid, Accordion, WhiteSpace, WingBlank ,List} from '@ant-design/react-native';
-import { CheckBox,Button } from 'react-native-elements'
-import TabNavigator from 'react-native-tab-navigator';  
-import { captureRef } from "react-native-view-shot";
-import ScreenConfig from '../../../config/ScreenConfig';
-import StyleConfig from '../../../config/StyleConfig';
-import WechatShare from '../../../config/WechatShare'
-import { array } from 'prop-types';
+import Taro, { Component } from '@tarojs/taro'
+import { StyleSheet, View, PixelRatio, Alert, Text, FlatList, ScrollView, CameraRoll } from '@tarojs/components'
+import { AtToast, AtGrid, AtTabBar, AtCheckbox, AtRadio, AtButton, AtDivider, AtIcon } from 'taro-ui'
+import './HollandModule.scss'
+import '../../../../theme.scss'
 var Hollands=Array();
 Hollands[1]={
   "key":"1",
@@ -792,7 +785,7 @@ Hollands[60]={
   "sel":"",
 }
 
-Hollandresultinfo=
+var Hollandresultinfo=
 [
 "Holland主要指标解释","",
 "R 现实型 工人，工程师，技术人员","",
@@ -802,7 +795,7 @@ Hollandresultinfo=
 "E 企业家 推销员，政治家，企业家","",
 "C 传统型 出纳，会计，秘书","",
 ]
-Hollandresulttable = new Array();
+var Hollandresulttable = new Array();
 Hollandresulttable["R"]="R 现实，具有顺从、坦率、谦虚、自然、坚毅、实际、有礼、害羞、稳健、节俭的特征，表现为\r1、喜爱实用性的职业或情境，以从事所喜好的活动，避免社会性的职业或情境\r2、用具体实际的能力解决工作及其他方面的问题，较缺乏人际关系方面的能力。\r3、重视具体的事物，如金钱，权力、地位等。\r"
 Hollandresulttable["I"]="I 研究，具有分析、谨慎、批评、好奇、独立、聪明、内向、条理、谦逊、精确、理发、保守的特征，表现为\r1、喜爱研究性的职业或情境，避免企业性的职业或情境\r2、用研究的能力解决工作及其他方面的问题，即自觉、好学、自信，重视科学，但缺乏领导方面的才能。\r"
 Hollandresulttable["A"]="S 社会，具有复杂、想象、冲动、独立、直觉、无秩序、情绪化、理想化、不顺从、有创意、富有表情、不重实际的特征，表现为\r1、喜爱艺术性的职业或情境，避免传统性的职业或情境\r2、富有表达能力和直觉、独立、具创意、不顺从（包括表演、写作、语言），并重视审美的领域。\r"
@@ -810,7 +803,7 @@ Hollandresulttable["S"]="A 艺术，具有合作、友善、慷慨、助人、�
 Hollandresulttable["E"]="E 企业，具有冒险、野心、独断、冲动、乐观、自信、追求享受、精力充沛、善于社交、获取注意、知名度等特征，表现为\r1、喜欢企业性质的的职业或环境，避免研究性质的职业或情境，会以企业方面的能力解决工作或其他方面的问题能力\r2、有冲动、自信、善社交、知名度高、有领导与语言能力，缺乏科学能力，但重视政治与经济上的成就。\r"
 Hollandresulttable["C"]="C 传统，具有顺从、谨慎、保守、自控、服从、规律、坚毅、实际稳重、有效率、但缺乏想象力等特征，表现为\r1、喜欢传统性质的的职业或环境，避免艺术性质的职业或情境，会以传统的能力解决工作或其他方面的问题\r2、喜欢顺从、规律、有文书与数字能力，并重视商业与经济上的成就。\r"
 
-Hollandcareer = new Array()
+var Hollandcareer = new Array()
 Hollandcareer["RIA"]="牙科技术员、陶工、 建筑设计员、模型工、细木工、制作链条人员。"
 Hollandcareer["RIS"]="厨师、林务员、跳水员、潜水员、染色员、电器修理、眼镜制作、电工、纺织机器装配工、服务员、装玻璃工人、发电厂工人、焊接工。"
 Hollandcareer["RIE"]="建筑和桥梁工程、环境工程、航空工程、公路工程、电力工程、信号工程、电话工程、一般机械工程、自动工程、矿业工程、海洋工程、交通工程技术人员、制图员、家政经济人员、计量员、农民、农场工人、农业机械操作、清洁工、无线电修理、汽车修理、手表修理、管工、线路装配工、工具仓库管理员。 "
@@ -884,25 +877,27 @@ Hollandcareer["SIE"]="营养学家、饮食学家、海关检查员、安全检�
 Hollandcareer["SIC"]="描图员、兽医助手、诊所助理、体检检查员、娱乐指导者、监督缓刑犯的工作者、咨询人员、社会科学教师。"
 Hollandcareer["SIR"]="理疗员、救护队工作人员、手足病医生、职业病治疗助手。"
 
-
-class HollandModule extends React.Component {
+const limitquestHolland = 31
+export default class HollandModule extends Component {
    constructor(props) {
     super(props);
+     this.state = {
+       closetest: false,
+       checked: [],
+       Hollands: [],
+       ret: [],
+       percent: "",
+       extrainfo: [],
+       detailinfo: [],
+       showtip:false,
+     }
     this.randominit()
   
   }
 
   randominit()
   {
-    this.state={
-      closetest:false,
-      checked:[],
-      Hollands:[],
-      ret:"",
-      percent:"",
-      extrainfo:"",
-      detailinfo:"",
-    }
+    this.clear()
     
   }
   clear()
@@ -911,7 +906,7 @@ class HollandModule extends React.Component {
     ret["c"]=ret["r"]=ret["i"]=ret["e"]=ret["s"]=ret["a"]=ret[""]=0
     var hollandrandom = new Array();
     var runtimeHollands = Hollands.concat()
-    while(runtimeHollands.length>0)
+    while (runtimeHollands.length > limitquestHolland)
     {
       var p = parseInt(Math.random()*runtimeHollands.length)
       if(undefined!=runtimeHollands[p])
@@ -920,7 +915,7 @@ class HollandModule extends React.Component {
     }
     //console.log(hollandrandom)
     var checked = new Array();
-    for(i=0;i<hollandrandom.length;i++)
+    for(var i=0;i<hollandrandom.length;i++)
     {
       checked[i]=""
       hollandrandom[i].index=i
@@ -930,50 +925,44 @@ class HollandModule extends React.Component {
     this.setState ({
       checked:checked,
       Hollands:hollandrandom,
-      ret:"",
+      ret:[],
       percent:"",
-      extrainfo:"",
-      detailinfo:"",
+      extrainfo:[],
+      detailinfo:[],
       closetest:false,
+      showtip: false
     })
 
   }
+
+
+  componentWillMount() { }
+
+  componentDidMount() { }
+
+  componentWillUnmount() { }
+
+  componentDidShow() { }
+
+  componentDidHide() { }
+
   check(){
-    if(__DEV__)
-    {return true}
-    for(i=0;i<Hollands.length;i++)
+    for (var i = 0; i < limitquestHolland;i++)
     {
       if(this.state.checked[i]=="")
       {
-        alert("请检查题目："+(i+1))
+        this.setState({ showtip: true })
         return false;
       }
     }
   }
-    
-  componentDidMount()
-  {
-    const action = this.props.navigation.getParam('action', 'action');
-    if(action=='new')
-    {
-      //this.props.navigation.setParams({action:''});
-      //this.randominit()
-      // console.log('refresh',action)
-    }
-    this.clear()
-    //this.props.navigation.setParams({fresh:this.clear})
+
+
+  config = {
+    navigationBarTitleText: '霍兰德测试小程序版'
   }
-  
 
-  static navigationOptions = ({navigation})=>{
-    const { navigate } = navigation;
-    return{
-      
-    title: RouteConfig["HollandModule"].name,
-    }
-  };
-
-  updateIndex(key,sel)
+  updateIndex(sel,key)
   {
     if(false==this.state.closetest)
     {
@@ -984,39 +973,22 @@ class HollandModule extends React.Component {
       }
       this.state.checked[Number(key)]=sel
       this.setState({ checked: this.state.checked });
-      for(i=0;i<Hollands.length;i++)
-      {
-        //console.log(Hollands[i].sel)
-      }
     }
 
   }
-  checkrender_C(item)
-  {
-    if(""!=item.ret_c)
-    {return(
-      <CheckBox containerStyle={styles.CheckBox} title = {"C"} checked={this.state.checked[Number(item.key)]==item.ret_c}  onPress={()=>this.updateIndex(item.key,item.ret_c)}/>
-    )}
-    return null
-  }
-  checkrender_D(item)
-  {
-    if(""!=item.ret_d)
-    {return(
-      <CheckBox containerStyle={styles.CheckBox} title = {"D"} checked={this.state.checked[Number(item.key)]==item.ret_d}  onPress={()=>this.updateIndex(item.key,item.ret_d)}/>
-    )}
-    return null
-  }
+  
   result()
   {
+    
     if(false==this.check())
     {
       return
     }
+    
     var testHollands = this.state.Hollands
     var ret = new Array();
     ret["r"]=ret["i"]=ret["a"]=ret["s"]=ret["e"]=ret["c"]=0
-    for(i=0;i<testHollands.length;i++)
+    for(var i=0;i<testHollands.length;i++)
     {
       var _p = testHollands[i].sel;
       if(''!=_p)
@@ -1025,11 +997,11 @@ class HollandModule extends React.Component {
     }
     var lit1 = "";
     var detailinfo = new Array()
-    for(x=0;x<3;x++)
+    for(var x=0;x<3;x++)
     {
       var max = 0
       var maxlit = ""
-      for(j in ret) {
+      for(var j in ret) {
         if(ret[j]>=max)
         {
           max = ret[j]
@@ -1058,164 +1030,71 @@ class HollandModule extends React.Component {
 
 
 
-  renderItem(item) {
-    return (
-      <View>
-        <Text key={item.item} style={styles.list}>{item.item}</Text>
-        </View>
-    );
-  }
-
-  switchbar()
-  {
-    const { navigate } = this.props.navigation;
-    console.log("swithchbar",this.state.ret)
-    if(this.state.ret!="")
-    
-    {
-      return(
-        <TabNavigator  tabBarStyle={[{height:ScreenConfig.getTabBarHeight()}]}>
-             <TabNavigator.Item
-                                  title={RouteConfig["RefreshImage"].name}
-                                  renderIcon={() => RouteConfig["RefreshImage"].icon}
-                                  onPress={()=>this.clear()}  
-                                  titleStyle={StyleConfig.menufont}>  
-                              </TabNavigator.Item>  
-        <TabNavigator.Item
-              title={RouteConfig["ScreenImage"].name}
-              renderIcon={() => RouteConfig["ScreenImage"].icon} 
-              onPress={() => {this.setState({shareimg:true}),WechatShare.snapshot(this.refs['Hollandlocation'], "霍兰德职业性格测试结果",this)}}                
-              titleStyle={StyleConfig.menufont}>  
-          </TabNavigator.Item>  
-      </TabNavigator>   
-      )
-    }
-    else
-    {
-      return(
-        <TabNavigator  tabBarStyle={[{height:ScreenConfig.getTabBarHeight()}]}>
-        <TabNavigator.Item
-              title={RouteConfig["PsychTestPage"].name}
-              renderIcon={() => RouteConfig["PsychTestPage"].icon} 
-              onPress={()=>this.result()}  
-              titleStyle={StyleConfig.menufont}>  
-          </TabNavigator.Item>  
-      </TabNavigator>   
-      )
-    }
-  }
-
-
-
-
-  keyExtractor = (item, index) => index.toString();
   render()
   {
-    var sqr = 0
+    const { Hollands } = this.state;
+    const content = Hollands.map((item) => {
+      //console.log(this.state.checked[Number(item.key)],item.key)
+      return (
 
+        <View key={item.id}>
+          <View className={'question'}><Text >第{item.index + 1}题：{item.q}</Text></View>
+
+          <AtRadio options={[{ label: item.a, value: item.ret_a }, { label: item.b, value: item.ret_b }]}
+            value={this.state.checked[Number(item.key)]}
+            onClick={(value) => this.updateIndex(value, item.key)} />
+
+        </View>)
+    })
+
+  const { extrainfo } = this.state;
+  const content1 = extrainfo.map((item) => {
+    console.log(item.item)
     return (
-      <View style={styles.container}>
-      <ScrollView style={[styles.ScrollView,{backgroundColor:'#ffffff'}]} ref='Hollandlocation'>
-      <View style={styles.container} >
-      <Text style={styles.list}></Text>
-      <Text style={styles.list}></Text>
-      <Text style={[{textAlign:'center',alignItems: 'center'}]}>{RouteConfig["HollandModule"].name}</Text>
-      <FlatList
+      <View key={item.index}>
+        <Text  >{item}</Text>
+      </View>)
+  })
+  const { detailinfo } = this.state;
+  const content2 = detailinfo.map((item) => {
+    console.log(item)
+    return (
+      <View key={item.index}>
+        <Text  >{item}</Text>
+      </View>)
+  })
 
-            data={this.state.Hollands}
-            extraData={this.state}
-            keyExtractor={this.keyExtractor}
-						renderItem={({ item }) => (
-              <View id={item.id}>
-              <Text style={styles.list}></Text>
-              <Text style={styles.list}>第{item.index+1}题:{item.q}</Text>
-              <Text style={styles.list}>{item.a}</Text>
-              <Text style={styles.list}>{item.b}</Text>
-              <View style = {styles.dateContainer}>
-              <CheckBox containerStyle={styles.CheckBox} title = {"A"} checked={this.state.checked[Number(item.key)]==item.ret_a}  onPress={()=>this.updateIndex(Number(item.key),item.ret_a)}/>
-              <CheckBox containerStyle={styles.CheckBox} title = {"B"} checked={this.state.checked[Number(item.key)]==item.ret_b}  onPress={()=>this.updateIndex(Number(item.key),item.ret_b)}/>
-              {this.checkrender_C(item)}
-              {this.checkrender_D(item)}         
-              </View>
-              <Text></Text>
-              </View>
-            )}
-        />
-        
-        
-        <View>
-        <Text style={styles.list}></Text>
-        <Text style={styles.list}>{this.state.ret}</Text>
-        <Text style={styles.list}></Text>
-        {/*}
-        <Text style={styles.list}></Text>
-        <Text style={styles.list}></Text>
-        <Text style={styles.list}>{this.state.percent}</Text>
-        <Text style={styles.list}></Text>
-        {*/}
-        <FlatList  
-              data={this.state.extrainfo}
-              keyExtractor={this.keyExtractor}
-              renderItem={this.renderItem}
-              />
-              <Text style={styles.list}></Text>
-        <Text style={styles.list}></Text>
-        <FlatList  
-              data={this.state.detailinfo}
-              keyExtractor={this.keyExtractor}
-              renderItem={this.renderItem}
-              />
-              </View>
-              <WhiteSpace size="xl" />
-            {
-             (WechatShare.shareimg(this.state.shareimg))
-            }
-            
-            <WhiteSpace size="xl" />
-            <WhiteSpace size="xl" />
-            <WhiteSpace size="xl" />
-            <WhiteSpace size="xl" />
-            <WhiteSpace size="xl" />
+
+  
+    return (
+      <View >
+        <ScrollView >
+          <View  >
+            <AtToast isOpened={this.state.showtip} text="请先完成题目" icon="alert-circle" onClose={() => this.setState({ showtip: false })}></AtToast>
+            <View className={'title'}>
+              <Text >Holland</Text>
             </View>
+
+            {content}
+
+            <View className={'result'}>
+
+              {content1}
+              {this.state.ret}
+              {content2}
+            </View>
+            <AtDivider>
+              <AtIcon fontColor='#2d8cf0' lineColor='#2d8cf0' value='check-circle'></AtIcon>
+            </AtDivider>
+            <AtButton type='primary' circle={true} onClick={(value) => this.result()}>提交结果</AtButton>
+            <AtDivider>
+              <AtIcon fontColor='#2d8cf0' lineColor='#2d8cf0' value='reload'></AtIcon>
+            </AtDivider>
+            <AtButton type='primary' circle={true} onClick={(value) => this.clear()}>随机重测</AtButton>
+          </View>
         </ScrollView>
-        {this.switchbar()}
-        </View>
+      </View>
 		)
   }
 
 }  
-var styles = StyleSheet.create ({
-  container: {
-    flex:1,
-    backgroundColor:'#ffffff'
-  },
-  CheckBox:{
-    borderColor:'#ffffff',
-    backgroundColor:'#ffffff'
-  },
-  dateContainer: {
-    justifyContent:'space-around',
-    flexDirection: 'row',
-    
-  },
-  ScrollView:{
-    backgroundColor:'#fafafa'
-  },
-  list:{
-    marginLeft: 15,
-    paddingLeft:15,
-    borderRadius: 4,
-    marginRight: 15,
-    paddingRight:15,
-    justifyContent: 'center', //虽然样式中设置了 justifyContent: 'center'，但无效 
-    flexWrap:'wrap',
-    alignItems: 'flex-start',
-  },
-  menufont:{
-    fontSize:15,
-    color: '#333333', 
-    height:ScreenConfig.getFontheight()
-  },
-})
-
-module.exports=HollandModule;  

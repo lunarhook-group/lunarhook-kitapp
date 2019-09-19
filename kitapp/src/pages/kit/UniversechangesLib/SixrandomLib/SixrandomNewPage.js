@@ -1,117 +1,92 @@
-
-var Dimensions = require('Dimensions');
-import React, {Component} from 'react';
-import {TextInput,StyleSheet,Keyboard,View, ScrollView, Button,Text,FlatList,Vibration} from 'react-native';
-import TabNavigator from 'react-native-tab-navigator';  
-import { NavigationActions } from 'react-navigation'
-import { TextareaItem,PickerView } from '@ant-design/react-native';
-import RNShake from 'react-native-shake';
-
-import StorageModule from '../../../config/StorageModule'
+import Taro, { Component } from '@tarojs/taro'
+import { View, Text, Image, Button, ScrollView, Picker } from '@tarojs/components'
+import { AtButton, AtDivider, AtTabBar, AtGrid, AtForm, AtSwitch, AtList, AtListItem, AtCard } from 'taro-ui'
+import SixrandomModule from 'SixrandomModule'
 import ValueTypeModule from '../../../config/ValueTypeModule'
-import SixrandomModule from '../SixrandomLib/SixrandomModule'
-import ScreenConfig from '../../../config/ScreenConfig';
-import StyleConfig from '../../../config/StyleConfig';
+import './SixrandomNewPage.scss'
+import '../../../../theme.scss'
 
 var randArray = []
 
-const dataitem = [
-  [
-    {label: ValueTypeModule["emotion"],value: 0,},
-    {label: ValueTypeModule["bussiness"],value: 1},
-    {label: ValueTypeModule["lucky"],value: 2,},
-    {label: ValueTypeModule["sued"],value: 3,},
-    {label:ValueTypeModule["health"],value: 4},
-    {label: ValueTypeModule["finance"],value: 5,},
-    {label: ValueTypeModule["find"],value: 6,},
-  ],
-];
 
-class SixrandomNewPage extends React.Component {
 
+
+
+class SixrandomNewPage extends Component {
+  
   constructor(porp) {
     
         super(porp);
         this.state= {
+          selector: [ValueTypeModule["emotion"],
+          ValueTypeModule["bussiness"], ValueTypeModule["lucky"], ValueTypeModule["sued"], ValueTypeModule["health"], ValueTypeModule["finance"], ValueTypeModule["find"]],
+          selectorChecked: ValueTypeModule["emotion"],
            data: [],
             selectedValue: 'emotion',
             selvalue:0,
             Step: 7,
             Tip: ""
     }
+    console.log("state",ValueTypeModule["emotion"])
   }
 
-  static navigationOptions = ({navigation})=>{
-    const { navigate } = navigation;
-    return{
-      
-    title: '六爻问卦',
-    }
-    
-  };
+  config = {
+    navigationBarTitleText: '六爻问卦'
+  }
 
   componentWillMount() {
-    RNShake.addEventListener('ShakeEvent', () => {
-      
-      this.random()
-    });
+
   }
 
   componentWillUnmount() {
-    RNShake.removeEventListener('ShakeEvent');
+
   }
-  keyExtractor = (item,index) => index.toString()
-  renderItem(item) {
-    return (
-      <View style={styles.list}>
-        <Text style={styles.rowhigth}>{item.item}</Text>
-      </View>
-    );
-  }
+
+    onChange = e => {
+      this.setState({
+        selectorChecked: this.state.selector[e.detail.value]
+      })
+    }
   render()
   {
-    console.log(this.state.data)
-    const { navigate } = this.props.navigation;
-    //alert(ValueTypeModule["emotion"])
+    const {data} = this.state
     return (
-      <View style={styles.container}>
+      <View className='contain'>
         <ScrollView>
-          <Text></Text>
-          <TextareaItem style={styles.input} placeholder="简单记录您的问题，摇晃或者点击即可出爻，六次成卦" rows={2} count={140} onChangeText={(text) => this.setState({ Tip: text })} />
-          <Text></Text>
-          <PickerView
-            data={dataitem}
-            value={this.state.selvalue}
-            onChange={(value) => this.picker(value)}
-            cascade={false}
-          >
-          </PickerView>
-          <View style={styles.inputbutton}>
-            <Button title="出爻" onPress={() => this.random()} />
+          
+          <Text>{" "}</Text>
+
+          <Text className='list'>{"点击改选"}</Text>
+          <Text>{" "}</Text>
+          <Picker mode='selector' range={this.state.selector} onChange={this.onChange}>
+            <View className='list'>
+              当前选择：{this.state.selectorChecked}
+            </View>
+          </Picker>
+
+          <View className='button'>
+            <Button type='secondary' onClick={() => this.random()}>出爻</Button>
           </View>
-          <FlatList
-            data={this.state.data}
-            extraData={this.state}
-            keyExtractor={this.keyExtractor}
-            //enableEmptySections = {true}
-            renderItem={this.renderItem}
-          />
+          <AtList>
+            {data.map((item, itemIndex) => {
+              console.log(item)
+              return (
+                <View className='list' key={itemIndex.id}>
+                  <Text>{item}</Text>
+                </View>
+              )
+            })}
+          </AtList>
+
         </ScrollView>
-        <TabNavigator tabBarStyle={[{ height: ScreenConfig.getTabBarHeight() }]}>
-          <TabNavigator.Item
-            title={RouteConfig["SixrandomHistoryPage"].name}
-            renderIcon={() => RouteConfig["SixrandomHistoryPage"].icon}
-            onPress={() => navigate(RouteConfig["SixrandomHistoryPage"].route)}
-            titleStyle={StyleConfig.menufont}>
-          </TabNavigator.Item>
-        </TabNavigator>
       </View>
     )
     }
   random() {
-    Vibration.vibrate();
+
     if (this.state.Step > 0) {
-      var t = t0 = t1 = t2 = 0
+      var t ,t0 , t1 , t2 
+      t=t0=t1= t2 =0
       t0 = Math.random(1) >= 0.5 ? 1 : 0
       t1 = Math.random(1) >= 0.5 ? 1 : 0
       t2 = Math.random(1) >= 0.5 ? 1 : 0
@@ -148,13 +123,10 @@ class SixrandomNewPage extends React.Component {
       var index = (new Date()).valueOf().toString();
       randArray[7] = index;
       randArray[8] = this.state.Tip
-      //StorageModule.save({key:"last",data:randArray})
-      //StorageModule.save({key:"user",id:index,data:randArray})
-      this.props.navigation.state.params = randArray
-      //alert(this.props.navigation.state.params)
+
       var date = new Date(Number(randArray[7]))
       var lunar = ""
-      for (i =1;i<7;i++)
+      for (var i =1;i<7;i++)
       {
         lunar = lunar+(randArray[i]).toString()
       }
@@ -168,11 +140,8 @@ class SixrandomNewPage extends React.Component {
       obj.question = ValueTypeModule[question]
       var parameter = "?date="+(new Date(Number(randArray[7])))+"&lunar="+lunar+"&question="+ obj.question
       var Jstr = JSON.stringify(obj)
-      console.log("convertJsonSave",Jstr);
-      StorageModule.save({key:"sixrandom",id:index,data:Jstr})
-      StorageModule.save({key:"sixrandomlast",data:Jstr})
-      RNShake.removeEventListener('ShakeEvent');//强制卸载监听
-      this.props.navigation.navigate('SixrandomMainPage',parameter)
+      console.log("convertJsonSave", parameter);
+      Taro.navigateTo({ url: 'SixrandomFullInfoPage' + parameter })
       //this.begin('SixrandomMainPage')
       this.picker(0)
     }
@@ -188,62 +157,7 @@ class SixrandomNewPage extends React.Component {
     this.setState({data: []})
    // this.flatlist.refresh()
   }
-  begin(pagename)
-    {
-      const resetAction = NavigationActions.reset({
-          index: 0,
-          actions: [
-              NavigationActions.navigate({ routeName: pagename}),
-          ]
-        })
-        this.props.navigation.dispatch(resetAction)
-    }
+
 }
 
-var styles = StyleSheet.create ({
-  containerlist:{
-     textAlign:'center',     
-   justifyContent: 'center', //虽然样式中设置了 justifyContent: 'center'，但无效  
-   alignItems: 'center',
-   lineHeight:45,     //行高  
-    
-  },
-  inputbutton: {
-    //justifyContent: 'center', //虽然样式中设置了 justifyContent: 'center'，但无效 
-    alignItems:'center',
-    justifyContent: 'center', //虽然样式中设置了 justifyContent: 'center'，但无效  
-    //justifyContent:'space-between',
-    flexDirection: 'row',
-    marginLeft: 30, 
-    marginRight: 30, 
-    marginTop: 50,
-  },
-  rowhigth:{
-    textAlign:'center',     
-    justifyContent: 'center', //虽然样式中设置了 justifyContent: 'center'，但无效  
-    alignItems: 'center',
-    lineHeight:25,
-  },
-  input:{
-    borderRadius: 4,
-    justifyContent: 'center', //虽然样式中设置了 justifyContent: 'center'，但无效 
-    textAlign:'center', 
-    textDecorationLine:'underline',
-    fontSize:11,
-  },
-  container: {
-    flex:1,
-  },
-  textline:{
-    textAlign:'center',     
-    justifyContent: 'center', //虽然样式中设置了 justifyContent: 'center'，但无效  
-    alignItems: 'center',
-    fontSize:18
-  },
-  list:{
-    textAlign:'center',     
-    justifyContent: 'center', //虽然样式中设置了 justifyContent: 'center'，但无效  
-    alignItems: 'center',
-  },
-});
 module.exports=SixrandomNewPage;  

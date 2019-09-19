@@ -3,7 +3,7 @@ import Taro, { Component } from '@tarojs/taro'
 import {StyleSheet,View,PixelRatio,Alert,Text,FlatList,ScrollView,CameraRoll} from '@tarojs/components'
 import { AtToast, AtGrid,AtTabBar ,AtCheckbox,AtRadio,AtButton,AtDivider,AtIcon} from 'taro-ui'
 import './MBTIModule.scss'
-
+import '../../../../theme.scss'
 var MBTIs=Array();
 MBTIs[0]={
   "key":"0",
@@ -1330,10 +1330,10 @@ resulttabledetail["INFP"]=[
   "INFP把内在的和谐视为高于其他一切。他们敏感、理想化、忠诚，对于个人价值具有一种强烈的荣誉感。他们个人信仰坚定，有为自认为有价值的事业献身的精神。 INFP型的人对于已知事物之外的可能性很感兴趣，精力集 中于他们的梦想和想象。他们思维开阔、有好奇心和洞察力，常常具有出色的长远眼光。在日常事务中，他们通常灵活多变、具有忍耐力和适应性，但是他们非常坚定地对待内心的忠诚，为自己设定了事实上几乎是不可能 的标准。 INFP型的人具有许多使他们忙碌的理想和忠诚。他们十分坚定地完成自己所选择的事情，他们往往承担得太多，但不管怎样总要完成每件事。虽然对外部世界他们显得冷淡缄默，但INFP型的人很关心内在。他们富 有同情心、理解力，对于别人的情感很敏感。除了他们的价值观受到威胁外，他们总是避免冲突，没有兴趣强迫或支配别人。INFP型的人常常喜欢通过书写而不是口头来表达自己的感情。当INFP型的人劝说别人相信他们的 想法的重要性时，可能是最有说服力的。 INFP很少显露强烈的感情，常常显得沉默而冷静。然而，一旦他们与你认识了，就会变得热情友好，但往往会避免浮浅的交往。他们珍视那些花费时间去思考目标与价值的人。","", 
   "您适合的领域有：创作性、艺术类 教育、研究、咨询类等","",
   ]
-const  limitquestMBTI=36
+const  limitquestMBTI=28
 export default class MBTIModule extends Taro.Component {
   config = {
-    navigationBarTitleText: '职业性格测试'
+    navigationBarTitleText: '职业性格测试小程序版'
   }
    constructor(props) {
     super(props);
@@ -1550,7 +1550,7 @@ export default class MBTIModule extends Taro.Component {
       <View  >
         <AtToast isOpened = {this.state.showtip} text="请先完成题目" icon="alert-circle" onClose={()=>this.setState({showtip:false})}></AtToast>
         <View className={'title'}> 
-        <Text >MBTI测试</Text>
+              <Text >MBTI</Text>
         </View>
      
         {content}
