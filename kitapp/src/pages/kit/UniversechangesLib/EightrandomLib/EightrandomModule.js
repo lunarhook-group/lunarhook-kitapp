@@ -1296,10 +1296,9 @@ twelfthposition["己戌"]=twelfthposition["庚辰"]=twelfthposition["辛丑"]=tw
                 if(mytime-last<=0)
                 {//回到上一年了
                     var lastyear = mybirth.getFullYear()-1
-                    var fullyears = 365
-                    if(this.isLeapYear(lastyear)) fullyears=366
-                    lastterm = this.getTerm(lastyear,23)
-                    last = last + fullyears - lastterm;
+                    var lastterm = this.getTerm(lastyear,23)
+                    last = last + 31 - lastterm;
+                    console.log("getbigluckyearbegintolastyear",lastterm,last)
                     break;
                 }
             }
