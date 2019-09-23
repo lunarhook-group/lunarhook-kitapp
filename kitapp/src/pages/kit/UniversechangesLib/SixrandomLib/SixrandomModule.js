@@ -3656,6 +3656,7 @@ get_six_original_random()
 获得当前农历信息
 */
 {
+	//console.log("lunar_f",cur)
     var r = undefined==cur?new Date():new Date(cur);
 	var w = r.getFullYear();
 	var u = r.getMonth() + 1;

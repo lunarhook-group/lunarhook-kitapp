@@ -135,7 +135,7 @@ export default class EightrandomMainPage extends Component {
 
   buildeight(parameter, gzDate, beginlucky) {
     var buildeight = new Array()
-    console.log("lunar_f", parameter.EightDate);
+    console.log("lunar_f",gzDate, beginlucky);
     buildeight[0] = EightrandomModule.parentday(parameter.EightDate[0], parameter.EightDate[4])
     buildeight[2] = EightrandomModule.parentday(parameter.EightDate[2], parameter.EightDate[4])
     buildeight[4] = "元"//this.parentday(parameter.EightDate[4],parameter.EightDate[4])
@@ -245,6 +245,7 @@ export default class EightrandomMainPage extends Component {
   }
   changeyear(bigyear, miniyear, beginlucky)
   {
+    console.log("changeyear",bigyear, miniyear, beginlucky)
     var by = 0
     var my = new Date()
     my = my.getFullYear()
@@ -259,13 +260,13 @@ export default class EightrandomMainPage extends Component {
     }
     else if(""!==miniyear)
     {
-      console.log("changeyearmini", bigyear, miniyear, beginlucky)
+      //console.log("changeyearmini", bigyear, miniyear, beginlucky)
       my = Number(miniyear)
       if(my>=beginlucky)
       {
         by = Math.floor((my-beginlucky)/10)
       }
-      console.log("curluckyearnum", by, my)
+      console.log("changeyearmini", by, my)
       this.setState({curluckyearnum:by,curminiluckyearnum:my})
     }
     //console.log("changeyear",bigyear,miniyear,by,my,this.state.beginlucky)
@@ -329,7 +330,7 @@ export default class EightrandomMainPage extends Component {
     }
     //这里是大运确定
     var curluckyear = this.state.luckyyear[Number(this.state.curluckyearnum)]
-    console.log("curluckyearnum", Number(this.state.curluckyearnum), curluckyear)
+    console.log("curluckyearnum1", Number(this.state.curluckyearnum), curluckyear)
     //这里小运，如果选了小运，用小运去换算大运
     var thisyear
     if(0==this.state.curminiluckyearnum)
@@ -338,7 +339,7 @@ export default class EightrandomMainPage extends Component {
     }
     else
     {
-      console.log("curminiluckyearnum",Number(this.state.curminiluckyearnum))
+      console.log("curminiluckyearnum2",Number(this.state.curminiluckyearnum))
       thisyear = new Date()//这里应该选小运的年份
       thisyear.setFullYear(this.state.curminiluckyearnum)
       //curluckyear 这里应该更新大运
@@ -531,19 +532,20 @@ export default class EightrandomMainPage extends Component {
                     columnNum={8}
                     hasLine={true}
                     //当选择大运的时候，相当于选择了流年小运
-                    onClick={(_el: any, index: any) => this.changeyear(Number(index%8),"")}
+                    onClick={(_el: any, index: any) => this.changeyear(Number(index%8),"",this.state.beginlucky)}
                    
                   />
 
                   <AtGrid
                     data={minluckyyear}
-                    columnNum={6}
+                    columnNum={8}
                     hasLine={true}
                     itemStyle={{ height: 35 }}
                     isCarousel = {true}
                     carouselMaxRow = {4}
                     //当选择大运的时候，相当于选择了流年小运
-                    //onPress={(_el: any, index: any) => this.changeyear("",Number(_el.split(" ")[1]))}
+                    onClick={(_el: any, index: any) => this.changeyear("",Number(_el.value.split(" ")[1]),this.state.beginlucky)}
+                    //onClick={(_el: any, index: any) => this.changeyear("",Number(index.split(" ")[1]),this.state.beginlucky)}
                     //renderItem={dataItem => this.renderminyearItem(dataItem)}
                   //isCarousel
                   //onClick={()}
