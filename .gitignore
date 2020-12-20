@@ -6,3 +6,10 @@ kitapp/dist/
 kitapp/yarn.lock
 *.lock
 kitapp/package-lock.json
+
+v3_kitapp/dist/
+v3_kitapp/deploy_versions/
+v3_kitapp/.temp/
+v3_kitapp/.rn_temp/
+v3_kitapp/node_modules/
+v3_kitapp/.DS_Store
