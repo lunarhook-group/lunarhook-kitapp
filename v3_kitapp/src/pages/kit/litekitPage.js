@@ -1,10 +1,10 @@
 
 import React, { Component } from 'react'
+import Taro from '@tarojs/taro'
 import { View, Text, Image, Button, ScrollView } from '@tarojs/components'
 import { AtAccordion, AtGrid, AtTabBar, AtIcon } from 'taro-ui'
 import './litekitPage.scss'
 import '../../theme.scss'
-import testimage from '../../assets/images/answer.png'
 var data1 =
   [
     {
@@ -46,7 +46,6 @@ var data2 =
         color: 'darkblue',
         value: 'moon-o'
       },
-      //image: testimage,
       value: '六爻测试'
     },
     {
@@ -76,7 +75,7 @@ export default class litekitPage extends Component {
   componentDidShow() {
     //this.setState({current:1})
   }
-  /*
+  
     handleClick (value) {
       this.setState({current:value})
       if(2==value)
@@ -89,6 +88,7 @@ export default class litekitPage extends Component {
       }
      
     }
+    /*
     GridHander(item, index)
     {
       if("职业性格测试"==item.value)
@@ -154,7 +154,7 @@ export default class litekitPage extends Component {
             { title: '鹿鸣测评', iconType: 'list' },
             { title: '我的', iconType: 'tag' }
           ]}
-          //onClick={this.handleClick.bind(this)}
+          onClick={this.handleClick.bind(this)}
           current={1}
         />
       </View>
