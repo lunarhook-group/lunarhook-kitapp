@@ -3,7 +3,7 @@ import './app.scss'
 import './icon.scss'
 import { Provider } from 'react-redux'
 import { createStore, combineReducers } from 'redux';
-//import './pages/kit/litekitPage'
+//https://blog.csdn.net/baidu_39067385/article/details/111411634
 const reducers = combineReducers({
   thread: (state = {}, action) => {
     if (action.type === 'SET_CURRENT_THREAD') {
