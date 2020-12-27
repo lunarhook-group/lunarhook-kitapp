@@ -2,8 +2,9 @@
 import React, { Component } from 'react'
 import { View, Text, Image, Button, ScrollView } from '@tarojs/components'
 import { AtAccordion, AtGrid, AtTabBar, AtIcon } from 'taro-ui'
-//import './litekitPage.scss'
-//import '../../theme.scss'
+import './litekitPage.scss'
+import '../../theme.scss'
+import testimage from '../../assets/images/answer.png'
 var data1 =
   [
     {
@@ -55,7 +56,6 @@ var data2 =
         color: 'orange',
         value: 'trophy'
       },
-      //image: testimage,
       value: '八字测评'
     },
     {
@@ -65,7 +65,6 @@ var data2 =
         color: 'green',
         value: 'signal'
       },
-      //image: testimage,
       value: '数字八星'
     },
   ];

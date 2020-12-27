@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './app.scss'
+import './icon.scss'
 //import './pages/kit/litekitPage'
 
 class App extends Component {
