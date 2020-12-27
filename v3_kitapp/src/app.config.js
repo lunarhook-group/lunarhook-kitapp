@@ -1,9 +1,9 @@
 export default {
   pages: [
     'pages/kit/litekitPage',
-    //'pages/kit/LunarMotionsLib/PsychLib/MBTIModule',
-    //'pages/kit/LunarMotionsLib/PsychLib/EnneagramModule',
-    //'pages/kit/LunarMotionsLib/PsychLib/HollandModule',
+    'pages/kit/LunarMotionsLib/PsychLib/MBTIModule',
+    'pages/kit/LunarMotionsLib/PsychLib/EnneagramModule',
+    'pages/kit/LunarMotionsLib/PsychLib/HollandModule',
     'pages/user/userCenter',
     'pages/kit/tools/SloganShare',
     //'pages/kit/UniversechangesLib/NumberLib/NumberMainPage',

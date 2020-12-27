@@ -69,11 +69,22 @@ var data2 =
   ];
 
 export default class litekitPage extends Component {
-  componentDidMount() { }
+  componentDidMount() { 
+        this.setState({current:1})
+  }
   componentDidHide() { }
   componentDidCatchError() { }
   componentDidShow() {
-    //this.setState({current:1})
+
+  }
+  constructor (props) {
+    super(props)
+    var open = new Array()
+    open[1]=true
+    open[2]=true
+    this.state = {
+      open: open,
+    }
   }
   
     handleClick (value) {
@@ -88,7 +99,7 @@ export default class litekitPage extends Component {
       }
      
     }
-    /*
+    
     GridHander(item, index)
     {
       if("职业性格测试"==item.value)
@@ -112,14 +123,16 @@ export default class litekitPage extends Component {
       {
         Taro.navigateTo({ url: '../../pages/kit/UniversechangesLib/NumberLib/NumberMainPage' })
       }
-        handleAccordionClick(index, value)
+    }
+    handleAccordionClick(index, value)
     {
       //console.log(value,index)
       //var open = this.state.open
       open[index] = value;
       this.setState({open:open})
     }
-      */
+ 
+    
 
 
 
@@ -131,11 +144,11 @@ export default class litekitPage extends Component {
         <ScrollView>
           <AtAccordion
 
-            //onClick={this.handleAccordionClick.bind(this, 1)}
+            onClick={this.handleAccordionClick.bind(this, 1)}
             title='心理测试'
           >
             <AtGrid mode='square' data={data1}
-              //onClick={this.GridHander.bind(this)}
+              onClick={this.GridHander.bind(this)}
             />
           </AtAccordion>
           <AtAccordion
