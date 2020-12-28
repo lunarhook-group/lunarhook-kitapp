@@ -1759,7 +1759,7 @@ var webjssdk = (function() {
     var instantiated = undefined;     //匿名函数创建私有变量,判断单体对象是否被创建的句柄
     //var oWebJssdkNetwork = undefined;
     var routinglist = new Array()
-
+    var httpkey = "swxapktzteyjsali"
     //var pouchdb = new PouchDB('action');
     //var localinfo = new PouchDB('webplumber')
     var localinfokey = ""
@@ -1823,11 +1823,34 @@ var webjssdk = (function() {
             }
             instantiated.sendbaseinfo()
           },
+          encrypthttp:function(msg){
+            var srcs = msg;
+            var encrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(srcs), CryptoJS.enc.Utf8.parse(httpkey), {mode:CryptoJS.mode.ECB,padding: CryptoJS.pad.Pkcs7});
+            return encrypted.toString();
+          },
+          encrypt:function  (msg) {
+              var key = tokenstr;
+              var srcs = msg;
+              var encrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(srcs), CryptoJS.enc.Utf8.parse(key), {mode:CryptoJS.mode.ECB,padding: CryptoJS.pad.Pkcs7});
+              return encrypted.toString();
+              /* 服务器测试用加解密
+              console.log("encrypt",encrypted.toString(),key,srcs)
+              var xx = CryptoJS.enc.Utf8.parse(encrypted.toString())
+              var Base64 = CryptoJS.enc.Base64.stringify(xx)
+              console.log("enbase64",Base64.toString())
+              var DeBase64 = CryptoJS.enc.Base64.parse(Base64.toString());
+              DeBase64 = DeBase64.toString(CryptoJS.enc.Utf8);
+              console.log("debase64",DeBase64.toString())   
+              var decrypt = CryptoJS.AES.decrypt(DeBase64.toString(), CryptoJS.enc.Utf8.parse(key), {mode:CryptoJS.mode.ECB,padding: CryptoJS.pad.Pkcs7});
+              console.log("decrypt",decrypt.toString(CryptoJS.enc.Utf8))  
+              return encrypted.toString();
+              */
+          },
           sendInfo:function(info){
             const send =  {"type":"msg","Timestamp": new Date().getTime(),"msg":info}
             //转换数据类型
             var sendmsg =JSON.stringify(send);
-            oWebJssdkNetwork.sendWebSocketMsg(sendmsg)
+            //oWebJssdkNetwork.sendWebSocketMsg(sendmsg)
           },
             currentTimeString:function() {
                 var d = new Date();
@@ -1865,7 +1888,7 @@ var webjssdk = (function() {
                for(var index = 0 ;index<routinglist.length;index++)
                {
                  dateinfo[index] = routinglist[index]
-                 dateinfo[index].step = routinglist.length-index
+                 dateinfo[index].step = index//routinglist.length-index
                  delete dateinfo[index]._id;
                  delete dateinfo[index]._rev;
                }
@@ -1918,7 +1941,7 @@ var webjssdk = (function() {
                     dateinfo[index].edge = "s|"+dateinfo[index].routing
                   }
                 }
-                const info = {"type":"msg","time_stamp": new Date().getTime(),"uuid":oWebJssdkNetwork.murmur,action:dateinfo}
+                const info = {"type":"msg","time_stamp": new Date().getTime(),"uuid":'oWebJssdkNetwork.murmur',action:dateinfo}
                 info["appmeta_appname"] = appmeta_appname
                 info["appmeta_appver"] = appmeta_appver
                 info["server_action"] = "routing"
@@ -1926,7 +1949,7 @@ var webjssdk = (function() {
                 var initinfo = JSON.stringify(info)
                 //initinfo.userAgent = fingerprintjs2info.UserAgent()
                 instantiated.sendhttpinfo(initinfo)
-                oWebJssdkNetwork.sendWebSocketMsg(initinfo)
+                //oWebJssdkNetwork.sendWebSocketMsg(initinfo)
                 
                 await pouchdb.destroy('action')
                 pouchdb = await new PouchDB('action')
@@ -1954,15 +1977,15 @@ var webjssdk = (function() {
               var r = JSON.parse(msg)
               r.time_stamp = (new Date()).getTime()
               msg = JSON.stringify(r)
-              //codemsg = oWebJssdkNetwork.encrypthttp(msg)
-              var codemsg = msg
+              var codemsg = instantiated.encrypthttp(msg)
+              //var codemsg = msg
               Taro.request({
                 url: sendhttp, //仅为示例，并非真实的接口地址
                 data: codemsg,
                 method:'POST',
                 header: {
                   'content-type': 'application/json', // 默认值
-                  'Encrypt-Type':'AES,noType,AES/ECB/PKCS7Padding'
+                  'Encrypt-Type':'AES,AES/ECB/PKCS7Padding,noType'
                 },
                 success: function (res) {
                   console.log("sendhttpinforet:",res,"sendhttpinfo:",msg)
@@ -2035,10 +2058,12 @@ var webjssdk = (function() {
 webjssdk.getinstance("plumber-mini").reconnect(false)
 export function plumbertrace (s,ss) {
   console.log(s)
-  webjssdk.getinstance().addTodb(s)
+
   if(true===ss)
   {
     webjssdk.getinstance().rounting('bg',true)
+  }else{
+    webjssdk.getinstance().addTodb(s)
   }
 }
 
