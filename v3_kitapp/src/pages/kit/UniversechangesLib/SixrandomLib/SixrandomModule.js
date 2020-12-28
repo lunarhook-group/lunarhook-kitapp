@@ -1,7 +1,5 @@
-
 import React, { Component } from 'react'
 import Taro from '@tarojs/taro'
-import chineseLunar from '../solar2lunar/chinese-lunar'
 
 var six_random_NaJia = new Array();
 /*
@@ -3495,11 +3493,23 @@ var c = {
 /***************************************************************************** 
 																			日期计算 
 *****************************************************************************/
-class SixrandomModule extends Component {
 
+export default class SixrandomModule extends Component {
+	componentDidMount() {
+
+	}
+	componentDidHide() { }
+	componentDidCatchError() { }
+	componentDidShow() {
+	}
 	getTerm(y, n) {
 		return c.getTerm(y, n)
 	}
+	constructor(porp) {
+    super(porp);
+    this.state = {
+    }
+  }
 	/***************************************************************************** 
 																				日期爻动 
 	*****************************************************************************/
@@ -3963,41 +3973,23 @@ class SixrandomModule extends Component {
 			var c = six_random[t]
 			var cc = ""
 			if (3 == c) {
-
 				cc = positivechangedraw + " "
 				infogrid[curlenght + index + 1] = infogrid[curlenght + index + 1] + " " + positivechangedraw
-
 			}
 			else if (0 == c) {
-
 				cc = negativechangedraw + " "
 				infogrid[curlenght + index + 1] = infogrid[curlenght + index + 1] + " " + negativechangedraw
-
-
 			}
 			else {
-
 				cc = "     "
-
-
 			}
-
 			if (true == change) {
 				n = six_random_myth[t] + " " + n + " "
-
-				//_build.push(n+"     "+cc+six_random_date[8][t]);
-
-
 			}
 			else {
 				n = six_random_myth[t] + " " + n + " "
-
-				//_build.push(n+cc+six_random_date[8][t]);
-
 			}
-			//再装变卦
 			infogrid[curlenght + index + 1].push(six_random_date[8][t])
-
 		}
 
 		var infoext = new Array()
@@ -4047,8 +4039,8 @@ class SixrandomModule extends Component {
 	get_six_random()
 /*
 获取本卦，变卦，时间，天干，地支，用神，旬空，六亲
-*/ {
-
+*/ 
+	{
 		this.get_six_random_date();
 
 		//变卦
@@ -4082,7 +4074,7 @@ class SixrandomModule extends Component {
 
 	}
 
-	Lunarsix()
+	lunarsix()
 /*
 六爻发动
 */ {
@@ -4130,9 +4122,4 @@ class SixrandomModule extends Component {
 	getpositivedraw() {
 		return positivedraw;
 	}
-
-	lunar2solar(y, m, d) {
-		return chineseLunar.lunarToSolar(y, m, d, true)
-	}
 }
-export default SixrandomModule
