@@ -1,4 +1,4 @@
-
+import React, { Component } from 'react'
 /*
 CryptoJS v3.1.2
 code.google.com/p/crypto-js
@@ -57,18 +57,35 @@ CryptoJS.pad.NoPadding={pad:function(){},unpad:function(){}};
 * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 /* global define */
+/*
 (function (name, context, definition) {
     'use strict'
-    if (typeof window !== 'undefined' && typeof define === 'function' && define.amd) { define(definition) } else if (typeof module !== 'undefined' && module.exports) { module.exports = definition() } else if (context.exports) { context.exports = definition() } else { context[name] = definition() }
+    if (typeof window !== 'undefined' && typeof define === 'function' && define.amd) 
+    { 
+      define(definition) 
+    } 
+    else if (typeof module !== 'undefined' && module.exports) 
+    { 
+      module.exports = definition() 
+    } 
+    else if (context.exports) 
+    { 
+      context.exports = definition() 
+    } else { 
+      context[name] = definition() 
+    }
   })('Fingerprint2', this, function () {
     'use strict'
-  
+    */
+  class Fingerprint2class extends Component{
+    //'use strict'
   /// MurmurHash3 related functions
   
   //
   // Given two 64bit ints (as an array of two 32bit ints) returns the two
   // added together as a 64bit int (as an array of two 32bit ints).
   //
+  init(){
     var x64Add = function (m, n) {
       m = [m[0] >>> 16, m[0] & 0xffff, m[1] >>> 16, m[1] & 0xffff]
       n = [n[0] >>> 16, n[0] & 0xffff, n[1] >>> 16, n[1] & 0xffff]
@@ -1321,17 +1338,17 @@ CryptoJS.pad.NoPadding={pad:function(){},unpad:function(){}};
       {key: 'cpuClass', getData: cpuClassKey},
       {key: 'platform', getData: platformKey},
       {key: 'doNotTrack', getData: doNotTrackKey},
-      {key: 'plugins', getData: pluginsComponent},
+      //{key: 'plugins', getData: pluginsComponent},
       {key: 'canvas', getData: canvasKey},
       {key: 'webgl', getData: webglKey},
-      {key: 'webglVendorAndRenderer', getData: webglVendorAndRendererKey},
+      //{key: 'webglVendorAndRenderer', getData: webglVendorAndRendererKey},
       {key: 'adBlock', getData: adBlockKey},
       {key: 'hasLiedLanguages', getData: hasLiedLanguagesKey},
       {key: 'hasLiedResolution', getData: hasLiedResolutionKey},
       {key: 'hasLiedOs', getData: hasLiedOsKey},
       {key: 'hasLiedBrowser', getData: hasLiedBrowserKey},
-      {key: 'touchSupport', getData: touchSupportKey},
-      {key: 'fonts', getData: jsFontsKey, pauseBefore: true},
+      //{key: 'touchSupport', getData: touchSupportKey},
+      //{key: 'fonts', getData: jsFontsKey, pauseBefore: true},
       {key: 'fontsFlash', getData: flashFontsKey, pauseBefore: true},
       {key: 'audio', getData: audioKey},
       {key: 'enumerateDevices', getData: enumerateDevicesKey}
@@ -1449,10 +1466,10 @@ CryptoJS.pad.NoPadding={pad:function(){},unpad:function(){}};
     Fingerprint2.x64hash128 = x64hash128
     Fingerprint2.VERSION = '2.0.0'
     return Fingerprint2
-  })
-
-
-
+  }
+  }
+var o = new Fingerprint2class()
+var Fingerprint2 = o.init()
 
 //*******************************************************************************************************
 //*******************************************************************************************************
@@ -1534,7 +1551,8 @@ var WebJssdkBase = (function(){
   async function asyncinit()
   {
     let ret = await initbase()
-    murmur = Fingerprint2.x64hash128(fingerprintjs2info.map(function (pair) { return pair.value }).join(), 31)
+    //murmur = Fingerprint2.x64hash128(fingerprintjs2info.map(function (pair) { return null!=pair.value?pair.value:"~" }).join('~~~'), 31)
+    var murmur = "test"
     var key = {key: 'uid_sid', value: murmur}
     fingerprintjs2info.push(key)
     const info = {"type":"msg"}
@@ -1936,14 +1954,14 @@ var webjssdk = (function() {
               instantiated.updateWebDAU(oBaseInfo)     
             },
             updateWebDAU:function(sendbaseinfo){
-              localinfo.get(localinfokey).then(function(doc) {
+              //localinfo.get(localinfokey).then(function(doc) {
                 //if(doc.timestamp<(new Date()).getTime() - false==dev?1*1000:24*60*60*1000)//24*60*60*1000)
                 
                   instantiated.sendhttpinfo(sendbaseinfo)
                   oWebJssdkNetwork.sendWebSocketMsg(sendbaseinfo)
                   instantiated.updatehistory(doc)
                   return
-                
+              /*
               }).then(function(response) {
                 console.log(response);
                 // handle response
@@ -1951,6 +1969,7 @@ var webjssdk = (function() {
                 instantiated.sendhttpinfo(sendbaseinfo)
                 console.log(err);
               });
+              */
             },
             updatehistory:function(doc)
             {
