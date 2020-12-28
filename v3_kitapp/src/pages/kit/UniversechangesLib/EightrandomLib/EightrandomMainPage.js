@@ -1,13 +1,13 @@
 
 import React, { Component } from 'react'
-import Taro from '@tarojs/taro'
+import {Taro,getCurrentInstance} from '@tarojs/taro'
 import { View, Text, Image, Button, ScrollView, Picker } from '@tarojs/components'
 import { AtButton, AtDivider, AtTabBar, AtGrid, AtForm, AtSwitch, AtList, AtListItem,AtCard} from 'taro-ui'
 import SixrandomModule from '../SixrandomLib/SixrandomModule'
 import EightrandomModule from './EightrandomModule'
 import './EightrandomMainPage.scss'
 import '../../../../theme.scss'
-
+import { plumbertrace } from '../../../plumbertrace'
 var jump = false
 let curyear = 0
 /*
@@ -89,7 +89,7 @@ export default class EightrandomMainPage extends Component {
 
   componentWillMount() {
 
-    var parameter = this.$router.params
+    var parameter = getCurrentInstance().router.params
     //console.log("componentWillMount", parameter)
 
     if (undefined != parameter) {

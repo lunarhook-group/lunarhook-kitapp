@@ -386,7 +386,7 @@ twelfthposition["甲戌"]=twelfthposition["乙未"]=twelfthposition["丙丑"]=tw
 twelfthposition["己戌"]=twelfthposition["庚辰"]=twelfthposition["辛丑"]=twelfthposition["壬未"]=twelfthposition["癸辰"]="养地"
 
 
-export default class EightrandomModule extends Component {
+class EightrandomModule extends Component {
 
   constructor(porp) {
         super(porp);
@@ -1455,3 +1455,6 @@ export default class EightrandomModule extends Component {
 
     }
 }
+
+var o = new EightrandomModule();
+export default o

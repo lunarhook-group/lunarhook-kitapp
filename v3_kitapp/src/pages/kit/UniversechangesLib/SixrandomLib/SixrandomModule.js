@@ -3494,27 +3494,15 @@ var c = {
 																			日期计算 
 *****************************************************************************/
 
-export default class SixrandomModule extends Component {
-	componentDidMount() {
-
-	}
-	componentDidHide() { }
-	componentDidCatchError() { }
-	componentDidShow() {
-	}
+var SixrandomModule  = {
 	getTerm(y, n) {
 		return c.getTerm(y, n)
-	}
-	constructor(porp) {
-    super(porp);
-    this.state = {
-    }
-  }
+	},
 	/***************************************************************************** 
 																				日期爻动 
 	*****************************************************************************/
 
-	get_six_random_help_myth()
+ get_six_random_help_myth()
 /*
 神煞
 寅午戌马在申，桃花在卯；
@@ -3545,7 +3533,7 @@ export default class SixrandomModule extends Component {
 		var g = ["丑,未", "子,申", "酉,亥", "酉,亥", "丑,未", "子,申", "寅,午", "寅,午", "卯,巳", "卯,巳"];
 		var k = h.indexOf(ll)
 		six_random_help_myth[3] = g[k];
-	}
+	},
 	get_six_random_myth()
 /*
 六神
@@ -3560,7 +3548,7 @@ export default class SixrandomModule extends Component {
 		for (var index = 0; index < randomtime; index++) {
 			six_random_myth[randomtime - index] = a[(c + index) % 6];
 		}
-	}
+	},
 
 	get_one_random()
 /*
@@ -3577,7 +3565,7 @@ export default class SixrandomModule extends Component {
 		three_random[2] = Math.random(1) >= 0.5 ? 1 : 0;
 		return three_random[0] + three_random[1] + three_random[2] + 6;
 
-	}
+	},
 
 	get_six_original_random()
 /*
@@ -3587,7 +3575,7 @@ export default class SixrandomModule extends Component {
 		for (var index = 0; index < randomtime; index++) {
 			six_random[randomtime - index] = this.get_one_random();
 		}
-	}
+	},
 	recover_six_original_random(lunardate)
 /*
 获取本卦六爻
@@ -3596,7 +3584,7 @@ export default class SixrandomModule extends Component {
 			six_random[randomtime - index] = lunardate[randomtime - index - 1];
 		}
 		//alert(six_random)
-	}
+	},
 	get_six_change_random()
 /*
 获得变卦六爻
@@ -3615,7 +3603,7 @@ export default class SixrandomModule extends Component {
 			}
 
 		}
-	}
+	},
 
 	get_empty_sixty_cycle(date)
 /*
@@ -3629,14 +3617,14 @@ export default class SixrandomModule extends Component {
 		var i = h.indexOf(skydate);
 		var j = d.indexOf(earthdate);
 		return sixtycycletable[(10 - i + j) % 12] + sixtycycletable[(10 - i + j + 1) % 12];
-	}
+	},
 
 	get_empty_date() {
 		six_random_empty[0] = this.get_empty_sixty_cycle(startinfo.gzYear);
 		six_random_empty[1] = this.get_empty_sixty_cycle(startinfo.gzMonth);
 		six_random_empty[2] = this.get_empty_sixty_cycle(startinfo.gzDate);
 		six_random_empty[3] = this.get_empty_sixty_cycle(startinfo.gzTime);
-	}
+	},
 
 
 	lunar_f(cur)
@@ -3683,13 +3671,13 @@ export default class SixrandomModule extends Component {
 			oDate: r,
 			cnDay: "日一二三四五六七".charAt(r.getDay())
 		}
-	};
+	},
 
 	get_six_random_date() {
 		six_random_date[0] = "公历：" + startinfo.Year + " " + startinfo.Month + " " + startinfo.Date + " " + startinfo.Hours + ":" + startinfo.oDate.getMinutes()
 		six_random_date[1] = "农历：" + startinfo.lunarYear + " " + startinfo.lunarMonth + " " + startinfo.lunarDate
 		six_random_date[2] = "四柱：" + startinfo.gzYear + " " + startinfo.gzMonth + " " + startinfo.gzDate + " " + startinfo.gzTime
-	}
+	},
 
 	get_random_name() {
 		six_random_date[3] = "旬空：" + six_random_empty[0] + " " + six_random_empty[1] + " " + six_random_empty[2] + " " + six_random_empty[3]
@@ -3748,7 +3736,7 @@ export default class SixrandomModule extends Component {
 		six_random_date[8] = six_random_NaJia[six_random_date[6]];
 		//fix_najia
 		six_random_date[8] = this.fix_najia(six_random_date[7], six_random_date[8])
-	}
+	},
 	fix_najia(random, change) {
 
 		var kindtable = {
@@ -3783,7 +3771,7 @@ export default class SixrandomModule extends Component {
 		return changerandom
 
 
-	}
+	},
 	get_simple_random_draw() {
 		var _build = new Array();
 
@@ -3841,7 +3829,7 @@ export default class SixrandomModule extends Component {
 
 
 		return _build
-	}
+	},
 
 	get_random_draw() {
 
@@ -4019,7 +4007,7 @@ export default class SixrandomModule extends Component {
 		infoext.push("")
 		infoext.push("")
 		return { _build, infobase, infogrid, infoext }
-	}
+	},
 	get_sixrandom_name(lunar) {
 		var x = ""
 		for (index = 0; index < 6; index++) {
@@ -4034,7 +4022,7 @@ export default class SixrandomModule extends Component {
 			//console.log(x)
 		}
 		return six_random_NaJia[x]["name"]
-	}
+	},
 
 	get_six_random()
 /*
@@ -4072,7 +4060,7 @@ export default class SixrandomModule extends Component {
 			//htmlchangeinfodraw:htmlchangeinfodraw,
 		}
 
-	}
+	},
 
 	lunarsix()
 /*
@@ -4084,7 +4072,7 @@ export default class SixrandomModule extends Component {
 		//本卦爻变
 		return this.get_six_random();
 		//存盘序列化
-	}
+	},
 
 	getArgs() {
 		var args = {};
@@ -4095,7 +4083,7 @@ export default class SixrandomModule extends Component {
 			args[match[1]] = match[2];
 		}
 		return args;
-	}
+	},
 
 	recoverlunarsix(ret_info = null) {
 		//Mon Jul 10 2017 23:43:54 GMT+0800 (CST)
@@ -4108,18 +4096,19 @@ export default class SixrandomModule extends Component {
 		return this.get_six_random();
 		//return null
 		//存盘序列化
-	}
+	},
 
 	build(msg) {
 
 		var ret = this.recoverlunarsix(msg)
 		return ret
-	}
+	},
 
 	getnegativedraw() {
 		return negativedraw;
-	}
+	},
 	getpositivedraw() {
 		return positivedraw;
-	}
+	},
 }
+export default SixrandomModule
