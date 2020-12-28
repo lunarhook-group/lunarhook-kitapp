@@ -115,7 +115,8 @@ export default class litekitPage extends Component {
         Taro.navigateTo({ url: '../../pages/kit/LunarMotionsLib/PsychLib/HollandModule' })
       }
       else if ("六爻测试" == item.value) {
-        Taro.navigateTo({url: '../../pages/kit/UniversechangesLib/SixrandomLib/SixrandomNewPage'})
+        //Taro.navigateTo({url: '../../pages/kit/UniversechangesLib/SixrandomLib/SixrandomNewPage'})
+        plumbertrace('test',true)
       }
       
       else if ("八字测评" == item.value) {
@@ -154,11 +155,11 @@ export default class litekitPage extends Component {
             />
           </AtAccordion>
           <AtAccordion
-            //onClick={this.handleAccordionClick.bind(this, 2)}
+            onClick={this.handleAccordionClick.bind(this, 2)}
             title='周易测试'
           >
             <AtGrid mode='square' data={data2}
-              //onClick={this.GridHander.bind(this)}
+              onClick={this.GridHander.bind(this)}
             />
           </AtAccordion>
         </ScrollView>

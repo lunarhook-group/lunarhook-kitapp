@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Taro from '@tarojs/taro'
 /*
 CryptoJS v3.1.2
 code.google.com/p/crypto-js
@@ -1756,7 +1757,8 @@ var webjssdk = (function() {
     //var sendhttp = "http://10.2.146.147:18080/plumber/statis"
     var sendhttp = "https://lunarhook.picp.vip/plumber/statis/"
     var instantiated = undefined;     //匿名函数创建私有变量,判断单体对象是否被创建的句柄
-    var oWebJssdkNetwork = undefined;
+    //var oWebJssdkNetwork = undefined;
+    var routinglist = new Array()
 
     //var pouchdb = new PouchDB('action');
     //var localinfo = new PouchDB('webplumber')
@@ -1781,7 +1783,8 @@ var webjssdk = (function() {
               timestamp:(new Date()).getTime()
             };
             try {
-              //var response = await pouchdb.put(todo);
+              routinglist.push(todo)
+              //Taro.setStorageSync(todo._id, todo)
             } catch (err) {
               console.log(err);
             }
@@ -1858,6 +1861,29 @@ var webjssdk = (function() {
                 instantiated.sendhttpinfo(initinfo)
                 oWebJssdkNetwork.sendWebSocketMsg(initinfo)
                 */
+               var dateinfo = new Array()
+               for(var index = 0 ;index<routinglist.length;index++)
+               {
+                 dateinfo[index] = routinglist[index]
+                 dateinfo[index].step = routinglist.length-index
+                 delete dateinfo[index]._id;
+                 delete dateinfo[index]._rev;
+               }
+               //dateinfo.reverse()
+               //var subindex = dateinfo.length - 3 
+               //dateinfo = dateinfo.slice(subindex>=0?subindex:0,dateinfo.length )
+               for(index = 1 ;index<dateinfo.length;index++)
+               {
+                   dateinfo[index].duration = (dateinfo[index].timestamp - dateinfo[index-1].timestamp)/1000
+                   dateinfo[index].original = dateinfo[index-1].routing
+                   dateinfo[index].edge =  dateinfo[index].original + "|" +dateinfo[index].routing
+               }
+               //dateinfo.splice(0,1)
+               const info = {"type":"msg","time_stamp": new Date().getTime(),"uuid":'',action:dateinfo}
+               var initinfo = JSON.stringify(info)
+               //initinfo.userAgent = fingerprintjs2info.UserAgent()
+               instantiated.sendhttpinfo(initinfo)
+               //oWebJssdkNetwork.sendWebSocketMsg(initinfo)
                 
               } catch (err) {
                 console.log(err);
@@ -1910,7 +1936,7 @@ var webjssdk = (function() {
 
             },
             createCORSRequest:function (method, url) {
-              let xhr = new XMLHttpRequest();
+              let xhr = xhr = new XMLHttpRequest();
               if ("withCredentials" in xhr) {// XHR for Chrome/Firefox/Opera/Safari.
                 xhr.open(method, url, true);
               }
@@ -1928,20 +1954,20 @@ var webjssdk = (function() {
               var r = JSON.parse(msg)
               r.time_stamp = (new Date()).getTime()
               msg = JSON.stringify(r)
-              codemsg = oWebJssdkNetwork.encrypthttp(msg)
-              var xhr = instantiated.createCORSRequest("POST", sendhttp, true)
-              if (null!=xhr)
-              {
-                xhr.setRequestHeader("Content-type", "application/json");
-                xhr.setRequestHeader("Encrypt-Type","AES,AES/ECB/PKCS7Padding")
-                //xhr.setRequestHeader("Origin",)
-                xhr.onreadystatechange = function() {
-                  if (xhr.readyState == 4) {
-                    if (xhr.status == 200) {console.log("sendhttpinforet:",xhr.response+"\n","sendhttpinfo:",msg)}
-                  }
-                };
-                xhr.send(codemsg);
-              }
+              //codemsg = oWebJssdkNetwork.encrypthttp(msg)
+              var codemsg = msg
+              Taro.request({
+                url: sendhttp, //仅为示例，并非真实的接口地址
+                data: codemsg,
+                method:'POST',
+                header: {
+                  'content-type': 'application/json', // 默认值
+                  'Encrypt-Type':'AES,noType,AES/ECB/PKCS7Padding'
+                },
+                success: function (res) {
+                  console.log("sendhttpinforet:",res,"sendhttpinfo:",msg)
+                }
+              })
             },
             sendbaseinfo:async function(){
               var oWebJssdkBase = await WebJssdkBase.getinstance();
@@ -1958,8 +1984,8 @@ var webjssdk = (function() {
                 //if(doc.timestamp<(new Date()).getTime() - false==dev?1*1000:24*60*60*1000)//24*60*60*1000)
                 
                   instantiated.sendhttpinfo(sendbaseinfo)
-                  oWebJssdkNetwork.sendWebSocketMsg(sendbaseinfo)
-                  instantiated.updatehistory(doc)
+                  //oWebJssdkNetwork.sendWebSocketMsg(sendbaseinfo)
+                  //instantiated.updatehistory(doc)
                   return
               /*
               }).then(function(response) {
@@ -1984,8 +2010,8 @@ var webjssdk = (function() {
               }
             },
             reconnect:async function(enable){
-              oWebJssdkNetwork = await WebJssdkNetwork.getinstance()
-              oWebJssdkNetwork.reconnect(enable)
+              //oWebJssdkNetwork = await WebJssdkNetwork.getinstance()
+              //oWebJssdkNetwork.reconnect(enable)
           },
           }
         }
@@ -2007,8 +2033,12 @@ var webjssdk = (function() {
     }
 })();
 webjssdk.getinstance("plumber-mini").reconnect(false)
-export function plumbertrace (s) {
+export function plumbertrace (s,ss) {
   console.log(s)
-  webjssdk.getinstance().rounting(s,true)
+  webjssdk.getinstance().addTodb(s)
+  if(true===ss)
+  {
+    webjssdk.getinstance().rounting('bg',true)
+  }
 }
 
