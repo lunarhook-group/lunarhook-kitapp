@@ -4,7 +4,7 @@ import { StyleSheet, View, PixelRatio, Alert, Text, FlatList, ScrollView, Camera
 import { AtToast, AtGrid, AtTabBar, AtCheckbox, AtRadio, AtButton, AtDivider, AtIcon } from 'taro-ui'
 import './EnneagramModule.scss'
 import '../../../../theme.scss'
-
+import { plumbertrace}  from '../../../plumbertrace'
 var Enneagram=new Array();
 Enneagram[0]={
   "key":"0",
@@ -1965,7 +1965,9 @@ export default class EnneagramModule extends Component {
   componentDidHide() { 
   }
   componentDidCatchError() { }
-  componentDidShow() {}
+  componentDidShow() {
+    plumbertrace(this.props.tid)
+  }
   randominit()
   {
     this.clear()

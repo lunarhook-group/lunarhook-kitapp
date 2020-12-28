@@ -5,7 +5,7 @@ import { View, Text, Image, Button, ScrollView } from '@tarojs/components'
 import { AtAccordion, AtGrid, AtTabBar, AtIcon } from 'taro-ui'
 import './litekitPage.scss'
 import '../../theme.scss'
-import plumber from '../plumbertrace'
+import { plumbertrace}  from '../plumbertrace'
 var data1 =
   [
     {
@@ -72,12 +72,12 @@ var data2 =
 export default class litekitPage extends Component {
   componentDidMount() { 
         this.setState({current:1})
-        plumber.plumberTrace("litekitPage")
+
   }
   componentDidHide() { }
   componentDidCatchError() { }
   componentDidShow() {
-
+    plumbertrace(this.props.tid)
   }
   constructor (props) {
     super(props)

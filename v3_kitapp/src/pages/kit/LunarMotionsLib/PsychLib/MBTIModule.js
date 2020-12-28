@@ -4,6 +4,7 @@ import { StyleSheet, View, PixelRatio, Alert, Text, FlatList, ScrollView, Camera
 import { AtToast, AtGrid, AtTabBar, AtCheckbox, AtRadio, AtButton, AtDivider, AtIcon } from 'taro-ui'
 import './MBTIModule.scss'
 import '../../../../theme.scss'
+import { plumbertrace}  from '../../../plumbertrace'
 var MBTIs = Array();
 MBTIs[0] = {
   "key": "0",
@@ -1352,7 +1353,9 @@ export default class MBTIModule extends Component {
   componentDidHide() { 
   }
   componentDidCatchError() { }
-  componentDidShow() {}
+  componentDidShow() {
+    plumbertrace(this.props.tid)
+  }
 
 
   clear() {
