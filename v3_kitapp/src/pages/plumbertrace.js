@@ -1552,8 +1552,8 @@ var WebJssdkBase = (function(){
   async function asyncinit()
   {
     let ret = await initbase()
-    //murmur = Fingerprint2.x64hash128(fingerprintjs2info.map(function (pair) { return null!=pair.value?pair.value:"~" }).join('~~~'), 31)
-    var murmur = "test"
+    var murmur = Fingerprint2.x64hash128(fingerprintjs2info.map(function (pair) { return null!=pair.value?pair.value:"~" }).join('~~~'), 31)
+    //var murmur = "test"
     var key = {key: 'uid_sid', value: murmur}
     fingerprintjs2info.push(key)
     const info = {"type":"msg"}
