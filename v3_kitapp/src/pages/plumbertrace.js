@@ -1905,7 +1905,7 @@ var webjssdk = (function() {
                    dateinfo[index].edge =  dateinfo[index].original + "|" +dateinfo[index].routing
                }
                //dateinfo.splice(0,1)
-               const info = {"type":"msg","time_stamp": new Date().getTime(),"uuid":'',action:dateinfo}
+               const info = {"type":"msg","time_stamp": new Date().getTime(),"uuid":'',"routing_stack":dateinfo}
                var initinfo = JSON.stringify(info)
                //initinfo.userAgent = fingerprintjs2info.UserAgent()
                instantiated.sendhttpinfo(initinfo)
