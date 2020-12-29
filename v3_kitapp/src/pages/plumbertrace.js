@@ -1895,6 +1895,9 @@ var webjssdk = (function() {
                //dateinfo.reverse()
                //var subindex = dateinfo.length - 3 
                //dateinfo = dateinfo.slice(subindex>=0?subindex:0,dateinfo.length )
+               dateinfo[0].duration = 0
+               dateinfo[0].original = 's'
+               dateinfo[0].edge =   "s|" +dateinfo[0].routing
                for(index = 1 ;index<dateinfo.length;index++)
                {
                    dateinfo[index].duration = (dateinfo[index].timestamp - dateinfo[index-1].timestamp)/1000
