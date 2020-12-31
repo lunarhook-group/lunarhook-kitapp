@@ -1323,12 +1323,12 @@ CryptoJS.pad.NoPadding={pad:function(){},unpad:function(){}};
     var components = [
       {key: 'userAgent', getData: UserAgent},
       {key: 'language', getData: languageKey},
-      {key: 'colorDepth', getData: colorDepthKey},
-      {key: 'deviceMemory', getData: deviceMemoryKey},
+      //{key: 'colorDepth', getData: colorDepthKey},
+      //{key: 'deviceMemory', getData: deviceMemoryKey},
       {key: 'pixelRatio', getData: pixelRatioKey},
-      {key: 'hardwareConcurrency', getData: hardwareConcurrencyKey},
-      {key: 'screenResolution', getData: screenResolutionKey},
-      {key: 'availableScreenResolution', getData: availableScreenResolutionKey},
+      //{key: 'hardwareConcurrency', getData: hardwareConcurrencyKey},
+      //{key: 'screenResolution', getData: screenResolutionKey},
+      //{key: 'availableScreenResolution', getData: availableScreenResolutionKey},
       {key: 'timezoneOffset', getData: timezoneOffset},
       {key: 'timezone', getData: timezone},
       {key: 'sessionStorage', getData: sessionStorageKey},
@@ -1791,6 +1791,7 @@ var webjssdk = (function() {
           },
           initWebInfo:function()
           {
+            /*
             window.onresize=function(){ 
               instantiated.addTodb("onresize")
               //instantiated.sdklog(currentTimeString() + " 从第三方应用启动：" + plus.runtime.arguments);
@@ -1821,6 +1822,7 @@ var webjssdk = (function() {
             window.onbeforeunload=async function(){
               await instantiated.sendRouting()
             }
+            */
             instantiated.sendbaseinfo()
           },
           encrypthttp:function(msg){
@@ -1897,7 +1899,7 @@ var webjssdk = (function() {
                //dateinfo = dateinfo.slice(subindex>=0?subindex:0,dateinfo.length )
                dateinfo[0].duration = 0
                dateinfo[0].original = 's'
-               dateinfo[0].edge =   "s|" +dateinfo[0].routing
+               dateinfo[0].edge =   dateinfo[0].routing
                for(index = 1 ;index<dateinfo.length;index++)
                {
                    dateinfo[index].duration = (dateinfo[index].timestamp - dateinfo[index-1].timestamp)/1000
@@ -1916,6 +1918,7 @@ var webjssdk = (function() {
               }
             },
             sendRouting:async function()  {
+              /*
               try {
                 var response = await  pouchdb.allDocs({include_docs: true, descending: true})
                 var dateinfo = new Array()
@@ -1959,6 +1962,7 @@ var webjssdk = (function() {
               } catch (err) {
                 console.log(err);
               }
+              */
 
             },
             createCORSRequest:function (method, url) {
@@ -2001,8 +2005,10 @@ var webjssdk = (function() {
               oBaseInfo["appmeta_appname"] = appmeta_appname
               oBaseInfo["appmeta_appver"] = appmeta_appver
               oBaseInfo["server_action"] = "setup"
-              oBaseInfo["uid_uid"] = uid_uid        
-              oBaseInfo = JSON.stringify(oBaseInfo)
+              oBaseInfo["uid_uid"] = uid_uid 
+              var sstr = JSON.stringify(oBaseInfo)
+              var checkjson = JSON.parse(sstr)       
+              oBaseInfo = JSON.stringify(checkjson)
               instantiated.updateWebDAU(oBaseInfo)     
             },
             updateWebDAU:function(sendbaseinfo){

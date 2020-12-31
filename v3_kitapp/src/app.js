@@ -8,7 +8,9 @@ import { plumbertrace}  from './pages/plumbertrace'
 class App extends Component {
 
   componentDidMount () {}
-  componentDidShow () {}
+  componentDidShow () {
+    plumbertrace('s')
+  }
   componentDidHide () {
     plumbertrace('bg',true)
   }
