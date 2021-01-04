@@ -1908,9 +1908,14 @@ var webjssdk = (function() {
                }
                //dateinfo.splice(0,1)
                const info = {"type":"msg","time_stamp": new Date().getTime(),"uuid":'',"routing_stack":dateinfo}
-               var initinfo = JSON.stringify(info)
-               //initinfo.userAgent = fingerprintjs2info.UserAgent()
-               instantiated.sendhttpinfo(initinfo)
+               info["appmeta_appname"] = appmeta_appname
+               info["appmeta_appver"] = appmeta_appver
+               info["server_action"] = "routing"
+               info["uid_uid"] = uid_uid        
+               var sstr = JSON.stringify(info)
+               var checkjson = JSON.parse(sstr)       
+               sstr = JSON.stringify(checkjson)
+               instantiated.sendhttpinfo(sstr)
                //oWebJssdkNetwork.sendWebSocketMsg(initinfo)
                 
               } catch (err) {
@@ -2064,7 +2069,7 @@ var webjssdk = (function() {
         }
     }
 })();
-webjssdk.getinstance("plumber-mini").reconnect(false)
+webjssdk.getinstance("pintuan-mini",1.0).reconnect(false)
 export function plumbertrace (s,ss) {
   console.log(s)
 
