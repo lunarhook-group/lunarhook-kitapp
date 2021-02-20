@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import Taro from '@tarojs/taro'
+//import React, { Component } from 'react'
+// import Taro from '@tarojs/taro'
 /*
 CryptoJS v3.1.2
 code.google.com/p/crypto-js
@@ -877,7 +877,9 @@ CryptoJS.pad.NoPadding={pad:function(){},unpad:function(){}};
   // https://bugzilla.mozilla.org/show_bug.cgi?id=781447
     var hasLocalStorage = function (options) {
       try {
-        return !!window.localStorage
+        // return !!window.localStorage
+		// 小程序环境无window
+		return false
       } catch (e) {
         return options.ERROR // SecurityError when referencing it means it exists
       }
@@ -1321,38 +1323,38 @@ CryptoJS.pad.NoPadding={pad:function(){},unpad:function(){}};
     }
   
     var components = [
-      {key: 'userAgent', getData: UserAgent},
-      {key: 'language', getData: languageKey},
+      //{key: 'userAgent', getData: UserAgent},
+      //{key: 'language', getData: languageKey},
       //{key: 'colorDepth', getData: colorDepthKey},
       //{key: 'deviceMemory', getData: deviceMemoryKey},
-      {key: 'pixelRatio', getData: pixelRatioKey},
+      //{key: 'pixelRatio', getData: pixelRatioKey},
       //{key: 'hardwareConcurrency', getData: hardwareConcurrencyKey},
       //{key: 'screenResolution', getData: screenResolutionKey},
       //{key: 'availableScreenResolution', getData: availableScreenResolutionKey},
-      {key: 'timezoneOffset', getData: timezoneOffset},
-      {key: 'timezone', getData: timezone},
-      {key: 'sessionStorage', getData: sessionStorageKey},
-      {key: 'localStorage', getData: localStorageKey},
-      {key: 'indexedDb', getData: indexedDbKey},
-      {key: 'addBehavior', getData: addBehaviorKey},
-      {key: 'openDatabase', getData: openDatabaseKey},
-      {key: 'cpuClass', getData: cpuClassKey},
-      {key: 'platform', getData: platformKey},
-      {key: 'doNotTrack', getData: doNotTrackKey},
+      //{key: 'timezoneOffset', getData: timezoneOffset},
+      //{key: 'timezone', getData: timezone},
+      //{key: 'sessionStorage', getData: sessionStorageKey},
+      //{key: 'localStorage', getData: localStorageKey},
+      //{key: 'indexedDb', getData: indexedDbKey},
+      //{key: 'addBehavior', getData: addBehaviorKey},
+      //{key: 'openDatabase', getData: openDatabaseKey},
+      //{key: 'cpuClass', getData: cpuClassKey},
+      //{key: 'platform', getData: platformKey},
+      //{key: 'doNotTrack', getData: doNotTrackKey},
       //{key: 'plugins', getData: pluginsComponent},
-      {key: 'canvas', getData: canvasKey},
-      {key: 'webgl', getData: webglKey},
+      //{key: 'canvas', getData: canvasKey},
+      //{key: 'webgl', getData: webglKey},
       //{key: 'webglVendorAndRenderer', getData: webglVendorAndRendererKey},
-      {key: 'adBlock', getData: adBlockKey},
-      {key: 'hasLiedLanguages', getData: hasLiedLanguagesKey},
-      {key: 'hasLiedResolution', getData: hasLiedResolutionKey},
-      {key: 'hasLiedOs', getData: hasLiedOsKey},
-      {key: 'hasLiedBrowser', getData: hasLiedBrowserKey},
+      //{key: 'adBlock', getData: adBlockKey},
+      //{key: 'hasLiedLanguages', getData: hasLiedLanguagesKey},
+      //{key: 'hasLiedResolution', getData: hasLiedResolutionKey},
+      //{key: 'hasLiedOs', getData: hasLiedOsKey},
+      //{key: 'hasLiedBrowser', getData: hasLiedBrowserKey},
       //{key: 'touchSupport', getData: touchSupportKey},
       //{key: 'fonts', getData: jsFontsKey, pauseBefore: true},
-      {key: 'fontsFlash', getData: flashFontsKey, pauseBefore: true},
-      {key: 'audio', getData: audioKey},
-      {key: 'enumerateDevices', getData: enumerateDevicesKey}
+      //{key: 'fontsFlash', getData: flashFontsKey, pauseBefore: true},
+      //{key: 'audio', getData: audioKey},
+      //{key: 'enumerateDevices', getData: enumerateDevicesKey}
     ]
   
     var Fingerprint2 = function (options) {
@@ -1526,13 +1528,38 @@ var Fingerprint2 = o.init()
 //*******************************************************************************************************
 //*******************************************************************************************************
 
+function guid() {
+  //生成guid
+  function S4() {
+    var d=new Date();
+      return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+  }
+  //检查weixin是否存在guid，有则返回
+  try {
+    var value = wx.getStorageSync(plumberminiguid)
+    if (value) {
+        return value
+    }
+  } catch (e) {}
+  //没有guid则生成guid然后返回
+  var setguid = (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4()).toUpperCase();
+  try {
+    wx.setStorageSync(plumberminiguid, setguid)
+    return setguid
+  } catch (e) { }
+  return setguid
+}
+
 var WebJssdkBase = (function(){
+  const plumberminiguid = 'plumber-mini-guid'
   var baseInfo;
   var instantiated;     //匿名函数创建私有变量,判断单体对象是否被创建的句柄
   var fingerprintjs2info = "";
   function initbase (){
     return new Promise(function(resolve, reject) {
-      if (window.requestIdleCallback) {
+		// if (window.requestIdleCallback) {
+		// 小程序环境无window
+		if (0) {
           requestIdleCallback(function () {
               Fingerprint2.get(function (components) {
                   fingerprintjs2info = components
@@ -1545,16 +1572,28 @@ var WebJssdkBase = (function(){
                   fingerprintjs2info = components
                   resolve("ok")
               })  
-          }, 5000)
+          },1000)
       }
     })
+  }
+  function initwxbase (){
+    try {
+      const res = wx.getSystemInfoSync()
+      //这里还要同步拿到用户的userinfo，进一步获取user_local_city，user_local_province，user_gender
+      //user_wx_openid，user_wx_unionid，拼入res
+      return res
+    } catch (e) {
+      // Do something when catch error
+    }
+    return null
   }
   async function asyncinit()
   {
     let ret = await initbase()
-    var murmur = Fingerprint2.x64hash128(fingerprintjs2info.map(function (pair) { return null!=pair.value?pair.value:"~" }).join('~~~'), 31)
+    let wxret = await initwxbase()
+    //var murmur = Fingerprint2.x64hash128(fingerprintjs2info.map(function (pair) { return null!=pair.value?pair.value:"~" }).join('~~~'), 31)
     //var murmur = "test"
-    var key = {key: 'uid_sid', value: murmur}
+    var key = {key: 'uid_sid', value: guid()}
     fingerprintjs2info.push(key)
     const info = {"type":"msg"}
     baseInfo = JSON.stringify(info)
@@ -1564,6 +1603,15 @@ var WebJssdkBase = (function(){
       var keyindex = fingerprintjs2info[i].key;
       var keyvalue= fingerprintjs2info[i].value;
       baseInfo[keyindex] = keyvalue
+    }
+    if(null!=wxret){//获取微信基本配置
+      baseInfo["device_brand"] = wxret["brand"];
+      baseInfo["device_model"] = wxret["model"];
+      baseInfo["device_platform"] = wxret["platform"];
+      baseInfo["device_batterypercent"] = wxret["batteryLevel"];
+      baseInfo["device_system"] = wxret["system"];
+      baseInfo["user_wx_language"] = wxret["language"];
+
     }
     delete baseInfo["webgl"];
     delete baseInfo["canvas"];
@@ -1598,172 +1646,26 @@ var WebJssdkBase = (function(){
   }
 )()
 
-
-var WebJssdkNetwork = (function(){
-  var webplumberhttp = "http://web.plumber.sohu.com/"
-  var networkplumberhttp = "http://network.plumber.sohu.com/"
-  var websocket;
-  var heart;
-  var reconnectcount = 0
-  var timeouthandle
-  var tokenstr = ""
-  var client_seq = 0
-  var server_seq = 0 
-  var wsurl = "ws://10.2.24.131:18181/ws"
-
-  var httpkey = "swxapktzteyjsali"
-  var murmur = ""
-  var Cryptojs = CryptoJS
-  var instantiated;
-  var wsenable = true
-
-  function initnetwork(){
-    console.log(Cryptojs)
-    return{
-    reconnect:function(enable){
-      if(false == enable && true == wsenable)
-      {
-        wsenable = false
-      }
-      if(false  == wsenable)
-      {
-        return
-      }
-      console.log("reconnect",enable,wsenable)
-      clearInterval(heart)
-      clearTimeout(timeouthandle)
-      reconnectcount++
-      if(reconnectcount>10)
-      {
-          console.log("网络异常")
-          reconnectcount = 1
-      }
-      websocket = new WebSocket(wsurl);
-      instantiated.config(websocket)
-  },
-  sendWebSocketMsg:function(msg) { //发送消息 
-          if(false  == wsenable)
-          {
-            console.log("websocket disable")
-            return
-          }
-          client_seq++
-          if(websocket.readyState == WebSocket.OPEN) { //如果WebSocket是打开状态
-              var r = JSON.parse(msg)
-              r.client_seq = client_seq
-              r.server_seq = server_seq
-              msg = JSON.stringify(r)
-              
-              codemsg = instantiated.encrypt(msg)
-              console.log("ws_sed_msg:",msg)
-              websocket.send(codemsg); //send()发送消息
-          }
-          else{
-              console.log("send failed")
-          }
-  },
-  publicPrototype: "sohu websocket jssdk",
-  encrypthttp:function(msg){
-    var srcs = msg;
-    var encrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(srcs), CryptoJS.enc.Utf8.parse(httpkey), {mode:CryptoJS.mode.ECB,padding: CryptoJS.pad.Pkcs7});
-    return encrypted.toString();
-  },
-  encrypt:function  (msg) {
-      var key = tokenstr;
-      var srcs = msg;
-      var encrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(srcs), CryptoJS.enc.Utf8.parse(key), {mode:CryptoJS.mode.ECB,padding: CryptoJS.pad.Pkcs7});
-      return encrypted.toString();
-      /* 服务器测试用加解密
-      console.log("encrypt",encrypted.toString(),key,srcs)
-      var xx = CryptoJS.enc.Utf8.parse(encrypted.toString())
-      var Base64 = CryptoJS.enc.Base64.stringify(xx)
-      console.log("enbase64",Base64.toString())
-      var DeBase64 = CryptoJS.enc.Base64.parse(Base64.toString());
-      DeBase64 = DeBase64.toString(CryptoJS.enc.Utf8);
-      console.log("debase64",DeBase64.toString())   
-      var decrypt = CryptoJS.AES.decrypt(DeBase64.toString(), CryptoJS.enc.Utf8.parse(key), {mode:CryptoJS.mode.ECB,padding: CryptoJS.pad.Pkcs7});
-      console.log("decrypt",decrypt.toString(CryptoJS.enc.Utf8))  
-      return encrypted.toString();
-      */
-  },
-  heartbeat:function(){//该函数可能未来不会暴露
-          heart = setInterval(function() {
-              const heart =  {"type":"hbeat","Timestamp": new Date().getTime()}
-              //转换数据类型
-              var sendinfo =JSON.stringify(heart);
-              instantiated.sendWebSocketMsg(sendinfo)
-          }, 1000*60*3);
-      },
-
-  config:function(ret){//该函数可能未来不会暴露
-      //如果浏览器支持WebSocket
-      //当有消息过来的时候触发
-      ret.onmessage = function(event){ 
-          console.log("ws_ret_msg",event.data)
-          var data = JSON.parse(event.data);
-          server_seq = data.server_seq
-          switch (data.type) {
-              case "code": // JOIN
-                  tokenstr = data.code
-                  console.log("token:",data);
-                  break
-              default:
-                  break;
-          }
-      }
-      
-      //连接关闭的时候触发
-      ret.onclose = function(event){
-          setTimeout(instantiated.reconnect,reconnectcount*10000)
-          clearInterval(heart)
-          console.log("websocket断开连接")
-      }
-      
-      //连接打开的时候触发
-      ret.onopen = function(event){
-          reconnectcount = 1
-          console.log("websocket建立链接",event,websocket)
-      }
-
-      //连接打开的时候触发
-      ret.error = function(event){
-          setTimeout(instantiated.reconnect,reconnectcount*10000)
-          clearInterval(heart)
-          console.log("websocket error")
-      }
-      instantiated.heartbeat()
-    } 
-  }
-}
-  return {
-    getinstance: async function() {
-        if (!instantiated) {
-          instantiated =  new  initnetwork();
-          //instantiated.reconnect()
-        }
-        return instantiated;
-    }
-  }
-}
-)()
-
-
 var webjssdk = (function() {
     var appmeta_appname
     var appmeta_appver
     var sdk_version = 0.1
     var dev = false
     var uid_uid = ""
-    //var sendhttp = "http://10.2.146.147:18080/plumber/statis"
+	  var uid_sid = guid()
+    var group_on_info = {}
     var sendhttp = "https://lunarhook.picp.vip/plumber/statis/"
+    //var sendhttp = "https://c-tessar.xdf.cn/plumber/statis/"
     var instantiated = undefined;     //匿名函数创建私有变量,判断单体对象是否被创建的句柄
-    //var oWebJssdkNetwork = undefined;
     var routinglist = new Array()
     var httpkey = "swxapktzteyjsali"
     //var pouchdb = new PouchDB('action');
     //var localinfo = new PouchDB('webplumber')
     var localinfokey = ""
-    if(window.localStorage){
+    var ScrollTick = (new Date()).getTime()
+    // if(window.localStorage){
+	// 小程序环境无window
+	if (0) {
       localdb = true
       console.log('This browser supports localStorage');
     }else{
@@ -1775,55 +1677,36 @@ var webjssdk = (function() {
     } 
     function init() {
         return {
-           addTodb:async function(text) {
-            console.log(text)
+          addTodb: function (text, detail) {
+            /*
+            对于滚动事件，1500ms内只记录一次，最终做长路径判断的时候，对回文的处理需要排除这些用户附加行为
+            类似的还包括pull刷新，showModal，等event事件
+            */
+            var testScroll = -1 == text.toLowerCase().indexOf("scroll") ? false : true;
+            var curtime = (new Date()).getTime()
+            if (true == testScroll && curtime - ScrollTick > 1500) {
+              ScrollTick = curtime
+            }
+            else if (true == testScroll && curtime - ScrollTick < 1500) {
+              return
+            }
+            //滚动判断结束
+            console.log(text, detail)
             var todo = {
               _id: new Date().toISOString(),
               routing: text,
-              timestamp:(new Date()).getTime()
+              timestamp: (new Date()).getTime(),
+              detail: detail
             };
             try {
               routinglist.push(todo)
-              //Taro.setStorageSync(todo._id, todo)
             } catch (err) {
               console.log(err);
             }
           },
           initWebInfo:function()
           {
-            /*
-            window.onresize=function(){ 
-              instantiated.addTodb("onresize")
-              //instantiated.sdklog(currentTimeString() + " 从第三方应用启动：" + plus.runtime.arguments);
-            }
-            window.onload=function()
-            {
-              instantiated.addTodb("onload")
-              setTimeout(instantiated.sendRouting,5000)
-            }
-            window.onunload=function(){console.log("onunload")}
-            window.onerror= function(errorMessage,scriptURI,lineNumber,columnNumber,error) {
-              if (error) {
-                console.log(error);
-              } else {
-                console.log({message: errorMessage,script: scriptURI,line: lineNumber,column: columnNumber});
-              }
-            }
-            window.onpageshow=function(){instantiated.addTodb("onpageshow")}
-            window.onpopstate=function(){instantiated.addTodb("onpopstate")}
-            window.onpagehide=async function(){instantiated.addTodb("onpagehide")}
-            window.onblur= async function(){instantiated.addTodb("onblur")}
-            window.ondeviceorientation=function(){instantiated.addTodb("ondeviceorientation")}
-            window.onfocus=function(){instantiated.addTodb("onfocus")}
-            window.onorientationchange=function(e){instantiated.addTodb(e,"onorientationchange")}
-            window.onscroll=function(){instantiated.addTodb("onscroll")}
-            window.ononline=function(){instantiated.addTodb(navigator.connection,navigator,"连接上了");};
-            window.onoffline=function(){instantiated.addTodb("掉线了");}
-            window.onbeforeunload=async function(){
-              await instantiated.sendRouting()
-            }
-            */
-            instantiated.sendbaseinfo()
+            return instantiated.sendbaseinfo()
           },
           encrypthttp:function(msg){
             var srcs = msg;
@@ -1848,127 +1731,74 @@ var webjssdk = (function() {
               return encrypted.toString();
               */
           },
-          sendInfo:function(info){
-            const send =  {"type":"msg","Timestamp": new Date().getTime(),"msg":info}
-            //转换数据类型
-            var sendmsg =JSON.stringify(send);
-            //oWebJssdkNetwork.sendWebSocketMsg(sendmsg)
-          },
             currentTimeString:function() {
                 var d = new Date();
                 return d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "." + d.getMilliseconds() + " - ";
             },
-            sendevent:async function(){
+            sendRouting: function(){
               try {
-                /*
-                var eventlist = await  pouchdb.allDocs({include_docs: true, descending: true})
-                var dateinfo = new Array()
-                for(index = 0 ;index<eventlist.rows.length;index++)
-                {
-                  dateinfo[index] = eventlist.rows[index].doc
-                  dateinfo[index].step = eventlist.rows.length-index
-                  delete dateinfo[index]._id;
-                  delete dateinfo[index]._rev;
-                }
-                dateinfo.reverse()
-                var subindex = dateinfo.length - 3 
-                dateinfo = dateinfo.slice(subindex>=0?subindex:0,dateinfo.length )
-                for(index = 1 ;index<dateinfo.length;index++)
-                {
-                    dateinfo[index].duration = (dateinfo[index].timestamp - dateinfo[index-1].timestamp)/1000
-                    dateinfo[index].original = dateinfo[index-1].routing
-                    dateinfo[index].edge =  dateinfo[index].original + "|" +dateinfo[index].routing
-                }
-                dateinfo.splice(0,1)
-                const info = {"type":"msg","time_stamp": new Date().getTime(),"uuid":oWebJssdkNetwork.murmur,action:dateinfo}
-                var initinfo = JSON.stringify(info)
-                //initinfo.userAgent = fingerprintjs2info.UserAgent()
-                instantiated.sendhttpinfo(initinfo)
-                oWebJssdkNetwork.sendWebSocketMsg(initinfo)
-                */
+                
                var dateinfo = new Array()
                for(var index = 0 ;index<routinglist.length;index++)
                {
                  dateinfo[index] = routinglist[index]
                  dateinfo[index].step = index//routinglist.length-index
+                 if(""==dateinfo[index].detail)
+                 {
+                    delete dateinfo[index].detail;
+                 }
                  delete dateinfo[index]._id;
                  delete dateinfo[index]._rev;
                }
-               //dateinfo.reverse()
-               //var subindex = dateinfo.length - 3 
-               //dateinfo = dateinfo.slice(subindex>=0?subindex:0,dateinfo.length )
-               dateinfo[0].duration = 0
-               dateinfo[0].original = 's'
-               dateinfo[0].edge =   dateinfo[0].routing
+               
                for(index = 1 ;index<dateinfo.length;index++)
                {
                    dateinfo[index].duration = (dateinfo[index].timestamp - dateinfo[index-1].timestamp)/1000
                    dateinfo[index].original = dateinfo[index-1].routing
                    dateinfo[index].edge =  dateinfo[index].original + "|" +dateinfo[index].routing
                }
+               //考虑0号节点的用途其实不大，不能形成边，但是在长路径中可以携带detail，因此不再删除0号节点
                //dateinfo.splice(0,1)
-               const info = {"type":"msg","time_stamp": new Date().getTime(),"uuid":'',"routing_stack":dateinfo}
-               info["appmeta_appname"] = appmeta_appname
-               info["appmeta_appver"] = appmeta_appver
-               info["server_action"] = "routing"
-               info["uid_uid"] = uid_uid        
+               const info = {
+                 type: 'msg',
+                 time_stamp: new Date().getTime(),
+                 routing_stack: dateinfo,
+                 appmeta_appname: appmeta_appname,
+                 appmeta_appver: appmeta_appver,
+                 server_action: 'routing',
+               }
                var sstr = JSON.stringify(info)
                var checkjson = JSON.parse(sstr)       
                sstr = JSON.stringify(checkjson)
                instantiated.sendhttpinfo(sstr)
                //oWebJssdkNetwork.sendWebSocketMsg(initinfo)
-                
-              } catch (err) {
+               //这里要做超级聚合，就是routing清零，但是要把ff首包变成之前的路径聚合
+               var ff= ""
+               var detailinfo = Array()
+               for(var rr=0;rr<dateinfo.length;rr++)
+               {
+                  var reg = /([*/0-9a-zA-Z,]+)/g;
+                  var match = reg.exec(dateinfo[rr].original)
+                  var d = dateinfo[rr].detail
+                  if(undefined!=d)
+                  { 
+                    d.routing = dateinfo[rr]
+                    detailinfo.push(d)
+                  }
+                  if(undefined!=match[1])
+                  {
+                    ff = ((""==ff||undefined==ff)?"":ff+",")+match[1]
+                  }
+               }
+               if(""!=ff && undefined!=ff)
+               {
+                ff=ff+",bg"
+               }
+               routinglist =  []
+               instantiated.addTodb(ff,detailinfo)
+              } catch (err) {    
                 console.log(err);
               }
-            },
-            sendRouting:async function()  {
-              /*
-              try {
-                var response = await  pouchdb.allDocs({include_docs: true, descending: true})
-                var dateinfo = new Array()
-                for(index = 0 ;index<response.rows.length;index++)
-                {
-                  
-                  dateinfo[index] = response.rows[index].doc
-                  dateinfo[index].step = response.rows.length-index
-                  delete dateinfo[index]._id;
-                  delete dateinfo[index]._rev;
-                }
-                dateinfo.reverse()
-                for(index = 0 ;index<dateinfo.length;index++)
-                {
-                  //dateinfo[index].setp = index
-                  if(index!=0)
-                  {
-                    dateinfo[index].duration = (dateinfo[index].timestamp - dateinfo[index-1].timestamp)/1000
-                    dateinfo[index].original = dateinfo[index-1].routing
-                    dateinfo[index].edge =  dateinfo[index].original + "|" +dateinfo[index].routing
-                  }
-                  else
-                  {
-                    dateinfo[index].duration = 0
-                    dateinfo[index].original = "s"
-                    dateinfo[index].edge = "s|"+dateinfo[index].routing
-                  }
-                }
-                const info = {"type":"msg","time_stamp": new Date().getTime(),"uuid":'oWebJssdkNetwork.murmur',action:dateinfo}
-                info["appmeta_appname"] = appmeta_appname
-                info["appmeta_appver"] = appmeta_appver
-                info["server_action"] = "routing"
-                info["uid_uid"] = uid_uid        
-                var initinfo = JSON.stringify(info)
-                //initinfo.userAgent = fingerprintjs2info.UserAgent()
-                instantiated.sendhttpinfo(initinfo)
-                //oWebJssdkNetwork.sendWebSocketMsg(initinfo)
-                
-                await pouchdb.destroy('action')
-                pouchdb = await new PouchDB('action')
-              } catch (err) {
-                console.log(err);
-              }
-              */
-
             },
             createCORSRequest:function (method, url) {
               let xhr = xhr = new XMLHttpRequest();
@@ -1991,7 +1821,8 @@ var webjssdk = (function() {
               msg = JSON.stringify(r)
               var codemsg = instantiated.encrypthttp(msg)
               //var codemsg = msg
-              Taro.request({
+              // Taro.request({
+              wx.request({
                 url: sendhttp, //仅为示例，并非真实的接口地址
                 data: codemsg,
                 method:'POST',
@@ -2007,77 +1838,70 @@ var webjssdk = (function() {
             sendbaseinfo:async function(){
               var oWebJssdkBase = await WebJssdkBase.getinstance();
               var oBaseInfo = oWebJssdkBase.GetBaseInfo();
+              //这里会导致极少的用户没有保存uid_sid就发送routing了
+              uid_sid = oBaseInfo.uid_sid
+
               oBaseInfo["appmeta_appname"] = appmeta_appname
               oBaseInfo["appmeta_appver"] = appmeta_appver
+
               oBaseInfo["server_action"] = "setup"
-              oBaseInfo["uid_uid"] = uid_uid 
+              oBaseInfo["uid_uid"] = uid_uid
               var sstr = JSON.stringify(oBaseInfo)
-              var checkjson = JSON.parse(sstr)       
+              var checkjson = JSON.parse(sstr)
               oBaseInfo = JSON.stringify(checkjson)
-              instantiated.updateWebDAU(oBaseInfo)     
+			        console.log(oBaseInfo)
+              instantiated.updateWebDAU(oBaseInfo)
+              // 添加baseInfo，暴露出去
+              return {
+                baseInfo: checkjson
+              }
             },
             updateWebDAU:function(sendbaseinfo){
-              //localinfo.get(localinfokey).then(function(doc) {
-                //if(doc.timestamp<(new Date()).getTime() - false==dev?1*1000:24*60*60*1000)//24*60*60*1000)
-                
-                  instantiated.sendhttpinfo(sendbaseinfo)
-                  //oWebJssdkNetwork.sendWebSocketMsg(sendbaseinfo)
-                  //instantiated.updatehistory(doc)
-                  return
-              /*
-              }).then(function(response) {
-                console.log(response);
-                // handle response
-              }).catch(function (err) {
-                instantiated.sendhttpinfo(sendbaseinfo)
-                console.log(err);
-              });
-              */
+              instantiated.sendhttpinfo(sendbaseinfo)
             },
             updatehistory:function(doc)
             {
               localinfo.put({_id: localinfokey,_rev: doc._rev,timestamp:(new Date()).getTime()})
             },
-            rounting:function(eventname,event)
+            rounting:function(eventname,send)
             {
               instantiated.addTodb(eventname)
-              if(true==event)
+              if(true==send && "bg"==eventname)
               {
-                instantiated.sendevent()
+                instantiated.sendRouting()
               }
             },
-            reconnect:async function(enable){
-              //oWebJssdkNetwork = await WebJssdkNetwork.getinstance()
-              //oWebJssdkNetwork.reconnect(enable)
-          },
           }
         }
-            
-    
     return {
-        getinstance: function(appname,appver,uuid,debug) {
-            if (!instantiated) {
-              dev = debug==false?false:true
-              appmeta_appname = appname!=undefined?appname:""
-              appmeta_appver = appver!=undefined?appver:""
-              uid_uid = uuid!=undefined?uuid:""
-              localinfokey = "plumber_" + appmeta_appname
-              instantiated = new init();
-              instantiated.initWebInfo()
-            }
-            return instantiated;
+      getinstance: function (appname, appver, unionId, debug) {
+        if (!instantiated) {
+          dev = debug == false ? false : true
+          appmeta_appname = appname != undefined ? appname : ""
+          appmeta_appver = appver != undefined ? appver : ""
+          uid_uid = unionId || ''
+          localinfokey = "plumber_" + appmeta_appname
+          instantiated = new init();
+          instantiated.initWebInfo().then(function (res) {
+            // 发送完baseInfo 暴露出去
+            instantiated.baseInfo = res
+          })
         }
+        return instantiated;
+      }
     }
 })();
-webjssdk.getinstance("pintuan-mini",1.0).reconnect(false)
-export function plumbertrace (s,ss) {
-  console.log(s)
-
-  if(true===ss)
-  {
+/*
+webjssdk.getinstance("pintuan-mini",1.0)
+webjssdk.getinstance().addTodb("ff")
+const plumber = (s, ss) => {
+  if (true === ss) {
     webjssdk.getinstance().rounting('bg',true)
-  }else{
+  } else {
     webjssdk.getinstance().addTodb(s)
   }
 }
+*/
+const plumber = webjssdk.getinstance
 
+export default plumber;

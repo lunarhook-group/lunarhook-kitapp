@@ -5,7 +5,6 @@ import { View, Text, ScrollView } from '@tarojs/components'
 
 import sloganshow from '../../config/SloganModule'
 import './SloganShare.scss'
-import { plumbertrace}  from '../../plumbertrace'
 
 /*
 var imgtime = new Array()
@@ -31,10 +30,7 @@ export default class SloganShare extends Component {
   componentDidHide() { 
     this.timer && clearInterval(this.timer);
   }
-  componentDidCatchError() { }
-  componentDidShow() {
-    plumbertrace(this.props.tid)
-  }
+
   random() {
     this.timer = setInterval(() => {
       var cur = Math.floor(Math.random() * sloganshow.length)

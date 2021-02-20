@@ -4,7 +4,7 @@ import { StyleSheet, View, PixelRatio, Alert, Text, FlatList, ScrollView, Camera
 import { AtToast, AtGrid, AtTabBar, AtCheckbox, AtRadio, AtButton, AtDivider, AtIcon } from 'taro-ui'
 import './HollandModule.scss'
 import '../../../../theme.scss'
-import { plumbertrace}  from '../../../plumbertrace'
+
 var Hollands=Array();
 Hollands[1]={
   "key":"1",
@@ -898,12 +898,6 @@ export default class HollandModule extends Component {
   }
   componentDidMount() { 
     this.randominit()
-  }
-  componentDidHide() { 
-  }
-  componentDidCatchError() { }
-  componentDidShow() {
-    plumbertrace(this.props.tid)
   }
   randominit()
   {

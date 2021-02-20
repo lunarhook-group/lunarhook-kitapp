@@ -7,7 +7,6 @@ import SixrandomModule from '../SixrandomLib/SixrandomModule'
 import EightrandomModule from './EightrandomModule'
 import './EightrandomMainPage.scss'
 import '../../../../theme.scss'
-import { plumbertrace } from '../../../plumbertrace'
 var jump = false
 let curyear = 0
 /*
@@ -39,13 +38,6 @@ let curyear = 0
 
 
 export default class EightrandomMainPage extends Component {
-  componentDidMount() {
-  }
-  componentDidHide() { }
-  componentDidCatchError() { }
-  componentDidShow() {
-    plumbertrace(this.props.tid)
-  }
   constructor(props) {
 
     super(props);

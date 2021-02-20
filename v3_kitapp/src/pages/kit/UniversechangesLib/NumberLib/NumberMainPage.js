@@ -5,7 +5,6 @@ import { View, Text, Image, Button, ScrollView } from '@tarojs/components'
 import { AtAccordion, AtDivider, AtTabBar, AtInput, AtForm, AtSwitch } from 'taro-ui'
 import './NumberMainPage.scss'
 import '../../../../theme.scss'
-import { plumbertrace } from '../../../plumbertrace'
 var jump = false
 let curyear = 0
 
@@ -65,13 +64,6 @@ spnumlucky["19"] = spnumlucky["91"] = "延年有碍，易女强人"
 spnumlucky["43"] = spnumlucky["34"] = "延年有碍，若女性格"
 
 export default class NumberMainPage extends Component {
-  componentDidMount() {
-  }
-  componentDidHide() { }
-  componentDidCatchError() { }
-  componentDidShow() {
-    plumbertrace(this.props.tid)
-  }
   constructor(props) {
     super(props);
     this.state = {

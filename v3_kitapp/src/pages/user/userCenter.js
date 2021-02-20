@@ -4,7 +4,7 @@ import { AtAvatar, AtList, AtListItem } from 'taro-ui';
 import { View ,Image} from '@tarojs/components';
 import './userCenter.scss';
 import service from '../../assets/service.jpeg'
-import { plumbertrace}  from '../plumbertrace'
+import  plumber  from '../plumbertrace'
 
 export default class UserCenter extends Component {
   componentDidMount() { 
@@ -13,7 +13,7 @@ export default class UserCenter extends Component {
   componentDidHide() { }
   componentDidCatchError() { }
   componentDidShow() {
-    plumbertrace(this.props.tid)
+    //plumber(this.props.tid)
   }
 
   static defaultProps = {
@@ -59,12 +59,7 @@ export default class UserCenter extends Component {
             </AtList>
           );
         })}
-        <Image
-          className={'imageslogan'}
-          mode='widthFix'
-          style='width:50%'
-          src={service}
-        />
+
       </View>
     );
   }

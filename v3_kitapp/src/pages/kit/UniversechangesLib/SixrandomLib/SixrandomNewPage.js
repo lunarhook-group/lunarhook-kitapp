@@ -6,7 +6,6 @@ import SixrandomModule from './SixrandomModule'
 import ValueTypeModule from '../../../config/ValueTypeModule'
 import './SixrandomNewPage.scss'
 import '../../../../theme.scss'
-import { plumbertrace}  from '../../../plumbertrace'
 var randArray = []
 
 
@@ -14,13 +13,7 @@ var randArray = []
 
 
 export default class SixrandomNewPage extends Component {
-  componentDidMount() {
-  }
-  componentDidHide() { }
-  componentDidCatchError() { }
-  componentDidShow() {
-    plumbertrace(this.props.tid)
-  }
+
   constructor(porp) {
 
     super(porp);

@@ -5,7 +5,7 @@ import { View, Text, Image, Button, ScrollView } from '@tarojs/components'
 import { AtAccordion, AtGrid, AtTabBar, AtIcon } from 'taro-ui'
 import './litekitPage.scss'
 import '../../theme.scss'
-import { plumbertrace}  from '../plumbertrace'
+
 var data1 =
   [
     {
@@ -74,11 +74,6 @@ export default class litekitPage extends Component {
         this.setState({current:1})
 
   }
-  componentDidHide() { }
-  componentDidCatchError() { }
-  componentDidShow() {
-    plumbertrace(this.props.tid)
-  }
   constructor (props) {
     super(props)
     var open = new Array()
@@ -88,7 +83,7 @@ export default class litekitPage extends Component {
       open: open,
     }
   }
-  
+
     handleClick (value) {
       this.setState({current:value})
       if(2==value)
@@ -116,7 +111,7 @@ export default class litekitPage extends Component {
       }
       else if ("六爻测试" == item.value) {
         Taro.navigateTo({url: '../../pages/kit/UniversechangesLib/SixrandomLib/SixrandomNewPage'})
-        //plumbertrace('test',true)
+        //plumber('test',true)
       }
       
       else if ("八字测评" == item.value) {

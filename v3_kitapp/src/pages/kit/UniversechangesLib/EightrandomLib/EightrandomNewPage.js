@@ -6,7 +6,7 @@ import { AtButton, AtDivider, AtTabBar, AtInput, AtForm, AtSwitch } from 'taro-u
 import SixrandomModule from '../SixrandomLib/SixrandomModule'
 import './EightrandomNewPage.scss'
 import '../../../../theme.scss'
-import { plumbertrace } from '../../../plumbertrace'
+
 
 Date.prototype.format = function (formatStr) {
   var str = formatStr;
@@ -18,13 +18,7 @@ Date.prototype.format = function (formatStr) {
 } 
 
 export default class EightrandomNewPage extends Component {
-  componentDidMount() {
-  }
-  componentDidHide() { }
-  componentDidCatchError() { }
-  componentDidShow() {
-    plumbertrace(this.props.tid)
-  }
+
   constructor(porp) {
         var curday = new Date();
         super(porp);

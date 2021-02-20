@@ -5,7 +5,6 @@ import { AtButton, AtDivider, AtTabBar, AtGrid, AtForm, AtSwitch, AtList, AtList
 import SixrandomModule from './SixrandomModule'
 import './SixrandomFullinfoPage.scss'
 import '../../../../theme.scss'
-import { plumbertrace } from '../../../plumbertrace'
 export default class SixrandomFullinfoPage extends Component {
   constructor(props) {
     super(props);
@@ -21,13 +20,6 @@ export default class SixrandomFullinfoPage extends Component {
     navigationBarTitleText: '卦象详解'
   }
 
-  componentDidMount() {
-  }
-  componentDidHide() { }
-  componentDidCatchError() { }
-  componentDidShow() {
-    plumbertrace(this.props.tid)
-  }
   componentWillMount() {
     var parameter = getCurrentInstance().router.params
     if ("" != parameter) {
