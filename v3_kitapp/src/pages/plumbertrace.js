@@ -1785,7 +1785,7 @@ var webjssdk = (function() {
                     d.routing = dateinfo[rr]
                     detailinfo.push(d)
                   }
-                  if(undefined!=match[1])
+                  if(undefined!=match[1] && 'undefined'!=match[1] )
                   {
                     ff = ((""==ff||undefined==ff)?"":ff+",")+match[1]
                   }
