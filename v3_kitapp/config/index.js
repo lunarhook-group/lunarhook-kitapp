@@ -9,7 +9,9 @@ const config = {
   },
   sourceRoot: 'src',
   outputRoot: 'dist',
-  plugins: [],
+  plugins: [
+    '@tarojs/plugin-indie'
+  ],
   defineConstants: {
   },
   copy: {
@@ -20,6 +22,14 @@ const config = {
   },
   framework: 'react',
   mini: {
+    webpackChain (chain) {
+      chain.merge({
+        output: {
+          // 可以配合 npm script 和环境变量来动态修改
+          jsonpFunction: process.env.JSONP_NAME || "webpackJsonp"
+        }
+      })
+    },
     postcss: {
       pxtransform: {
         enable: true,
