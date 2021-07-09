@@ -28,7 +28,7 @@ export default class Slogan extends Component {
 
   componentDidMount() { 
     var animation = Taro.createAnimation({
-      duration: 5000,
+      duration: 8000,
       timingFunction: "linear",})
     this.animation = animation;
     this.random()
@@ -43,20 +43,7 @@ export default class Slogan extends Component {
   }
 
   random() {
-    this.animation.opacity(0).step({
-      duration: 1000,
-      timingFunction: 'linear',
-    })
-    this.animation.opacity(1).step({
-      opacity:1,
-      duration: 3000,
-      timingFunction: 'linear',
-    })
-    this.animation.opacity(0).step({
-      opacity:0,
-      duration: 1000,
-      timingFunction: 'linear',
-    })
+    this.animation.opacity(0.5).step({ducation: 1000,delay:0}).opacity(0).step({ducation: 4000})
     this.setState({
       animationData: this.animation.export()
     }),
@@ -83,14 +70,14 @@ export default class Slogan extends Component {
     var second_width = res.screenWidth
     return (
       <View className={"imagecontain"}>
-        <ScrollView animation={this.state.animationData}>
-              <View className={"contain"}  >
-                  <Text >
+        <ScrollView >
+              <View className={"contain"} animation={this.state.animationData} >
+                  <Text className="text" >
                     {sloganshow[this.state.cur].contect}
                   </Text>
                 </View>
-                <View className={"slogan"}  >
-                  <Text >
+                <View className={"slogan"}  animation={this.state.animationData} >
+                  <Text  className="text" >
                     {sloganshow[this.state.cur].name}
                   </Text>
                   </View>
