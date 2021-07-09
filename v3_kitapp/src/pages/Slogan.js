@@ -32,18 +32,20 @@ export default class Slogan extends Component {
       timingFunction: "linear",})
     this.animation = animation;
     this.random()
-   
+   /*
     setTimeout(() => {
       Taro.navigateTo({ url: '../pages/kit/tools/litekitPage' })
     }, 4000);
-
+*/
   }
   componentDidHide() { 
     this.timer && clearInterval(this.timer);
   }
 
   random() {
-    this.animation.opacity(0.5).step({ducation: 1000,delay:0}).opacity(0).step({ducation: 4000})
+    this.animation.opacity(1).rotate(-10).step({ducation: 5000})
+    this.animation.opacity(1).rotate(10).step({ducation: 1000})
+
     this.setState({
       animationData: this.animation.export()
     }),
@@ -69,14 +71,14 @@ export default class Slogan extends Component {
     var second_height= res.screenHeight
     var second_width = res.screenWidth
     return (
-      <View className={"imagecontain"}>
+      <View className={"imagecontain"} animation={this.state.animationData}>
         <ScrollView >
-              <View className={"contain"} animation={this.state.animationData} >
+              <View className={"contain"}  >
                   <Text className="text" >
                     {sloganshow[this.state.cur].contect}
                   </Text>
                 </View>
-                <View className={"slogan"}  animation={this.state.animationData} >
+                <View className={"slogan"} >
                   <Text  className="text" >
                     {sloganshow[this.state.cur].name}
                   </Text>
