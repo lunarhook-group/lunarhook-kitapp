@@ -1,3 +1,3 @@
 export default {
-    navigationBarTitleText: '开屏语'
+    navigationBarTitleText: '乾坤缘'
 }

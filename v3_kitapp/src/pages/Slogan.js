@@ -22,11 +22,20 @@ imgtime["亥"] = imgtime12
 
 
 export default class Slogan extends Component {
+  state = {
+    animationData: {}
+  }
+
   componentDidMount() { 
+    var animation = Taro.createAnimation({
+      duration: 5000,
+      timingFunction: "linear",})
+    this.animation = animation;
     this.random()
+   
     setTimeout(() => {
       Taro.navigateTo({ url: '../pages/kit/tools/litekitPage' })
-    }, 3500);
+    }, 4000);
 
   }
   componentDidHide() { 
@@ -34,6 +43,23 @@ export default class Slogan extends Component {
   }
 
   random() {
+    this.animation.opacity(0).step({
+      duration: 1000,
+      timingFunction: 'linear',
+    })
+    this.animation.opacity(1).step({
+      opacity:1,
+      duration: 3000,
+      timingFunction: 'linear',
+    })
+    this.animation.opacity(0).step({
+      opacity:0,
+      duration: 1000,
+      timingFunction: 'linear',
+    })
+    this.setState({
+      animationData: this.animation.export()
+    }),
     this.timer = setInterval(() => {
       var cur = Math.floor(Math.random() * sloganshow.length)
       this.setState({ cur: cur })
@@ -52,19 +78,18 @@ export default class Slogan extends Component {
     //var imgindex = imgtime[curtimelucky[1]]
     //var second_height = 600
     //var second_width = 375
+
     var second_height= res.screenHeight
     var second_width = res.screenWidth
     return (
       <View className={"imagecontain"}>
-        <ScrollView>
-
-
-              <View className={"contain"}>
+        <ScrollView animation={this.state.animationData}>
+              <View className={"contain"}  >
                   <Text >
                     {sloganshow[this.state.cur].contect}
                   </Text>
                 </View>
-                <View className={"slogan"}>
+                <View className={"slogan"}  >
                   <Text >
                     {sloganshow[this.state.cur].name}
                   </Text>
