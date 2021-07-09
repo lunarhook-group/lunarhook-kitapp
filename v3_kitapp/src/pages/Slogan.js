@@ -27,32 +27,49 @@ export default class Slogan extends Component {
   }
 
   componentDidMount() { 
-    var animation = Taro.createAnimation({
-      duration: 8000,
-      timingFunction: "linear",})
-    this.animation = animation;
+    this.timer = setInterval(() => {
+      var cur = Math.floor(Math.random() * sloganshow.length)
+      this.setState({ cur: cur })
+      this.random()
+    }, 1000 * 5);
     this.random()
-   /*
+   
     setTimeout(() => {
       Taro.navigateTo({ url: '../pages/kit/tools/litekitPage' })
-    }, 4000);
-*/
+    }, 5000);
+
   }
   componentDidHide() { 
     this.timer && clearInterval(this.timer);
   }
 
   random() {
-    this.animation.opacity(1).rotate(-10).step({ducation: 5000})
-    this.animation.opacity(1).rotate(10).step({ducation: 1000})
-
+    let animation = Taro.createAnimation({
+      timingFunction: "linear",
+      success: function(res) {
+        console.log(res)
+      }
+    })
+    this.animation = animation;
+    this.animation.opacity(0).step({duration: 1000,})
     this.setState({
       animationData: this.animation.export()
     }),
-    this.timer = setInterval(() => {
-      var cur = Math.floor(Math.random() * sloganshow.length)
-      this.setState({ cur: cur })
-    }, 1000 * 5);
+    setTimeout(() => {
+      this.animation.opacity(1).step({duration: 1000,})
+      this.setState({
+        animationData: this.animation.export()
+      })
+    }, 1000);
+    setTimeout(() => {
+      this.animation.opacity(0).step({ducation: 1000})
+      this.setState({
+        animationData: this.animation.export()
+      })
+    }, 4000);
+
+
+
   }
   constructor (props) {
     super(props)
