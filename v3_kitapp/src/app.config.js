@@ -1,7 +1,9 @@
 export default {
   pages: [
+    'pages/Slogan',
+    /*
     'pages/kit/litekitPage',
-        /*
+
 
     'pages/kit/tools/SloganShare',
 
@@ -29,6 +31,7 @@ export default {
     {
       "root": "pages/kit/tools",
       "pages": [
+        "litekitPage",
         "SloganShare",
       ]
     }, 

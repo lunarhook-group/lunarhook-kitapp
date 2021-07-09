@@ -4,9 +4,9 @@ import Taro from '@tarojs/taro'
 import { View, Text, Image, Button, ScrollView } from '@tarojs/components'
 import { AtAccordion, AtGrid, AtTabBar, AtIcon } from 'taro-ui'
 import './litekitPage.scss'
-import '../../theme.scss'
-import plumber from '../plumbertrace'
-import WXBizDataCrypt from '../WXBizDataCrypt'
+import '../../../theme.scss'
+import plumber from '../../plumbertrace'
+import WXBizDataCrypt from './WXBizDataCrypt'
 var data1 =
   [
     {
@@ -106,34 +106,34 @@ export default class litekitPage extends Component {
   handleClick(value) {
     this.setState({ current: value })
     if (2 == value) {
-      Taro.navigateTo({ url: '../../pages/user/userCenter' })
+      Taro.navigateTo({ url: '../../../pages/user/userCenter' })
     }
     if (0 == value) {
-      Taro.navigateTo({ url: '../../pages/kit/tools/SloganShare' })
+      Taro.navigateTo({ url: '../../../pages/kit/tools/SloganShare' })
     }
 
   }
 
   GridHander(item, index) {
     if ("职业性格测试" == item.value) {
-      Taro.navigateTo({ url: '../../pages/kit/LunarMotionsLib/PsychLib/MBTIModule' })
+      Taro.navigateTo({ url: '../../../pages/kit/LunarMotionsLib/PsychLib/MBTIModule' })
     }
     else if ("九型人格测试" == item.value) {
-      Taro.navigateTo({ url: '../../pages/kit/LunarMotionsLib/PsychLib/EnneagramModule' })
+      Taro.navigateTo({ url: '../../../pages/kit/LunarMotionsLib/PsychLib/EnneagramModule' })
     }
     else if ("霍兰德职业测试" == item.value) {
-      Taro.navigateTo({ url: '../../pages/kit/LunarMotionsLib/PsychLib/HollandModule' })
+      Taro.navigateTo({ url: '../../../pages/kit/LunarMotionsLib/PsychLib/HollandModule' })
     }
     else if ("六爻测试" == item.value) {
-      Taro.navigateTo({ url: '../../pages/kit/UniversechangesLib/SixrandomLib/SixrandomNewPage' })
+      Taro.navigateTo({ url: '../../../pages/kit/UniversechangesLib/SixrandomLib/SixrandomNewPage' })
       //plumber('test',true)
     }
 
     else if ("八字测评" == item.value) {
-      Taro.navigateTo({ url: '../../pages/kit/UniversechangesLib/EightrandomLib/EightrandomNewPage' })
+      Taro.navigateTo({ url: '../../../pages/kit/UniversechangesLib/EightrandomLib/EightrandomNewPage' })
     }
     else if ("数字八星" == item.value) {
-      Taro.navigateTo({ url: '../../pages/kit/UniversechangesLib/NumberLib/NumberMainPage' })
+      Taro.navigateTo({ url: '../../../pages/kit/UniversechangesLib/NumberLib/NumberMainPage' })
     }
   }
   handleAccordionClick(index, value) {
