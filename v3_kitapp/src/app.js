@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import './app.scss'
 import './icon.scss'
-
-import plumber  from './pages/plumbertrace'
-
+import plumber  from './pages/plumbertracewithoutpoucdbwithwxrequest_mini'
+import Taro from '@tarojs/taro'
 //https://blog.csdn.net/baidu_39067385/article/details/111411634
 
 class App extends Component {
 
   componentDidMount () {
-    plumber("sdk-mini",1.0,'',false)
+    var systemInfo = Taro.getSystemInfoSync()
+    plumber("sdk-mini",1.0,'',systemInfo.platform == 'devtools')
     wx.onAppRoute((route) => {
       plumber().addTodb(route.path)
      

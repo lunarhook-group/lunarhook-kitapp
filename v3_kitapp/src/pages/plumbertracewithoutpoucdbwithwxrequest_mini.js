@@ -1,4 +1,4 @@
-//import React, { Component } from 'react'
+// import React, { Component } from 'react'
 // import Taro from '@tarojs/taro'
 /*
 CryptoJS v3.1.2
@@ -1555,27 +1555,6 @@ var WebJssdkBase = (function(){
   var baseInfo;
   var instantiated;     //匿名函数创建私有变量,判断单体对象是否被创建的句柄
   var fingerprintjs2info = "";
-  function initbase (){
-    return new Promise(function(resolve, reject) {
-		// if (window.requestIdleCallback) {
-		// 小程序环境无window
-		if (0) {
-          requestIdleCallback(function () {
-              Fingerprint2.get(function (components) {
-                  fingerprintjs2info = components
-                  resolve("ok")
-              })
-          })
-      } else {
-          setTimeout(function () {
-              Fingerprint2.get(function (components) {
-                  fingerprintjs2info = components
-                  resolve("ok")
-              })  
-          },1000)
-      }
-    })
-  }
   function initwxbase (){
     try {
       const res = wx.getSystemInfoSync()
@@ -1589,21 +1568,12 @@ var WebJssdkBase = (function(){
   }
   async function asyncinit()
   {
-    let ret = await initbase()
     let wxret = await initwxbase()
-    //var murmur = Fingerprint2.x64hash128(fingerprintjs2info.map(function (pair) { return null!=pair.value?pair.value:"~" }).join('~~~'), 31)
-    //var murmur = "test"
     var key = {key: 'uid_sid', value: guid()}
-    fingerprintjs2info.push(key)
     const info = {"type":"msg"}
     baseInfo = JSON.stringify(info)
     baseInfo = JSON.parse(baseInfo)
-    for(var i=0;i<fingerprintjs2info.length;i++)
-    {
-      var keyindex = fingerprintjs2info[i].key;
-      var keyvalue= fingerprintjs2info[i].value;
-      baseInfo[keyindex] = keyvalue
-    }
+
     if(null!=wxret){//获取微信基本配置
       baseInfo["device_brand"] = wxret["brand"];
       baseInfo["device_model"] = wxret["model"];
@@ -1613,18 +1583,6 @@ var WebJssdkBase = (function(){
       baseInfo["user_wx_language"] = wxret["language"];
 
     }
-    delete baseInfo["webgl"];
-    delete baseInfo["canvas"];
-    delete baseInfo["cpuClass"];
-    delete baseInfo["plugins"];
-    delete baseInfo["fonts"];  
-    delete baseInfo["addBehavior"];
-    delete baseInfo["adBlock"];
-    delete baseInfo["hasLiedLanguages"];
-    delete baseInfo["hasLiedResolution"];
-    delete baseInfo["hasLiedOs"];
-    delete baseInfo["hasLiedBrowser"];
-    delete baseInfo["touchSupport"];
   }
   function init() {
     return{
@@ -1649,23 +1607,19 @@ var WebJssdkBase = (function(){
 var webjssdk = (function() {
     var appmeta_appname
     var appmeta_appver
-    var sdk_version = 0.1
+    var sdk_version = 0.2
     var dev = false
     var uid_uid = ""
 	  var uid_sid = guid()
-    var group_on_info = {}
     var sendhttp = "https://lunarhook.picp.vip/plumber/statis/"
     //var sendhttp = "https://c-tessar.xdf.cn/plumber/statis/"
     var instantiated = undefined;     //匿名函数创建私有变量,判断单体对象是否被创建的句柄
     var routinglist = new Array()
     var httpkey = "swxapktzteyjsali"
-    //var pouchdb = new PouchDB('action');
-    //var localinfo = new PouchDB('webplumber')
     var localinfokey = ""
     var ScrollTick = (new Date()).getTime()
-    // if(window.localStorage){
-	// 小程序环境无window
-	if (0) {
+	  // 小程序环境无window
+	  if (0) {
       localdb = true
       console.log('This browser supports localStorage');
     }else{
@@ -1677,20 +1631,96 @@ var webjssdk = (function() {
     } 
     function init() {
         return {
-          addTodb: function (text, detail) {
+          find: function (list, f) {
+            return list.filter(f)[0]
+          },
+          deepCopyV: function (obj, cache) {
+            if (cache === void 0) cache = []
+
+            if (obj === null || typeof obj !== 'object') {
+              return obj;
+          }
+    
+            const objType = Object.prototype.toString.call(obj).slice(8, -1);
+
+            // 考虑 正则对象的copy
+            if (objType === 'RegExp') {
+                return new RegExp(obj);
+            }
+        
+            // 考虑 Date 实例 copy
+            if (objType === 'Date') {
+                return new Date(obj);
+            }
+        
+            // 考虑 Error 实例 copy
+            if (objType === 'Error') {
+                return new Error(obj);
+            }
+    
+            // if obj is hit, it is in circular structure
+            var hit = instantiated.find(cache, function (c) { return c.original === obj })
+            if (hit) {
+              return hit.copy
+            }
+    
+            var copy = Array.isArray(obj) ? [] : {}
+            // put the copy into cache at first
+            // because we want to refer it in recursive deepCopy
+            cache.push({
+              original: obj,
+              copy: copy
+            })
+    
+            Object.keys(obj).forEach(function (key) {
+              copy[key] = instantiated.deepCopyV(obj[key], cache)
+            })
+    
+            return copy
+          },
+          addTodbwithsend: function(text,detailinfo)
+          {
+            dateinfo[index]
+            var last = routinglist[routinglist.length-1]
+            var session_duration = (new Date().getTime()- last.timestamp) /1000
+            var session_edge = last.original + "|" +  text
+            const info = {
+              "type": "msg", "time_stamp": new Date().getTime(), event: detailinfo,
+              server_action: 'session'
+              , session_duration:session_duration
+              , session_edge: session_edge
+              , session_step: last.step
+              , session_sessiontype:"event"
+              , appmeta_appname: appmeta_appname
+              , appmeta_appver: appmeta_appver
+              , uid_uid: uid_uid
+              , uid_sid: uid_sid
+            }
+            var initinfo = JSON.stringify(info)
+            instantiated.addTodb(text,detailinfo)
+            instantiated.sendhttpinfo(initinfo)
+    
+          },
+          addTodb: function (text, detailinfo) {
             /*
             对于滚动事件，1500ms内只记录一次，最终做长路径判断的时候，对回文的处理需要排除这些用户附加行为
             类似的还包括pull刷新，showModal，等event事件
             */
-            var testScroll = -1 == text.toLowerCase().indexOf("scroll") ? false : true;
-            var curtime = (new Date()).getTime()
-            if (true == testScroll && curtime - ScrollTick > 1500) {
-              ScrollTick = curtime
+            //var detail =instantiated.deepCopyV(detailinfo)
+            var detail = ""
+            if(undefined!=detailinfo)
+            {
+             detail = JSON.parse(JSON.stringify(detailinfo))
             }
-            else if (true == testScroll && curtime - ScrollTick < 1500) {
-              return
-            }
-            //滚动判断结束
+           var testScroll = -1 == text.toLowerCase().indexOf("scroll") ? false : true;
+           var curtime = (new Date()).getTime()
+           if (true == testScroll && curtime - ScrollTick > 1500) {
+             ScrollTick = curtime
+           }
+           else if (true == testScroll && curtime - ScrollTick < 1500) {
+             return
+           }
+           //滚动判断结束
             console.log(text, detail)
             var todo = {
               _id: new Date().toISOString(),
@@ -1735,6 +1765,38 @@ var webjssdk = (function() {
                 var d = new Date();
                 return d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "." + d.getMilliseconds() + " - ";
             },
+            /*
+            sendevent: async function () {
+              try {
+                var dateinfo = new Array()
+                for (index = 0; index < routinglist.length; index++) {
+                  dateinfo[index] = routinglist[index]
+                  dateinfo[index].step = index
+                }
+                dateinfo.reverse()
+                var subindex = dateinfo.length - 3
+                dateinfo = dateinfo.slice(subindex >= 0 ? subindex : 0, dateinfo.length)
+                for (index = 1; index < dateinfo.length; index++) {
+                  dateinfo[index].duration = (dateinfo[index].timestamp - dateinfo[index - 1].timestamp) / 1000
+                  dateinfo[index].original = dateinfo[index - 1].routing
+                  dateinfo[index].edge = dateinfo[index].original + "|" + dateinfo[index].routing
+                }
+                dateinfo.splice(0, 1)
+                const info = {
+                  "type": "msg", "time_stamp": new Date().getTime(), routing_stack: dateinfo,
+                  server_action: 'event'
+                  , uid_uid: uid_uid
+                  , uid_sid: uid_sid
+                }
+                var initinfo = JSON.stringify(info)
+                //initinfo.userAgent = fingerprintjs2info.UserAgent()
+                instantiated.sendhttpinfo(initinfo)
+                //oWebJssdkNetwork.sendWebSocketMsg(initinfo)
+              } catch (err) {
+                console.log(err);
+              }
+            },
+            */
             sendRouting: function(){
               try {
                 
@@ -1759,6 +1821,8 @@ var webjssdk = (function() {
                }
                //考虑0号节点的用途其实不大，不能形成边，但是在长路径中可以携带detail，因此不再删除0号节点
                //dateinfo.splice(0,1)
+               //const user = JSON.parse(uni.getStorageSync('userInfo') || "{}")
+               //const localUser = JSON.parse(uni.getStorageSync('LocalUserInfo') || "{}")
                const info = {
                  type: 'msg',
                  time_stamp: new Date().getTime(),
@@ -1766,6 +1830,8 @@ var webjssdk = (function() {
                  appmeta_appname: appmeta_appname,
                  appmeta_appver: appmeta_appver,
                  server_action: 'routing',
+                 uid_uid: uid_uid,
+                 uid_sid: uid_sid,
                }
                var sstr = JSON.stringify(info)
                var checkjson = JSON.parse(sstr)       
@@ -1782,10 +1848,10 @@ var webjssdk = (function() {
                   var d = dateinfo[rr].detail
                   if(undefined!=d)
                   { 
-                    d.routing = dateinfo[rr]
-                    detailinfo.push(d)
+                    //d.routing = JSON.parse(JSON.stringify(dateinfo[rr]));
+                    //detailinfo.push(JSON.parse(JSON.stringify(dateinfo[rr])))
                   }
-                  if(undefined!=match[1] && 'undefined'!=match[1] )
+                  if(undefined!=match[1] && 'undefined'!=match[1])
                   {
                     ff = ((""==ff||undefined==ff)?"":ff+",")+match[1]
                   }
@@ -1877,6 +1943,13 @@ var webjssdk = (function() {
       getinstance: function (appname, appver, unionId, debug) {
         if (!instantiated) {
           dev = debug == false ? false : true
+          if(true==dev)
+          {
+            sendhttp = "https://lunarhook.picp.vip/plumber/statis/"
+          }
+          else{
+            sendhttp = "https://c-tessar.xdf.cn/plumber/statis"
+          }
           appmeta_appname = appname != undefined ? appname : ""
           appmeta_appver = appver != undefined ? appver : ""
           uid_uid = unionId || ''
@@ -1894,7 +1967,7 @@ var webjssdk = (function() {
 /*
 webjssdk.getinstance("pintuan-mini",1.0)
 webjssdk.getinstance().addTodb("ff")
-const plumber = (s, ss) => {
+const plumbertrace = (s, ss) => {
   if (true === ss) {
     webjssdk.getinstance().rounting('bg',true)
   } else {
@@ -1902,6 +1975,7 @@ const plumber = (s, ss) => {
   }
 }
 */
+
 const plumber = webjssdk.getinstance
 
 export default plumber;

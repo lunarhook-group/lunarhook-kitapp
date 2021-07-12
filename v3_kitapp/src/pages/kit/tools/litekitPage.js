@@ -5,7 +5,7 @@ import { View, Text, Image, Button, ScrollView } from '@tarojs/components'
 import { AtAccordion, AtGrid, AtTabBar, AtIcon } from 'taro-ui'
 import './litekitPage.scss'
 import '../../../theme.scss'
-import plumber from '../../plumbertrace'
+import plumber from '../../plumbertracewithoutpoucdbwithwxrequest_mini'
 import WXBizDataCrypt from './WXBizDataCrypt'
 var data1 =
   [

@@ -24,18 +24,54 @@ imgtime["亥"] = imgtime12
 
 
 export default class SloganShare extends Component {
+  state = {
+    animationData: {}
+  }
+
   componentDidMount() { 
+    this.timer = setInterval(() => {
+      var cur = Math.floor(Math.random() * sloganshow.length)
+      this.setState({ cur: cur })
+      this.random()
+    }, 1000 * 5);
     this.random()
+   
+    setTimeout(() => {
+      Taro.navigateTo({ url: '../pages/kit/tools/litekitPage' })
+    }, 5000);
+
   }
   componentDidHide() { 
     this.timer && clearInterval(this.timer);
   }
 
   random() {
-    this.timer = setInterval(() => {
-      var cur = Math.floor(Math.random() * sloganshow.length)
-      this.setState({ cur: cur })
-    }, 1000 * 5);
+    let animation = Taro.createAnimation({
+      timingFunction: "linear",
+      success: function(res) {
+        console.log(res)
+      }
+    })
+    this.animation = animation;
+    this.animation.opacity(0).step({duration: 1000,})
+    this.setState({
+      animationData: this.animation.export()
+    }),
+    setTimeout(() => {
+      this.animation.opacity(1).step({duration: 1000,})
+      this.setState({
+        animationData: this.animation.export()
+      })
+    }, 1000);
+    setTimeout(() => {
+      this.animation.opacity(0).step({ducation: 1000})
+      this.setState({
+        animationData: this.animation.export()
+      })
+    }, 4000);
+
+
+
   }
   constructor (props) {
     super(props)
@@ -50,20 +86,19 @@ export default class SloganShare extends Component {
     //var imgindex = imgtime[curtimelucky[1]]
     //var second_height = 600
     //var second_width = 375
+
     var second_height= res.screenHeight
     var second_width = res.screenWidth
     return (
-      <View className={"imagecontain"}>
-        <ScrollView>
-
-
-              <View className={"contain"}>
-                  <Text >
+      <View className={"imagecontain"} animation={this.state.animationData}>
+        <ScrollView >
+              <View className={"contain"}  >
+                  <Text className="text" >
                     {sloganshow[this.state.cur].contect}
                   </Text>
                 </View>
-                <View className={"slogan"}>
-                  <Text >
+                <View className={"slogan"} >
+                  <Text  className="text" >
                     {sloganshow[this.state.cur].name}
                   </Text>
                   </View>
