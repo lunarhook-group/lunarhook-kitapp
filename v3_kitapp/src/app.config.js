@@ -21,6 +21,9 @@ export default {
     */
 
   ],
+
+  "lazyCodeLoading": "requiredComponents",
+
   window: {
     backgroundTextStyle: 'light',
     navigationBarBackgroundColor: '#fff',
