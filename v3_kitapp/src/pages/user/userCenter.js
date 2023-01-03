@@ -4,7 +4,7 @@ import { AtAvatar, AtList, AtListItem } from 'taro-ui';
 import { View ,Image} from '@tarojs/components';
 import './userCenter.scss';
 import service from '../../assets/service.jpeg'
-import  plumber  from '../plumbertracewithoutpoucdbwithwxrequest_mini'
+import  plumber  from '../plumbertracewithoutpoucdbwithwxrequest_miniv3'
 
 export default class UserCenter extends Component {
   componentDidMount() { 

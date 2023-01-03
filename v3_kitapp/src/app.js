@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './app.scss'
 import './icon.scss'
-import plumber  from './pages/plumbertracewithoutpoucdbwithwxrequest_mini'
+import plumber  from './pages/plumbertracewithoutpoucdbwithwxrequest_miniv3'
 import Taro from '@tarojs/taro'
 //https://blog.csdn.net/baidu_39067385/article/details/111411634
 

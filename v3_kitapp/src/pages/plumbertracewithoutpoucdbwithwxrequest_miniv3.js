@@ -93,6 +93,81 @@ CryptoJS.pad.NoPadding={pad:function(){},unpad:function(){}};
 //***********************************Sohu Plumber WebJssdk***********************************************
 //*******************************************************************************************************
 //*******************************************************************************************************
+let UUID;
+UUID = (function () {
+  'use strict';
+
+  /** @lends UUID */
+  function UUID() { }
+  UUID.generate = function () {
+    let rand = UUID._getRandomInt,
+      hex = UUID._hexAligner;
+
+    // ["timeLow", "timeMid", "timeHiAndVersion", "clockSeqHiAndReserved", "clockSeqLow", "node"]
+    return (
+      hex(rand(32), 8) + // time_low
+      '-' +
+      hex(rand(16), 4) + // time_mid
+      '-' +
+      hex(0x4000 | rand(12), 4) + // time_hi_and_version
+      '-' +
+      hex(0x8000 | rand(14), 4) + // clock_seq_hi_and_reserved clock_seq_low
+      '-' +
+      hex(rand(48), 12)
+    ); // node
+  };
+
+  /**
+   * Returns an unsigned x-bit random integer.
+   * @param {int} x A positive integer ranging from 0 to 53, inclusive.
+   * @returns {int} An unsigned x-bit random integer (0 <= f(x) < 2^x).
+   */
+  UUID._getRandomInt = function (x) {
+    if (x < 0) {
+      return NaN;
+    }
+    if (x <= 30) {
+      return 0 | (Math.random() * (1 << x));
+    }
+    if (x <= 53) {
+      return (0 | (Math.random() * (1 << 30))) + (0 | (Math.random() * (1 << (x - 30)))) * (1 << 30);
+    }
+
+    return NaN;
+  };
+
+  /**
+   * Returns a function that converts an integer to a zero-filled string.
+   * @param {int} radix
+   * @returns {function(num&#44; length)}
+   */
+  UUID._getIntAligner = function (radix) {
+    return function (num, length) {
+      let str = num.toString(radix),
+        i = length - str.length,
+        z = '0';
+
+      for (; i > 0; i >>>= 1, z += z) {
+        if (i & 1) {
+          str = z + str;
+        }
+      }
+      return str;
+    };
+  };
+
+  UUID._hexAligner = UUID._getIntAligner(16);
+
+  /**
+   * Returns UUID string representation.
+   * @returns {string} {@link UUID#hexString}.
+   */
+  UUID.prototype.toString = function () {
+    return this.hexString;
+  };
+
+  return UUID;
+})(UUID);
 
 function GetGuid( chnnel="") {
    //生成guid
@@ -104,11 +179,6 @@ function GetGuid( chnnel="") {
   jsonObj.guid = "";
   jsonObj.guidcreattime = "";
   jsonObj.guidchannel = "";
-  //默认guid生成函数
-  function S4() {
-    var d=new Date();
-      return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-  }
   //检查weixin是否存在guid，有则返回
   try {
     var value = wx.getStorageSync(plumberminiguid)
@@ -117,7 +187,7 @@ function GetGuid( chnnel="") {
     }
     else{
       //没有guid则生成guid然后返回
-      var setguid = (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4()).toUpperCase();
+      var setguid = UUID.generate()
       try {
         wx.setStorageSync(plumberminiguid, setguid)
         jsonObj.guid = setguid;
@@ -131,7 +201,7 @@ function GetGuid( chnnel="") {
     if (value) {
       jsonObj.guidcreattime = value;
     }else{
-      var setguidcreattime = new Date()
+      var setguidcreattime = new Date().getTime()
       try {
         wx.setStorageSync(plumberminiguidcreattime, setguidcreattime)
         jsonObj.guidcreattime = setguidcreattime;
@@ -212,99 +282,93 @@ var WebJssdkBase = (function(){
 var webjssdk = (function() {
     var appmeta_appname
     var appmeta_appver
-    var sdk_version = 0.2
+    var sdk_version = "20220228v3_mini"
     var dev = false
     var uid_uid = ""
-	  var uid_sid = ""
-    var sendhttp = "https://lunarhook.picp.vip/plumber/statis/"
-    //var sendhttp = "https://c-tessar.xdf.cn/plumber/statis/"
+    var uid_sid = ""
+    //发送地址会根据dev环境自动更换，这里默认是测试
+    var plumbersendhttp = "https://c-tessar.test.xdf.cn/plumber/statis/"
+    var recommendsendhttp = "https://c-tessar.test.xdf.cn/plumber/recommend/"
+    var unioninfohttp =  "https://c-tessar.test.xdf.cn/plumber/unioninfo/"
     var instantiated = undefined;     //匿名函数创建私有变量,判断单体对象是否被创建的句柄
     var routinglist = new Array()
+    var setuptime = (new Date()).getTime()
     var httpkey = "swxapktzteyjsali"
     var localinfokey = ""
     var ScrollTick = (new Date()).getTime()
-	  // 小程序环境无window
+    var connect_guid= ""
+    var connect_guidcreattime = ""
+    var connect_guidchannel = ""
+    var guidGroup = ""
+    var recommendqueue = []
+    var recommendqueuetime = (new Date()).getTime()
+    var recommendtick = 10*1000
+    /*
 	  if (0) {
-      localdb = true
       console.log('This browser supports localStorage');
     }else{
       console.log('This browser does NOT support localStorage');
     }
+    */
     console.oldLog = console.log;
     console.log = function(...str) {
       if(true==dev){console.oldLog(...str);}
     } 
     function init() {
         return {
-          find: function (list, f) {
-            return list.filter(f)[0]
-          },
-          deepCopyV: function (obj, cache) {
-            if (cache === void 0) cache = []
-
-            if (obj === null || typeof obj !== 'object') {
-              return obj;
-          }
-    
-            const objType = Object.prototype.toString.call(obj).slice(8, -1);
-
-            // 考虑 正则对象的copy
-            if (objType === 'RegExp') {
-                return new RegExp(obj);
-            }
-        
-            // 考虑 Date 实例 copy
-            if (objType === 'Date') {
-                return new Date(obj);
-            }
-        
-            // 考虑 Error 实例 copy
-            if (objType === 'Error') {
-                return new Error(obj);
-            }
-    
-            // if obj is hit, it is in circular structure
-            var hit = instantiated.find(cache, function (c) { return c.original === obj })
-            if (hit) {
-              return hit.copy
-            }
-    
-            var copy = Array.isArray(obj) ? [] : {}
-            // put the copy into cache at first
-            // because we want to refer it in recursive deepCopy
-            cache.push({
-              original: obj,
-              copy: copy
-            })
-    
-            Object.keys(obj).forEach(function (key) {
-              copy[key] = instantiated.deepCopyV(obj[key], cache)
-            })
-    
-            return copy
-          },
-          addTodbwithsend: function(text,detailinfo)
+          addTodbwithrecommend: function(text,detailinfo,server_action = "recommend")
           {
+            if (undefined == detailinfo) { detailinfo = {} }
             dateinfo[index]
             var last = routinglist[routinglist.length-1]
             var session_duration = (new Date().getTime()- last.timestamp) /1000
             var session_edge = last.original + "|" +  text
             const info = {
-              "type": "msg", "time_stamp": new Date().getTime(), event: detailinfo,
-              server_action: 'session'
+              "type": "msg", "time_stamp": new Date().getTime(), 
+              detail: detailinfo,
+              server_action: server_action
               , session_duration:session_duration
               , session_edge: session_edge
               , session_step: last.step
-              , session_sessiontype:"event"
+              //, session_sessiontype:"event"
               , appmeta_appname: appmeta_appname
               , appmeta_appver: appmeta_appver
               , uid_uid: uid_uid
               , uid_sid: uid_sid
+              , uid_sid_creattime : uid_sid_creattime
+              , setup_time_stamp : setuptime
+              , sdkversion:sdk_version
+              , connect_guid:connect_guid
+              , connect_guidcreattime:connect_guidcreattime
+              , connect_guidchannel:connect_guidchannel
             }
             var initinfo = JSON.stringify(info)
             instantiated.addTodb(text,detailinfo)
-            instantiated.sendhttpinfo(initinfo)
+            recommendqueue.push(initinfo)
+            //instantiated.sendhttpinfo(initinfo)
+
+            if(curtimestamp - recommendqueuetime>recommendtick )
+            {
+              recommendqueuetime = curtimestamp
+              instantiated.sendhttpinfo(JSON.stringify(recommendqueue),true)
+              recommendqueue = []
+            }
+            //最开始的15秒呢直接发送
+            else if((new Date()).getTime()-setuptime<15000){
+              recommendqueuetime = curtimestamp
+              instantiated.sendhttpinfo(JSON.stringify(recommendqueue),true)
+              recommendqueue = []
+            }
     
+          },
+          updaterecommend:function()
+          {
+            if(recommendqueue.length>0)
+            {
+              recommendqueuetime = new Date().getTime()
+              instantiated.sendhttpinfo(JSON.stringify(recommendqueue),true)
+              recommendqueue = []
+            }
           },
           addTodb: function (text, detailinfo) {
             /*
@@ -349,9 +413,8 @@ var webjssdk = (function() {
             return encrypted.toString();
           },
           encrypt:function  (msg) {
-              var key = tokenstr;
               var srcs = msg;
-              var encrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(srcs), CryptoJS.enc.Utf8.parse(key), {mode:CryptoJS.mode.ECB,padding: CryptoJS.pad.Pkcs7});
+              var encrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(srcs), CryptoJS.enc.Utf8.parse(httpkey), {mode:CryptoJS.mode.ECB,padding: CryptoJS.pad.Pkcs7});
               return encrypted.toString();
               /* 服务器测试用加解密
               console.log("encrypt",encrypted.toString(),key,srcs)
@@ -366,10 +429,6 @@ var webjssdk = (function() {
               return encrypted.toString();
               */
           },
-            currentTimeString:function() {
-                var d = new Date();
-                return d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "." + d.getMilliseconds() + " - ";
-            },
             /*
             sendevent: async function () {
               try {
@@ -434,22 +493,30 @@ var webjssdk = (function() {
                  routing_stack: dateinfo,
                  appmeta_appname: appmeta_appname,
                  appmeta_appver: appmeta_appver,
+                 setup_time_stamp: setuptime,
                  server_action: 'routing',
                  uid_uid: uid_uid,
                  uid_sid: uid_sid,
+                 sdkversion:sdk_version
+                 , connect_guid:connect_guid
+                 , connect_guidcreattime:connect_guidcreattime
+                 , connect_guidchannel:connect_guidchannel
                }
                var sstr = JSON.stringify(info)
                var checkjson = JSON.parse(sstr)       
                sstr = JSON.stringify(checkjson)
                instantiated.sendhttpinfo(sstr)
+               //把所有的推荐数据都发送出去
+               instantiated.updaterecommend()
                //oWebJssdkNetwork.sendWebSocketMsg(initinfo)
                //这里要做超级聚合，就是routing清零，但是要把ff首包变成之前的路径聚合
+               /**
                var ff= ""
                var detailinfo = Array()
                for(var rr=0;rr<dateinfo.length;rr++)
                {
-                  var reg = /([*/0-9a-zA-Z,]+)/g;
-                  var match = reg.exec(dateinfo[rr].original)
+                  var reg = /([*///0-9a-zA-Z,]+)/g;
+                  /*var match = reg.exec(dateinfo[rr].original)
                   var d = dateinfo[rr].detail
                   if(undefined!=d)
                   { 
@@ -465,12 +532,14 @@ var webjssdk = (function() {
                {
                 ff=ff+",bg"
                }
+               */
                routinglist =  []
-               instantiated.addTodb(ff,detailinfo)
+               //instantiated.addTodb(ff,detailinfo)
               } catch (err) {    
                 console.log(err);
               }
             },
+            /*
             createCORSRequest:function (method, url) {
               let xhr = xhr = new XMLHttpRequest();
               if ("withCredentials" in xhr) {// XHR for Chrome/Firefox/Opera/Safari.
@@ -486,7 +555,9 @@ var webjssdk = (function() {
               }
               return xhr;
             },
-            sendhttpinfo:function(msg){
+            */
+            sendhttpinfo:function(msg, recommend = false){
+              const sendhttp = true == recommend ? recommendsendhttp : plumbersendhttp;
               var r = JSON.parse(msg)
               r.time_stamp = (new Date()).getTime()
               msg = JSON.stringify(r)
@@ -511,20 +582,16 @@ var webjssdk = (function() {
               var oBaseInfo = oWebJssdkBase.GetBaseInfo();
               //这里会导致极少的用户没有保存uid_sid就发送routing了
               uid_sid = oBaseInfo.uid_sid
-
               oBaseInfo["appmeta_appname"] = appmeta_appname
               oBaseInfo["appmeta_appver"] = appmeta_appver
-
               oBaseInfo["server_action"] = "setup"
               oBaseInfo["uid_uid"] = uid_uid
-              var guid = GetGuid(appmeta_appname)
-              oBaseInfo["uid_sid"] = guid.uid_sid
-              oBaseInfo["uid_sid_setup"] = guid.guidcreattime
-              oBaseInfo["uid_sid_channel"] = guid.guidchannel
+              oBaseInfo["uid_sid"] = guidGroup.uid_sid
+              oBaseInfo["uid_sid_setup"] = guidGroup.guidcreattime
+              oBaseInfo["uid_sid_channel"] = guidGroup.guidchannel
               var sstr = JSON.stringify(oBaseInfo)
               var checkjson = JSON.parse(sstr)
               oBaseInfo = JSON.stringify(checkjson)
-			        console.log(oBaseInfo)
               instantiated.updateWebDAU(oBaseInfo)
               // 添加baseInfo，暴露出去
               return {
@@ -549,26 +616,40 @@ var webjssdk = (function() {
           }
         }
     return {
-      getinstance: function (appname, appver, unionId, debug) {
+      getinstance: function (appname, appver, unionId, debug="dev") {
         if (!instantiated) {
-          dev = debug == false ? false : true
-          if(true==dev)
+          dev = debug == "prod" ? false : true
+          var pre_fix = "https"
+          if(debug=="test")
           {
-            sendhttp = "https://lunarhook.picp.vip/plumber/statis/"
+            plumbersendhttp = pre_fix+"://c-tessar.test.xdf.cn//plumber/statis/"
+            recommendsendhttp = pre_fix+"://c-tessar.test.xdf.cn/plumber/recommend/"
+            unioninfohttp =  pre_fix+"://c-tessar.test.xdf.cn/plumber/unioninfo/"
           }
-          else{
-            sendhttp = "https://c-tessar.xdf.cn/plumber/statis"
+          else if(debug=="prod"){
+            plumbersendhttp = pre_fix+"://c-tessar.xdf.cn/plumber/statis/"
+            recommendsendhttp = pre_fix+"://c-tessar.xdf.cn/plumber/recommend/"
+            unioninfohttp =  pre_fix+"://c-tessar.xdf.cn/plumber/unioninfo/"
+          }
+          else if(debug=="dev"){
+            plumbersendhttp = pre_fix+"://lunarhook.picp.vip/plumber/statis/"
+            recommendsendhttp = pre_fix+"://lunarhook.picp.vip/plumber/recommend/"
+            unioninfohttp =  pre_fix+"://lunarhook.picp.vip/plumber/unioninfo/"
           }
           appmeta_appname = appname != undefined ? appname : ""
           appmeta_appver = appver != undefined ? appver : ""
           uid_uid = unionId || ''
-          uid_sid = GetGuid(appmeta_appname).guid
+          guidGroup = GetGuid(appmeta_appname)
+          uid_sid = guidGroup.guid
           localinfokey = "plumber_" + appmeta_appname
           instantiated = new init();
           instantiated.initWebInfo().then(function (res) {
             // 发送完baseInfo 暴露出去
             instantiated.baseInfo = res
           })
+          setInterval(() => {
+            instantiated.updaterecommend()
+          }, recommendtick);
         }
         return instantiated;
       }
