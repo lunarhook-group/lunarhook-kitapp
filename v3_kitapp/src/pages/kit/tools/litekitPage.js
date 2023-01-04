@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import Taro from '@tarojs/taro'
 import { View, Text, Image, Button, ScrollView } from '@tarojs/components'
-import { AtAccordion, AtGrid, AtTabBar, AtIcon } from 'taro-ui'
+import { AtAccordion, AtGrid, AtTabBar, AtList, AtListItem } from 'taro-ui'
 import './litekitPage.scss'
 import '../../../theme.scss'
 import plumber from '../../plumbertracewithoutpoucdbwithwxrequest_miniv3'
@@ -115,24 +115,24 @@ export default class litekitPage extends Component {
   }
 
   GridHander(item, index) {
-    if ("职业性格测试" == item.value) {
+    if ("职业性格测试" == item) {
       Taro.navigateTo({ url: '../../../pages/kit/LunarMotionsLib/PsychLib/MBTIModule' })
     }
-    else if ("九型人格测试" == item.value) {
+    else if ("九型人格测试" == item) {
       Taro.navigateTo({ url: '../../../pages/kit/LunarMotionsLib/PsychLib/EnneagramModule' })
     }
-    else if ("霍兰德职业测试" == item.value) {
+    else if ("霍兰德职业测试" == item) {
       Taro.navigateTo({ url: '../../../pages/kit/LunarMotionsLib/PsychLib/HollandModule' })
     }
-    else if ("六爻测试" == item.value) {
+    else if ("六爻测试" == item) {
       Taro.navigateTo({ url: '../../../pages/kit/UniversechangesLib/SixrandomLib/SixrandomNewPage' })
       //plumber('test',true)
     }
 
-    else if ("八字测评" == item.value) {
+    else if ("八字测评" == item) {
       Taro.navigateTo({ url: '../../../pages/kit/UniversechangesLib/EightrandomLib/EightrandomNewPage' })
     }
-    else if ("数字八星" == item.value) {
+    else if ("数字八星" == item) {
       Taro.navigateTo({ url: '../../../pages/kit/UniversechangesLib/NumberLib/NumberMainPage' })
     }
   }
@@ -185,10 +185,41 @@ export default class litekitPage extends Component {
 
           <ScrollView>
             <AtAccordion
-
               onClick={this.handleAccordionClick.bind(this, 1)}
               title='心理测试'
+              open='true'
             >
+              <AtList hasBorder={false}>
+                <AtListItem
+                  title='职业性格测试'
+                  iconInfo={{
+                    prefixClass: 'fa',
+                    size: 30,
+                    color: 'orange',
+                    value: 'podcast',
+                  }}
+                />
+                <AtListItem
+                  note='九型人格测试'
+                  iconInfo={{
+                    prefixClass: 'fa',
+                    size: 30,
+                    color: 'red',
+                    value: 'universal-access'
+                  }}
+                />
+                <AtListItem
+                  title='霍兰德职业测试'
+                  extraText='详细信息'
+                  iconInfo={{
+                    prefixClass: 'fa',
+                    size: 30,
+                    color: 'blue',
+                    value: 'tachometer'
+                  }}
+                  onClick={this.GridHander.bind(this, '霍兰德职业测试')}
+                />
+              </AtList>
               <AtGrid mode='square' data={data1}
                 onClick={this.GridHander.bind(this)}
               />
