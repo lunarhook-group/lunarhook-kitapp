@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react'
 import Taro from '@tarojs/taro'
-import { View, Text, Image, Button, ScrollView } from '@tarojs/components'
+import { View, Text, Image, CustomWrapper, ScrollView } from '@tarojs/components'
 import { AtIcon, AtDivider, AtTabBar, AtList, AtListItem } from 'taro-ui'
 import './litekitPage.scss'
 import '../../../theme.scss'
@@ -184,6 +184,7 @@ export default class litekitPage extends Component {
         <View className={'contain'}>
 
           <ScrollView>
+          <CustomWrapper>
           <AtDivider >
               <AtIcon value='heart'></AtIcon>
               <Text> 心理测试 </Text>
@@ -277,6 +278,7 @@ export default class litekitPage extends Component {
                 onClick={this.GridHander.bind(this, '数字八星')}
               />
             </AtList>
+            </CustomWrapper>
           </ScrollView>
           <AtTabBar
             fixed

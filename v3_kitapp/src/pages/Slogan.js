@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Taro from '@tarojs/taro'
-import { View, Text, ScrollView } from '@tarojs/components'
+import { View, Text, ScrollView ,CustomWrapper} from '@tarojs/components'
 import sloganshow from '../pages/config/SloganModule'
 import './Slogan.scss'
 
@@ -90,10 +90,13 @@ export default class Slogan extends Component {
     return (
       <View className={"imagecontain"} animation={this.state.animationData}>
         <ScrollView >
+  
               <View className={"contain"}  >
+              <CustomWrapper>
                   <Text className="text" >
                     {sloganshow[this.state.cur].contect}
                   </Text>
+                  </CustomWrapper>
                 </View>
                 <View className={"slogan"} >
                   <Text  className="text" >
