@@ -187,21 +187,60 @@ export default class litekitPage extends Component {
           <CustomWrapper>
           <AtDivider >
               <AtIcon value='heart'></AtIcon>
-              <Text> 心理测试 </Text>
+              <Text> 基础测试 </Text>
               <AtIcon value='heart'></AtIcon>
             </AtDivider>
             <AtList hasBorder={false}>
             <AtListItem
                 title='乾坤九考'
                 iconInfo={{
-                  prefixClass: 'fa',
+                  prefixClass: 'mdi',
                   size: 30,
-                  color: 'green',
-                  value: 'pencil',
+                  color: '#00C0FF',
+                  value: 'language-xaml',
                 }}
                 onClick={this.GridHander.bind(this, '乾坤九考')}
               />
+               
               </AtList>
+
+            <AtDivider>
+              <AtIcon value='bookmark' color="#FFCE00"></AtIcon>
+              <Text color="#FFCE00"> 周易测试 </Text>
+              <AtIcon value='bookmark' color="#FFCE00"></AtIcon>
+            </AtDivider>
+            <AtList hasBorder={false}>
+              <AtListItem
+                title='六爻测试'
+                iconInfo={{
+                  prefixClass: 'mdi',
+                  size: 30,
+                  color:  "#1FA7DE",
+                  value: 'yin-yang'
+                }}
+                onClick={this.GridHander.bind(this, '六爻测试')}
+              />
+              <AtListItem
+                title='八字测评'
+                iconInfo={{
+                  prefixClass: 'mdi',
+                  size: 30,
+                  color: 'red',
+                  value: 'fingerprint'
+                }}
+                onClick={this.GridHander.bind(this, '八字测评')}
+              />
+              <AtListItem
+                title='数字八星'
+                iconInfo={{
+                  prefixClass: 'mdi',
+                  size: 30,
+                  color: "#13BD7A",
+                  value: 'signal'
+                }}
+                onClick={this.GridHander.bind(this, '数字八星')}
+              />
+            </AtList>
             <AtDivider >
               <AtIcon value='heart'></AtIcon>
               <Text> 心理测试 </Text>
@@ -213,7 +252,7 @@ export default class litekitPage extends Component {
                 iconInfo={{
                   prefixClass: 'fa',
                   size: 30,
-                  color: 'orange',
+                  color: '#FFCE00',
                   value: 'podcast',
                 }}
                 onClick={this.GridHander.bind(this, '职业性格测试')}
@@ -232,52 +271,15 @@ export default class litekitPage extends Component {
                 title='霍兰德职业测试'
                 //extraText='详细信息'
                 iconInfo={{
-                  prefixClass: 'fa',
+                  prefixClass: 'mdi',
                   size: 30,
-                  color: 'blue',
-                  value: 'tachometer'
+                  color:  "#1FA7DE",
+                  value: 'alert-decagram'
                 }}
                 onClick={this.GridHander.bind(this, '霍兰德职业测试')}
               />
             </AtList>
 
-            <AtDivider>
-              <AtIcon value='bookmark'></AtIcon>
-              <Text> 周易测试 </Text>
-              <AtIcon value='bookmark'></AtIcon>
-            </AtDivider>
-            <AtList hasBorder={false}>
-              <AtListItem
-                title='六爻测试'
-                iconInfo={{
-                  prefixClass: 'mdi',
-                  size: 32,
-                  color: 'blue',
-                  value: 'yin-yang'
-                }}
-                onClick={this.GridHander.bind(this, '六爻测试')}
-              />
-              <AtListItem
-                title='八字测评'
-                iconInfo={{
-                  prefixClass: 'ion',
-                  size: 32,
-                  color: 'red',
-                  value: 'ios-finger-print'
-                }}
-                onClick={this.GridHander.bind(this, '八字测评')}
-              />
-              <AtListItem
-                title='数字八星'
-                iconInfo={{
-                  prefixClass: 'fa',
-                  size: 30,
-                  color: 'green',
-                  value: 'signal'
-                }}
-                onClick={this.GridHander.bind(this, '数字八星')}
-              />
-            </AtList>
             </CustomWrapper>
           </ScrollView>
           <AtTabBar
