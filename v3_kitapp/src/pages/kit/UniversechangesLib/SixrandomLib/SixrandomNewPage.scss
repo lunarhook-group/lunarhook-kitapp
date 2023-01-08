@@ -1,13 +1,6 @@
 
+@import "./../../../../theme.scss";
 
-.contain {
-    flex: 0%;
-    //vertical-align:middle;
-    //text-align: center;
-    align-items: center;
-    text-align: center;
-    align-content: center;
-}
 .result {
     padding-left: 40px;
 }
@@ -17,8 +10,7 @@
 }
 
 .list {
-    //vertical-align:middle;
-    align-items: center;
-    text-align: center;
-    align-content: center;
+  align-items: center;
+  text-align: center;
+  align-content: center;
 }

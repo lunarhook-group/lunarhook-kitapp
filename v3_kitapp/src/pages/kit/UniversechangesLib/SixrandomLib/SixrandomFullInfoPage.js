@@ -99,7 +99,7 @@ export default class SixrandomFullinfoPage extends Component {
       )
     })
     return (
-      <View  >
+      <View  className={'contain'}>
         <ScrollView >
           <View  >
             <View>

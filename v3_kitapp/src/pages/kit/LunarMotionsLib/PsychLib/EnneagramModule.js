@@ -2135,7 +2135,7 @@ export default class EnneagramModule extends Component {
     })
 
     return (
-      <View >
+      <View className='contain'>
 
        
       <ScrollView >

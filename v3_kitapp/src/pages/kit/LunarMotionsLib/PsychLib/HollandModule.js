@@ -1060,7 +1060,7 @@ export default class HollandModule extends Component {
 
   
     return (
-      <View >
+      <View className='contain'>
         <ScrollView >
           <View  >
             <AtToast isOpened={this.state.showtip} text="请先完成题目" icon="alert-circle" onClose={() => this.setState({ showtip: false })}></AtToast>

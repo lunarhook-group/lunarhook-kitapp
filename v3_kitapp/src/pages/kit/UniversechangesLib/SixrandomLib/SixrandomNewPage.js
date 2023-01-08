@@ -52,16 +52,17 @@ export default class SixrandomNewPage extends Component {
     return (
       <View className='contain'>
         <ScrollView>
-
+          <View  className='list'>
           <Text>{" "}</Text>
 
-          <Text className='list'>{"点击改选"}</Text>
+          <Text>点击改选</Text>
           <Text>{" "}</Text>
           <Picker mode='selector' range={this.state.selector} onChange={this.onChange}>
             <View className='list'>
               当前选择：{this.state.selectorChecked}
             </View>
           </Picker>
+          </View>
 
           <View className='button'>
             <Button type='secondary' onClick={() => this.random()}>出爻</Button>

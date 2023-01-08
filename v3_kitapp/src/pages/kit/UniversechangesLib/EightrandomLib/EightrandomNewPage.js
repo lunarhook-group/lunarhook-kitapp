@@ -126,53 +126,53 @@ export default class EightrandomNewPage extends Component {
     //alert(ValueTypeModule["emotion"])
     return (
 
-        <View>
-            <View > 
+      <View className='contain'>
+        <View >
           <AtForm>
             <AtInput
-            title='输入名字'
-            value={this.state.Tip}
-            onChange={(value) => {
-              this.setState({Tip:value});
-            }}
-            placeholder="陈长生"
-          ></AtInput>
+              title='输入名字'
+              value={this.state.Tip}
+              onChange={(value) => {
+                this.setState({ Tip: value });
+              }}
+              placeholder="陈长生"
+            ></AtInput>
             <View className='panel__title'>
 
             </View>
-              <Picker mode='date' onChange={this.onDateChange}>
-                <View className='demo-list-item'>
+            <Picker mode='date' onChange={this.onDateChange}>
+              <View className='demo-list-item'>
                 <View className='demo-list-item__label'>请选择时间</View>
-                    <View className='demo-list-item__value'>{this.state.value}</View>
-                </View>
-                
-                </Picker>
+                <View className='demo-list-item__value'>{this.state.value}</View>
+              </View>
+
+            </Picker>
 
             <View className='panel__title'>
 
-                    <View>
+              <View>
 
                 <Picker mode='time' onChange={this.onTimeChange}>
-                <View className='demo-list-item'>
-                <View className='demo-list-item__label'>请选择时间</View>
+                  <View className='demo-list-item'>
+                    <View className='demo-list-item__label'>请选择时间</View>
                     <View className='demo-list-item__value'>{this.state.valuetime}</View>
-                    </View>
+                  </View>
                 </Picker>
+              </View>
             </View>
-          </View>
 
-            
-              <AtSwitch title={this.state.selectedValue} checked={"男" == this.state.selectedValue ? true : false} onChange={(value) => this.setState({ switchstate: value, selectedValue: false == value ? "女" : "男" }) } />
-            <AtSwitch title={this.state.datatype} checked={"公历" == this.state.datatype ? true : false} onChange={(value)=> this.setState({ switchtype: value, datatype: value == false ? "农历" : "公历" })} />
-            
 
-          {this.leapmonth()}
-           </AtForm>
-            </View>
-            <View>
-          <AtButton onClick={()=>this.bazipaipan()} type='secondary'>八字测评</AtButton>
-</View> 
-</View> 
+            <AtSwitch title={this.state.selectedValue} checked={"男" == this.state.selectedValue ? true : false} onChange={(value) => this.setState({ switchstate: value, selectedValue: false == value ? "女" : "男" })} />
+            <AtSwitch title={this.state.datatype} checked={"公历" == this.state.datatype ? true : false} onChange={(value) => this.setState({ switchtype: value, datatype: value == false ? "农历" : "公历" })} />
+
+
+            {this.leapmonth()}
+          </AtForm>
+        </View>
+        <View>
+          <AtButton onClick={() => this.bazipaipan()} type='secondary'>八字测评</AtButton>
+        </View>
+      </View> 
 
             )
     }
