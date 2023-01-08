@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import './app.scss'
-import './icon_awesome.scss'
-import './icon_ionicons.scss'
-import './icon_mdi.scss'
+
 import plumber  from './pages/plumbertracewithoutpoucdbwithwxrequest_miniv3'
 import Taro from '@tarojs/taro'
 //https://blog.csdn.net/baidu_39067385/article/details/111411634
