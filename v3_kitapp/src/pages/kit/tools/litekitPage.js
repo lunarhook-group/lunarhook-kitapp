@@ -183,8 +183,9 @@ export default class litekitPage extends Component {
       return (
         <View className={'contain'}>
 
-          <ScrollView>
-          <CustomWrapper>
+         
+
+             <ScrollView>
           <AtDivider >
               <AtIcon value='heart'></AtIcon>
               <Text> 基础测试 </Text>
@@ -279,8 +280,7 @@ export default class litekitPage extends Component {
                 onClick={this.GridHander.bind(this, '霍兰德职业测试')}
               />
             </AtList>
-
-            </CustomWrapper>
+           
           </ScrollView>
           <AtTabBar
             fixed
@@ -291,7 +291,8 @@ export default class litekitPage extends Component {
             ]}
             onClick={this.handleClick.bind(this)}
             current={1}
-          />
+          >
+          </AtTabBar>
         </View>
       )
     }
