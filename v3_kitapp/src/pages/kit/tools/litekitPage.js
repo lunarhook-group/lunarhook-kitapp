@@ -250,10 +250,10 @@ export default class litekitPage extends Component {
               <AtListItem
                 title='六爻测试'
                 iconInfo={{
-                  prefixClass: 'fa',
-                  size: 30,
-                  color: 'darkblue',
-                  value: 'moon-o'
+                  prefixClass: 'mdi',
+                  size: 32,
+                  color: 'blue',
+                  value: 'yin-yang'
                 }}
                 onClick={this.GridHander.bind(this, '六爻测试')}
               />
@@ -262,7 +262,7 @@ export default class litekitPage extends Component {
                 iconInfo={{
                   prefixClass: 'ion',
                   size: 32,
-                  color: 'orange',
+                  color: 'red',
                   value: 'ios-finger-print'
                 }}
                 onClick={this.GridHander.bind(this, '八字测评')}

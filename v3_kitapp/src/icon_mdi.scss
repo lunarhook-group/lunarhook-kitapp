@@ -5,7 +5,7 @@
   //src: url('./assets/fonts/ionicons.woff2') format('woff2'), 
   src: url("./assets/fonts/materialdesignicons-webfont.woff2") format("woff2"),
   //url("./assets/fonts/materialdesignicons-webfont.woff") format("woff"), 
-  //url('./assets/fonts/ionicons.woff') format('woff'), 
+  url('./assets/fonts/ionicons.woff') format('woff'), 
   //url("./assets/fonts/materialdesignicons-webfont.ttf") format("truetype");
   url('./assets/fonts/ionicons.ttf') format('truetype');
 
@@ -14,10 +14,10 @@
   font-weight: normal;
   font-style: normal
 }
-/*
+
 .mdi {
   display: inline-block;
-  font: normal normal normal 14px/1 MaterialDesignIcons;
+  font: normal 14px/1 MaterialDesignIcons;
   font-size: inherit;
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
@@ -25,9 +25,11 @@
 }
 
 .mdi-yin-yang:before {
+  align-items: flex-start;
+  padding-left: -100em;
   content: "\F0680";
 }
-
+/*
 .mdi-ab-testing:before {
   content: "\F01C9";
 }
