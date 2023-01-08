@@ -52,10 +52,10 @@ var data2 =
     },
     {
       iconInfo: {
-        prefixClass: 'fa',
+        prefixClass: 'ion',
         size: 30,
         color: 'orange',
-        value: 'trophy'
+        value: 'ios-finger-print'
       },
       value: '八字测评'
     },
@@ -260,10 +260,10 @@ export default class litekitPage extends Component {
               <AtListItem
                 title='八字测评'
                 iconInfo={{
-                  prefixClass: 'fa',
-                  size: 30,
+                  prefixClass: 'ion',
+                  size: 32,
                   color: 'orange',
-                  value: 'trophy'
+                  value: 'ios-finger-print'
                 }}
                 onClick={this.GridHander.bind(this, '八字测评')}
               />
