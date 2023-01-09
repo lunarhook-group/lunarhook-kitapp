@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import Taro from '@tarojs/taro'
-import { View, Text, ScrollView ,CustomWrapper} from '@tarojs/components'
+import { View, Text, ScrollView ,CustomWrapper,Image} from '@tarojs/components'
 import sloganshow from '../config/SloganModule'
 import './Slogan.scss'
+import time1 from './assets/1.jpg'
 
 /*
 var imgtime = new Array()
@@ -90,8 +91,9 @@ export default class Slogan extends Component {
     return (
       <View className={"imagecontain"} animation={this.state.animationData}>
         <ScrollView >
-  
+        <Image style="width: 100%;height: 100%;" src="./assets/1.jpg"></Image>
               <View className={"contain"}  >
+
               <CustomWrapper>
                   <Text className="text"     space="nbsp" >
                     {"    "+sloganshow[this.state.cur].contect}
