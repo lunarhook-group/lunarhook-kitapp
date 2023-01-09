@@ -1,6 +1,12 @@
 export default {
+  "plugins": {
+    "materialPlugin": {
+      "version": "1.0.8",
+          "provider": "wx4d2deeab3aed6e5a"
+    }
+  },
   pages: [
-    'pages/Slogan',
+    'pages/Slogan/Slogan',
     /*
     'pages/kit/litekitPage',
 
