@@ -62,17 +62,17 @@ export default class UserCenter extends Component {
         </View> {*/}
 
           <View className="imageslogan">
-          <Image style='width: 140px;height: 140px;background: #fff;' src='./assets/study.jpg'>    <View style="opacity: 0;position: absolute; width: 100%; height: 100%; top: 0; transform-origin: top right;">
-           
-           <cell url='https://work.weixin.qq.com/gm/548967c3d68a0998980beabbc6e8be6a' />
-           <cell url='https://work.weixin.qq.com/gm/548967c3d68a0998980beabbc6e8be6a' />
-           <cell url='https://work.weixin.qq.com/gm/548967c3d68a0998980beabbc6e8be6a' />
-           <cell url='https://work.weixin.qq.com/gm/548967c3d68a0998980beabbc6e8be6a' />
-           </View>
-       </Image>
-            
+            <Image style='width: 140px;height: 140px;background: #fff;' src='./assets/study.jpg'>    <View style="opacity: 0;position: absolute; width: 100%; height: 100%; top: 0; transform-origin: top right;">
+
+              <cell url='https://work.weixin.qq.com/gm/548967c3d68a0998980beabbc6e8be6a' />
+              <cell url='https://work.weixin.qq.com/gm/548967c3d68a0998980beabbc6e8be6a' />
+              <cell url='https://work.weixin.qq.com/gm/548967c3d68a0998980beabbc6e8be6a' />
+              <cell url='https://work.weixin.qq.com/gm/548967c3d68a0998980beabbc6e8be6a' />
+            </View>
+            </Image>
+
             <View className="imageslogan">
-            <Text>点二维码加入课程学习群</Text>
+              <Text>点二维码加入课程学习群</Text>
             </View>
           </View>
 

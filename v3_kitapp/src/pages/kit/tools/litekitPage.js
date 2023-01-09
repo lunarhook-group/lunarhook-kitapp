@@ -289,8 +289,8 @@ export default class litekitPage extends Component {
             fixed
             tabList={[
               { title: '开屏语', iconType: 'lightning-bolt' },
-              { title: '鹿鸣测评', iconType: 'list' },
-              { title: '我的', iconType: 'tag' }
+              { title: '测  评', iconType: 'list' },
+              { title: '信  息', iconType: 'tag' }
             ]}
             onClick={this.handleClick.bind(this)}
             current={1}
