@@ -3,7 +3,7 @@ import Taro from '@tarojs/taro'
 import { AtAvatar, AtList, AtListItem } from 'taro-ui';
 import { View ,Image} from '@tarojs/components';
 import './userCenter.scss';
-//import service from './service.jpeg'
+import serviceimg from './assets/service.jpg'
 import  plumber  from '../plumbertracewithoutpoucdbwithwxrequest_miniv3'
 
 export default class UserCenter extends Component {
@@ -29,6 +29,7 @@ export default class UserCenter extends Component {
     const { userCenterList } =this.props
     return (
       <View className="container">
+        {/*}
         <View className="userinfo">
           <View className="userinfo-avatar">
             <AtAvatar circle openData={{ type: 'userAvatarUrl' }}></AtAvatar>
@@ -39,9 +40,10 @@ export default class UserCenter extends Component {
             </View>
             <View className="userinfo-tip"></View>
           </View>
+             
+        </View> {*/}
         <View className="imageslogan">
-          <Image style='width: 300px;height: 400px;background: #fff;' src='./service.jpg'></Image>
-        </View>
+          <Image style='width: 300px;height: 400px;background: #fff;' src='./assets/service.jpg' showMenuByLongpress='true'></Image>
         </View>
         {/*  用户列表信息   */}
         {userCenterList.map((item, index) => {
