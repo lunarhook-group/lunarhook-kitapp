@@ -39,7 +39,9 @@ export default class UserCenter extends Component {
             </View>
             <View className="userinfo-tip"></View>
           </View>
-
+        <View className="imageslogan">
+          <Image style='width: 300px;height: 400px;background: #fff;' src="/src/pages/user/service.jpeg"></Image>
+        </View>
         </View>
         {/*  用户列表信息   */}
         {userCenterList.map((item, index) => {
