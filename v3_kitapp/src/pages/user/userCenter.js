@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Taro from '@tarojs/taro'
 import { AtAvatar, AtList, AtListItem } from 'taro-ui';
-import { View ,Image,Text} from '@tarojs/components';
+import { View ,Image,Text,WebView, ScrollView} from '@tarojs/components';
 import './userCenter.scss';
 import serviceimg from './assets/service.jpg'
 import study from './assets/study.jpg'
@@ -25,12 +25,29 @@ export default class UserCenter extends Component {
     userCenterList: []
   };
 
+  clickimg(action){
 
+    var url = "https://www.lunarhook.com/static/img/nav279486.png"
+    if(action=="service")
+    {
+      console.log(action)
+      url = "https://www.lunarhook.com/static/img/service.jpg"
+    }
+    else if(action=="study")
+    {
+      console.log(action)
+      url = "https://www.lunarhook.com/static/img/study.jpg"
+    }
+    wx.previewImage({
+      urls: [url],
+    })
+  }
   // 获取用户列表API
   render() {
     const { userCenterList } =this.props
     return (
       <View className="container">
+        <ScrollView>
         {/*}
         <View className="userinfo">
           <View className="userinfo-avatar">
@@ -44,18 +61,19 @@ export default class UserCenter extends Component {
           </View>
              
         </View> {*/}
-        <View className="imageslogan">
-          <Image style='width: 207px;height: 356px;background: #fff;' src='./assets/service.jpg' showMenuByLongpress={true}></Image>
-        </View>
-        <View className="imageslogan">
-          <Text>扫码加入技术支持QQ群）</Text>
-        </View>
-        <View className="imageslogan">
-          <Image style='width: 200px;height: 200px;background: #fff;' src='./assets/study.jpg' showMenuByLongpress={true}></Image>
+                <View className="imageslogan">
+          <Image style='width: 200px;height: 200px;background: #fff;' src='./assets/study.jpg'  showMenuByLongpress={true} onTap={() => this.clickimg("study")}></Image>
         </View>
         <View className="imageslogan">
           <Text>扫码加入课程学习群</Text>
         </View>
+        <View className="imageslogan">
+          <Image style='width: 207px;height: 356px;background: #fff;' src='./assets/service.jpg' showMenuByLongpress={true} onTap={() => this.clickimg("service")}></Image>
+        </View>
+        <View className="imageslogan">
+          <Text>扫码加入技术支持QQ群）</Text>
+        </View>
+
 
         {/*  用户列表信息   */}
         {userCenterList.map((item, index) => {
@@ -76,7 +94,7 @@ export default class UserCenter extends Component {
             </AtList>
           );
         })}
-
+</ScrollView>
       </View>
     );
   }
