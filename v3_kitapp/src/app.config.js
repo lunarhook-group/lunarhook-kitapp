@@ -6,7 +6,7 @@ export default {
     }
   },
   pages: [
-    'pages/Slogan',
+    'pages/Slogan/Slogan',
     /*
     'pages/kit/litekitPage',
 

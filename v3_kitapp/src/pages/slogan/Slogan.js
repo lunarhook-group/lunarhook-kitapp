@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Taro from '@tarojs/taro'
 import { View, Text, ScrollView ,CustomWrapper} from '@tarojs/components'
-import sloganshow from '../pages/config/SloganModule'
+import sloganshow from '../config/SloganModule'
 import './Slogan.scss'
 
 /*
@@ -35,7 +35,7 @@ export default class Slogan extends Component {
     this.random()
    
     setTimeout(() => {
-      Taro.navigateTo({ url: '../pages/kit/tools/litekitPage' })
+      Taro.navigateTo({ url: '../kit/tools/litekitPage' })
     }, 5000);
 
   }
@@ -93,8 +93,8 @@ export default class Slogan extends Component {
   
               <View className={"contain"}  >
               <CustomWrapper>
-                  <Text className="text" >
-                    {sloganshow[this.state.cur].contect}
+                  <Text className="text"     space="nbsp" >
+                    {"    "+sloganshow[this.state.cur].contect}
                   </Text>
                   </CustomWrapper>
                 </View>
