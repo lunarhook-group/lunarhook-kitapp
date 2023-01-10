@@ -1,6 +1,32 @@
 
 import React, {Component} from 'react';
 
+import time1 from './assets/1.jpg'
+import time2 from './assets/2.jpg'
+import time3 from './assets/3.jpg'
+import time4 from './assets/4.jpg'
+import time5 from './assets/5.jpg'
+import time6 from './assets/6.jpg'
+import time7 from './assets/7.jpg'
+import time8 from './assets/8.jpg'
+import time9 from './assets/9.jpg'
+import time10 from './assets/10.jpg'
+import time11 from './assets/11.jpg'
+import time12 from './assets/12.jpg'
+
+var imgtime = new Array()
+imgtime.push(time1)
+imgtime.push(time2)
+imgtime.push(time3)
+imgtime.push(time4)
+imgtime.push(time5)
+imgtime.push(time6)
+imgtime.push(time7)
+imgtime.push(time8)
+imgtime.push(time9)
+imgtime.push(time10)
+imgtime.push(time11)
+imgtime.push(time12)
 
 var sloganshow = new Array
 sloganshow.push({contect:"\t“靡不有初，鲜克有终”",name:"《诗经·荡》"})
@@ -95,5 +121,4 @@ sloganshow.push({contect:"\t“有志者、事竟成，破釜沉舟，百二秦�
 
 
 
-
-export default sloganshow;  
+export { imgtime,sloganshow}
