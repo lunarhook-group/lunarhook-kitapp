@@ -1,0 +1,88 @@
+/* userCenter.wxss  */
+@import "~taro-ui/dist/style/components/avatar.scss";
+@import "./../../theme.scss";
+.page {
+  background: #F6F6F6;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+  padding-bottom: 40px;
+}
+
+.userinfo {
+  margin-top: 20px;
+  height: 140px;
+  width: 100%;
+  background: #FFF;
+  border: 2px solid rgba(0, 0, 0, .1);
+  border-left: none;
+  border-right: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  transition: all 300ms ease;
+}
+
+.userinfo-avatar {
+  margin: 20px;
+}
+
+.userinfo-nickname {
+  font-size: 32px;
+  color: #007AFF;
+}
+
+.userinfo-tip {
+  color: #cdcdcd;
+  font-size: 24px;
+}
+
+/* 用户信息列表 */
+.user-list {
+  width: 750px;
+  margin-top: 20px;
+  text-align: left;
+  border-left: none;
+  border-right: none;
+  background: #FFF;
+}
+
+.user-list-item {
+  max-width: 750px;
+  position: relative;
+}
+
+.user-list-title {
+  font-size: 28px;
+  color: #323233;
+}
+
+.contain {
+  flex: 0;
+  //vertical-align:middle;
+  text-align: center;
+} 
+.slogan {
+  //width: 100%;
+  //height: 800px;
+  padding-top: 50px;
+  align-content: flex-end;
+  text-align: right;
+  padding-right: 50px;
+}
+
+.imagecontain {
+  flex: 0;
+  //vertical-align:middle;
+  text-align: center;
+}
+.imageslogan {
+  padding-top: 50px;
+  //width: 50%;
+  //height: 800px;
+  align-content: center;
+  text-align: center;
+  vertical-align:middle;
+  //text-align: center;
+}
