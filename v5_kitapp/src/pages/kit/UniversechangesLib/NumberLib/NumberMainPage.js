@@ -4,8 +4,6 @@ import { View, Text, ScrollView ,Input,Form,Switch} from '@tarojs/components'
 import { AtDivider, AtInput, AtForm, AtSwitch } from 'taro-ui'
 import './NumberMainPage.scss'
 import '../../../../theme.scss'
-var jump = false
-let curyear = 0
 
 var numlucky = new Array()
 numlucky["13"] = numlucky["31"] = "天医（元吉）++++"
