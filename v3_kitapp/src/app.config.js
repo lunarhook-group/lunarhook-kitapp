@@ -62,6 +62,12 @@ export default {
         "SixrandomLib/SixrandomFullInfoPage",
       ]
     }, 
+    {
+      "root": "pages/kit/exam",
+      "pages": [
+        "TrigramsTestModule",
+      ]
+    }, 
   ]
 
 }

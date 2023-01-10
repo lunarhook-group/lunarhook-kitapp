@@ -138,6 +138,10 @@ export default class litekitPage extends Component {
     else if ("数字八星" == item) {
       Taro.navigateTo({ url: '../../../pages/kit/UniversechangesLib/NumberLib/NumberMainPage' })
     }
+    else if("乾坤九考" == item){
+      Taro.navigateTo({ url: '../../../pages/kit/exam/TrigramsTestModule' })
+
+    }
   }
   handleAccordionClick(index, value) {
     //console.log(value,index)
@@ -190,9 +194,9 @@ export default class litekitPage extends Component {
 
              <ScrollView>
           <AtDivider >
-              <AtIcon value='heart'></AtIcon>
+              <AtIcon value='bell' color="#13BD7A"></AtIcon>
               <Text> 基础测试 </Text>
-              <AtIcon value='heart'></AtIcon>
+              <AtIcon value='bell' color="#13BD7A"></AtIcon>
             </AtDivider>
             <AtList hasBorder={false}>
             <AtListItem
@@ -246,9 +250,9 @@ export default class litekitPage extends Component {
               />
             </AtList>
             <AtDivider >
-              <AtIcon value='heart'></AtIcon>
+              <AtIcon value='heart'    color= 'red'></AtIcon>
               <Text> 心理测试 </Text>
-              <AtIcon value='heart'></AtIcon>
+              <AtIcon value='heart'    color= 'red'></AtIcon>
             </AtDivider>
             <AtList hasBorder={false}>
               <AtListItem
