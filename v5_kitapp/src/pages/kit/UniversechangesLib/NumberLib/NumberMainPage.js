@@ -201,7 +201,9 @@ export default class NumberMainPage extends Component {
                 this.setState({ number: this.updatenumber(value) })}
             />
             <Form>
-              <AtSwitch title={this.state.selectedValue} checked={"男" == this.state.selectedValue ? true : false} onChange={() => {
+              <View className="demo-list-item">
+                <Text>{this.state.selectedValue} </Text>
+              <Switch checked={"男" == this.state.selectedValue ? true : false} onChange={() => {
                 if ("男" == this.state.selectedValue) {
                   this.setState({ selectedValue: "女" })
                 }
@@ -210,6 +212,7 @@ export default class NumberMainPage extends Component {
                 }
               }
               } />
+              </View>
             </Form>
 
           </View>
