@@ -66,6 +66,7 @@ export default class NumberMainPage extends Component {
     this.state = {
       switchstate: true,
       selectedValue: '男',
+      selectedcoler: true,
       number: "",
       info: [],
       extra: [],
@@ -78,7 +79,7 @@ export default class NumberMainPage extends Component {
   }
 
   clear(val) {
-    this.setState({ number: "", info: [], extra: [], spextra: [], switchstate: "男" == val ? true : false, selectedValue: val })
+    this.setState({ number: "", info: [], extra: [], spextra: [], switchstate: "男" == val ? true : false, selectedValue: val, selectedcoler: true })
   }
 
 
@@ -161,45 +162,48 @@ export default class NumberMainPage extends Component {
     this.props.navigation.dispatch(resetAction)
   }
   rendercolor(item) {
-    const fire = "#FF0000"
-    const Coral = "#FF7F50"
-    const gold = "#FFCE00"
-    const orange = "#ED7F06"
-    const red = "#DE4F1F"
-    const blue = "#1FA7DE"
-    const startblue = "#00C0FF"
-    const green = "#13BD7A"
-    const claygreen = "#3dd1e0"
-    const darkgold = "#AC633D"
-    const gray = "#848484"
-    const LightPink = "#FFB6C1"
-    const black = "#000000"
-    const white = "#FFFFFF"
-    var c = black
-    if (-1 != item.indexOf("天医")) {
-      c = fire
+    var c = "#000000"
+    if (true == this.state.selectedcoler) {
+      const fire = "#FF0000"
+      const Coral = "#FF7F50"
+      const gold = "#FFCE00"
+      const orange = "#ED7F06"
+      const red = "#DE4F1F"
+      const blue = "#1FA7DE"
+      const startblue = "#00C0FF"
+      const green = "#13BD7A"
+      const claygreen = "#3dd1e0"
+      const darkgold = "#AC633D"
+      const gray = "#848484"
+      const LightPink = "#FFB6C1"
+      const black = "#000000"
+      const white = "#FFFFFF"
+      if (-1 != item.indexOf("天医")) {
+        c = fire
+      }
+      if (-1 != item.indexOf("延年")) {
+        c = orange
+      }
+      else if (-1 != item.indexOf("生气")) {
+        c = Coral
+      }
+      else if (-1 != item.indexOf("伏位")) {
+        c = gold
+      }
+      else if (-1 != item.indexOf("六煞")) {
+        c = green
+      }
+      else if (-1 != item.indexOf("祸害")) {
+        c = claygreen
+      }
+      else if (-1 != item.indexOf("五鬼")) {
+        c = startblue
+      }
+      else if (-1 != item.indexOf("绝命")) {
+        c = blue
+      }
     }
-    if (-1 != item.indexOf("延年")) {
-      c = orange
-    }
-    else if (-1 != item.indexOf("生气")) {
-      c = Coral
-    }
-    else if (-1 != item.indexOf("伏位")) {
-      c = gold
-    }
-    else if (-1 != item.indexOf("六煞")) {
-      c = green
-    }
-    else if (-1 != item.indexOf("祸害")) {
-      c = claygreen
-    }
-    else if (-1 != item.indexOf("五鬼")) {
-      c = startblue
-    }
-    else if (-1 != item.indexOf("绝命")) {
-      c = blue
-    }
+
     c = "color:" + c
     return c
   }
@@ -254,15 +258,24 @@ export default class NumberMainPage extends Component {
                 }
                 } />
               </View>
+              <View className="demo-list-item">
+                <Text>{true == this.state.selectedcoler ? "彩色" : "灰"} </Text>
+                <Switch checked={true == this.state.selectedcoler ? true : false} onChange={(value) => {
+                  this.setState({ selectedcoler: value.detail.value })
+                }
+                }
+                />
+              </View>
             </Form>
           </View>
-          <View className={"result"}>
-            {contentinfo}
-            <AtDivider lineColor='#ffffff' />
-            {contentextra}
-            <AtDivider lineColor='#ffffff' />
-            {contentspextra}
-          </View>
+
+            <View className={"result"}>
+              {contentinfo}
+              <AtDivider lineColor='#ffffff' />
+              {contentextra}
+              <AtDivider lineColor='#ffffff' />
+              {contentspextra}
+            </View>
         </ScrollView>
       </View>
     )
