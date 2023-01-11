@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
-import Taro from '@tarojs/taro'
-import { AtAvatar, AtList, AtListItem } from 'taro-ui';
 import { View, Image, Text, WebView, ScrollView } from '@tarojs/components';
 import './userCenter.scss';
-import serviceimg from './assets/service.jpg'
 import study from './assets/study.jpg'
 import test from './assets/test.jpg'
 
@@ -82,26 +79,6 @@ export default class UserCenter extends Component {
           <View className="imageslogan">
             <Text>扫码联系支持人员</Text>
           </View>
-
-          {/*  用户列表信息   */}
-          {userCenterList.map((item, index) => {
-            return (
-              <AtList className="user-list" key={index.id}>
-                {item.map((i, itemIndex) => {
-                  return (
-                    <View className="user-list-item" key={itemIndex.id}>
-                      <AtListItem
-                        className="user-list-title"
-                        arrow="right"
-                        title={i.title}
-                        thumb={i.icon}
-                      />
-                    </View>
-                  );
-                })}
-              </AtList>
-            );
-          })}
         </ScrollView>
       </View>
     );
