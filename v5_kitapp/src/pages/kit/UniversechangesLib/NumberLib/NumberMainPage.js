@@ -191,14 +191,14 @@ export default class NumberMainPage extends Component {
         <ScrollView>
 
           <View>
-            <AtInput
+            <Input className="demo-list-item"
               name='value'
               title='输入数字'
               type='number'
               placeholder='输入数字'
               value={this.state.number}
-              onChange={(value) =>
-                this.setState({ number: this.updatenumber(value) })}
+              onInput={(value) =>
+                this.setState({ number: this.updatenumber(value.detail.value) })}
             />
             <Form>
               <View className="demo-list-item">
@@ -217,7 +217,7 @@ export default class NumberMainPage extends Component {
 
           </View>
           <View className={"result"}>
-          <AtDivider lineColor='#ffffff' />
+
             {contentinfo}
             <AtDivider lineColor='#ffffff' />
             {contentextra}

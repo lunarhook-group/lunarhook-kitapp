@@ -1,13 +1,13 @@
 @import "../../../../theme.scss";
 .result {
     padding-left: 40px;
-    font-size: 24px;
+    font-size: 32px;
 }
 .demo-list-item {
   position: relative;
   display: flex;
   justify-content: space-between;
-  padding: 30px;
+  padding: 40px;
   &::before,
   &::after {
     content: '';
