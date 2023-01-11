@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react'
-import { View, Text, ScrollView ,Input,Form,Switch} from '@tarojs/components'
+import { View, Text, ScrollView, Input, Form, Switch } from '@tarojs/components'
 import { AtDivider, AtInput, AtForm, AtSwitch } from 'taro-ui'
 import './NumberMainPage.scss'
 import '../../../../theme.scss'
@@ -160,36 +160,77 @@ export default class NumberMainPage extends Component {
     })
     this.props.navigation.dispatch(resetAction)
   }
-
+  rendercolor(item) {
+    const fire = "#FF0000"
+    const Coral = "#FF7F50"
+    const gold = "#FFCE00"
+    const orange = "#ED7F06"
+    const red = "#DE4F1F"
+    const blue = "#1FA7DE"
+    const startblue = "#00C0FF"
+    const green = "#13BD7A"
+    const claygreen = "#3dd1e0"
+    const darkgold = "#AC633D"
+    const gray = "#848484"
+    const LightPink = "#FFB6C1"
+    const black = "#000000"
+    const white = "#FFFFFF"
+    var c = black
+    if (-1 != item.indexOf("天医")) {
+      c = fire
+    }
+    if (-1 != item.indexOf("延年")) {
+      c = orange
+    }
+    else if (-1 != item.indexOf("生气")) {
+      c = Coral
+    }
+    else if (-1 != item.indexOf("伏位")) {
+      c = gold
+    }
+    else if (-1 != item.indexOf("六煞")) {
+      c = green
+    }
+    else if (-1 != item.indexOf("祸害")) {
+      c = claygreen
+    }
+    else if (-1 != item.indexOf("五鬼")) {
+      c = startblue
+    }
+    else if (-1 != item.indexOf("绝命")) {
+      c = blue
+    }
+    c = "color:" + c
+    return c
+  }
   render() {
     const { info } = this.state
     const contentinfo = info.map((item) => {
-      console.log(item)
+      var c = this.rendercolor(item)
       return (
         <View key={item.index}>
-          <Text key={item.item}>{item}</Text>
+          <Text key={item.item} style={c}>{item}</Text>
         </View>)
     })
     const { extra } = this.state
     const contentextra = extra.map((item) => {
-      console.log(item)
+      var c = this.rendercolor(item)
       return (
         <View key={item.index}>
-          <Text key={item.item}>{item}</Text>
+          <Text key={item.item} style={c}>{item}</Text>
         </View>)
     })
     const { spextra } = this.state
     const contentspextra = spextra.map((item) => {
-      console.log(item)
+      var c = this.rendercolor(item)
       return (
         <View key={item.index}>
-          <Text key={item.item}>{item}</Text>
+          <Text key={item.item} style={c}>{item}</Text>
         </View>)
     })
     return (
       <View  >
         <ScrollView>
-
           <View>
             <Input className="demo-list-item"
               name='value'
@@ -203,32 +244,27 @@ export default class NumberMainPage extends Component {
             <Form>
               <View className="demo-list-item">
                 <Text>{this.state.selectedValue} </Text>
-              <Switch checked={"男" == this.state.selectedValue ? true : false} onChange={() => {
-                if ("男" == this.state.selectedValue) {
-                  this.setState({ selectedValue: "女" })
+                <Switch checked={"男" == this.state.selectedValue ? true : false} onChange={() => {
+                  if ("男" == this.state.selectedValue) {
+                    this.setState({ selectedValue: "女" })
+                  }
+                  else {
+                    this.setState({ selectedValue: "男" })
+                  }
                 }
-                else {
-                  this.setState({ selectedValue: "男" })
-                }
-              }
-              } />
+                } />
               </View>
             </Form>
-
           </View>
           <View className={"result"}>
-
             {contentinfo}
             <AtDivider lineColor='#ffffff' />
             {contentextra}
             <AtDivider lineColor='#ffffff' />
             {contentspextra}
-
           </View>
         </ScrollView>
-
       </View>
-
     )
   }
 };
