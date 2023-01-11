@@ -32,36 +32,37 @@ export default class SixrandomFullinfoPage extends Component {
       var infoext = __ret.infoext
       var infobase = __ret.infobase
 
-      var o = {}
-      o.myth = "";
-      o.sixrandom = "";
-      o.change = "";
-      infogrid.push(o)
-      infogrid.push(o)
-      infogrid.push(o)
+      var oo = {}
+      oo.myth = "";
+      oo.sixrandom = "";
+      oo.tip = ""
+      oo.change = "";
+      infogrid.push(oo)
       for (var index = 0; index < ggrid.length; index++) {
-        o = {}
+        var o = {}
         if (undefined != ggrid[index]) {
           var cur = ggrid[index]
           console.log(cur)
           o.myth = cur[0] + " " + cur[1];
           o.sixrandom = cur[2];
-          o.change = cur[3];
+          o.tip = cur[3]
+          o.change = cur[4];
         }
         else {
           o.myth = "";
           o.sixrandom = "";
+          o.tip = ""
           o.change = "";
         }
         console.log(o)
         infogrid.push(o)
       }
-      o.myth = "";
-      o.sixrandom = "";
-      o.change = "";
-      infogrid.push(o)
-      infogrid.push(o)
-      infogrid.push(o)
+      oo.myth = "";
+      oo.sixrandom = "";
+      oo.tip = ""
+      oo.change = "";
+
+      infogrid.push(oo)
       console.log(infogrid)
       this.setState({
         date: _build, parameter: parameter, infogrid: infogrid, infoext: infoext, infobase: infobase
@@ -90,10 +91,14 @@ export default class SixrandomFullinfoPage extends Component {
     const { infogrid } = this.state
     const infogridcontent = infogrid.map((item, itemIndex) => {
       console.log(item)
+      if(""==item.myth){
+        return   <Text style="opacity: 0">blockline</Text>
+      }
       return (
         <View className='at-row'>
-          <View className='at-col'>{item.myth} </View>
+          <View className='at-col' style="width:300px;">{item.myth} </View>
           <View className='at-col'>{item.sixrandom}</View>
+          <View style="width:50px;">{item.tip}</View>
           <View className='at-col'>{item.change}</View>
         </View>
       )
@@ -103,17 +108,17 @@ export default class SixrandomFullinfoPage extends Component {
         <ScrollView >
           <View  >
             <View>
-              <AtList>
+
                 {infobasecontent}
-              </AtList>
-              <View>{" "}</View>
-              <AtList>
+
+                <Text style="opacity: 0">blockline</Text>
+
                 {infogridcontent}
-              </AtList>
-              <View>{" "}</View>
-              <AtList>
+
+                <Text style="opacity: 0">blockline</Text>
+
                 {infoextcontent}
-              </AtList>
+
             </View>
           </View>
         </ScrollView>

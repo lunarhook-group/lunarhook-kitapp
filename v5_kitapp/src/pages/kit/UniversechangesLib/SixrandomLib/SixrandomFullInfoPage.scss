@@ -1,6 +1,14 @@
 @import "~taro-ui/dist/style/components/flex.scss";
 @import "./../../../../theme.scss";
-
+.col{
+  justify-content: space-between;
+}
+.col1{
+  width: 200px;
+}
+.col2{
+  width: 100px;
+}
 .result {
     padding-left: 40px;
 }
