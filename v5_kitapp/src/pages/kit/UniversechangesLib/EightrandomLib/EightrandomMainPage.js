@@ -8,6 +8,7 @@ import EightrandomModule from './EightrandomModule'
 import './EightrandomMainPage.scss'
 var jump = false
 let curyear = 0
+let curmonth = 0
 /*
 八字要展现的东西就比较多了
 1、公立生日
@@ -108,6 +109,7 @@ export default class EightrandomMainPage extends Component {
       //console.log("lunar_f", EightDate);
       var gzDate = EightDate.gzYear + " " + EightDate.gzMonth + " " + EightDate.gzDate + " " + EightDate.gzTime;
       curyear = EightDate.Year;
+      curmonth = EightDate.Month
 
       var retterm = EightrandomModule.getYearTerm(gz.getFullYear())
       var beginlucky = EightrandomModule.getbigluckyearbegin(retterm, gz, parameter.EightDate, parameter.sex);
@@ -356,7 +358,7 @@ export default class EightrandomMainPage extends Component {
     //拍出所有小运
     var birthdayyear = new Date()
     birthdayyear.setYear(curyear)
-    birthdayyear.setMonth(4)
+    birthdayyear.setMonth(curmonth)
     birthdayyear = SixrandomModule.lunar_f(birthdayyear)
     birthdayyear = birthdayyear.gzYear + birthdayyear.gzMonth + birthdayyear.gzDate + birthdayyear.gzTime;
     console.log("birthdayyear", birthdayyear)
