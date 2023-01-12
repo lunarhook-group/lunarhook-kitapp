@@ -52,6 +52,7 @@ export default class EightrandomMainPage extends Component {
     var daykey = new Array();
 
     this.state = {
+      gzxk:"",
       xingsu: "",
       enhance: "空",
       sex: sex,
@@ -108,6 +109,9 @@ export default class EightrandomMainPage extends Component {
       var EightDate = SixrandomModule.lunar_f(gz)
       //console.log("lunar_f", EightDate);
       var gzDate = EightDate.gzYear + " " + EightDate.gzMonth + " " + EightDate.gzDate + " " + EightDate.gzTime;
+      var gzxk = SixrandomModule.get_empty_sixty_cycle(EightDate.gzYear)+ " " + SixrandomModule.get_empty_sixty_cycle(EightDate.gzMonth) + " " + SixrandomModule.get_empty_sixty_cycle(EightDate.gzDate) + " " + SixrandomModule.get_empty_sixty_cycle(EightDate.gzTime);
+      this.setState({gzxk:gzxk})
+      
       curyear = EightDate.Year;
       curmonth = EightDate.Month
 
