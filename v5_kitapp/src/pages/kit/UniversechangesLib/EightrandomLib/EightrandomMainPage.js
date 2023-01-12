@@ -342,7 +342,8 @@ export default class EightrandomMainPage extends Component {
       console.log("curminiluckyearnum2", Number(this.state.curminiluckyearnum))
       thisyear = new Date()//这里应该选小运的年份
       thisyear.setFullYear(this.state.curminiluckyearnum)
-      //curluckyear 这里应该更新大运
+      //这里必须要算出正月，所以流年月份按3月计算
+      thisyear.setMonth(3)
     }
 
     //根据小运计算干支
@@ -545,28 +546,28 @@ export default class EightrandomMainPage extends Component {
             <AtGrid className='basegrid'
               data={base}
               columnNum={2}
-              hasLine={true}
+               hasBorder ={false}
               mode='rect'
             />
             <Text style="opacity: 0">blockline</Text>
             <AtGrid className='basegrid'
               data={test}
               columnNum={7}
-              hasLine={true}
+               hasBorder ={true}
               mode='rect'
             />
             <Text style="opacity: 0">blockline</Text>
             <AtGrid className='basegrid'
               data={shensha}
               columnNum={1}
-              hasLine={true}
+               hasBorder ={false}
               mode='rect'
             />
             <Text style="opacity: 0">blockline</Text>
             <AtGrid className='basegrid'
               data={years}
               columnNum={8}
-              hasLine={true}
+               hasBorder ={false}
               mode='rect'
               //当选择大运的时候，相当于选择了流年小运
               onClick={(_el, index) => this.changeyear(Number(index % 8), "", this.state.beginlucky)}
@@ -575,7 +576,7 @@ export default class EightrandomMainPage extends Component {
             <AtGrid
               data={minluckyyear}
               columnNum={8}
-              hasLine={true}
+               hasBorder ={false}
               isCarousel={true}
               carouselMaxRow={4}
               //当选择大运的时候，相当于选择了流年小运
@@ -585,7 +586,7 @@ export default class EightrandomMainPage extends Component {
               <Text style="opacity: 0">blockline</Text>
               </View>
             <View className="contain">
-              <Text>'天干信息'</Text>
+              <Text>天干信息</Text>
               {
                 r.dr.map((item) => {
                   return (
@@ -596,7 +597,7 @@ export default class EightrandomMainPage extends Component {
                               <View>
               <Text style="opacity: 0">blockline</Text>
               </View>
-              <Text>'地支冲克'</Text>
+              <Text>地支冲克</Text>
               {
                 r.er.map((item) => {
                   return (
@@ -607,7 +608,7 @@ export default class EightrandomMainPage extends Component {
                               <View>
               <Text style="opacity: 0">blockline</Text>
               </View>
-              <Text>'流年冲克'</Text>
+              <Text>流年冲克</Text>
               {
                 r.lr.map((item) => {
                   return (
@@ -618,7 +619,7 @@ export default class EightrandomMainPage extends Component {
                 <View>
               <Text style="opacity: 0">blockline</Text>
               </View>
-              <Text>'大运冲克'</Text>
+              <Text>大运冲克</Text>
               {
                 r.br.map((item) => {
                   return (
@@ -629,7 +630,7 @@ export default class EightrandomMainPage extends Component {
                 <View>
               <Text style="opacity: 0">blockline</Text>
               </View>
-              <Text>'日柱信息'</Text>
+              <Text>日柱信息</Text>
               <View >
                 <Text  >{home[0]}</Text>
                 <Text >{home[1]}</Text>
@@ -638,7 +639,7 @@ export default class EightrandomMainPage extends Component {
               <View>
               <Text style="opacity: 0">blockline</Text>
               </View>
-              <Text>'婚姻提示（受流年大运影响）'</Text>
+              <Text>婚姻提示（受流年大运影响）</Text>
               {
                 marryinfo.map((item) => {
                   return (
