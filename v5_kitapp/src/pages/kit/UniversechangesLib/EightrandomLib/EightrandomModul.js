@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import Taro from '@tarojs/taro'
-import LunarCalendar from './LunarCalendar'
+import React, { Component } from 'react';
+import LunarCalendar from '../solar2lunar/LunarCalendar'
+import IconConfig from '../../../config/IconConfig'
 //import DatePicker from 'react-native-datepicker'
 //import DateTimePicker from 'react-native-modal-datetime-picker';
 /*
@@ -104,115 +104,54 @@ import LunarCalendar from './LunarCalendar'
 财才为忌：好逸恶劳、蛮横专制重利益、媚上轻下、忘恩负义、风流多情、桃花劫。
 五行特点 
 甲：甲为阳木，为参天大树，栋梁之才，性格仁德温厚，外表平静内心极强，喜静恶动，自律自重，大成则兴邦治国，小成则养家立业。仁义礼智信中，木主仁。
-  为喜神旺相时，为人主观不屈服，喜恭维恶批评。
-  为忌神旺相时，其性必恶，固执己见，麻木不仁。
-  甲木为弱时，失去挺拔个性，徒有其表，外强中干，性格懦弱，没有立场，随风摆动，没主见没胆识，难挑重担。
- 　
+　　为喜神旺相时，为人主观不屈服，喜恭维恶批评。
+　　为忌神旺相时，其性必恶，固执己见，麻木不仁。
+　　甲木为弱时，失去挺拔个性，徒有其表，外强中干，性格懦弱，没有立场，随风摆动，没主见没胆识，难挑重担。
+　　
 乙：乙为阴木，似藤萝花草，柔中带刚，外表仁厚，内心刚强，有极强的容忍力和变通力，坚韧不拔不惧险阻，乙木好似花卉，喜争奇斗艳，天生爱美，注重外表仪容，自尊心强，也容易自卑。
-  为喜神旺相时，亦如甲木具仁寿之德，激流勇进，越挫越勇，比甲木能屈能伸。
-  为忌神旺相时，过分坚持，过分执着，积怨越深，爆发越大，只图自己安乐，不顾千夫所指。乙木太弱时，毫无生气，人穷志短，性格忧郁，悲观内向。
- 　
+　　为喜神旺相时，亦如甲木具仁寿之德，激流勇进，越挫越勇，比甲木能屈能伸。
+　　为忌神旺相时，过分坚持，过分执着，积怨越深，爆发越大，只图自己安乐，不顾千夫所指。乙木太弱时，毫无生气，人穷志短，性格忧郁，悲观内向。
+　　
 丙：丙为阳火，比喻为太阳，光照大地，万物赖以为生。丙火人性格，温暖和煦，热情豪放，光明磊落，大公无私，上进心强，仁义礼智信中，火主礼。
-  为喜神旺相时，乐天知命，不惧逆境，心有骄阳，不惧寒冬，充满活力，永远灿烂，相信春天总会到来。
-  为忌神旺相时，过分火爆，易起争执，个性偏激，到处惹事。狂妄自大，不可一世。
-  丙火为弱时，委曲求全，黯淡无光。
- 　
+　　为喜神旺相时，乐天知命，不惧逆境，心有骄阳，不惧寒冬，充满活力，永远灿烂，相信春天总会到来。
+　　为忌神旺相时，过分火爆，易起争执，个性偏激，到处惹事。狂妄自大，不可一世。
+　　丙火为弱时，委曲求全，黯淡无光。
+　　
 丁：丁为阴火，比喻为灯烛之火，不刚不烈，不弱不衰，性虽阴柔，昭然不绝。
-  为喜神旺相时，待人有仪，温文尔雅，心地善良，忠孝两全，体恤他人，助人为乐。
-  为忌神旺相时，内敛狠毒，不喜张扬，默默策划，性格阴森，表面一套，背后一套，防不胜防，祸患深藏，不露痕迹。
-  丁火太弱时，刚性不足，缺乏坚定，做事优柔寡断，犹豫不决，危急关头，临阵脱逃。
- 　
+　　为喜神旺相时，待人有仪，温文尔雅，心地善良，忠孝两全，体恤他人，助人为乐。
+　　为忌神旺相时，内敛狠毒，不喜张扬，默默策划，性格阴森，表面一套，背后一套，防不胜防，祸患深藏，不露痕迹。
+　　丁火太弱时，刚性不足，缺乏坚定，做事优柔寡断，犹豫不决，危急关头，临阵脱逃。
+　　
 戊：戊为阳土，比喻为山岳城墙，戊土厚重，宽厚包容，仁义礼智信，土主信，戊土个性，稳重守信，固重不移，万物所系，广结人缘。
-  为喜神旺相时，为人稳重，能做实事，不喜浮夸，重视信用，一诺千金，敦厚朴实。
-  为忌神旺相时，保守顽固，死守不变，浑浊不化，不通世情，不受规劝，顽石一般。
-  戊土太弱时，戊土太弱容易失去信心，过分忍让，受辱委屈，糊涂用事，自食其果。
- 　
+　　为喜神旺相时，为人稳重，能做实事，不喜浮夸，重视信用，一诺千金，敦厚朴实。
+　　为忌神旺相时，保守顽固，死守不变，浑浊不化，不通世情，不受规劝，顽石一般。
+　　戊土太弱时，戊土太弱容易失去信心，过分忍让，受辱委屈，糊涂用事，自食其果。
+　　
 己：己为阴土，比喻为泥沙湿土，己土卑湿，能生万物，己土个性，不卑不亢，不偏不倚，处事中正。
-  为喜神旺相时，谦虚谨慎，富而不骄，穷而不屈，乐而知足。心量广大，志气高昂。
-  为忌神旺相时，过分叛逆，自私自我，包容性差，浊而不清。卑鄙阴险，内心狠毒
- 　
+　　为喜神旺相时，谦虚谨慎，富而不骄，穷而不屈，乐而知足。心量广大，志气高昂。
+　　为忌神旺相时，过分叛逆，自私自我，包容性差，浊而不清。卑鄙阴险，内心狠毒
+　　
 庚：庚为阳金，比喻为刀斧剑锋 个性刚健硬朗，仁义礼智信，金主义，庚金人，义气为重。
-  为喜神旺相时，沉着坚韧，是非分明，意志坚定，自强不息，两肋插刀，在所不辞，
-  为忌神旺相时，倔强易怒，冲动好斗，不受约束，铁石心肠，见利忘义，失去正义。
-  庚金太弱时，意志不坚，精明过头，两两计较，剑走偏锋，逃之夭夭。
- 　
+　　为喜神旺相时，沉着坚韧，是非分明，意志坚定，自强不息，两肋插刀，在所不辞，
+　　为忌神旺相时，倔强易怒，冲动好斗，不受约束，铁石心肠，见利忘义，失去正义。
+　　庚金太弱时，意志不坚，精明过头，两两计较，剑走偏锋，逃之夭夭。
+　　
 辛：辛为阴金，比喻为金钗首饰，不及庚金刚锐，其毅性内在，辛金的确很辛苦，善纠缠。
-  为喜神旺相时，大仁大义，性格冷静，心思缜密，临危不乱，处变不惊，不甘趋炎附势。
-  为忌神旺相时，不仁不义，言多必失，得罪众人，自恃华丽，孤芳自赏。
-  辛金为弱时，刚阳不足，胆小怕事，逆来顺受，唯唯诺诺。
- 　
+　　为喜神旺相时，大仁大义，性格冷静，心思缜密，临危不乱，处变不惊，不甘趋炎附势。
+　　为忌神旺相时，不仁不义，言多必失，得罪众人，自恃华丽，孤芳自赏。
+　　辛金为弱时，刚阳不足，胆小怕事，逆来顺受，唯唯诺诺。
+　　
 壬：壬为阳水，刚阳奔放，比喻为江河湖海，仁义礼智信中，水主智。形虽柔而质实刚，刚柔相济，似水柔情。壬水性格，机灵聪敏，有智有谋。
-  为喜神旺相时，壬水主动，处事积极，待人热情，甘为服务，思维活跃，善于钻营。
-  为忌神旺相时，性情善变，容易激动，喜怒无常，爱则欲其生，恨则欲其死。
-  壬水为弱时，迁徙不止，聪明过分，聪明反被聪明误，缺乏责任，粗枝大叶，乐少忧多。
- 　
+　　为喜神旺相时，壬水主动，处事积极，待人热情，甘为服务，思维活跃，善于钻营。
+　　为忌神旺相时，性情善变，容易激动，喜怒无常，爱则欲其生，恨则欲其死。
+　　壬水为弱时，迁徙不止，聪明过分，聪明反被聪明误，缺乏责任，粗枝大叶，乐少忧多。
+　　
 癸：癸为阴水，比喻为雨露之水，又好比天之津液，至阴至柔。水亦主智，内心缜密，办事周详，面面俱到。
-  为喜神旺相时，心慈性善，助人之乐，犹如春雨，滋生万物，实惠布福，不分贵贱，一视同仁。
-  为忌神旺相时，性柔情弱，悲观失控，过分自我，淫溺无耻
-  癸水为弱时，个性内向，阳刚不足，气魄不够，处事优柔，瞻前顾后，一事无成。
+　　为喜神旺相时，心慈性善，助人之乐，犹如春雨，滋生万物，实惠布福，不分贵贱，一视同仁。
+　　为忌神旺相时，性柔情弱，悲观失控，过分自我，淫溺无耻
+　　癸水为弱时，个性内向，阳刚不足，气魄不够，处事优柔，瞻前顾后，一事无成。
 */
 
-var dayself = new Array();
-dayself["甲子"] = "上等日柱，得到配偶助益，配偶漂亮，但恐婚姻不利。甲木为栋梁之木，木主仁，坐下正印，为身高体健，慈祥恺悌，相貌俊秀。印为文书，身坐文书，主才学超群，有权柄。印又有生身助学之功，故主人记忆力强，学习成绩优秀。"
-dayself["戊辰"] = "上等日柱，通根身旺，坐财官比肩，但支中比肩财星化火为印，变成官印相生，故主高贵。支内戊癸化火生土，而辰本为湿土，内中有火，温暖中和，能生万物，必然根深叶茂，秀气有成。"
-dayself["庚午"] = "上等日柱，配偶英俊漂亮，利于配偶。身坐正官正印，气质清纯，必主官贵，但金坐火地，须经火炼，千锤百炼，所以仕途坎坷，有大起，也有大落。"
-dayself["丙子"] = "上等日柱，阴阳杀。阴阳差错，配偶英俊漂亮，但婚姻不顺利。为六秀，主人聪明秀气。丙火坐子无根，主人身矮。丙为太阳主光明，而子鼠狡猾，子中癸水阴湿，故主人性格双重。身坐正官，一权在握，往往自以为是，独裁固执。"
-dayself["庚辰"] = "上等日柱，魁罡，身坐正财、伤官、偏印，主人有财禄，聪明有学识，支中伤官带偏印有贵气，而戊癸化火为官杀，变成日坐财官，可做官，但隐含伤官，可能喜开杀戒。"
-dayself["辛巳"] = "上等日柱，十恶大败。利于婚姻。身坐正印正官劫财，辛金柔弱，有正印生身，劫财帮助，由弱转旺，而正官丙火制衡，使干支中和，必主官贵，富于成功。大多有志难伸。"
-dayself["壬午"] = "上等日柱，九鬼妨害，但恐夫妻不睦。坐下财官，无杂气，多主官贵，丁壬合财，主得妻财或因妻制富。但壬午不如癸巳，癸巳财官双美无杂气，又为日贵。另外，壬水盖头有掩火之嫌，故虽有官贵，也难免大起大落。"
-dayself["丁亥"] = "上等日柱，十恶大败，坐下正印官星，官印相生，主聪明超群，丁壬合化印星，坐贵，主官贵，与大贵人有缘。女命丁亥，可嫁贵夫。"
-dayself["戊子"] = "上等日柱，九鬼妨害，又为六秀日，主人聪明秀气，坐正财，得贤妻，因妻制富，干支戊癸化火生身，主高贵。"
-dayself["癸巳"] = "上等日柱，孤鸾煞，阴阳差错，不利婚姻。身坐正官正印正财，财官印连生，循环清正，主高贵富贵或清贵，且身康体健有钱，生活富裕，女名癸巳，可嫁贵夫。"
-dayself["丁酉"] = "上等日柱，日贵。配偶风流。坐长生偏财、夜贵、文昌，主人高贵聪明，见识超群，受人钦敬，另有叛逆创新性格。"
-dayself["己亥"] = "上等日柱，配偶长寿。坐正财正官，为财官双美，主贵。女命己亥，也可嫁贵夫。"
-dayself["癸卯"] = "上等日柱，日贵。配偶风流。坐长生、日贵，食神吐秀，主人聪明有文才。女命癸卯，生子读书有成。"
-dayself["乙巳"] = "上等日柱，孤鸾煞，但恐有些人不利婚姻。乙木向阳，英华外发，主人聪明，但泄气，只利他人，不利己。坐下伤官正财，正官顺生，有钱，富裕，男命乙巳，多晚婚，可得贤妻，但支中伤官见官，过于刚强，不守纪律，武将者，喜开杀戒。"
-dayself["己酉"] = "上等日柱，坐长生、文昌，主人好文学，聪明有文才，且土金相生，主人身体好，但干生支，毕竟泄气，故得失都有。"
-dayself["甲寅"] = "上等日柱，孤鸾煞，不利婚姻。坐禄通根身旺，坐下有伤官生财，主富贵，但比肩夺财，文才差一些。女命甲寅，身强克夫。"
-dayself["乙卯"] = "上等日柱，坐禄通根身旺，坐比肩，无财，清贵不富贵，上下乙木，秀气透出，文才好，人秀气，手脚纤细。"
-dayself["丙辰"] = "上等日柱，日德。身坐魁地，支藏正印、食神、七杀，主人聪明、伶俐，辰为湿土，丙为太阳，阳光普照，万物有成，人命丙辰聪明好动。"
-dayself["庚申"] = "上等日柱，不利婚姻。坐禄通根，身体好，主富贵。丑月庚申，为天月两德，主人一生身健少疾病。女命庚申带天月两德，必生贵子，聪明大器。"
-dayself["辛酉"] = "上等日柱，九鬼妨害，阴阳差错，但恐夫妻不睦。坐禄通根，得助，立于不败之地，聪明有文才，有能力。"
-dayself["壬戌"] = "上等日柱，日德。阴阳差错，但恐夫妻不睦。坐下财生杀，杀生印，杀印相生，主大贵，或武贵，但丁壬化木逢燥土，往往变成小人或坏人。"
-dayself["乙丑"] = "中等日柱，配偶相貌不扬。六秀日，主人秀气漂亮，身坐金库，无根，坐下七杀无制，自信心太过，往往一意孤行。女名乙丑，具有男性风格。"
-dayself["丙寅"] = "中等日柱，丙为太阳，身坐长生，有光彩之象，主人聪明，但坐下枭神夺食，不吉。生于冬至后夏至前，戊土长生于寅，食神旺，主人聪明，吉；生于夏至后冬至前，戊土长生在申，食神弱，稍差。"
-dayself["丁卯"] = "中等日柱，九鬼妨害，但恐夫妻不睦。坐印通根，主人聪明有学问。若四柱出现亥卯未三合局或寅卯辰三会局，为大贵人，但身坐偏印，只能为副职，辅佐他人。"
-dayself["己巳"] = "中等日柱，金神，主人刚毅、聪明，有火则贵，却火则不吉。坐下正印、劫财、伤官，伤官佩印，贵不可言，但伤官遇劫，易遭小人陷害。"
-dayself["辛未"] = "中等日柱，得库通根，身旺，坐下偏财、偏印、七杀，一片顺生，主小贵，吉。女命辛未爱情专一，夺夫权，守家，独裁。"
-dayself["甲戌"] = "中等日柱，婚姻不顺。得库通根身旺，坐下偏财正官、伤官，主人刚强正直，光明正大，为官清廉，但性格过于直爽得罪人，难免受到打击、排挤。"
-dayself["乙亥"] = "中等日柱，十灵日，人聪明。虽处死地，却坐下为正印劫财帮身，故有枯木逢春之象。男命乙亥主得贤妻；女命乙亥主得贵夫，而且对夫忠诚。另外，女命乙亥非常漂亮。"
-dayself["丁丑"] = "中等日柱，阴阳差错，但恐夫妻不睦。丁火坐丑无根，身弱，但丁为星光，无妨。坐下偏财、七杀、食神，食神生偏财，偏财生杀，也一片顺生，吉利。"
-dayself["戊寅"] = "中等日柱，阴阳差错，但恐夫妻不睦。坐长生，身旺。生于春，则坐下七杀太重，一生劳苦，多为人造福。"
-dayself["癸未"] = "中等日柱，十灵日，人聪明。坐下有食神生财、财生杀，因坐偏财、七杀，故男女命逢癸未，重婚较多，但男女均漂亮，爱情专一。"
-dayself["丙戌"] = "中等日柱，坐火库，身旺，火光熠熠，聪明漂亮。"
-dayself["己丑"] = "中等日柱，六秀日，貌美多才。通根，比丁丑好，生于得令时为强，比肩夺财争斗，生于失令时则有兄弟帮忙。"
-dayself["庚寅"] = "中等日柱，十灵日，阴阳差错，但恐夫妻不睦。坐绝地，无根，盖头（干克支），女命克夫再嫁，做偏房可以，男命庚寅不善终，但坐杀印有开拓精神，为官多清廉，支藏偏印宜做副手。"
-dayself["壬辰"] = "中等日柱，阴阳差错，但恐夫妻不睦。坐水库通根身旺，坐下有劫财生食，食神制杀，身旺用杀，主贵。壬辰日为壬骑龙背，亥时生，为龙归大海，主大贵，午时龙死为下等。"
-dayself["甲午"] = "中等日柱，不利婚姻，身坐死地，一生劳苦奔波，干生支，对妻子好，伤官生财，对上辈孝顺。日主泄出丁火，主利他人，故对别人照顾有加，可自己到老，却一无所有。"
-dayself["乙未"] = "中等日柱，坐库通根，财星入库，主富，但爱财小气，再逢命局或大运流年冲库主发财。"
-dayself["丙申"] = "中等日柱，配偶性强主家。身弱无根，妙在丙火太阳，坐下食神生财，财生杀，壬水杀旺，映照太阳光辉，主人聪明灵气。但杀旺攻身，老来孤独，一辈子辛苦，不能坐享其成。"
-dayself["戊戌"] = "中等日柱，大败日。坐库通根，土太燥，吉带凶。魁罡主人心直口快，临事果断，也主聪明，文章振发，但不会用阴谋，常得罪人。"
-dayself["辛丑"] = "中等日柱，通根，坐下有印比食神，主人灵秀，女命辛丑身材好，秀气，守家。"
-dayself["壬寅"] = "中等日柱，坐下食神生偏财再生杀，又为壬骑虎背，主富贵双全，干支相生，家庭圆满。"
-dayself["甲辰"] = "中等日柱，不利婚姻，夫妻不睦。得气通根，坐下有偏财破印，缺少贵气，前半生不太好，后半生平安，财禄丰足。"
-dayself["丁未"] = "中等日柱，阴阳差错，但恐夫妻不睦。得库通根，坐下食神旺，主人漂亮，但好吃，女命贤惠。"
-dayself["庚戌"] = "中等日柱，坐库通根身强，魁罡，聪明刚毅，有文才，忠义双全。"
-dayself["辛亥"] = "中等日柱，孤鸾煞，不利婚姻。干支相生，金水相连，文才好（女命稍差），坐沐浴，女命不贞，坐下伤官旺不利夫。男命可得妻财，或漂亮之妻。"
-dayself["癸丑"] = "中等日柱，坐库通根，人秀气，坐下杀印生比肩，利兄弟，吃力不讨好，劳累奔波。"
-dayself["己未"] = "中等日柱，六秀日，貌美多才。坐库通根，身旺，坐下有杀印，主人自我意识强。女命己未身材好。"
-dayself["壬申"] = "下等日柱，十恶大败。配偶风流。身坐长生，太旺，主人好动不拘。纳音剑锋金，男命敢于拼打争斗，不善终。女命重武好斗，具男性风格。"
-dayself["癸酉"] = "下等日柱，坐偏印，金神，外表柔和，内心阴毒。富于心计，会挣钱，但也会花钱。"
-dayself["己卯"] = "下等日柱，九鬼妨害，配偶性暴。坐杀截脚，为最差之日，人命己卯，易残疾、受伤，一生劳苦。年上己卯，祖上伤残，不善终；月上己卯，父母不团圆；日上己卯，青年时期命危；时上己卯，老年不得善终，子女不好。"
-dayself["甲申"] = "下等日柱，夫妻不睦，配偶风流。坐绝地，一辈子辛苦，奔波，但死木逢杀克削，也不失可用。"
-dayself["乙酉"] = "下等日柱，配偶性暴。坐杀截脚，生在春天有救，生在土月助杀攻身，不妙。人命乙酉多不善终或不高寿。女命乙酉漂亮，浪漫，早恋早婚。"
-dayself["辛卯"] = "下等日柱，阴阳差错，但恐夫妻不睦。坐偏财，桃花，男命喜欢女色，女命稍好，但漂亮难禁风流（因既漂亮，又浪漫，对异性富吸引力）。"
-dayself["庚子"] = "下等日柱，坐伤官，女命克夫。干支金水相生，人秀丽聪明，但耿直，讲义气。做官宜公检法部门。"
-dayself["丙午"] = "下等日柱，阴阳差错，孤鸾煞，但恐夫妻不睦。坐羊刃，过刚，人聪明有文才。男命克妻，女命克夫，不论男女生于丙午，容易受伤。"
-dayself["戊申"] = "下等日柱，阴阳差错，孤鸾煞，但恐夫妻不睦。土猴孤独，女命早婚者易离婚，或孤身，男命稍好。不论年月均漂亮，但爱情不专，作风不正。"
-dayself["壬子"] = "下等日柱，九鬼妨害，孤鸾煞。坐刃坐劫财，水太旺，漂亮。女命不会持家，有多少花多少，花心；男命好色，若经商发财，发多少失多少。"
-dayself["丁巳"] = "下等日柱，孤鸾煞，恐夫妻不睦。丁火坐丙火，阳盛阴衰，白日无光。生时丁巳，老年不能高寿。"
-dayself["戊午"] = "下等日柱，孤鸾煞。与丙午类似，坐刃太旺，女命克夫，男命克妻，易受伤灾。戊土太燥，主人性格浮躁。"
-dayself["癸亥"] = "下等日柱，阴阳差错，但恐夫妻不睦。玄武日，坐刃，喜欢独断专行，武将不善终。"
 
 //阴阳原值来处理八字命学的“调候原则”。其计算的干支阴阳气含原值如下表：
 //+7,+6,+5,+3,+2,+1,-1,-2,-3,-5,-6,-7
@@ -249,8 +188,9 @@ hidetable['卯'] = ['乙主20', '甲余10'];
 hidetable['辰'] = ['戊主18', '癸中3', '乙余9'];
 hidetable['巳'] = ['丙主16', '庚中9', '戊余5'];
 hidetable['午'] = ['丁主11', '己中9', '丙余10'];
+//hidetable['午'] = ['丁主20', '丙余10'];
 hidetable['未'] = ['己主18', '乙中3', '丁余9'];
-//hidetable['申']=['庚主17','壬中3','己余7','戊余3'];
+hidetable['申'] = ['庚主17','壬中3','己余7','戊余3'];
 hidetable['申'] = ['庚主17', '壬中3', '戊余10'];
 hidetable['酉'] = ['辛主20', '庚余10'];
 hidetable['戌'] = ['戊主18', '丁中3', '辛余9'];
@@ -258,161 +198,14 @@ hidetable['亥'] = ['壬主18', '甲中5', '戊余7'];
 var daykey = '甲乙丙丁戊己庚辛壬癸'
 var earthkey = '子丑寅卯辰巳午未申酉戌亥'
 var fivekey = '木火土金水'
-var dayrelationship = new Array();
-for (i = 0; i < daykey.length; i++) {
-    var index = daykey[i]
-    dayrelationship[index] = new Array();
-}
-dayrelationship['甲']['己'] = '甲己合化土,为中正之合,主安分守己,淳朴敦厚'
-dayrelationship['己']['甲'] = dayrelationship['甲']['己']
-dayrelationship['乙']['庚'] = '乙庚合化金,为仁义之合,主刚柔兼备,重信守义'
-dayrelationship['庚']['乙'] = dayrelationship['乙']['庚']
-dayrelationship['丙']['辛'] = '丙辛合化水,为威严之合,主仪表威严,表现出众'
-dayrelationship['辛']['丙'] = dayrelationship['丙']['辛']
-dayrelationship['丁']['壬'] = '丁壬合化木,为仁寿之合,主心地仁慈,长命多寿'
-dayrelationship['丁']['壬'] = dayrelationship['壬']['丁']
-dayrelationship['戊']['癸'] = '戊癸合化火,为无情之合,主妩媚多情,薄情寡义'
-dayrelationship['戊']['癸'] = dayrelationship['癸']['戊']
-var earthrelationship = new Array()
-var earthcombe = new Array
-for (var i = 0; i < earthkey.length; i++) {
-    var index = earthkey[i]
-    earthrelationship[index] = new Array();
-    earthcombe[index] = new Array();
-}
-//六合
-earthrelationship['子']['丑'] = '子丑合土，夫妻容易沟通，有话讲，较顾家，午可冲散未则不行'
-earthrelationship['丑']['子'] = earthrelationship['子']['丑']
-earthrelationship['寅']['亥'] = '寅亥合木，先天比较重视伦理道德，申可冲散巳则不行'
-earthrelationship['亥']['寅'] = earthrelationship['寅']['亥']
-earthrelationship['卯']['戌'] = '卯戌合火，比较爱面子，注重外表，顾家，外强内柔，辰冲不散酉可冲散（戊戌辰冲可散）'
-earthrelationship['戌']['卯'] = earthrelationship['卯']['戌']
-earthrelationship['辰']['酉'] = '辰酉合金，比较重义气，较没有定性，戌冲不散卯冲则散（戊戌辰冲可散）'
-earthrelationship['酉']['辰'] = earthrelationship['辰']['酉']
-earthrelationship['巳']['申'] = '巳申合水，很多时候聪明反被聪明误'
-earthrelationship['申']['巳'] = earthrelationship['巳']['申']
-earthrelationship['午']['未'] = '午未合火，生性积极，脾气不好，做事凭感觉，有些任性，丑冲不散子可冲散'
-earthrelationship['未']['午'] = earthrelationship['午']['午']
-//六冲 子午相冲、丑未相冲、寅申相冲、卯酉相冲、辰戌相冲、巳亥相冲
-earthrelationship['子']['午'] = '子午相冲，水火相战，桃花旺象，困惑不解，一身不安，地域之冲'
-earthrelationship['午']['子'] = earthrelationship['子']['午']
-earthrelationship['丑']['未'] = '丑未相冲，固执相持，事多逆阻，职业相冲'
-earthrelationship['未']['未'] = earthrelationship['丑']['未']
-earthrelationship['寅']['申'] = '寅申相冲，车关有害，多情泛滥，好管闲事，地域职业都冲'
-earthrelationship['申']['寅'] = earthrelationship['寅']['申']
-earthrelationship['卯']['酉'] = '卯酉相冲，桃花旺象，背约失信，忧愁多老，色情纠缠，地域之冲'
-earthrelationship['酉']['卯'] = earthrelationship['卯']['酉']
-earthrelationship['辰']['戌'] = '辰戌相冲，克亲伤子，寿短害命，天冲地克，地域之冲'
-earthrelationship['戌']['辰'] = earthrelationship['辰']['戌']
-earthrelationship['巳']['亥'] = '巳亥相冲，机会多多，烦事繁多，喜欢助人，职业之冲'
-earthrelationship['亥']['巳'] = earthrelationship['巳']['亥']
-//六害 子未相害、丑午相害、寅巳相害、卯辰相害、申亥相害、酉戌相害
-earthrelationship['子']['未'] = '子未相害，犯小人，早分离'
-earthrelationship['未']['子'] = earthrelationship['子']['未']
-earthrelationship['丑']['午'] = '丑午相害，耐性差，脾气差'
-earthrelationship['午']['丑'] = earthrelationship['丑']['午']
-earthrelationship['寅']['巳'] = '寅巳相害，无恩刑，难在家'
-earthrelationship['巳']['寅'] = earthrelationship['寅']['巳']
-earthrelationship['卯']['辰'] = '卯辰相害，手足相害'
-earthrelationship['辰']['卯'] = earthrelationship['卯']['辰']
-earthrelationship['申']['亥'] = '申亥相害，是非多'
-earthrelationship['亥']['申'] = earthrelationship['申']['亥']
-earthrelationship['酉']['戌'] = '酉戌相害，鸡犬不宁'
-earthrelationship['戌']['酉'] = earthrelationship['酉']['戌']
-//自刑 辰午酉亥自相刑
-earthrelationship['辰']['辰'] = '辰辰自刑，达非所愿'
-earthrelationship['亥']['亥'] = '亥亥自刑，无理取闹'
-earthrelationship['午']['午'] = '午午自刑，事与愿违'
-earthrelationship['酉']['酉'] = '酉酉自刑，不的认同'
-earthrelationship['子']['卯'] = earthrelationship['卯']['子'] = '子卯之刑，眼光略高，说话较直，易无礼貌'
 
 
-//申子、亥卯、寅午、巳酉相合称生地半合。子辰、卯未、午戌、酉丑相合称墓地半合
-earthcombe['申']['子'] = '申子生地半合水，思想多变，聪明伶俐，冷漠寡淡，生地旺合，弱于三合，强于半合'
-earthcombe['子']['申'] = earthcombe['申']['子']
-earthcombe['亥']['卯'] = '亥卯生地半合木，较不切实际，生地旺合，弱于三合，强于半合'
-earthcombe['卯']['亥'] = earthcombe['亥']['卯']
-earthcombe['寅']['午'] = '寅午生地半合火，看来做事效率高，执行力好，热情有礼貌，生地旺合，弱于三合，强于半合'
-earthcombe['午']['寅'] = earthcombe['寅']['午']
-earthcombe['巳']['酉'] = '巳酉生地半合金,比较爱出头，容易有血光之灾，较会包装自己，生地旺合，弱于三合，强于半合'
-earthcombe['酉']['巳'] = earthcombe['巳']['酉']
-earthcombe['辰']['子'] = '子辰墓地半合水，思想多变，聪明伶俐，冷漠寡淡，墓地半合，弱于半合，强于拱合'
-earthcombe['子']['辰'] = earthcombe['辰']['子']
-earthcombe['卯']['未'] = '卯未墓地半合木，比较不切实际，墓地半合，弱于半合，强于拱合'
-earthcombe['未']['卯'] = earthcombe['卯']['未']
-earthcombe['午']['戌'] = '午戌墓地半合火，看来做事效率高，执行力好，热情有礼貌，墓地半合，弱于半合，强于拱合'
-earthcombe['戌']['午'] = earthcombe['午']['戌']
-earthcombe['酉']['丑'] = '酉丑墓地半合金,比较爱出头，容易有血光之灾，较会包装自己，墓地半合，弱于半合，强于拱合'
-earthcombe['丑']['酉'] = earthcombe['酉']['丑']
-earthcombe['辰']['申'] = '申辰拱合水，思想多变，聪明伶俐，冷漠寡淡，拱合弱于半合'
-earthcombe['申']['辰'] = earthcombe['辰']['申']
-earthcombe['亥']['未'] = '亥未拱合木，比较不切实际，拱合弱于半合'
-earthcombe['未']['亥'] = earthcombe['亥']['未']
-earthcombe['寅']['戌'] = '寅戌拱合火，看来做事效率高，执行力好，热情有礼貌，拱合弱于半合'
-earthcombe['戌']['寅'] = earthcombe['寅']['戌']
-earthcombe['巳']['丑'] = '巳丑拱合金,比较爱出头，容易有血光之灾，较会包装自己，拱合弱于半合'
-earthcombe['丑']['巳'] = earthcombe['巳']['丑']
-
-var twelfth = new Array();
-twelfth["甲子"] = twelfth["乙丑"] = "海中金"
-twelfth["丙寅"] = twelfth["丁卯"] = "炉中火"
-twelfth["戊辰"] = twelfth["己巳"] = "大林木"
-twelfth["庚午"] = twelfth["辛未"] = "路旁土"
-twelfth["壬申"] = twelfth["癸酉"] = "剑锋金"
-twelfth["甲戌"] = twelfth["乙亥"] = "山头火"
-twelfth["丙子"] = twelfth["丁丑"] = "涧下水"
-twelfth["戊寅"] = twelfth["己卯"] = "城头土"
-twelfth["庚辰"] = twelfth["辛巳"] = "白蜡金"
-twelfth["壬午"] = twelfth["癸未"] = "杨柳木"
-twelfth["甲申"] = twelfth["乙酉"] = "井泉水"
-twelfth["丙戌"] = twelfth["丁亥"] = "屋上土"
-twelfth["戊子"] = twelfth["己丑"] = "霹雳火"
-twelfth["庚寅"] = twelfth["辛卯"] = "松柏木"
-twelfth["壬辰"] = twelfth["癸巳"] = "长流水"
-twelfth["甲午"] = twelfth["乙未"] = "砂中金"
-twelfth["丙申"] = twelfth["丁酉"] = "山下火"
-twelfth["戊戌"] = twelfth["己亥"] = "平地木"
-twelfth["庚子"] = twelfth["辛丑"] = "璧上土"
-twelfth["壬寅"] = twelfth["癸卯"] = "金箔金"
-twelfth["甲辰"] = twelfth["乙巳"] = "覆灯火"
-twelfth["丙午"] = twelfth["丁未"] = "天河水"
-twelfth["戊申"] = twelfth["己酉"] = "大驿土"
-twelfth["庚戌"] = twelfth["辛亥"] = "钗钏金"
-twelfth["壬子"] = twelfth["癸丑"] = "桑柘木"
-twelfth["甲寅"] = twelfth["乙卯"] = "大溪水"
-twelfth["丙辰"] = twelfth["丁巳"] = "砂中土"
-twelfth["戊午"] = twelfth["己未"] = "天上火"
-twelfth["庚申"] = twelfth["辛酉"] = "石榴木"
-twelfth["壬戌"] = twelfth["癸亥"] = "大海水"
-
-var twelfthposition = new Array();
-twelfthposition["甲亥"] = twelfthposition["乙午"] = twelfthposition["丙寅"] = twelfthposition["丁酉"] = twelfthposition["戊寅"] = "长生"
-twelfthposition["己酉"] = twelfthposition["庚巳"] = twelfthposition["辛子"] = twelfthposition["壬申"] = twelfthposition["癸卯"] = "长生"
-twelfthposition["甲子"] = twelfthposition["乙巳"] = twelfthposition["丙卯"] = twelfthposition["丁申"] = twelfthposition["戊卯"] = "沐浴"
-twelfthposition["己申"] = twelfthposition["庚午"] = twelfthposition["辛亥"] = twelfthposition["壬酉"] = twelfthposition["癸寅"] = "沐浴"
-twelfthposition["甲丑"] = twelfthposition["乙辰"] = twelfthposition["丙辰"] = twelfthposition["丁未"] = twelfthposition["戊辰"] = "冠带"
-twelfthposition["己未"] = twelfthposition["庚未"] = twelfthposition["辛戌"] = twelfthposition["壬戌"] = twelfthposition["癸丑"] = "冠带"
-twelfthposition["甲寅"] = twelfthposition["乙卯"] = twelfthposition["丙巳"] = twelfthposition["丁午"] = twelfthposition["戊巳"] = "建禄"
-twelfthposition["己午"] = twelfthposition["庚申"] = twelfthposition["辛酉"] = twelfthposition["壬亥"] = twelfthposition["癸子"] = "建禄"
-twelfthposition["甲卯"] = twelfthposition["乙寅"] = twelfthposition["丙午"] = twelfthposition["丁巳"] = twelfthposition["戊午"] = "帝旺"
-twelfthposition["己巳"] = twelfthposition["庚酉"] = twelfthposition["辛申"] = twelfthposition["壬子"] = twelfthposition["癸亥"] = "帝旺"
-twelfthposition["甲辰"] = twelfthposition["乙丑"] = twelfthposition["丙未"] = twelfthposition["丁辰"] = twelfthposition["戊未"] = "衰地"
-twelfthposition["己辰"] = twelfthposition["庚戌"] = twelfthposition["辛未"] = twelfthposition["壬丑"] = twelfthposition["癸戌"] = "衰地"
-twelfthposition["甲巳"] = twelfthposition["乙子"] = twelfthposition["丙申"] = twelfthposition["丁卯"] = twelfthposition["戊申"] = "病地"
-twelfthposition["己卯"] = twelfthposition["庚亥"] = twelfthposition["辛午"] = twelfthposition["壬寅"] = twelfthposition["癸酉"] = "病地"
-twelfthposition["甲午"] = twelfthposition["乙亥"] = twelfthposition["丙酉"] = twelfthposition["丁寅"] = twelfthposition["戊酉"] = "死地"
-twelfthposition["己寅"] = twelfthposition["庚子"] = twelfthposition["辛巳"] = twelfthposition["壬卯"] = twelfthposition["癸申"] = "死地"
-twelfthposition["甲未"] = twelfthposition["乙戌"] = twelfthposition["丙戌"] = twelfthposition["丁丑"] = twelfthposition["戊戌"] = "墓地"
-twelfthposition["己丑"] = twelfthposition["庚丑"] = twelfthposition["辛辰"] = twelfthposition["壬辰"] = twelfthposition["癸未"] = "墓地"
-twelfthposition["甲申"] = twelfthposition["乙酉"] = twelfthposition["丙亥"] = twelfthposition["丁子"] = twelfthposition["戊亥"] = "绝地"
-twelfthposition["己子"] = twelfthposition["庚寅"] = twelfthposition["辛卯"] = twelfthposition["壬巳"] = twelfthposition["癸午"] = "绝地"
-twelfthposition["甲酉"] = twelfthposition["乙申"] = twelfthposition["丙子"] = twelfthposition["丁亥"] = twelfthposition["戊子"] = "胎地"
-twelfthposition["己亥"] = twelfthposition["庚卯"] = twelfthposition["辛寅"] = twelfthposition["壬午"] = twelfthposition["癸巳"] = "胎地"
-twelfthposition["甲戌"] = twelfthposition["乙未"] = twelfthposition["丙丑"] = twelfthposition["丁戌"] = twelfthposition["戊丑"] = "养地"
-twelfthposition["己戌"] = twelfthposition["庚辰"] = twelfthposition["辛丑"] = twelfthposition["壬未"] = twelfthposition["癸辰"] = "养地"
 
 
-class EightrandomModule extends Component {
+
+
+
+class EightrandomModule extends React.Component {
 
     constructor(porp) {
         super(porp);
@@ -427,59 +220,61 @@ class EightrandomModule extends Component {
             Tip: ""
         }
     }
-    getrongqin(self, target) {
+    getrongqin(self,target)
+    {
         //角、亢、氐、房、心、尾、箕
-        //斗、牛、女、虚、危、室、壁
-        //奎、娄、胃、昴、毕、觜、参
-        //井、鬼、柳、星、张、翼、轸
-        const t = ["参", "觜", "毕", "昴", "胃", "娄", "奎",
-            "壁", "室", "危", "虚", "女", "牛", "斗",
-            "箕", "尾", "心", "房", "氐", "亢", "角",
-            "轸", "翼", "张", "星", "柳", "鬼", "井"]
+		//斗、牛、女、虚、危、室、壁
+		//奎、娄、胃、昴、毕、觜、参
+		//井、鬼、柳、星、张、翼、轸
+        const t =   ["参","觜","毕","昴","胃","娄","奎",
+                    "壁","室","危","虚","女","牛","斗",
+                    "箕","尾","心","房","氐","亢","角",
+                    "轸","翼","张","星","柳","鬼","井"]
         var index = t.indexOf(self)
         var indextarget = t.indexOf(target)
         var tt = new Array()
-        tt["参"] = ["命", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "胎", "亲", "友", "坏", "成", "", "危", "安", "衰", "荣", "业", "亲", "友", "坏", "成", "危", "安", "衰", "荣"]
-        tt["觜"] = ["荣", "命", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "胎", "亲", "友", "坏", "成", "", "危", "安", "衰", "荣", "业", "亲", "友", "坏", "成", "危", "安", "衰"]
-        tt["毕"] = ["衰", "荣", "命", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "胎", "亲", "友", "坏", "成", "", "危", "安", "衰", "荣", "业", "亲", "友", "坏", "成", "危", "安"]
-        tt["昴"] = ["安", "衰", "荣", "命", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "胎", "亲", "友", "坏", "成", "", "危", "安", "衰", "荣", "业", "亲", "友", "坏", "成", "危"]
-        tt["胃"] = ["危", "安", "衰", "荣", "命", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "胎", "亲", "友", "坏", "成", "", "危", "安", "衰", "荣", "业", "亲", "友", "坏", "成"]
-        tt["娄"] = ["成", "危", "安", "衰", "荣", "命", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "胎", "亲", "友", "坏", "成", "", "危", "安", "衰", "荣", "业", "亲", "友", "坏"]
-        tt["奎"] = ["坏", "成", "危", "安", "衰", "荣", "命", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "胎", "亲", "友", "坏", "成", "", "危", "安", "衰", "荣", "业", "亲", "友"]
+        tt["参"]=["命","亲","友","坏","成","危","安","衰","荣","胎","亲","友","坏","成","","危","安","衰","荣","业","亲","友","坏","成","危","安","衰","荣"]
+        tt["觜"]=["荣","命","亲","友","坏","成","危","安","衰","荣","胎","亲","友","坏","成","","危","安","衰","荣","业","亲","友","坏","成","危","安","衰"]
+        tt["毕"]=["衰","荣","命","亲","友","坏","成","危","安","衰","荣","胎","亲","友","坏","成","","危","安","衰","荣","业","亲","友","坏","成","危","安"]
+        tt["昴"]=["安","衰","荣","命","亲","友","坏","成","危","安","衰","荣","胎","亲","友","坏","成","","危","安","衰","荣","业","亲","友","坏","成","危"]
+        tt["胃"]=["危","安","衰","荣","命","亲","友","坏","成","危","安","衰","荣","胎","亲","友","坏","成","","危","安","衰","荣","业","亲","友","坏","成"]
+        tt["娄"]=["成","危","安","衰","荣","命","亲","友","坏","成","危","安","衰","荣","胎","亲","友","坏","成","","危","安","衰","荣","业","亲","友","坏"]
+        tt["奎"]=["坏","成","危","安","衰","荣","命","亲","友","坏","成","危","安","衰","荣","胎","亲","友","坏","成","","危","安","衰","荣","业","亲","友"]
 
-        tt["壁"] = ["友", "坏", "成", "危", "安", "衰", "荣", "命", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "胎", "亲", "友", "坏", "成", "", "危", "安", "衰", "荣", "业", "亲"]
-        tt["室"] = ["亲", "友", "坏", "成", "危", "安", "衰", "荣", "命", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "胎", "亲", "友", "坏", "成", "", "危", "安", "衰", "荣", "业"]
-        tt["危"] = ["业", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "命", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "胎", "亲", "友", "坏", "成", "", "危", "安", "衰", "荣"]
-        tt["虚"] = ["荣", "业", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "命", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "胎", "亲", "友", "坏", "成", "", "危", "安", "衰"]
-        tt["女"] = ["衰", "荣", "业", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "命", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "胎", "亲", "友", "坏", "成", "", "危", "安"]
-        tt["牛"] = ["安", "衰", "荣", "业", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "命", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "胎", "亲", "友", "坏", "成", "", "危"]
-        tt["斗"] = ["危", "安", "衰", "荣", "业", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "命", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "胎", "亲", "友", "坏", "成", ""]
+        tt["壁"]=["友","坏","成","危","安","衰","荣","命","亲","友","坏","成","危","安","衰","荣","胎","亲","友","坏","成","","危","安","衰","荣","业","亲"]
+        tt["室"]=["亲","友","坏","成","危","安","衰","荣","命","亲","友","坏","成","危","安","衰","荣","胎","亲","友","坏","成","","危","安","衰","荣","业"]
+        tt["危"]=["业","亲","友","坏","成","危","安","衰","荣","命","亲","友","坏","成","危","安","衰","荣","胎","亲","友","坏","成","","危","安","衰","荣"]
+        tt["虚"]=["荣","业","亲","友","坏","成","危","安","衰","荣","命","亲","友","坏","成","危","安","衰","荣","胎","亲","友","坏","成","","危","安","衰"]
+        tt["女"]=["衰","荣","业","亲","友","坏","成","危","安","衰","荣","命","亲","友","坏","成","危","安","衰","荣","胎","亲","友","坏","成","","危","安"]
+        tt["牛"]=["安","衰","荣","业","亲","友","坏","成","危","安","衰","荣","命","亲","友","坏","成","危","安","衰","荣","胎","亲","友","坏","成","","危"]
+        tt["斗"]=["危","安","衰","荣","业","亲","友","坏","成","危","安","衰","荣","命","亲","友","坏","成","危","安","衰","荣","胎","亲","友","坏","成",""]
 
-        tt["箕"] = ["", "危", "安", "衰", "荣", "业", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "命", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "胎", "亲", "友", "坏", "成"]
-        tt["尾"] = ["成", "", "危", "安", "衰", "荣", "业", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "命", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "胎", "亲", "友", "坏"]
-        tt["心"] = ["坏", "成", "", "危", "安", "衰", "荣", "业", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "命", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "胎", "亲", "友"]
-        tt["房"] = ["友", "坏", "成", "", "危", "安", "衰", "荣", "业", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "命", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "胎", "亲"]
-        tt["氐"] = ["亲", "友", "坏", "成", "", "危", "安", "衰", "荣", "业", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "命", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "胎"]
-        tt["亢"] = ["胎", "亲", "友", "坏", "成", "", "危", "安", "衰", "荣", "业", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "命", "亲", "友", "坏", "成", "危", "安", "衰", "荣"]
-        tt["角"] = ["荣", "胎", "亲", "友", "坏", "成", "", "危", "安", "衰", "荣", "业", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "命", "亲", "友", "坏", "成", "危", "安", "衰"]
+        tt["箕"]=["","危","安","衰","荣","业","亲","友","坏","成","危","安","衰","荣","命","亲","友","坏","成","危","安","衰","荣","胎","亲","友","坏","成"]
+        tt["尾"]=["成","","危","安","衰","荣","业","亲","友","坏","成","危","安","衰","荣","命","亲","友","坏","成","危","安","衰","荣","胎","亲","友","坏"]
+        tt["心"]=["坏","成","","危","安","衰","荣","业","亲","友","坏","成","危","安","衰","荣","命","亲","友","坏","成","危","安","衰","荣","胎","亲","友"]
+        tt["房"]=["友","坏","成","","危","安","衰","荣","业","亲","友","坏","成","危","安","衰","荣","命","亲","友","坏","成","危","安","衰","荣","胎","亲"]
+        tt["氐"]=["亲","友","坏","成","","危","安","衰","荣","业","亲","友","坏","成","危","安","衰","荣","命","亲","友","坏","成","危","安","衰","荣","胎"]
+        tt["亢"]=["胎","亲","友","坏","成","","危","安","衰","荣","业","亲","友","坏","成","危","安","衰","荣","命","亲","友","坏","成","危","安","衰","荣"]
+        tt["角"]=["荣","胎","亲","友","坏","成","","危","安","衰","荣","业","亲","友","坏","成","危","安","衰","荣","命","亲","友","坏","成","危","安","衰"]
 
-        tt["轸"] = ["衰", "荣", "胎", "亲", "友", "坏", "成", "", "危", "安", "衰", "荣", "业", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "命", "亲", "友", "坏", "成", "危", "安"]
-        tt["翼"] = ["安", "衰", "荣", "胎", "亲", "友", "坏", "成", "", "危", "安", "衰", "荣", "业", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "命", "亲", "友", "坏", "成", "危"]
-        tt["张"] = ["危", "安", "衰", "荣", "胎", "亲", "友", "坏", "成", "", "危", "安", "衰", "荣", "业", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "命", "亲", "友", "坏", "成"]
-        tt["星"] = ["成", "危", "安", "衰", "荣", "胎", "亲", "友", "坏", "成", "", "危", "安", "衰", "荣", "业", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "命", "亲", "友", "坏"]
-        tt["柳"] = ["坏", "成", "危", "安", "衰", "荣", "胎", "亲", "友", "坏", "成", "", "危", "安", "衰", "荣", "业", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "命", "亲", "友"]
-        tt["鬼"] = ["友", "坏", "成", "危", "安", "衰", "荣", "胎", "亲", "友", "坏", "成", "", "危", "安", "衰", "荣", "业", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "命", "亲"]
-        tt["井"] = ["亲", "友", "坏", "成", "危", "安", "衰", "荣", "胎", "亲", "友", "坏", "成", "", "危", "安", "衰", "荣", "业", "亲", "友", "坏", "成", "危", "安", "衰", "荣", "命"]
-        var o = {}
+        tt["轸"]=["衰","荣","胎","亲","友","坏","成","","危","安","衰","荣","业","亲","友","坏","成","危","安","衰","荣","命","亲","友","坏","成","危","安"]
+        tt["翼"]=["安","衰","荣","胎","亲","友","坏","成","","危","安","衰","荣","业","亲","友","坏","成","危","安","衰","荣","命","亲","友","坏","成","危"]
+        tt["张"]=["危","安","衰","荣","胎","亲","友","坏","成","","危","安","衰","荣","业","亲","友","坏","成","危","安","衰","荣","命","亲","友","坏","成"]
+        tt["星"]=["成","危","安","衰","荣","胎","亲","友","坏","成","","危","安","衰","荣","业","亲","友","坏","成","危","安","衰","荣","命","亲","友","坏"]
+        tt["柳"]=["坏","成","危","安","衰","荣","胎","亲","友","坏","成","","危","安","衰","荣","业","亲","友","坏","成","危","安","衰","荣","命","亲","友"]
+        tt["鬼"]=["友","坏","成","危","安","衰","荣","胎","亲","友","坏","成","","危","安","衰","荣","业","亲","友","坏","成","危","安","衰","荣","命","亲"]
+        tt["井"]=["亲","友","坏","成","危","安","衰","荣","胎","亲","友","坏","成","","危","安","衰","荣","业","亲","友","坏","成","危","安","衰","荣","命"]
+        var o ={}
         o.r = tt[t[index]][indextarget]
         o.d = indextarget - index
-        if (Math.abs(o.d) <= 14) {
+        if(Math.abs(o.d)<=14)
+        {
             o.d = Math.abs(o.d)
         }
-        else if (o.d > 0) {
-            o.d = (28 - o.d) % 14
-        } else {
-            o.d = (28 + o.d) % 14
+        else if(o.d>0){
+            o.d = (28 - o.d)%14
+        }else{
+            o.d = (28 + o.d)%14
         }
         return o;
 
@@ -494,12 +289,12 @@ class EightrandomModule extends Component {
 
     ps：目前计算，不考虑墓库计算，所以得地的标准和得令一样，但是都去掉了沐浴
     */
-    getpowerself(EightDate, buildeight, luckyear, precent) {
+    getpowerself(EightDate,buildeight,luckyear,precent){
 
         const daykey = "甲乙丙丁戊己庚辛壬癸"
         const shen = "木火土金水木火土金水"
-        var index = Math.floor(daykey.indexOf(EightDate[4]) / 2)
-        var assistindex = (index - 1 + 5) % 5
+        var index = Math.floor(daykey.indexOf(EightDate[4])/2)
+        var assistindex = (index - 1 + 5)%5
         const key = "长生，冠带，临官（建禄），帝旺"
         var powerself = new Array()
         powerself.push(this.gettwelfthposition(EightDate[4] + EightDate[1]))
@@ -529,19 +324,20 @@ class EightrandomModule extends Component {
 
         const getearth = key
         //三合局，三会局的长生属性得地
-        if (-1 != getearth.indexOf(powerself[0]) || -1 != getearth.indexOf(powerself[1]) || -1 != getearth.indexOf(powerself[2])) {
+        if(-1 != getearth.indexOf(powerself[0]) || -1 != getearth.indexOf(powerself[1]) || -1 != getearth.indexOf(powerself[2]))
+        {
             ret = ret + "得地"
         }
         //地支其他三支有墓且阳干得地
-        else if ((-1 != "墓地".indexOf(powerself[0]) || -1 != "墓地".indexOf(powerself[1]) || -1 != "墓地".indexOf(powerself[2])) && -1 != "甲丙戊庚壬".indexOf(EightDate[4])) {
+        else if((-1 != "墓地".indexOf(powerself[0]) || -1 != "墓地".indexOf(powerself[1]) || -1 != "墓地".indexOf(powerself[2])) && -1!="甲丙戊庚壬".indexOf(EightDate[4])){
             ret = ret + "得地"
         }
-        else {
+        else{
             ret = ret + "失地"
         }
 
         //四柱得印得生
-        if (-1 != t.indexOf("印")) {
+        if (-1 != t.indexOf("印") ) {
             ret = ret + "得生"
         } else {
             ret = ret + "失生"
@@ -549,75 +345,95 @@ class EightrandomModule extends Component {
 
         //四柱得同我者得助
         if (-1 != t.indexOf("比") || -1 != t.indexOf("劫") || -1 != s.indexOf("比") || -1 != s.indexOf("劫")) {
-            ret = ret + "得助"
+            ret = ret +"得助"
         } else {
-            ret = ret + "失助"
+            ret = ret +"失助"
         }
 
         //var countget = ret.match(/"得"/g)
         var countget = ret.split("得")
-        var countget = (countget != undefined ? countget.length - 1 : 0)
+        var countget = (countget!=undefined?countget.length-1:0)
 
-        if (-1 != ret.indexOf("得令") && -1 != ret.indexOf("得地") && -1 != ret.indexOf("得生") && -1 != ret.indexOf("得助") && -1 == s.indexOf("正官") && -1 == s.indexOf("七杀")) {
+        if (-1!=ret.indexOf("得令") && -1!=ret.indexOf("得地") &&  -1!=ret.indexOf("得生") &&  -1!=ret.indexOf("得助") && -1 == s.indexOf("正官") && -1 == s.indexOf("七杀")) {
             ret = "专旺"
         }
-        else if (-1 != ret.indexOf("失令") && -1 != ret.indexOf("失地") && -1 != ret.indexOf("失生") && -1 != ret.indexOf("失助") && -1 == s.indexOf("正官") && -1 == s.indexOf("七杀")) {
+        else if(-1!=ret.indexOf("失令") && -1!=ret.indexOf("失地") &&  -1!=ret.indexOf("失生") &&  -1!=ret.indexOf("失助") && -1 == s.indexOf("正官") && -1 == s.indexOf("七杀"))
+        {
             ret = "身衰（从儿）"
-        } else if (-1 != ret.indexOf("得令") && countget > 3) {
+        }else if(-1!=ret.indexOf("得令") && countget>3)
+        {
             ret = "身旺"
-        } else if (-1 != ret.indexOf("得令") && countget >= 2) {
+        }else if(-1!=ret.indexOf("得令") && countget>=2)
+        {
             ret = "身强"
-        } else if (-1 != ret.indexOf("得令") && countget >= 1) {
+        }else if(-1!=ret.indexOf("得令") && countget>=1)
+        {
             ret = "身弱"
-        } else if (-1 != ret.indexOf("失令") && countget >= 2) {
+        }else if(-1!=ret.indexOf("失令") && countget>=2)
+        {
             ret = "身弱"
         }
-        else if (-1 != ret.indexOf("失令")) {
+        else if(-1!=ret.indexOf("失令") )
+        {
             ret = "身衰"
         }
         //对身弱身衰做五行百分比矫正
-        if (-1 != "身弱，身衰".indexOf(ret)) {
-            var test = precent[assistindex] + precent[index]
-            if (test > (264 / 2)) {
+        if(-1!="身弱，身衰".indexOf(ret))
+        {
+            var test = precent[assistindex]  + precent[index]
+            if(test>(264/2))
+            {
                 ret = "身强"
             }
-            else {
+            else{
                 ret = "身弱"
             }
         }
 
         //大运四支得三合三会，生助日元者旺
-        if (-1 != EightDate[4].indexOf("甲") || -1 != EightDate[4].indexOf("乙") || -1 != EightDate[4].indexOf("丙") || -1 != EightDate[4].indexOf("丁")) {
+        if(-1!=EightDate[4].indexOf("甲") || -1!=EightDate[4].indexOf("乙")||  -1!=EightDate[4].indexOf("丙") || -1!=EightDate[4].indexOf("丁"))
+        {
             var s = EightDate[1] + EightDate[3] + EightDate[5] + EightDate[7] + luckyear
-            if (-1 != s.indexOf("亥") && -1 != s.indexOf("卯") && -1 != s.indexOf("未")) {
+            if(-1!=s.indexOf("亥") && -1!=s.indexOf("卯") && -1!=s.indexOf("未"))
+            {
                 ret = "身旺（木）"
             }
-            else if (-1 != s.indexOf("寅") && -1 != s.indexOf("卯") && -1 != s.indexOf("辰")) {
+            else if(-1!=s.indexOf("寅") && -1!=s.indexOf("卯") && -1!=s.indexOf("辰"))
+            {
                 ret = "身旺（木）"
             }
         }
-        else if (-1 != EightDate[4].indexOf("丙") || -1 != EightDate[4].indexOf("丁") || -1 != EightDate[4].indexOf("戊") || -1 != EightDate[4].indexOf("己")) {
+        else if(-1!=EightDate[4].indexOf("丙") || -1!=EightDate[4].indexOf("丁") ||  -1!=EightDate[4].indexOf("戊") || -1!=EightDate[4].indexOf("己"))
+        {
             var s = EightDate[1] + EightDate[3] + EightDate[5] + EightDate[7] + luckyear
-            if (-1 != s.indexOf("寅") && -1 != s.indexOf("午") && -1 != s.indexOf("戌")) {
+            if(-1!=s.indexOf("寅") && -1!=s.indexOf("午") && -1!=s.indexOf("戌"))
+            {
                 ret = "身旺（火）"
             }
-            else if (-1 != s.indexOf("巳") && -1 != s.indexOf("午") && -1 != s.indexOf("未")) {
+            else if(-1!=s.indexOf("巳") && -1!=s.indexOf("午") && -1!=s.indexOf("未"))
+            {
                 ret = "身旺（火）"
             }
-        } else if (-1 != EightDate[4].indexOf("庚") || -1 != EightDate[4].indexOf("辛") || -1 != EightDate[4].indexOf("壬") || -1 != EightDate[4].indexOf("癸")) {
+        }else if(-1!=EightDate[4].indexOf("庚") || -1!=EightDate[4].indexOf("辛") || -1!=EightDate[4].indexOf("壬") || -1!=EightDate[4].indexOf("癸"))
+        {
             var s = EightDate[1] + EightDate[3] + EightDate[5] + EightDate[7] + luckyear
-            if (-1 != s.indexOf("巳") && -1 != s.indexOf("酉") && -1 != s.indexOf("丑")) {
+            if(-1!=s.indexOf("巳") && -1!=s.indexOf("酉") && -1!=s.indexOf("丑"))
+            {
                 ret = "身旺（金）"
             }
-            else if (-1 != s.indexOf("申") && -1 != s.indexOf("酉") && -1 != s.indexOf("戌")) {
+            else if(-1!=s.indexOf("申") && -1!=s.indexOf("酉") && -1!=s.indexOf("戌"))
+            {
                 ret = "身旺（金）"
             }
-        } else if (-1 != EightDate[4].indexOf("壬") || -1 != EightDate[4].indexOf("癸") || -1 != EightDate[4].indexOf("甲") || -1 != EightDate[4].indexOf("乙")) {
+        }else if(-1!=EightDate[4].indexOf("壬") || -1!=EightDate[4].indexOf("癸") || -1!=EightDate[4].indexOf("甲") || -1!=EightDate[4].indexOf("乙"))
+        {
             var s = EightDate[1] + EightDate[3] + EightDate[5] + EightDate[7] + luckyear
-            if (-1 != s.indexOf("申") && -1 != s.indexOf("子") && -1 != s.indexOf("辰")) {
+            if(-1!=s.indexOf("申") && -1!=s.indexOf("子") && -1!=s.indexOf("辰"))
+            {
                 ret = "身旺（水）"
             }
-            else if (-1 != s.indexOf("亥") && -1 != s.indexOf("子") && -1 != s.indexOf("丑")) {
+            else if(-1!=s.indexOf("亥") && -1!=s.indexOf("子") && -1!=s.indexOf("丑"))
+            {
                 ret = "身旺（水）"
             }
         }
@@ -626,7 +442,7 @@ class EightrandomModule extends Component {
         return o
     }
 
-    getyongshen(EightDate, buildeight, luckyear, precent) {
+    getyongshen(EightDate,buildeight,luckyear,precent){
         //https://baike.baidu.com/item/喜用神/10646208?fr=aladdin
         /*
         日元先根据十二长生算出衰旺
@@ -887,111 +703,126 @@ class EightrandomModule extends Component {
 
 12、癸水日元丑月丙，丁。火解冻，通根寅巳午未戌，方妙，癸巳会党，年透丁火，名雪后灯光，夜生者贵。成火局，又宜用庚辛。
         */
-        var ret_powerself = (this.getpowerself(EightDate, buildeight, luckyear, precent)).powerself
+        var ret_powerself = (this.getpowerself(EightDate,buildeight,luckyear,precent)).powerself
         var shishenkey = buildeight.toString()
-        var day = EightDate[0] + EightDate[2] + EightDate[6]
-        var zhi = EightDate[1] + EightDate[3] + EightDate[5] + EightDate[7]
-
-        var o = {}
+        var day = EightDate[0]+EightDate[2]+EightDate[6]
+        var zhi = EightDate[1]+EightDate[3]+EightDate[5]+EightDate[7]
+        
+        var o={}
         const daykey = "甲乙丙丁戊己庚辛壬癸"
         const shen = "木火土金水木火土金水"
-        var index = Math.floor(daykey.indexOf(EightDate[4]) / 2)
-        var assistindex = (index - 1 + 5) % 5
+        var index = Math.floor(daykey.indexOf(EightDate[4])/2)
+        var assistindex = (index - 1 + 5)%5
         const testyongshen = "甲乙丙丁戊己庚辛壬癸子丑寅卯辰巳午未申酉戌亥"
         const testyongshenfive = "木木火火土土金金水水水土木木土火火土金金土水"
         var testarray = "木火土金水"
         var retainarray = ""
-        for (var ii = 0; ii < EightDate.length; ii++) {
+        for(var ii=0;ii<EightDate.length;ii++){
             var indexx = testyongshen.indexOf(EightDate[ii])
             var five = testyongshenfive[indexx]
-            if (-1 != testarray.indexOf(five)) {
-                testarray = testarray.replace(five, "")
+            if(-1!=testarray.indexOf(five))
+            {
+                testarray = testarray.replace(five,"")
                 retainarray = retainarray + five
             }
-        }
-        if (testarray.length == 0) {
+        } 
+        if(testarray.length==0)
+        {
             //五行全，无通关
         }
-        else if (testarray.length == 1) {
+        else if(testarray.length==1)
+        {
             o.buyongshen = testarray
-        } else if (testarray.length == 2) {
+        }else if(testarray.length==2){
 
-        } else if (testarray.length == 3) {
-            if (retainarray.indexOf("木金") || retainarray.indexOf("金木")) {
+        }else if(testarray.length==3){
+            if(retainarray.indexOf("木金") || retainarray.indexOf("金木") )
+            {
                 o.passyonshen = "水"
             }
-            else if (retainarray.indexOf("火金") || retainarray.indexOf("金火")) {
+            else if(retainarray.indexOf("火金") || retainarray.indexOf("金火") )
+            {
                 o.passyongshen = "土"
             }
-            else if (retainarray.indexOf("土水") || retainarray.indexOf("水土")) {
+            else if(retainarray.indexOf("土水") || retainarray.indexOf("水土") )
+            {
                 o.passyongshen = "金"
             }
-            else if (retainarray.indexOf("水火") || retainarray.indexOf("火水")) {
+            else if(retainarray.indexOf("水火") || retainarray.indexOf("火水") )
+            {
                 o.passyongshen = "木"
-            }
-            else if (retainarray.indexOf("土木") || retainarray.indexOf("木土")) {
+            }           
+            else if(retainarray.indexOf("土木") || retainarray.indexOf("木土") )
+            {
                 o.passyongshen = "火"
             }
         }
 
-        var testprecent = precent[assistindex] + precent[index]
-        if (testprecent > (264 / 2)) {
+        var testprecent = precent[assistindex]  + precent[index]
+        if(testprecent>(264/2))
+        {
             //需要抑制先用官，没有则用食伤
-            if (-1 != shishenkey.indexOf("正官") || -1 != shishenkey.indexOf("杀")) {
-                o.adjustyongshen = shen[(index + 3) % 5] + "抑"
-            } else if (-1 != shishenkey.indexOf("食") || -1 != shishenkey.indexOf("伤")) {
-                o.adjustyongshen = shen[(index + 1) % 5] + "抑"
-            } else if (-1 != shishenkey.indexOf("财") || -1 != shishenkey.indexOf("才")) {
-                o.adjustyongshen = shen[(index + 2) % 5] + "抑"
-            } else {
+            if(-1!=shishenkey.indexOf("正官")||-1!=shishenkey.indexOf("杀"))
+            {
+                o.adjustyongshen = shen[(index+3)%5]+"抑"
+            }else if(-1!=shishenkey.indexOf("食")||-1!=shishenkey.indexOf("伤")){
+                o.adjustyongshen = shen[(index+1)%5]+"抑"
+            }else if(-1!=shishenkey.indexOf("财")||-1!=shishenkey.indexOf("才")){
+                o.adjustyongshen = shen[(index+2)%5]+"抑"
+            }else{
                 //这就入旺格了
             }
         }
-        else {
+        else{
             //弱就要扶，先用印，无印用日元
-            if (-1 != shishenkey.indexOf("印")) {
-                o.adjustyongshen = shen[assistindex] + "扶"
+            if(-1!=shishenkey.indexOf("印"))
+            {
+                o.adjustyongshen =  shen[assistindex]+"扶"
             }
-            else if (-1 == shishenkey.indexOf("正官") && -1 == shishenkey.indexOf("杀") && -1 == shishenkey.indexOf("印")) {
+            else if(-1==shishenkey.indexOf("正官") && -1==shishenkey.indexOf("杀") && -1==shishenkey.indexOf("印")){
                 //儿童化
-                o.adjustyongshen = shen[index] + "(儿化)"
-            } else {
-                o.adjustyongshen = shen[index] + "扶"
+                o.adjustyongshen =  shen[index]+"(儿化)"
+            }else{
+                o.adjustyongshen =  shen[index]+"扶"
             }
         }
 
-        if (-1 == ret_powerself.indexOf("旺") && -1 == ret_powerself.indexOf("强")) {
-            if (-1 != shishenkey.indexOf("印")) {
+        if(-1==ret_powerself.indexOf("旺") && -1==ret_powerself.indexOf("强") )
+        {
+            if(-1!=shishenkey.indexOf("印"))
+            {
                 o.yongshen = shen[assistindex]
                 o.xishen = shen[index]
                 o.xishen2 = ""
                 o.xianshen = ""
-                o.jishen = shen[(index + 2) % 5]
+                o.jishen = shen[(index+2)%5]
                 o.jishen2 = ""
-                o.choushen = shen[(index + 1) % 5]
-            } else {
+                o.choushen = shen[(index+1)%5]
+            }else{
                 o.yongshen = shen[index]
                 o.xishen = shen[assistindex]
                 o.xishen2 = ""
-                o.xianshen = shen[(index + 1) % 5]
-                o.jishen = shen[(index + 3) % 5]
+                o.xianshen = shen[(index+1)%5]
+                o.jishen = shen[(index+3)%5]
                 o.jishen2 = ""
-                o.choushen = shen[(index + 2) % 5]
+                o.choushen = shen[(index+2)%5]
             }
 
-        } else {
-            if (-1 != shishenkey.indexOf("正官") || -1 != shishenkey.indexOf("杀")) {
-                o.yongshen = shen[(index + 3) % 5]
-                o.xishen = shen[(index + 2) % 5]
+        }else{
+            if(-1!=shishenkey.indexOf("正官")||-1!=shishenkey.indexOf("杀"))
+            {
+                o.yongshen = shen[(index+3)%5]
+                o.xishen = shen[(index+2)%5]
                 o.xishen2 = ""
                 o.xianshen = ""
-                o.jishen = shen[(index + 1) % 5]
+                o.jishen = shen[(index+1)%5]
                 o.jishen2 = shen[index]
                 o.choushen = shen[assistindex]
-            } else {
-                o.yongshen = shen[(index + 1) % 5]
-                o.xishen = shen[(index + 2) % 5]
-                o.xishen2 = shen[(index + 3) % 5]
+            }else
+            {
+                o.yongshen = shen[(index+1)%5]
+                o.xishen = shen[(index+2)%5] 
+                o.xishen2 = shen[(index+3)%5]
                 o.xianshen = ""
                 o.jishen = shen[index]
                 o.jishen2 = ""
@@ -999,12 +830,12 @@ class EightrandomModule extends Component {
             }
         }
 
-        var test = day + zhi
+        var test = day+zhi
         //丙火戌月
         if ("丙" == EightDate[4]) {
             if ("戌" == EightDate[3]) {
                 //o.jishen = "土"
-                if (-1 != test.indexOf("甲") && -1 != test.indexOf("壬")) {
+                if (-1 != test.indexOf("甲") && -1 != test.indexOf("壬") ) {
                     o.yongshen = "木"
                     o.xishen = "水"
                     o.special = "甲壬不能见庚戊"
@@ -1020,7 +851,7 @@ class EightrandomModule extends Component {
                     o.yongshen = "水"
                     o.xishen = "金"
                     o.special = "癸水轻贵"
-                } else {
+                }else {
                     o.yongshen = "亡"
                     o.xishen = "金"
                     o.special = "用神空亡"
@@ -1028,22 +859,22 @@ class EightrandomModule extends Component {
             }
         }
         else if ("丁" == EightDate[4]) {
-
+            
             if ("酉" == EightDate[3]) {
                 //8、丁火日元酉月喜土金，甲、庚、丙，戊。庚劈甲，无甲用乙。丙暖金晒甲，无庚甲而用乙者，见丙为枯草引灯。旺用戊。
-                if (-1 != test.indexOf("甲") && -1 != test.indexOf("庚")) {
+                if (-1 != test.indexOf("甲") && -1 != test.indexOf("庚") ) {
                     o.yongshen = "木"
                     o.xishen = "水"
                     o.special = "庚劈甲丙暖金晒甲"
                     o.jishen = "金"
                     o.choushen = "土"
-                } else if (-1 == test.indexOf("甲") && -1 != test.indexOf("庚") && -1 == test.indexOf("乙")) {
+                } else if (-1 == test.indexOf("甲") && -1 != test.indexOf("庚") &&  -1 == test.indexOf("乙") ) {
                     o.yongshen = "木"
                     o.xishen = "水"
                     o.jishen = "金"
                     o.choushen = "土"
                     o.special = "无甲用乙"
-                } else if (-1 != ret_powerself.indexOf("旺") && -1 == test.indexOf("戊")) {
+                } else if (-1!=ret_powerself.indexOf("旺") && -1 == test.indexOf("戊")) {
                     o.yongshen = "土"
                     o.xishen = "火"
                     o.special = "旺用戊"
@@ -1063,7 +894,7 @@ class EightrandomModule extends Component {
                     o.jishen = "金"
                     o.jishen2 = ""
                     o.choushen = "土"
-                } else if (-1 != test.indexOf("丙") && -1 != test.indexOf("戊")) {
+                } else if (-1 != test.indexOf("丙")  && -1 != test.indexOf("戊")) {
                     o.yongshen = "火"
                     o.xishen = "木"
                     o.special = "壬丙日照山河"
@@ -1199,16 +1030,16 @@ class EightrandomModule extends Component {
         const daykey = '甲乙丙丁戊己庚辛壬癸'
         var num = daykey.indexOf(other);
         //console.log("parentday",num,self,other)
-        map['甲'] = ['比', '劫', '食', '伤', '财', '才', '杀', '官', '枭', '印']
-        map['乙'] = ['劫', '比', '伤', '食', '才', '财', '官', '杀', '印', '枭']
-        map['丙'] = ['枭', '印', '比', '劫', '食', '伤', '财', '才', '杀', '官']
-        map['丁'] = ['印', '枭', '劫', '比', '伤', '食', '才', '财', '官', '杀']
-        map['戊'] = ['杀', '官', '枭', '印', '比', '劫', '食', '伤', '财', '才']
-        map['己'] = ['官', '杀', '印', '枭', '劫', '比', '伤', '食', '才', '财']
-        map['庚'] = ['财', '才', '杀', '官', '枭', '印', '比', '劫', '食', '伤']
-        map['辛'] = ['才', '财', '官', '杀', '印', '枭', '劫', '比', '伤', '食']
-        map['壬'] = ['食', '伤', '财', '才', '杀', '官', '枭', '印', '比', '劫']
-        map['癸'] = ['伤', '食', '才', '财', '官', '杀', '印', '枭', '劫', '比']
+        map['甲'] = ['比肩', '劫财', '食神', '伤官', '偏财', '正财', '七杀', '正官', '枭印', '正印']
+        map['乙'] = ['劫财', '比肩', '伤官', '食神', '正财', '偏财', '正官', '七杀', '正印', '枭印']
+        map['丙'] = ['枭印', '正印', '比肩', '劫财', '食神', '伤官', '偏财', '正财', '七杀', '正官']
+        map['丁'] = ['正印', '枭印', '劫财', '比肩', '伤官', '食神', '正财', '偏财', '正官', '七杀']
+        map['戊'] = ['七杀', '正官', '枭印', '正印', '比肩', '劫财', '食神', '伤官', '偏财', '正财']
+        map['己'] = ['正官', '七杀', '正印', '枭印', '劫财', '比肩', '伤官', '食神', '正财', '偏财']
+        map['庚'] = ['偏财', '正财', '七杀', '正官', '枭印', '正印', '比肩', '劫财', '食神', '伤官']
+        map['辛'] = ['正财', '偏财', '正官', '七杀', '正印', '枭印', '劫财', '比肩', '伤官', '食神']
+        map['壬'] = ['食神', '伤官', '偏财', '正财', '七杀', '正官', '枭印', '正印', '比肩', '劫财']
+        map['癸'] = ['伤官', '食神', '正财', '偏财', '正官', '七杀', '正印', '枭印', '劫财', '比肩']
         // console.log(map[self][num])
         return map[self][num];
 
@@ -1218,19 +1049,20 @@ class EightrandomModule extends Component {
         var map = new Array()
         const daykey = '甲乙丙丁戊己庚辛壬癸'
         var num = daykey.indexOf(self);
+
         //console.log(num,self,other)
-        map['子'] = ['枭', '印', '杀', '官', '财', '才', '食', '伤', '比', '劫']
-        map['丑'] = ['才', '财', '伤', '食', '劫', '比', '印', '枭', '官', '杀']
-        map['寅'] = ['比', '劫', '枭', '印', '杀', '官', '财', '才', '食', '伤']
-        map['卯'] = ['劫', '比', '印', '枭', '官', '杀', '才', '财', '伤', '食']
-        map['辰'] = ['财', '才', '食', '伤', '比', '劫', '枭', '印', '杀', '官']
-        map['巳'] = ['伤', '食', '劫', '比', '印', '枭', '官', '杀', '才', '财']
-        map['午'] = ['食', '伤', '比', '劫', '枭', '印', '杀', '官', '财', '才']
-        map['未'] = ['才', '财', '伤', '食', '劫', '比', '印', '枭', '官', '杀']
-        map['申'] = ['杀', '官', '财', '才', '食', '伤', '比', '劫', '枭', '印']
-        map['酉'] = ['官', '杀', '才', '财', '伤', '食', '劫', '比', '印', '枭']
-        map['戌'] = ['财', '才', '食', '伤', '比', '劫', '枭', '印', '杀', '官']
-        map['亥'] = ['印', '枭', '官', '杀', '才', '财', '伤', '食', '劫', '比']
+        map['子'] = ['枭印', '正印', '七杀', '正官', '偏财', '正财', '食神', '伤官', '比肩', '劫财']
+        map['丑'] = ['正财', '偏财', '伤官', '食神', '劫财', '比肩', '正印', '枭印', '正官', '七杀']
+        map['寅'] = ['比肩', '劫财', '枭印', '正印', '七杀', '正官', '偏财', '正财', '食神', '伤官']
+        map['卯'] = ['劫财', '比肩', '正印', '枭印', '正官', '七杀', '正财', '偏财', '伤官', '食神']
+        map['辰'] = ['偏财', '正财', '食神', '伤官', '比肩', '劫财', '枭印', '正印', '七杀', '正官']
+        map['巳'] = ['伤官', '食神', '劫财', '比肩', '正印', '枭印', '正官', '七杀', '正财', '偏财']
+        map['午'] = ['食神', '伤官', '比肩', '劫财', '枭印', '正印', '七杀', '正官', '偏财', '正财']
+        map['未'] = ['正财', '偏财', '伤官', '食神', '劫财', '比肩', '正印', '枭印', '正官', '七杀']
+        map['申'] = ['七杀', '正官', '偏财', '正财', '食神', '伤官', '比肩', '劫财', '枭印', '正印']
+        map['酉'] = ['正官', '七杀', '正财', '偏财', '伤官', '食神', '劫财', '比肩', '正印', '枭印']
+        map['戌'] = ['偏财', '正财', '食神', '伤官', '比肩', '劫财', '枭印', '正印', '七杀', '正官']
+        map['亥'] = ['正印', '枭印', '正官', '七杀', '正财', '偏财', '伤官', '食神', '劫财', '比肩']
         //console.log(map[other][num])
         return map[other][num];
 
@@ -1265,18 +1097,18 @@ class EightrandomModule extends Component {
         var p = new Array()
         var q = new Array()
         var i = 0;
-        for (var i = 0; i < 10; i++) {
+        for (i = 0; i < 10; i++) {
             var m = daykey[i]
             p[m] = 0;
             q[i] = 0;
         }
 
-        for (var i = 0; i < 8; i = i + 2) {
+        for (i = 0; i < 8; i = i + 2) {
             var m = key[i]
             p[m] = p[m] + 36
         }
         //console.log(p);
-        for (var i = 1; i < 8; i = i + 2) {
+        for (i = 1; i < 8; i = i + 2) {
             var n = 0
             var m = key[i]
             while (undefined != hidetable[m][n]) {
@@ -1286,7 +1118,7 @@ class EightrandomModule extends Component {
                 n++
             }
         }
-        for (var i = 1; i <= 5; i++) {
+        for (i = 1; i <= 5; i++) {
             var m = daykey[i * 2 - 1]
             var n = daykey[i * 2 - 2]
             q[i - 1] = Number(p[m]) + Number(p[n]);
@@ -1302,47 +1134,47 @@ class EightrandomModule extends Component {
         var e = new Array()
         e = e.concat(arr)
         console.log("getrelationshipcombe", e, arr)
-        var er = ""
+        var er = new Array()
         //三会局
         if (true == this.in_array('寅', e) && true == this.in_array('卯', e) && true == this.in_array('辰', e)) {
-            er = er + "寅卯辰三会东方木" + " "
+            er.push( "寅卯辰三会东方木" + " ")
         }
         if (true == this.in_array('巳', e) && true == this.in_array('午', e) && true == this.in_array('未', e)) {
-            er = er + "巳午未三会南方火" + " "
+            er.push( "巳午未三会南方火" + " ")
         }
         if (true == this.in_array('申', e) && true == this.in_array('酉', e) && true == this.in_array('戌', e)) {
-            er = er + "申酉戌三会西方金" + " "
+            er.push(  "申酉戌三会西方金" + " ")
         }
         if (true == this.in_array('亥', e) && true == this.in_array('子', e) && true == this.in_array('丑', e)) {
-            er = er + "亥子丑三会北方水" + " "
+            er.push( "亥子丑三会北方水" + " ")
         }
 
         //三合局 申子辰合水 亥卯未合木 寅午戌合火 巳酉丑合金
         if (true == this.in_array('申', e) && true == this.in_array('子', e) && true == this.in_array('辰', e)) {
-            er = er + "申子辰三合水" + " "
+            er.push( "申子辰三合水" + " ")
         }
         if (true == this.in_array('亥', e) && true == this.in_array('卯', e) && true == this.in_array('未', e)) {
-            er = er + "亥卯未三合木" + " "
+            er.push( "亥卯未三合木" + " ")
         }
         if (true == this.in_array('寅', e) && true == this.in_array('午', e) && true == this.in_array('戌', e)) {
-            er = er + "寅午戌三合火" + " "
+            er.push( "寅午戌三合火" + " ")
         }
         if (true == this.in_array('巳', e) && true == this.in_array('酉', e) && true == this.in_array('丑', e)) {
-            er = er + "巳酉丑三合金" + " "
+            er.push( "巳酉丑三合金" + " ")
         }
 
         //三刑
         if (true == this.in_array('寅', e) && true == this.in_array('巳', e) && true == this.in_array('申', e)) {
-            er = er + "地支无恩之刑，无人赏识，被嫌弃，替人做事任劳任怨不得回报" + " "
+            er.push( "地支无恩之刑，无人赏识，易被嫌弃，不得回报" + " ")
         }
         if ((true == this.in_array('寅', e) && true == this.in_array('巳', e)) || (true == this.in_array('申', e) && true == this.in_array('寅', e)) || (true == this.in_array('申', e) && true == this.in_array('巳', e))) {
-            er = er + "地支无恩之隐刑，无人赏识，被嫌弃，替人做事任劳任怨不得回报" + " "
+            er.push( "地支无恩隐刑，无人赏识，易被嫌弃，不得回报" + " ")
         }
         if (true == this.in_array('丑', e) && true == this.in_array('未', e) && true == this.in_array('戌', e)) {
-            er = er + "地支恃势之刑，太自信，固执，自负，欠考虑凭感觉" + " "
+            er.push( "地支恃势之刑，太过自信，固执自负，考虑不周" + " ")
         }
         if ((true == this.in_array('丑', e) && true == this.in_array('未', e)) || (true == this.in_array('丑', e) && true == this.in_array('戌', e)) || (true == this.in_array('未', e) && true == this.in_array('戌', e))) {
-            er = er + "地支恃势之隐刑，太自信，固执，自负，欠考虑凭感觉" + " "
+            er.push( "地支恃势隐刑，太过自信，固执自负，考虑不周" + " ")
         }
         return er
     }
@@ -1474,10 +1306,10 @@ class EightrandomModule extends Component {
         dayrelationship['癸']['戊'] = dayrelationship['戊']['癸']
 
         //丁壬化木需要亥卯未寅月，火旺为妒合，水旺为淫昵之合，木旺
-        if (-1 != d.indexOf("丙") && "巳午".indexOf(e[1]) && "壬癸".indexOf(d[2]) && "乾造" == sex) { //男水命火旺
+        if (-1  != d.indexOf("丙") && "巳午".indexOf(e[1]) && "壬癸".indexOf(d[2]) && "乾造" == sex) { //男水命火旺
             dayrelationship['丁']['壬'] = '丁壬化木，淫匿之合，贪婪之态，枕欢溺爱'
         }
-        else if (-1 != d.indexOf("丙") && "子亥".indexOf(e[1]) && "丁".indexOf(d[2]) && "坤造" == sex) { //女火命水旺
+        else if (-1  != d.indexOf("丙") &&"子亥".indexOf(e[1]) && "丁".indexOf(d[2]) && "坤造" == sex) { //女火命水旺
             dayrelationship['丁']['壬'] = '丁壬化木，淫匿之合，贪婪之态，枕欢溺爱'
         }
         dayrelationship['壬']['丁'] = dayrelationship['丁']['壬']
@@ -1855,7 +1687,7 @@ class EightrandomModule extends Component {
     getselfinfo(key) {
         var daydetial = new Array();
         daydetial["甲子"] = ["天德贵人日。坐子、沐浴，逢官临桃花。"
-            , "沐浴"]
+                            ,"沐浴"]
         var dayself = new Array();
         dayself["甲子"] = "上等日柱，得到配偶助益，配偶漂亮，但恐婚姻不利。甲木为栋梁之木，木主仁，坐下正印，为身高体健，慈祥恺悌，相貌俊秀。印为文书，身坐文书，主才学超群，有权柄。印又有生身助学之功，故主人记忆力强，学习成绩优秀。"
         dayself["戊辰"] = "上等日柱，通根身旺，坐财官比肩，但支中比肩财星化火为印，变成官印相生，故主高贵。支内戊癸化火生土，而辰本为湿土，内中有火，温暖中和，能生万物，必然根深叶茂，秀气有成。"
@@ -1940,7 +1772,7 @@ class EightrandomModule extends Component {
         if (-1 != key.indexOf("己")) {
             tip = "己喜水养，孕育生长"
         }
-        tip = "喜用:" + tip
+        tip = tip
 
         //console.log("tip",tip)
         return { self, tip }
@@ -2039,7 +1871,7 @@ class EightrandomModule extends Component {
         map['乙寅'] = map['丁巳'] = map['己巳'] = map['辛申'] = map['癸亥'] = '带刃 '
         map['壬子'] = map['壬子'] + "红艳 "
         map['甲寅'] = map['乙卯'] = map['丙巳'] = map['丁午'] = map['戊巳'] = map['己午'] = map['庚申'] = map['辛酉'] = map['壬亥'] = map['癸子'] = '干禄 '
-        map['甲午'] /* =map['乙午'] */ = map['丙寅'] /* = map['丁未'] */ = map['戊辰'] = map['己辰'] /* = map['庚戌']  =map['辛酉'] */ = map['申子'] = '红艳 '
+        map['甲午'] /* =map['乙午'] */ = map['丙寅'] /* = map['丁未'] */ = map['戊辰'] = map['己辰'] /* = map['庚戌']  =map['辛酉'] */= map['申子'] = '红艳 '
         map['甲申'] /* =map['乙申'] */ = '红艳 '
         map['甲辰'] = map['乙巳'] = map['丙未'] = map['丁申']/*  = map['戊未'] = map['己申'] */ = map['庚戌'] = map['辛亥'] = map['壬丑'] = map['癸寅'] = '金舆 '
         map['甲酉'] = map['乙戌'] /* = map['丙未'] */ = map['丁申'] = map['戊巳'] = map['己午'] = map['庚辰'] = map['辛卯'] = map['壬亥'] /* =map['癸寅'] */ = '流霞 '
@@ -2060,7 +1892,7 @@ class EightrandomModule extends Component {
         map['丁巳'] = '羊刃(年丁巳刃) '
         map['壬子'] = map['壬子'] + "红艳(年) "
         map['甲寅'] = map['乙卯'] = map['丙巳'] = map['丁午'] = map['戊巳'] = map['己午'] = map['庚申'] = map['辛酉'] = map['壬亥'] = map['癸子'] = '干禄(年) '
-        map['甲午'] /* =map['乙午'] */ = map['丙寅'] /* = map['丁未'] */ = map['戊辰'] = map['己辰'] /* = map['庚戌']  =map['辛酉'] */ = map['申子'] = '红艳(年) '
+        map['甲午'] /* =map['乙午'] */ = map['丙寅'] /* = map['丁未'] */ = map['戊辰'] = map['己辰'] /* = map['庚戌']  =map['辛酉'] */  = map['申子'] = '红艳(年) '
         map['甲申'] /* =map['乙申'] */ = '红艳(年) '
         map['甲辰'] = map['乙巳'] = map['丙未'] = map['丁申']/*  = map['戊未'] = map['己申'] */ = map['庚戌'] = map['辛亥'] = map['壬丑'] = map['癸寅'] = '金舆(年) '
         map['甲酉'] = map['乙戌'] /* = map['丙未'] */ = map['丁申'] = map['戊巳'] = map['己午'] = map['庚辰'] = map['辛卯'] = map['壬亥'] /* =map['癸寅'] */ = '流霞(年) '
@@ -2099,7 +1931,8 @@ class EightrandomModule extends Component {
         map['子亥'] = map['丑申'] = map['寅巳'] = map['卯寅'] = map['辰亥'] = map['巳申'] = map['午巳'] = map['未寅'] = map['申亥'] = map['酉申'] = map['戌巳'] = map['亥寅'] = '亡神 '
         return undefined != map[o] ? map[o] : "" + this.shensha_dayz2earthz_guchenguasu(dayz, earthz)
     }
-    shensha_yeargz2earthz(years, earthz) {
+    shensha_yeargz2earthz(years,earthz)
+    {
         console.log("shensha_yeargz2earthz", dayz, earthz)
         var o = years + earthz;
         var map = new Array()
@@ -2118,13 +1951,13 @@ class EightrandomModule extends Component {
         map['甲寅丑'] = map['乙卯丑'] = map['丙辰丑'] = map['丁巳丑'] = map['戊午丑'] = map['己未丑'] = map['庚申丑'] = map['辛酉丑'] = map['壬戌丑'] = map['癸亥丑'] = '将星 '
         return undefined != map[o] ? map[o] : ""
     }
-    shensha_dayz2earthz_guchenguasu(dayz, earthz) {
+    shensha_dayz2earthz_guchenguasu(dayz, earthz){
         console.log("shensha_dayz2earthz_guchenguasu", dayz, earthz)
         var o = dayz + earthz;
         var map = new Array()
         map['子寅'] = map['丑寅'] = map['寅巳'] = map['卯巳'] = map['辰巳'] = map['巳申'] = map['午申'] = map['未申'] = map['申亥'] = map['酉亥'] = map['戌亥'] = map['亥寅'] = '孤辰 '
         map['子戌'] = map['丑戌'] = map['寅丑'] = map['卯丑'] = map['辰丑'] = map['巳辰'] = map['午辰'] = map['未辰'] = map['申未'] = map['酉未'] = map['戌未'] = map['亥戌'] = '寡宿 '
-
+        
         return undefined != map[o] ? map[o] : ""
     }
     shansha_gousha(yearz, earthz) {
@@ -2196,10 +2029,10 @@ class EightrandomModule extends Component {
         var key = Number(this.formateDayD4(11, day, year - 1))
         if (this.isLeapYear(year)) {
             key = 366 - key
-        } else {
+        }else{
             key = 365 - key
         }
-        res[100 - key] = solarTerm[22] + "|" + daydate.getDate() + "|" + daydate.getHours();
+        res[100-key] = solarTerm[22] + "|" + daydate.getDate() + "|" + daydate.getHours();
         /*正式的只要节，不要气
         daydate = LunarCalendar.getTermDate(year - 1, 23);
         day = LunarCalendar.getTerm(year - 1, 23);
@@ -2312,7 +2145,7 @@ class EightrandomModule extends Component {
         test = test.concat(combe.lr)
         test = test.concat(combe.er)
         var teststring = test.toString()
-        var info = new Array()
+        var info =new Array()
         if ("乾造" == sex) {
             if ((eightkey[4] == "甲" || eightkey[4] == "乙") && (eightkey[3] == "寅" || eightkey[3] == "卯")) info.push("官星过旺，财星入墓")
             else if ((eightkey[4] == "丙" || eightkey[4] == "丁") && (eightkey[3] == "巳" || eightkey[3] == "午")) info.push("官星过旺，财星入墓")
@@ -2320,7 +2153,7 @@ class EightrandomModule extends Component {
             else if ((eightkey[4] == "庚" || eightkey[4] == "辛") && (eightkey[3] == "申" || eightkey[3] == "酉")) info.push("官星过旺，财星入墓")
             else if ((eightkey[4] == "壬" || eightkey[4] == "癸") && (eightkey[3] == "亥" || eightkey[3] == "子")) info.push("官星过旺，财星入墓")
             var count = 0
-            for (var i = 0; i < shishen.length; i++) {
+            for (i = 0; i < shishen.length; i++) {
                 if ("正财" == shishen[i] || "偏财" == shishen[i]) count++
             }
             if (0 == count) info.push("命无财星，婚姻难成")
@@ -2339,32 +2172,32 @@ class EightrandomModule extends Component {
             if (0 == count) info.push("命无官星，婚姻难成")
             if (3 <= count) info.push("官星过多，多婚之象")
         }
-        var cc = info.toString()
+        var  cc = info.toString()
         var tt = teststring;
         var t = tt.split("辰戌");
-        t.forEach((it, index) => {
-            if (index < t.length - 1) info.push("辰戌有冲，易分离")
+        t.forEach((it,index)=>{
+            if (index<t.length-1) info.push( "辰戌有冲，易分离")
         })
         tt = teststring;
         t = tt.split("日辰戌");
-        t.forEach((it, index) => {
-            if (index < t.length - 1) info.push("辰戌冲夫妻宫，易分离")
+        t.forEach((it,index)=>{
+            if (index<t.length-1) info.push("辰戌冲夫妻宫，易分离")
         })
         if (-1 != cc.indexOf("伤官")) {
             tt = teststring;
             t = tt.split("日冲月支");
-            t.forEach((it, index) => {
-                if (index < t.length - 1) info.push("入墓逢冲，易分离")
+            t.forEach((it,index)=>{
+                if (index<t.length-1) info.push("入墓逢冲，易分离")
             })
             tt = teststring;
             t = tt.split("日相冲");
-            t.forEach((it, index) => {
-                if (index < t.length - 1) info.push("入墓逢冲，易分离")
+            t.forEach((it,index)=>{
+                if (index<t.length-1) info.push("入墓逢冲，易分离")
             })
             tt = teststring;
             t = tt.split("半合");
-            t.forEach((it, index) => {
-                if (index < t.length - 1) info.push("入墓逢合，易分离")
+            t.forEach((it,index)=>{
+                if (index<t.length-1) info.push("入墓逢合，易分离")
             })
             //if (-1 != teststring.indexOf("日冲月支") || -1 != teststring.indexOf("日冲月支") || -1 != teststring.indexOf("日冲月支") || -1 != teststring.indexOf("日冲月支")) info.push("入墓逢冲，易分离")
             //if (-1 != teststring.indexOf("日相冲") || -1 != teststring.indexOf("日相冲") || -1 != teststring.indexOf("日相冲") || -1 != teststring.indexOf("日相冲")) info.push("入墓逢冲，易分离")
@@ -2396,8 +2229,8 @@ class EightrandomModule extends Component {
         //if (-1 != teststring.indexOf("辰戌")) info.push("辰戌有害，需要好好控制情绪")
         tt = teststring;
         t = tt.split("自刑");
-        t.forEach((it, index) => {
-            if (index < t.length - 1) info.push("自刑有害，需要好好控制情绪")
+        t.forEach((it,index)=>{
+            if (index<t.length-1)  info.push("自刑有害，需要好好控制情绪")
         })
         if (null == info.length) {
             info.push("八字婚姻无大影响")
@@ -2427,45 +2260,51 @@ class EightrandomModule extends Component {
         }
         return ""
     }
-    tipfire(item) {
-        if (-1 != item.indexOf("辰戌") && -1 != item.indexOf("宫")) {
-            var x = new Array()
-            x.push(IconConfig.IconTipFire)
-            x.push(IconConfig.IconTipFire)
-            x.push(IconConfig.IconTipFire)
-            x.push(IconConfig.IconTipFire)
-            x.push(IconConfig.IconTipFire)
-            return x
-        }
-        else if (-1 != item.indexOf("辰戌") || -1 != item.indexOf("难解")) {
-            var x = new Array()
-            x.push(IconConfig.IconTipFire)
-            x.push(IconConfig.IconTipFire)
-            x.push(IconConfig.IconTipFire)
-            x.push(IconConfig.IconTipFire)
-            return x
-        }
-        else if (-1 != item.indexOf("伤官") || -1 != item.indexOf("酉戌") || -1 != item.indexOf("子未") || -1 != item.indexOf("子午") || -1 != item.indexOf("自刑") || -1 != item.indexOf("财星过多") || -1 != item.indexOf("财星入墓")) {
-            var x = new Array()
-            x.push(IconConfig.IconTipFire)
-            x.push(IconConfig.IconTipFire)
-            return x
-        }
-        else if (-1 != item.indexOf("卯辰") || -1 != item.indexOf("无官星") || -1 != item.indexOf("无财星")) {
-            var x = new Array()
-            x.push(IconConfig.IconTipFire)
-            x.push(IconConfig.IconTipFire)
-            x.push(IconConfig.IconTipFire)
-            return x
-        }
-        else if (-1 != item.indexOf("害") || -1 != item.indexOf("破") || -1 != item.indexOf("冲") || -1 != item.indexOf("可解")) {
-            var x = new Array()
-            x.push(IconConfig.IconTipFire)
-            return x
-        }
-
+    tipfire(item)
+  { 
+    if(-1 != item.indexOf("辰戌") && -1 != item.indexOf("宫"))
+    {
+      var x = new Array()
+      x.push(IconConfig.IconTipFire)
+      x.push(IconConfig.IconTipFire)
+      x.push(IconConfig.IconTipFire)
+      x.push(IconConfig.IconTipFire)
+      x.push(IconConfig.IconTipFire)
+      return x
     }
+    else if (-1 != item.indexOf("辰戌") || -1 != item.indexOf("难解"))
+    {
+      var x = new Array()
+      x.push(IconConfig.IconTipFire)
+      x.push(IconConfig.IconTipFire)
+      x.push(IconConfig.IconTipFire)
+      x.push(IconConfig.IconTipFire)
+      return x
+    }
+    else if (-1 != item.indexOf("伤官") || -1 != item.indexOf("酉戌") || -1 != item.indexOf("子未") || -1 != item.indexOf("子午") || -1 != item.indexOf("自刑")|| -1 != item.indexOf("财星过多")|| -1 != item.indexOf("财星入墓"))
+    {
+      var x = new Array()
+      x.push(IconConfig.IconTipFire)
+      x.push(IconConfig.IconTipFire)
+      return x
+    }
+    else if (-1 != item.indexOf("卯辰") || -1 != item.indexOf("无官星") || -1 != item.indexOf("无财星"))
+    {
+      var x = new Array()
+      x.push(IconConfig.IconTipFire)
+      x.push(IconConfig.IconTipFire)
+      x.push(IconConfig.IconTipFire)
+      return x
+    }
+    else if (-1 != item.indexOf("害") || -1 != item.indexOf("破")|| -1 != item.indexOf("冲")|| -1 != item.indexOf("可解"))
+    {
+      var x = new Array()
+      x.push(IconConfig.IconTipFire)
+      return x
+    }
+
+  }
 
 }
 var e = new EightrandomModule()
-export default  e;  
+module.exports = e;  

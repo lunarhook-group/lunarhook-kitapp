@@ -52,6 +52,8 @@ export default class EightrandomMainPage extends Component {
     var daykey = new Array();
 
     this.state = {
+      xingsu:"",
+      enhance:"空",
       sex: sex,
       EightDate: EightDate,
       birth: birth,
@@ -112,8 +114,8 @@ export default class EightrandomMainPage extends Component {
       var beginlucky = EightrandomModule.getbigluckyearbegin(retterm, gz, parameter.EightDate, parameter.sex);
       console.log("beginlucky",Math.floor(beginlucky),Number(gz.getFullYear()))
       console.log("lunar_f", parameter.sex, parameter.EightDate);
-
-    this.buildeight(parameter, gzDate, beginlucky);
+      parameter.EightDate = {...parameter.EightDate, ...EightDate}
+          this.buildeight(parameter, gzDate, beginlucky);
     }
     else {
       /*
@@ -179,6 +181,7 @@ export default class EightrandomMainPage extends Component {
 
    
   this.setState({
+      xingsu:parameter.EightDate.xingsu,
       sex: parameter.sex, 
       EightDate: parameter.EightDate, 
       birth: parameter.birth, 
@@ -291,9 +294,10 @@ export default class EightrandomMainPage extends Component {
     {
         yearcolor = IconConfig.colorgreen
     }
+    yearcolor = "color:"+yearcolor
     //console.log("testselectyear",item,curluckyear,yearcolor)
     return(
-      <Text >{item}</Text>
+      <Text style = "yearcolor">{item}</Text>
     )
   }
 /*
@@ -477,11 +481,40 @@ export default class EightrandomMainPage extends Component {
 
     var marryinfo = EightrandomModule.getmarryinfo(this.state.EightDate,this.state.sex,r,this.state.buildeight)
 
+    var locationself = EightrandomModule.getlocationself(curyear, this.state.sex == "乾造" ? 0 : 1)
+    var house = EightrandomModule.gethouselocation(locationself)
+    var yongshen = EightrandomModule.getyongshen(this.state.EightDate,  this.state.buildeight,curluckyear[1],this.state.precent)
+    var home = new Array()
+    home = home.concat(day.self)
+    home = home.concat(day.tip)
+    home = home.concat(house)
+    console.log("locationself", locationself)
     var base = new Array()
-    base.push({value:"公历: "+this.state.birth})
-    base.push({ value:"四柱: " + this.state.gzbirth})
-    base.push({ value:"命造: "+this.state.sex})
-    base.push({ value:"起运: " + this.state.beginlucky})
+    base.push("公历: " + this.state.birth)
+    base.push(" ")
+    base.push("四柱: " + this.state.gzbirth)
+    base.push(" ")
+    base.push("旬空: " + this.state.gzxk)
+    base.push(" ")
+    base.push("命造: " + this.state.sex)
+    base.push("起运: " + this.state.beginlucky)
+    base.push("命卦: " + locationself)
+    var ret_powerself = EightrandomModule.getpowerself(this.state.EightDate,this.state.buildeight,curluckyear[1],this.state.precent)
+    base.push( "命身: " +ret_powerself.powerself )
+    base.push( "喜用: " +yongshen.xishen + yongshen.yongshen + (yongshen.special!=undefined?"("+yongshen.special+")":"") )
+    base.push(" ")
+    base.push( "忌仇: " +yongshen.jishen + yongshen.choushen  )
+    if(undefined!=yongshen.passyonshen)
+    {
+      base.push( "通关: " +yongshen.passyonshen  )
+    }
+    base.push( "扶抑: " +yongshen.adjustyongshen )
+    if(undefined!=yongshen.buyongshen )
+    {
+      base.push( "病药: " +yongshen.buyongshen  )
+    }
+
+    base.push( "星宿: " +this.state.xingsu.xingsu +this.state.xingsu.r )
 
 
     return (
@@ -490,33 +523,10 @@ export default class EightrandomMainPage extends Component {
 
 
           <View >
-            <AtList>
-            {base.map((item, itemIndex)=>{
-              console.log(item)
-                  return(
-                    <View key={itemIndex.id}>
-                    <AtListItem title={item.value}  />
-                    </View>
-                  )
-                })}
-            </AtList>
             <AtGrid
                     data={test}
                     columnNum={7}
                     hasLine={true}
-                    
-                    /*renderItem={dataItem => (
-                      <View>
-                        <View >
-                          <Text >{this.getColor(dataItem.info)}</Text>
-                        </View>
-                        {this.checksub(dataItem.hide)}
-                      </View>
-
-
-                    )}*/
-                  //isCarousel
-                  //onClick={()}
                   />
             <AtList>
               {shensha.map((item, itemIndex) => {
