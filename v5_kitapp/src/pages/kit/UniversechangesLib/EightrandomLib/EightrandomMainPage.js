@@ -412,7 +412,7 @@ export default class EightrandomMainPage extends Component {
       test.push({ value: this.state.buildeight[i * 2 + 1], hide: this.state.buildeightExt[i * 2 + 1] })
     }
 
-
+    /*
     test.push({ value: "藏干", hide: '' })
     var hidelist = EightrandomModule.gethide(curluckyear[1])
     hidelist = hidelist.split("")
@@ -439,7 +439,7 @@ export default class EightrandomMainPage extends Component {
       });
       test.push({ value: hindinfo, hide: "" })
     }
-
+    */
 
 
     test.push({ value: "长生", hide: '' })
