@@ -1,10 +1,32 @@
 
-
 .contain {
     flex: 0%;
-    //vertical-align:middle;
-    //text-align: center;
+    padding-left: 15px;
 }
-.result {
-    padding-left: 40px;
+.basegrid{
+  .at-grid{
+    &__flex{
+      .content-inner{
+        &__text {
+          line-height: 30px;
+          text-align: center;
+        }
+      }
+      .at-grid-item{
+        &__content{
+          &-inner{
+          align-items:left;
+          justify-content:left; 
+          }
+        }
+        &--rect {
+          &::before {
+            content: " ";
+            padding-bottom: 50px;
+          }
+        }
+      }
+      }
+  }
 }
+@import "~taro-ui/dist/style/components/grid.scss";

@@ -1,12 +1,11 @@
 
 import React, { Component } from 'react'
-import {Taro,getCurrentInstance} from '@tarojs/taro'
+import { Taro, getCurrentInstance } from '@tarojs/taro'
 import { View, Text, Image, Button, ScrollView, Picker } from '@tarojs/components'
-import { AtButton, AtDivider, AtTabBar, AtGrid, AtForm, AtSwitch, AtList, AtListItem,AtCard} from 'taro-ui'
+import { AtButton, AtDivider, AtTabBar, AtGrid, AtForm, AtSwitch, AtList, AtListItem, AtCard } from 'taro-ui'
 import SixrandomModule from '../SixrandomLib/SixrandomModule'
 import EightrandomModule from './EightrandomModule'
 import './EightrandomMainPage.scss'
-import '../../../../theme.scss'
 var jump = false
 let curyear = 0
 /*
@@ -52,8 +51,8 @@ export default class EightrandomMainPage extends Component {
     var daykey = new Array();
 
     this.state = {
-      xingsu:"",
-      enhance:"空",
+      xingsu: "",
+      enhance: "空",
       sex: sex,
       EightDate: EightDate,
       birth: birth,
@@ -62,13 +61,13 @@ export default class EightrandomMainPage extends Component {
       buildeightExt: buildeightExt,
       precent: precent,
       daykey: daykey,
-      luckyyear:"",
-      luckyyearposition:"",
-      luckyearrelation:"",
-      curluckyearnum:0,
-      curminiluckyearnum:0,
-      beginlucky:0,
-      activeSections: [0, 1, 2, 3, 4, 5, 6,7,8,9],
+      luckyyear: "",
+      luckyyearposition: "",
+      luckyearrelation: "",
+      curluckyearnum: 0,
+      curminiluckyearnum: 0,
+      beginlucky: 0,
+      activeSections: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
     };
 
   };
@@ -107,15 +106,15 @@ export default class EightrandomMainPage extends Component {
       //console.log("gz",gz);
       var EightDate = SixrandomModule.lunar_f(gz)
       //console.log("lunar_f", EightDate);
-      var gzDate = EightDate.gzYear + " " + EightDate.gzMonth + " " + EightDate.gzDate + " "+EightDate.gzTime;
+      var gzDate = EightDate.gzYear + " " + EightDate.gzMonth + " " + EightDate.gzDate + " " + EightDate.gzTime;
       curyear = EightDate.Year;
 
       var retterm = EightrandomModule.getYearTerm(gz.getFullYear())
       var beginlucky = EightrandomModule.getbigluckyearbegin(retterm, gz, parameter.EightDate, parameter.sex);
-      console.log("beginlucky",Math.floor(beginlucky),Number(gz.getFullYear()))
+      console.log("beginlucky", Math.floor(beginlucky), Number(gz.getFullYear()))
       console.log("lunar_f", parameter.sex, parameter.EightDate);
-      parameter.EightDate = {...parameter.EightDate, ...EightDate}
-          this.buildeight(parameter, gzDate, beginlucky);
+      parameter.EightDate = { ...parameter.EightDate, ...EightDate }
+      this.buildeight(parameter, gzDate, beginlucky);
     }
     else {
       /*
@@ -133,12 +132,12 @@ export default class EightrandomMainPage extends Component {
       })
       */
     }
-    
+
   }
 
   buildeight(parameter, gzDate, beginlucky) {
     var buildeight = new Array()
-    console.log("lunar_f",gzDate, beginlucky);
+    console.log("lunar_f", gzDate, beginlucky);
     buildeight[0] = EightrandomModule.parentday(parameter.EightDate[0], parameter.EightDate[4])
     buildeight[2] = EightrandomModule.parentday(parameter.EightDate[2], parameter.EightDate[4])
     buildeight[4] = "元"//this.parentday(parameter.EightDate[4],parameter.EightDate[4])
@@ -162,7 +161,7 @@ export default class EightrandomMainPage extends Component {
     precent = o.q
     daykey = o.p
 
-   
+
 
     var luckyyear = new Array();
     luckyyear = EightrandomModule.getbigluckyear(parameter.EightDate, parameter.sex);
@@ -172,26 +171,26 @@ export default class EightrandomMainPage extends Component {
     for (var i in luckyyear) {
 
       var rel = luckyyear[i].slice(0, 1);
-      console.log("luckyyear", i,rel, luckyyear[i]);
+      console.log("luckyyear", i, rel, luckyyear[i]);
       rel = EightrandomModule.parentday(rel, parameter.EightDate[4])
       //console.log(rel);
       luckyearrelation.push(rel);
       luckyyearposition.push(EightrandomModule.gettwelfthposition(parameter.EightDate[4] + luckyyear[i].slice(1, 2)))
     }
 
-   
-  this.setState({
-      xingsu:parameter.EightDate.xingsu,
-      sex: parameter.sex, 
-      EightDate: parameter.EightDate, 
-      birth: parameter.birth, 
-      gzbirth: gzDate, 
+
+    this.setState({
+      xingsu: parameter.EightDate.xingsu,
+      sex: parameter.sex,
+      EightDate: parameter.EightDate,
+      birth: parameter.birth,
+      gzbirth: gzDate,
       beginlucky: Math.floor(beginlucky),
       buildeight: buildeight, buildeightExt: buildeightExt,
       daykey: daykey, precent: precent,
-      luckyyear:luckyyear,
-      luckyyearposition:luckyyearposition,
-      luckyearrelation:luckyearrelation,
+      luckyyear: luckyyear,
+      luckyyearposition: luckyyearposition,
+      luckyearrelation: luckyearrelation,
     });
     this.changeyear("", (new Date()).getFullYear(), Math.floor(beginlucky))
   }
@@ -231,47 +230,42 @@ export default class EightrandomMainPage extends Component {
   }
 
   renderminyearItem(item) {
-    
+
     var year = item.split(" ");
     var yearcolor = IconConfig.colororange
-    if(year[1]==this.state.curminiluckyearnum)
-    {
-        yearcolor = IconConfig.colorblue
+    if (year[1] == this.state.curminiluckyearnum) {
+      yearcolor = IconConfig.colorblue
     }
-    console.log("color",yearcolor,year[1],this.state.curminiluckyearnum)
+    console.log("color", yearcolor, year[1], this.state.curminiluckyearnum)
     return (
-      <View style={[styles.grid,{height:25}]}>
-        <Text style={{ fontSize: 14 ,color:yearcolor}}>{year[0]}</Text>
-        <Text style={{ fontSize: 14 ,color:yearcolor}}>{year[1]}</Text>
+      <View style={[styles.grid, { height: 25 }]}>
+        <Text style={{ fontSize: 14, color: yearcolor }}>{year[0]}</Text>
+        <Text style={{ fontSize: 14, color: yearcolor }}>{year[1]}</Text>
       </View>
 
     );
   }
-  changeyear(bigyear, miniyear, beginlucky)
-  {
-    console.log("changeyear",bigyear, miniyear, beginlucky)
+  changeyear(bigyear, miniyear, beginlucky) {
+    console.log("changeyear", bigyear, miniyear, beginlucky)
     var by = 0
     var my = new Date()
     my = my.getFullYear()
-    if(""!==bigyear)
-    {
-      
+    if ("" !== bigyear) {
+
       by = Number(bigyear)
-      my = Math.floor(Number(by*10+beginlucky))
-      console.log("changeyearbig",by,my)
-      this.setState({curluckyearnum:by,curminiluckyearnum:my})
+      my = Math.floor(Number(by * 10 + beginlucky))
+      console.log("changeyearbig", by, my)
+      this.setState({ curluckyearnum: by, curminiluckyearnum: my })
 
     }
-    else if(""!==miniyear)
-    {
+    else if ("" !== miniyear) {
       //console.log("changeyearmini", bigyear, miniyear, beginlucky)
       my = Number(miniyear)
-      if(my>=beginlucky)
-      {
-        by = Math.floor((my-beginlucky)/10)
+      if (my >= beginlucky) {
+        by = Math.floor((my - beginlucky) / 10)
       }
       console.log("changeyearmini", by, my)
-      this.setState({curluckyearnum:by,curminiluckyearnum:my})
+      this.setState({ curluckyearnum: by, curminiluckyearnum: my })
     }
     //console.log("changeyear",bigyear,miniyear,by,my,this.state.beginlucky)
   }
@@ -286,51 +280,48 @@ export default class EightrandomMainPage extends Component {
       )
     }
   }
-  testselectyear(item,curluckyear)
-  {
+  testselectyear(item, curluckyear) {
     const { curluckyearnum } = this.state
     var yearcolor = IconConfig.colorred
-    if (curluckyearnum==curluckyear)
-    {
-        yearcolor = IconConfig.colorgreen
+    if (curluckyearnum == curluckyear) {
+      yearcolor = IconConfig.colorgreen
     }
-    yearcolor = "color:"+yearcolor
+    yearcolor = "color:" + yearcolor
     //console.log("testselectyear",item,curluckyear,yearcolor)
-    return(
-      <Text style = "yearcolor">{item}</Text>
+    return (
+      <Text style="yearcolor">{item}</Text>
     )
   }
-/*
-  createpie()
-  {
-    if (this.state.precent != "") {
-      var ret = this.state.pie
-      console.log("createpie",ret)
-      return (
-        <View style={[{ textAlign: 'center', alignItems: 'center' }]}>
-          <Svg width={300} height={300} >
-            <VictoryPie
-              colorScale={["green", "red","brown",  "yellow", "blue"]}
-              data={[
-                { x: 1, y: this.state.precent[5]+0, label: '木' },
-                { x: 2, y: this.state.precent[6]+0, label: '火' },
-                { x: 3, y: this.state.precent[7]+0, label: '土' },
-                { x: 4, y: this.state.precent[8]+0, label: '金' },
-                { x: 5, y: this.state.precent[9]+0, label: '水' },
-              ]}
-              standalone={false}
-              width={300} height={300}
-            /></Svg></View>
-      )
+  /*
+    createpie()
+    {
+      if (this.state.precent != "") {
+        var ret = this.state.pie
+        console.log("createpie",ret)
+        return (
+          <View style={[{ textAlign: 'center', alignItems: 'center' }]}>
+            <Svg width={300} height={300} >
+              <VictoryPie
+                colorScale={["green", "red","brown",  "yellow", "blue"]}
+                data={[
+                  { x: 1, y: this.state.precent[5]+0, label: '木' },
+                  { x: 2, y: this.state.precent[6]+0, label: '火' },
+                  { x: 3, y: this.state.precent[7]+0, label: '土' },
+                  { x: 4, y: this.state.precent[8]+0, label: '金' },
+                  { x: 5, y: this.state.precent[9]+0, label: '水' },
+                ]}
+                standalone={false}
+                width={300} height={300}
+              /></Svg></View>
+        )
+      }
     }
-  }
-  */
+    */
 
   render() {
 
 
-    if(undefined==this.state.luckyyear || ""==this.state.luckyyear)
-    {
+    if (undefined == this.state.luckyyear || "" == this.state.luckyyear) {
       return null
     }
     //这里是大运确定
@@ -338,13 +329,11 @@ export default class EightrandomMainPage extends Component {
     console.log("curluckyearnum1", Number(this.state.curluckyearnum), curluckyear)
     //这里小运，如果选了小运，用小运去换算大运
     var thisyear
-    if(0==this.state.curminiluckyearnum)
-    {
+    if (0 == this.state.curminiluckyearnum) {
       thisyear = new Date();
     }
-    else
-    {
-      console.log("curminiluckyearnum2",Number(this.state.curminiluckyearnum))
+    else {
+      console.log("curminiluckyearnum2", Number(this.state.curminiluckyearnum))
       thisyear = new Date()//这里应该选小运的年份
       thisyear.setFullYear(this.state.curminiluckyearnum)
       //curluckyear 这里应该更新大运
@@ -355,12 +344,12 @@ export default class EightrandomMainPage extends Component {
     var gzYear = eightyear.gzYear
     //计算大运，流年，原句的所有冲克信息
     console.log("curluckyear", this.state.luckyyear, this.state.curluckyearnum, curluckyear)
-    var r = EightrandomModule.getrelationship(this.state.EightDate,gzYear[1],curluckyear)
+    var r = EightrandomModule.getrelationship(this.state.EightDate, gzYear[1], curluckyear)
 
 
     jump = false;
-    
-    
+
+
     var luckyyearposition = this.state.luckyyearposition;
     var minluckyyeararray = new Array()
     var luckyearrelation = this.state.luckyearrelation;
@@ -369,13 +358,12 @@ export default class EightrandomMainPage extends Component {
     birthdayyear.setYear(curyear)
     birthdayyear.setMonth(4)
     birthdayyear = SixrandomModule.lunar_f(birthdayyear)
-    birthdayyear = birthdayyear.gzYear  + birthdayyear.gzMonth  + birthdayyear.gzDate +birthdayyear.gzTime;
-    console.log("birthdayyear",birthdayyear)
+    birthdayyear = birthdayyear.gzYear + birthdayyear.gzMonth + birthdayyear.gzDate + birthdayyear.gzTime;
+    console.log("birthdayyear", birthdayyear)
     minluckyyeararray = EightrandomModule.getminlucky(birthdayyear, this.state.sex, curyear);
     var minluckyyear = new Array()
-    for (var i = 0;i<minluckyyeararray.length;i++)
-    {
-      minluckyyear.push({ value: minluckyyeararray[i]})
+    for (var i = 0; i < minluckyyeararray.length; i++) {
+      minluckyyear.push({ value: minluckyyeararray[i] })
     }
     //console.log(minluckyyear)
 
@@ -390,8 +378,8 @@ export default class EightrandomMainPage extends Component {
 
     test.push({ value: "十神", hide: '' })
     //console.log(gzYear[0],this.state.EightDate[4])
-    test.push({ value:EightrandomModule.parentday(curluckyear[0],this.state.EightDate[4]), hide: '' })
-    test.push({ value:EightrandomModule.parentday(gzYear[0],this.state.EightDate[4]), hide: '' })
+    test.push({ value: EightrandomModule.parentday(curluckyear[0], this.state.EightDate[4]), hide: '' })
+    test.push({ value: EightrandomModule.parentday(gzYear[0], this.state.EightDate[4]), hide: '' })
     for (var i = 0; i < 4; i++) {
       test.push({ value: this.state.buildeight[i * 2], hide: '' })
     }
@@ -404,45 +392,79 @@ export default class EightrandomMainPage extends Component {
     }
 
     test.push({ value: "地支", hide: '藏干' })
-    test.push({ value: curluckyear[1],hide: EightrandomModule.gethide(curluckyear[1])})
+    test.push({ value: curluckyear[1], hide: EightrandomModule.gethide(curluckyear[1]) })
     test.push({ value: gzYear[1], hide: EightrandomModule.gethide(gzYear[1]) })
     for (var i = 0; i < 4; i++) {
       test.push({ value: this.state.EightDate[i * 2 + 1], hide: this.state.buildeightExt[i * 2] })
     }
 
     test.push({ value: "十神", hide: '副星' })
-    test.push({ value:EightrandomModule.parentearth(curluckyear[1],this.state.EightDate[4]), hide:EightrandomModule.gethideshishen(EightrandomModule.gethide(curluckyear[1]),this.state.EightDate[4])})
-    test.push({ value:EightrandomModule.parentearth(gzYear[1],this.state.EightDate[4]), hide:EightrandomModule.gethideshishen(EightrandomModule.gethide(gzYear[1]),this.state.EightDate[4])})
-    
+    test.push({ value: EightrandomModule.parentearth(curluckyear[1], this.state.EightDate[4]), hide: EightrandomModule.gethideshishen(EightrandomModule.gethide(curluckyear[1]), this.state.EightDate[4]) })
+    test.push({ value: EightrandomModule.parentearth(gzYear[1], this.state.EightDate[4]), hide: EightrandomModule.gethideshishen(EightrandomModule.gethide(gzYear[1]), this.state.EightDate[4]) })
+
     for (var i = 0; i < 4; i++) {
       test.push({ value: this.state.buildeight[i * 2 + 1], hide: this.state.buildeightExt[i * 2 + 1] })
     }
 
+
+    test.push({ value: "藏干", hide: '' })
+    var hidelist = EightrandomModule.gethide(curluckyear[1])
+    hidelist = hidelist.split("")
+    var hindinfo = new Array()
+    hidelist.forEach(element => {
+      hindinfo.push(element + EightrandomModule.parentday(element, this.state.EightDate[4]))
+    });
+    test.push({ value: hindinfo, hide: "" })
+
+    hidelist = EightrandomModule.gethide(gzYear[1])
+    hidelist = hidelist.split("")
+    hindinfo = new Array()
+    hidelist.forEach(element => {
+      hindinfo.push(element + EightrandomModule.parentday(element, this.state.EightDate[4]))
+    });
+    test.push({ value: hindinfo, hide: "" })
+
+    for (var i = 0; i < 4; i++) {
+      hidelist = this.state.buildeightExt[i * 2]
+      hidelist = hidelist.split("")
+      hindinfo = new Array()
+      hidelist.forEach(element => {
+        hindinfo.push(element + EightrandomModule.parentday(element, this.state.EightDate[4]))
+      });
+      test.push({ value: hindinfo, hide: "" })
+    }
+
+
+
     test.push({ value: "长生", hide: '' })
-    test.push({ value:  EightrandomModule.gettwelfthposition(this.state.EightDate[4] + curluckyear[1]), hide: '' })
-    test.push({ value:  EightrandomModule.gettwelfthposition(this.state.EightDate[4] + gzYear[1]), hide: '' })
+    test.push({ value: EightrandomModule.gettwelfthposition(this.state.EightDate[4] + curluckyear[1]), hide: '' })
+    test.push({ value: EightrandomModule.gettwelfthposition(this.state.EightDate[4] + gzYear[1]), hide: '' })
     for (var i = 0; i < 4; i++) {
       var x = EightrandomModule.gettwelfthposition(this.state.EightDate[4] + this.state.EightDate[i * 2 + 1])
       test.push({ value: x, hide: "" })
     }
 
     test.push({ value: "纳音", hide: '' })
-    test.push({ value:  EightrandomModule.gettwelfth( curluckyear[0] + curluckyear[1]), hide: '' })
-    test.push({ value:  EightrandomModule.gettwelfth( gzYear[0] + gzYear[1]), hide: '' })
+    test.push({ value: EightrandomModule.gettwelfth(curluckyear[0] + curluckyear[1]), hide: '' })
+    test.push({ value: EightrandomModule.gettwelfth(gzYear[0] + gzYear[1]), hide: '' })
     for (var i = 0; i < 4; i++) {
       var x = EightrandomModule.gettwelfth(this.state.EightDate[i * 2] + this.state.EightDate[i * 2 + 1])
       test.push({ value: x, hide: "" })
     }
 
     var years = new Array()
+    for (var i = 0; i < 8; i++) {
+      years.push(i == 0 ? this.state.beginlucky : years[i - 1] + 10)
+    }
     var yearsarray = new Array()
-    yearsarray = luckyearrelation.concat(this.state.luckyyear, luckyyearposition)
+    yearsarray = luckyearrelation.concat(years, this.state.luckyyear, luckyyearposition)
+    years = new Array()
     //console.log("years", years, luckyearrelation, this.state.luckyyear, luckyyearposition)
     for (var i = 0; i < yearsarray.length; i++) {
       //var x = EightrandomModule.gettwelfth(this.state.EightDate[i * 2] + this.state.EightDate[i * 2 + 1])
       years.push({ value: yearsarray[i] })
     }
-    
+
 
 
     var day = EightrandomModule.getselfinfo(this.state.EightDate[4] + this.state.EightDate[5])
@@ -451,174 +473,183 @@ export default class EightrandomMainPage extends Component {
     shenshaarray[0] = '年柱：'
     shenshaarray[1] = '月柱：'
     shenshaarray[2] = '日柱：'
-    shenshaarray[3]= '时柱：'
-    for(var i=0;i<4;i++)
-    {
+    shenshaarray[3] = '时柱：'
+    for (var i = 0; i < 4; i++) {
       this.state.EightDate[i]
-      shenshaarray[i] = shenshaarray[i] +  EightrandomModule.shensha_dayg2earthz(this.state.EightDate[4],this.state.EightDate[i*2+1]);
-      shenshaarray[i] = shenshaarray[i] +  EightrandomModule.shensha_moon(this.state.EightDate[3],this.state.EightDate[i*2]);
-      if(i!=1)
-      {
-        shenshaarray[i] = shenshaarray[i] +  EightrandomModule.shensha_moon(this.state.EightDate[3],this.state.EightDate[i*2+1]);//月支不见月支
+      shenshaarray[i] = shenshaarray[i] + EightrandomModule.shensha_dayg2earthz(this.state.EightDate[4], this.state.EightDate[i * 2 + 1]);
+      shenshaarray[i] = shenshaarray[i] + EightrandomModule.shensha_moon(this.state.EightDate[3], this.state.EightDate[i * 2]);
+      if (i != 1) {
+        shenshaarray[i] = shenshaarray[i] + EightrandomModule.shensha_moon(this.state.EightDate[3], this.state.EightDate[i * 2 + 1]);//月支不见月支
       }
-      if(i!=2)
-      {
-        shenshaarray[i] = shenshaarray[i] +  EightrandomModule.shensha_dayz2earthz(this.state.EightDate[5],this.state.EightDate[i*2+1]);//日支不见自己
+      if (i != 2) {
+        shenshaarray[i] = shenshaarray[i] + EightrandomModule.shensha_dayz2earthz(this.state.EightDate[5], this.state.EightDate[i * 2 + 1]);//日支不见自己
       }
-      if(i!=0)
-      {
-        shenshaarray[i] = shenshaarray[i] +  EightrandomModule.shensha_tianluo(this.state.EightDate[0]+this.state.EightDate[1],this.state.EightDate[i*2+1]);//年支不见年支
-        shenshaarray[i] = shenshaarray[i] +  EightrandomModule.shensha_diwang(this.state.EightDate[0]+this.state.EightDate[1],this.state.EightDate[i*2+1]);//年支不见年支
-        shenshaarray[i] = shenshaarray[i] +  EightrandomModule.shensha_yearz2earthz(this.state.EightDate[1],this.state.EightDate[i*2+1]);//年支不见年支
+      if (i != 0) {
+        shenshaarray[i] = shenshaarray[i] + EightrandomModule.shensha_tianluo(this.state.EightDate[0] + this.state.EightDate[1], this.state.EightDate[i * 2 + 1]);//年支不见年支
+        shenshaarray[i] = shenshaarray[i] + EightrandomModule.shensha_diwang(this.state.EightDate[0] + this.state.EightDate[1], this.state.EightDate[i * 2 + 1]);//年支不见年支
+        shenshaarray[i] = shenshaarray[i] + EightrandomModule.shensha_yearz2earthz(this.state.EightDate[1], this.state.EightDate[i * 2 + 1]);//年支不见年支
       }
-      
+
     }
     var shensha = new Array()
-    for (var i = 0; i < 4; i++)
-    {
-      shensha.push({ value: shenshaarray[i]})
+    for (var i = 0; i < 4; i++) {
+      shensha.push({ value: shenshaarray[i] })
     }
 
-    var marryinfo = EightrandomModule.getmarryinfo(this.state.EightDate,this.state.sex,r,this.state.buildeight)
+    var marryinfo = EightrandomModule.getmarryinfo(this.state.EightDate, this.state.sex, r, this.state.buildeight)
 
     var locationself = EightrandomModule.getlocationself(curyear, this.state.sex == "乾造" ? 0 : 1)
     var house = EightrandomModule.gethouselocation(locationself)
-    var yongshen = EightrandomModule.getyongshen(this.state.EightDate,  this.state.buildeight,curluckyear[1],this.state.precent)
+    var yongshen = EightrandomModule.getyongshen(this.state.EightDate, this.state.buildeight, curluckyear[1], this.state.precent)
     var home = new Array()
     home = home.concat(day.self)
     home = home.concat(day.tip)
     home = home.concat(house)
     console.log("locationself", locationself)
     var base = new Array()
-    base.push("公历: " + this.state.birth)
-    base.push(" ")
-    base.push("四柱: " + this.state.gzbirth)
-    base.push(" ")
-    base.push("旬空: " + this.state.gzxk)
-    base.push(" ")
-    base.push("命造: " + this.state.sex)
-    base.push("起运: " + this.state.beginlucky)
-    base.push("命卦: " + locationself)
-    var ret_powerself = EightrandomModule.getpowerself(this.state.EightDate,this.state.buildeight,curluckyear[1],this.state.precent)
-    base.push( "命身: " +ret_powerself.powerself )
-    base.push( "喜用: " +yongshen.xishen + yongshen.yongshen + (yongshen.special!=undefined?"("+yongshen.special+")":"") )
-    base.push(" ")
-    base.push( "忌仇: " +yongshen.jishen + yongshen.choushen  )
-    if(undefined!=yongshen.passyonshen)
-    {
-      base.push( "通关: " +yongshen.passyonshen  )
+    base.push({ value: "公历: " + this.state.birth })
+    base.push({ value: " " })
+    base.push({ value: "四柱: " + this.state.gzbirth })
+    base.push({ value: " " })
+    base.push({ value: "旬空: " + this.state.gzxk })
+    base.push({ value: " " })
+    base.push({ value: "命造: " + this.state.sex })
+    base.push({ value: "起运: " + this.state.beginlucky })
+    base.push({ value: "命卦: " + locationself })
+    var ret_powerself = EightrandomModule.getpowerself(this.state.EightDate, this.state.buildeight, curluckyear[1], this.state.precent)
+    base.push({ value: "命身: " + ret_powerself.powerself })
+    base.push({ value: "喜用: " + yongshen.xishen + yongshen.yongshen + (yongshen.special != undefined ? "(" + yongshen.special + ")" : "") })
+    base.push({ value: " " })
+    base.push({ value: "忌仇: " + yongshen.jishen + yongshen.choushen })
+    if (undefined != yongshen.passyonshen) {
+      base.push({ value: "通关: " + yongshen.passyonshen })
     }
-    base.push( "扶抑: " +yongshen.adjustyongshen )
-    if(undefined!=yongshen.buyongshen )
-    {
-      base.push( "病药: " +yongshen.buyongshen  )
+    base.push({ value: "扶抑: " + yongshen.adjustyongshen })
+    if (undefined != yongshen.buyongshen) {
+      base.push({ value: "病药: " + yongshen.buyongshen })
     }
 
-    base.push( "星宿: " +this.state.xingsu.xingsu +this.state.xingsu.r )
+    base.push({ value: "星宿: " + this.state.xingsu.xingsu + this.state.xingsu.r })
 
 
     return (
-      <View  >
+      <View >
         <ScrollView >
-
-
-          <View >
+          <View>
+            <AtGrid className='basegrid'
+              data={base}
+              columnNum={2}
+              hasLine={true}
+              mode='rect'
+            />
+            <Text style="opacity: 0">blockline</Text>
+            <AtGrid className='basegrid'
+              data={test}
+              columnNum={7}
+              hasLine={true}
+              mode='rect'
+            />
+            <Text style="opacity: 0">blockline</Text>
+            <AtGrid className='basegrid'
+              data={shensha}
+              columnNum={1}
+              hasLine={true}
+              mode='rect'
+            />
+            <Text style="opacity: 0">blockline</Text>
+            <AtGrid className='basegrid'
+              data={years}
+              columnNum={8}
+              hasLine={true}
+              mode='rect'
+              //当选择大运的时候，相当于选择了流年小运
+              onClick={(_el, index) => this.changeyear(Number(index % 8), "", this.state.beginlucky)}
+            />
+            <Text style="opacity: 0">blockline</Text>
             <AtGrid
-                    data={test}
-                    columnNum={7}
-                    hasLine={true}
-                  />
-            <AtList>
-              {shensha.map((item, itemIndex) => {
-                console.log(item)
-                return (
-                  <View key={itemIndex.id}>
-                    <AtListItem title={item.value} />
-                  </View>
-                )
-              })}
-            </AtList>
-            <AtGrid
-                    data={years}
-                    columnNum={8}
-                    hasLine={true}
-                    //当选择大运的时候，相当于选择了流年小运
-                    onClick={(_el, index) => this.changeyear(Number(index%8),"",this.state.beginlucky)}
-                   
-                  />
-
-                  <AtGrid
-                    data={minluckyyear}
-                    columnNum={8}
-                    hasLine={true}
-                    itemStyle={{ height: 35 }}
-                    isCarousel = {true}
-                    carouselMaxRow = {4}
-                    //当选择大运的时候，相当于选择了流年小运
-                    onClick={(_el, index) => this.changeyear("",Number(_el.value.split(" ")[1]),this.state.beginlucky)}
-                    //onClick={(_el: any, index: any) => this.changeyear("",Number(index.split(" ")[1]),this.state.beginlucky)}
-                    //renderItem={dataItem => this.renderminyearItem(dataItem)}
-                  //isCarousel
-                  //onClick={()}
-                  />
-
-                 
-                  
-                  
-            <AtList>
-              <AtCard
-                title='天干信息'
-              >
-                {r.dr}
-</AtCard>
-              <AtCard
-                title='地支冲克'
-              >
-                {r.er}
-              </AtCard>
-              <AtCard
-                title='流年冲克信息'
-              >
-                {r.lr}
-              </AtCard>
-              <AtCard
-                title='大运冲克'
-              >
-                {r.br}
-              </AtCard>
-            </AtList>
-            <AtList>
-              <AtCard
-                title='日柱信息'
-              >
-                {day.self}
-              </AtCard>
-              <AtCard
-                title='日柱喜用'
-              >
-                {day.tip}
-              </AtCard>
-                    
-            </AtList>
-            <AtList>
-              <AtCard
-                title='婚姻提示（受流年大运影响）'
-              >
-                {marryinfo}
-              </AtCard>
-            </AtList>
-
-
-
-
-            
+              data={minluckyyear}
+              columnNum={8}
+              hasLine={true}
+              isCarousel={true}
+              carouselMaxRow={4}
+              //当选择大运的时候，相当于选择了流年小运
+              onClick={(_el, index) => this.changeyear("", Number(_el.value.split(" ")[1]), this.state.beginlucky)}
+            />
+                            <View>
+              <Text style="opacity: 0">blockline</Text>
+              </View>
+            <View className="contain">
+              <Text>'天干信息'</Text>
+              {
+                r.dr.map((item) => {
+                  return (
+                    <View key={item.index}>
+                      <Text key={item.item} >{item}</Text>
+                    </View>)
+                })}
+                              <View>
+              <Text style="opacity: 0">blockline</Text>
+              </View>
+              <Text>'地支冲克'</Text>
+              {
+                r.er.map((item) => {
+                  return (
+                    <View key={item.index}>
+                      <Text key={item.item} >{item}</Text>
+                    </View>)
+                })}
+                              <View>
+              <Text style="opacity: 0">blockline</Text>
+              </View>
+              <Text>'流年冲克'</Text>
+              {
+                r.lr.map((item) => {
+                  return (
+                    <View key={item.index}>
+                      <Text key={item.item} >{item}</Text>
+                    </View>)
+                })}
+                <View>
+              <Text style="opacity: 0">blockline</Text>
+              </View>
+              <Text>'大运冲克'</Text>
+              {
+                r.br.map((item) => {
+                  return (
+                    <View key={item.index}>
+                      <Text key={item.item} >{item}</Text>
+                    </View>)
+                })}
+                <View>
+              <Text style="opacity: 0">blockline</Text>
+              </View>
+              <Text>'日柱信息'</Text>
+              <View >
+                <Text  >{home[0]}</Text>
+                <Text >{home[1]}</Text>
+                <Text >{home[2]}</Text>
+              </View>
+              <View>
+              <Text style="opacity: 0">blockline</Text>
+              </View>
+              <Text>'婚姻提示（受流年大运影响）'</Text>
+              {
+                marryinfo.map((item) => {
+                  return (
+                    <View key={item.index}>
+                      <Text key={item.item} >{item}</Text>
+                    </View>)
+                })}
+                                <View>
+              <Text style="opacity: 0">blockline</Text>
+              </View>
+              <View>
+              <Text style="opacity: 0">blockline</Text>
+              </View>
+            </View>
           </View>
         </ScrollView>
-
-       
       </View>
-
     )
   }
-
 };
