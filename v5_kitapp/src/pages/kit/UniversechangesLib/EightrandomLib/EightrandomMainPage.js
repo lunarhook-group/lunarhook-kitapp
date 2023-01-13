@@ -688,7 +688,7 @@ export default class EightrandomMainPage extends Component {
                       <Text key={item.item} >{item}</Text>
                     </View>)
                 })}
-                                <View>
+              <View>
               <Text style="opacity: 0">blockline</Text>
               </View>
               <View>
