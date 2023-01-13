@@ -212,9 +212,26 @@ export default class litekitPage extends Component {
               />
                
               </AtList>
-
+              <AtDivider>
+              <AtIcon prefixClass='fa' value='free-code-camp' size='20' color="red"></AtIcon>
+              <Text color="#FFCE00"> 婚姻测试 </Text>
+              <AtIcon prefixClass='fa' value='free-code-camp' size='20' color="red"></AtIcon>
+            </AtDivider>
+            <AtList hasBorder={false}>
+              <AtListItem
+                title='合卺'
+                note='卺，一种瓠瓜，味苦不可食，俗称苦葫芦，多用来做瓢。在古代，结婚时人们用它作盛酒器；合卺，始于周朝，为旧时汉族婚俗仪式之一'
+                iconInfo={{
+                  prefixClass: 'fa',
+                  size: 30,
+                  color:  "#FFB6C1",
+                  value: 'venus-mars'
+                }}
+                onClick={this.GridHander.bind(this, '六爻测试')}
+              />
+              </AtList>
             <AtDivider>
-              <AtIcon value='bookmark' color="#FFCE00"></AtIcon>
+              <AtIcon class value='bookmark' color="#FFCE00"></AtIcon>
               <Text color="#FFCE00"> 周易测试 </Text>
               <AtIcon value='bookmark' color="#FFCE00"></AtIcon>
             </AtDivider>
