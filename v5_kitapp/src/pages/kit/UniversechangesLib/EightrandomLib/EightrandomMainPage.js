@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { Taro, getCurrentInstance } from '@tarojs/taro'
 import { View, Text, Image, Button, ScrollView, Picker } from '@tarojs/components'
-import { AtButton, AtDivider, AtTabBar, AtGrid, AtForm, AtSwitch, AtList, AtListItem, AtCard } from 'taro-ui'
+import { AtProgress, AtDivider, AtTabBar, AtGrid, AtForm, AtSwitch, AtList, AtListItem, AtCard } from 'taro-ui'
 import SixrandomModule from '../SixrandomLib/SixrandomModule'
 import EightrandomModule from './EightrandomModule'
 import './EightrandomMainPage.scss'
@@ -539,6 +539,38 @@ export default class EightrandomMainPage extends Component {
     base.push({ value: "星宿: " + this.state.xingsu.xingsu + this.state.xingsu.r })
 
 
+    var map = new Array()
+    //甲乙丙丁戊己庚辛壬癸
+    map['寅'] = [1.14, 1.14, 1.2, 1.2, 1.06, 1.06, 1, 1, 1, 1]
+    map['卯'] = [1.2, 1.2, 1.2, 1.2, 1, 1, 1, 1, 1, 1]
+    map['辰'] = [1.1, 1.1, 1.06, 1.06, 1.1, 1.1, 1.1, 1.1, 1.04, 1.04]
+    map['巳'] = [1, 1, 1.14, 1.14, 1.14, 1.14, 1.06, 1.06, 1.06, 1.06]
+    map['午'] = [1, 1, 1.2, 1.2, 1.2, 1.2, 1, 1, 1, 1]
+    map['未'] = [1.04, 1.04, 1.1, 1.1, 1.16, 1.16, 1.1, 1.1, 1, 1]
+    map['申'] = [1.06, 1.06, 1, 1, 1, 1, 1.14, 1.14, 1.2, 1.2]
+    map['酉'] = [1, 1, 1, 1, 1, 1, 1.2, 1.2, 1.2, 1.2]
+    map['戌'] = [1, 1, 1.04, 1.04, 1.14, 1.14, 1.16, 1.16, 1.06, 1.6]
+    map['亥'] = [1.2, 1.2, 1, 1, 1, 1, 1, 1, 1.14, 1.14]
+    map['子'] = [1.2, 1.2, 1, 1, 1, 1, 1, 1, 1.2, 1.2]
+    map['丑'] = [1.06, 1.06, 1, 1, 1.1, 1.1, 1.14, 1.14, 1.1, 1.1]
+    var display = new Array()
+    display['甲'] = "空" != this.state.enhance ? Math.floor(map[this.state.enhance][0] * this.state.daykey['甲']) : this.state.daykey['甲']
+    display['乙'] = "空" != this.state.enhance ? Math.floor(map[this.state.enhance][1] * this.state.daykey['乙']) : this.state.daykey['乙']
+    display['丙'] = "空" != this.state.enhance ? Math.floor(map[this.state.enhance][2] * this.state.daykey['丙']) : this.state.daykey['丙']
+    display['丁'] = "空" != this.state.enhance ? Math.floor(map[this.state.enhance][3] * this.state.daykey['丁']) : this.state.daykey['丁']
+    display['戊'] = "空" != this.state.enhance ? Math.floor(map[this.state.enhance][4] * this.state.daykey['戊']) : this.state.daykey['戊']
+    display['己'] = "空" != this.state.enhance ? Math.floor(map[this.state.enhance][5] * this.state.daykey['己']) : this.state.daykey['己']
+    display['庚'] = "空" != this.state.enhance ? Math.floor(map[this.state.enhance][6] * this.state.daykey['庚']) : this.state.daykey['庚']
+    display['辛'] = "空" != this.state.enhance ? Math.floor(map[this.state.enhance][7] * this.state.daykey['辛']) : this.state.daykey['辛']
+    display['壬'] = "空" != this.state.enhance ? Math.floor(map[this.state.enhance][8] * this.state.daykey['壬']) : this.state.daykey['壬']
+    display['癸'] = "空" != this.state.enhance ? Math.floor(map[this.state.enhance][9] * this.state.daykey['癸']) : this.state.daykey['癸']
+    var totalfive =  display['甲'] +  display['乙']+ display['丙']+ display['丁']+ display['戊']+ display['己']+ display['庚']+ display['辛']+ display['壬']+ display['癸']
+    var fiveprecent = new Array()
+    fiveprecent["木"] = Math.floor((display["甲"]+display["乙"])*100/totalfive)
+    fiveprecent["火"] = Math.floor((display["丙"]+display["丁"])*100/totalfive)
+    fiveprecent["土"] = Math.floor((display["戊"]+display["己"])*100/totalfive)
+    fiveprecent["金"] = Math.floor((display["庚"]+display["辛"])*100/totalfive)
+    fiveprecent["水"] = Math.floor((display["壬"]+display["癸"])*100/totalfive)
     return (
       <View >
         <ScrollView >
@@ -563,6 +595,15 @@ export default class EightrandomMainPage extends Component {
                hasBorder ={false}
               mode='rect'
             />
+            <Text style="opacity: 0">blockline</Text>
+            <View className="contain">
+              <Text style="color:#13CE66">木</Text>            <Text style="color:#FF4949">火</Text>            <Text style="color:#8B4513">土</Text>            <Text style="color:#FFC82C">金</Text>            <Text style="color:#1E90FF">水</Text>
+            <AtProgress percent={fiveprecent["木"]} color='#13CE66' />
+            <AtProgress percent={fiveprecent["火"]} color='#FF4949' />
+            <AtProgress percent={fiveprecent["土"]} color='#8B4513' />
+            <AtProgress percent={fiveprecent["金"]} color='#FFC82C' />
+            <AtProgress percent={fiveprecent["水"]} color='#1E90FF' />
+            </View>
             <Text style="opacity: 0">blockline</Text>
             <AtGrid className='basegrid'
               data={years}
@@ -647,7 +688,7 @@ export default class EightrandomMainPage extends Component {
                       <Text key={item.item} >{item}</Text>
                     </View>)
                 })}
-                                <View>
+              <View>
               <Text style="opacity: 0">blockline</Text>
               </View>
               <View>

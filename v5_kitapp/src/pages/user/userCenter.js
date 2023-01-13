@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { View, Image, Text, WebView, ScrollView } from '@tarojs/components';
+import Taro from '@tarojs/taro'
 import './userCenter.scss';
 import study from './assets/study.jpg'
 import test from './assets/test.jpg'
@@ -25,7 +26,7 @@ export default class UserCenter extends Component {
 
   clickimg(action) {
 
-    var url = "https://www.lunarhook.com/static/img/nav279486.png"
+    var url = "https://www.lunarhook.com/static/img/nav279486.jpg"
     if (action == "service") {
       console.log(action)
       url = "https://www.lunarhook.com/static/img/service.jpg"
@@ -34,6 +35,7 @@ export default class UserCenter extends Component {
       console.log(action)
       url = "https://www.lunarhook.com/static/img/study.jpg"
     }
+    
     wx.previewImage({
       urls: [url],
     })
@@ -79,6 +81,13 @@ export default class UserCenter extends Component {
           <View className="imageslogan">
             <Text>扫码联系支持人员</Text>
           </View>
+          <Text style="opacity: 0">blockline</Text>
+          <Text style="opacity: 0">blockline</Text>
+          <View className="imageslogan">
+            <Text>乾坤爻APP亦可通过各手机市场渠道获取</Text>
+          </View>
+
+         
         </ScrollView>
       </View>
     );

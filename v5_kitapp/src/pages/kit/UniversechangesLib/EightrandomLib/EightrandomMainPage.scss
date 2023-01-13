@@ -2,6 +2,7 @@
 .contain {
     flex: 0%;
     padding-left: 15px;
+    padding-right: 15px;
 }
 .basegrid{
   .at-grid{
@@ -30,3 +31,4 @@
   }
 }
 @import "~taro-ui/dist/style/components/grid.scss";
+@import "~taro-ui/dist/style/components/progress.scss";
