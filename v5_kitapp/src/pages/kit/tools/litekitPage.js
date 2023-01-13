@@ -129,18 +129,18 @@ export default class litekitPage extends Component {
     }
     else if ("六爻测试" == item) {
       Taro.navigateTo({ url: '../../../pages/kit/UniversechangesLib/SixrandomLib/SixrandomNewPage' })
-      //plumber('test',true)
     }
-
     else if ("八字测评" == item) {
       Taro.navigateTo({ url: '../../../pages/kit/UniversechangesLib/EightrandomLib/EightrandomNewPage' })
     }
     else if ("数字八星" == item) {
       Taro.navigateTo({ url: '../../../pages/kit/UniversechangesLib/NumberLib/NumberMainPage' })
     }
-    else if("乾坤九考" == item){
+    else if ("乾坤九考" == item) {
       Taro.navigateTo({ url: '../../../pages/kit/exam/TrigramsTestModule' })
-
+    }
+    else if ("合卺问礼" == item) {
+      Taro.navigateTo({ url: '../../../pages/kit/UniversechangesLib/Marry/MarryNewPage' })
     }
   }
   handleAccordionClick(index, value) {
@@ -190,16 +190,16 @@ export default class litekitPage extends Component {
       return (
         <View className={'contain'}>
 
-         
 
-             <ScrollView>
-          <AtDivider >
+
+          <ScrollView>
+            <AtDivider >
               <AtIcon value='bell' color="#13BD7A"></AtIcon>
               <Text> 基础测试 </Text>
               <AtIcon value='bell' color="#13BD7A"></AtIcon>
             </AtDivider>
             <AtList hasBorder={false}>
-            <AtListItem
+              <AtListItem
                 title='乾坤九考'
                 note='根据《三玄》《四书》《五经》中周易相关知识按难度出题，对自学周易以及相关国学知识的自我检测，分成九个难度，目前只开放最简单的'
                 iconInfo={{
@@ -210,26 +210,26 @@ export default class litekitPage extends Component {
                 }}
                 onClick={this.GridHander.bind(this, '乾坤九考')}
               />
-               
-              </AtList>
-              <AtDivider>
-              <AtIcon prefixClass='fa' value='free-code-camp' size='20' color="red"></AtIcon>
+
+            </AtList>
+            <AtDivider>
+              <AtIcon prefixClass='fa' value='balance-scale' size='20' color="red"></AtIcon>
               <Text color="#FFCE00"> 婚姻测试 </Text>
-              <AtIcon prefixClass='fa' value='free-code-camp' size='20' color="red"></AtIcon>
+              <AtIcon prefixClass='fa' value='balance-scale' size='20' color="red"></AtIcon>
             </AtDivider>
             <AtList hasBorder={false}>
               <AtListItem
-                title='合卺'
-                note='卺，一种瓠瓜，味苦不可食，俗称苦葫芦，多用来做瓢。在古代，结婚时人们用它作盛酒器；合卺，始于周朝，为旧时汉族婚俗仪式之一'
+                title='合卺问礼'
+                note='合卺，始于周朝，为旧时汉族婚俗仪式之一'
                 iconInfo={{
                   prefixClass: 'fa',
-                  size: 30,
-                  color:  "#FFB6C1",
-                  value: 'venus-mars'
+                  size: 26,
+                  color: "#FFB6C1",
+                  value: 'diamond'
                 }}
-                onClick={this.GridHander.bind(this, '六爻测试')}
+                onClick={this.GridHander.bind(this, '合卺问礼')}
               />
-              </AtList>
+            </AtList>
             <AtDivider>
               <AtIcon class value='bookmark' color="#FFCE00"></AtIcon>
               <Text color="#FFCE00"> 周易测试 </Text>
@@ -242,7 +242,7 @@ export default class litekitPage extends Component {
                 iconInfo={{
                   prefixClass: 'mdi',
                   size: 30,
-                  color:  "#1FA7DE",
+                  color: "#1FA7DE",
                   value: 'yin-yang'
                 }}
                 onClick={this.GridHander.bind(this, '六爻测试')}
@@ -271,9 +271,9 @@ export default class litekitPage extends Component {
               />
             </AtList>
             <AtDivider >
-              <AtIcon value='heart'    color= 'red'></AtIcon>
+              <AtIcon value='heart' color='red'></AtIcon>
               <Text> 心理测试 </Text>
-              <AtIcon value='heart'    color= 'red'></AtIcon>
+              <AtIcon value='heart' color='red'></AtIcon>
             </AtDivider>
             <AtList hasBorder={false}>
               <AtListItem
@@ -281,7 +281,7 @@ export default class litekitPage extends Component {
                 note='迈尔斯-布里格斯类型指标MBTI'
                 iconInfo={{
                   prefixClass: 'fa',
-                  size: 30,
+                  size: 36,
                   color: '#FFCE00',
                   value: 'podcast',
                 }}
@@ -304,29 +304,29 @@ export default class litekitPage extends Component {
                 iconInfo={{
                   prefixClass: 'mdi',
                   size: 30,
-                  color:  "#1FA7DE",
+                  color: "#1FA7DE",
                   value: 'alert-decagram'
                 }}
                 onClick={this.GridHander.bind(this, '霍兰德职业测试')}
               />
             </AtList>
             <View>
-            <Text style="opacity: 0">blockline</Text>
+              <Text style="opacity: 0">blockline</Text>
             </View>
             <View>
-            <Text style="opacity: 0">blockline</Text>
+              <Text style="opacity: 0">blockline</Text>
             </View>
             <View>
-            <Text style="opacity: 0">blockline</Text>
+              <Text style="opacity: 0">blockline</Text>
             </View>
             <View>
-            <Text style="opacity: 0">blockline</Text>
+              <Text style="opacity: 0">blockline</Text>
             </View>
             <View>
-            <Text style="opacity: 0">blockline</Text>
+              <Text style="opacity: 0">blockline</Text>
             </View>
             <View>
-            <Text style="opacity: 0">blockline</Text>
+              <Text style="opacity: 0">blockline</Text>
             </View>
           </ScrollView>
           <AtTabBar

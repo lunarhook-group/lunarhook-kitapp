@@ -60,6 +60,8 @@ export default {
         "EightrandomLib/EightrandomMainPage",
         "SixrandomLib/SixrandomNewPage",
         "SixrandomLib/SixrandomFullInfoPage",
+        //"Marry/MarryMainPage",
+        "Marry/MarryNewPage"
       ]
     }, 
     {
@@ -68,6 +70,7 @@ export default {
         "TrigramsTestModule",
       ]
     }, 
+
   ]
 
 }
