@@ -6,69 +6,73 @@ import './TrigramsTestModule.scss'
 var Trigrams = Array();
 Trigrams[0] = {
   "key": "0",
-  "q": "当你要外出一整天，你会",
-  "a": "A 计划你要做什么和在什么时候做",
-  "b": "B 说去就去",
+  "q": "所谓“变”与“错”，指《周易》两卦卦画以互相颠倒的方式排列，如《屯》与《蒙》",
+  "a": "A 对",
+  "b": "B 错",
   "c": "",
   "d": "",
-  "ret_a": "j",
-  "ret_b": "p",
+  "ret_a": "1",
+  "ret_b": "b",
   "ret_c": "",
   "ret_d": "",
   "sel": "",
+  "rank":"3",
 }
 Trigrams[1] = {
   "key": "1",
-  "q": "你认为自己是一个",
-  "a": "A 较为有条理的人",
-  "b": "B 较为随兴所至的人",
+  "q": "在《易》各卦六爻之间，初、上两爻外，中四爻又可能包含着他卦之形体。",
+  "a": "A 对",
+  "b": "B 错",
   "c": "",
   "d": "",
-  "ret_a": "j",
-  "ret_b": "p",
+  "ret_a": "1",
+  "ret_b": "b",
   "ret_c": "",
   "ret_d": "",
   "sel": "",
+  "rank":"3",
 }
 Trigrams[2] = {
   "key": "2",
-  "q": "假如你是一位老师，你会选教",
-  "a": "A 以事实为主的课程",
-  "b": "B 涉及理论的课程",
-  "c": "",
-  "d": "",
-  "ret_a": "s",
-  "ret_b": "n",
-  "ret_c": "",
-  "ret_d": "",
+  "q": "《周易 乾卦》“上九”爻辞是（ ）",
+  "a": "A 潜龙勿用",
+  "b": "B 亢龙有悔",
+  "c": "C 飞龙在天",
+  "d": "D 见龙在田",
+  "ret_a": "a",
+  "ret_b": "1",
+  "ret_c": "c",
+  "ret_d": "d",
   "sel": "",
+  "rank":"1",
 }
 Trigrams[3] = {
   "key": "3",
-  "q": "你通常",
-  "a": "A 与人容易混熟",
-  "b": "B 比较沉静或矜持",
+  "q": "后天八卦说的是阳气从东方运行的情况，是从四事推移和万物生长收藏得出的规律",
+  "a": "A 对",
+  "b": "B 错",
   "c": "",
   "d": "",
-  "ret_a": "e",
-  "ret_b": "i",
+  "ret_a": "1",
+  "ret_b": "b",
   "ret_c": "",
   "ret_d": "",
   "sel": "",
 }
 Trigrams[4] = {
   "key": "4",
-  "q": "一般来说，你和哪些人比较合得来？",
-  "a": "A 现实的人",
-  "b": "B 富于想象力的人",
-  "c": "",
-  "d": "",
-  "ret_a": "s",
-  "ret_b": "n",
-  "ret_c": "",
-  "ret_d": "",
+  "q": "阴阳概念的提出是（）提出的",
+  "a": "A 老子",
+  "b": "B 孔子",
+  "c": "C 周文王",
+  "d": "D 伏羲",
+  "ret_a": "a",
+  "ret_b": "1",
+  "ret_c": "c",
+  "ret_d": "d",
   "sel": "",
 }
+/*
 Trigrams[5] = {
   "key": "5",
   "q": "你是否经常让",
@@ -1213,8 +1217,8 @@ Trigrams[92] = {
   "ret_d": "",
   "sel": "",
 }
-
-var MBTIresultinfo =
+*/
+var TrigramsResultinfo =
   [
     "MBTI主要指标解释", "",
     "态度倾向　(我们与世界相互作用方式):", "外向Extraversion(E) 内向Introversion(I)", "",
@@ -1230,23 +1234,23 @@ var MBTIresultinfo =
     "J 判断 喜欢做计划和决定，愿意进行管理和控制，希望生活井然有序,例如：重视结果(重点在于完成任务)、按部就班、有条理、尊重时间期限、喜欢做决定", "",
     "P 知觉 灵活、试图去理解、适应环境、倾向于留有余地，喜欢宽松自由的生活方式 例如：重视过程、随信息的变化不断调整目标，喜欢有多种选择", "",
   ]
-var MBTIresulttable = new Array();
-MBTIresulttable["ESTJ"] = "外倾感觉思维判断 大男人型"
-MBTIresulttable["ESTP"] = "外倾感觉思维知觉 挑战者型"
-MBTIresulttable["ESFJ"] = "外倾感觉情感判断 主人型"
-MBTIresulttable["ESFP"] = "外倾感觉情感知觉 表演型"
-MBTIresulttable["ENFP"] = "外倾直觉情感知觉 记者型"
-MBTIresulttable["ENFJ"] = "外倾直觉情感判断 教育家"
-MBTIresulttable["ENTP"] = "外倾直觉思维知觉 发明家"
-MBTIresulttable["ENTJ"] = "外倾直觉思维判断 将军型"
-MBTIresulttable["ISTJ"] = "内倾感觉思维判断 公务员"
-MBTIresulttable["ISTP"] = "内倾感觉思维知觉 冒险家"
-MBTIresulttable["ISFJ"] = "内倾感觉情感判断 照顾者"
-MBTIresulttable["ISFP"] = "内倾感觉情感知觉 艺术家"
-MBTIresulttable["INTJ"] = "内倾直觉思维判断 专家型"
-MBTIresulttable["INTP"] = "内倾直觉思维知觉 学者型"
-MBTIresulttable["INFJ"] = "内倾直觉情感判断 作家型"
-MBTIresulttable["INFP"] = "内倾直觉情感知觉 哲学家"
+var TrigramsResulttable = new Array();
+TrigramsResulttable["ESTJ"] = "外倾感觉思维判断 大男人型"
+TrigramsResulttable["ESTP"] = "外倾感觉思维知觉 挑战者型"
+TrigramsResulttable["ESFJ"] = "外倾感觉情感判断 主人型"
+TrigramsResulttable["ESFP"] = "外倾感觉情感知觉 表演型"
+TrigramsResulttable["ENFP"] = "外倾直觉情感知觉 记者型"
+TrigramsResulttable["ENFJ"] = "外倾直觉情感判断 教育家"
+TrigramsResulttable["ENTP"] = "外倾直觉思维知觉 发明家"
+TrigramsResulttable["ENTJ"] = "外倾直觉思维判断 将军型"
+TrigramsResulttable["ISTJ"] = "内倾感觉思维判断 公务员"
+TrigramsResulttable["ISTP"] = "内倾感觉思维知觉 冒险家"
+TrigramsResulttable["ISFJ"] = "内倾感觉情感判断 照顾者"
+TrigramsResulttable["ISFP"] = "内倾感觉情感知觉 艺术家"
+TrigramsResulttable["INTJ"] = "内倾直觉思维判断 专家型"
+TrigramsResulttable["INTP"] = "内倾直觉思维知觉 学者型"
+TrigramsResulttable["INFJ"] = "内倾直觉情感判断 作家型"
+TrigramsResulttable["INFP"] = "内倾直觉情感知觉 哲学家"
 
 var resulttabledetail = new Array();
 resulttabledetail["ESTJ"] = [
@@ -1329,7 +1333,7 @@ resulttabledetail["INFP"] = [
   "INFP把内在的和谐视为高于其他一切。他们敏感、理想化、忠诚，对于个人价值具有一种强烈的荣誉感。他们个人信仰坚定，有为自认为有价值的事业献身的精神。 INFP型的人对于已知事物之外的可能性很感兴趣，精力集 中于他们的梦想和想象。他们思维开阔、有好奇心和洞察力，常常具有出色的长远眼光。在日常事务中，他们通常灵活多变、具有忍耐力和适应性，但是他们非常坚定地对待内心的忠诚，为自己设定了事实上几乎是不可能 的标准。 INFP型的人具有许多使他们忙碌的理想和忠诚。他们十分坚定地完成自己所选择的事情，他们往往承担得太多，但不管怎样总要完成每件事。虽然对外部世界他们显得冷淡缄默，但INFP型的人很关心内在。他们富 有同情心、理解力，对于别人的情感很敏感。除了他们的价值观受到威胁外，他们总是避免冲突，没有兴趣强迫或支配别人。INFP型的人常常喜欢通过书写而不是口头来表达自己的感情。当INFP型的人劝说别人相信他们的 想法的重要性时，可能是最有说服力的。 INFP很少显露强烈的感情，常常显得沉默而冷静。然而，一旦他们与你认识了，就会变得热情友好，但往往会避免浮浅的交往。他们珍视那些花费时间去思考目标与价值的人。", "",
   "您适合的领域有：创作性、艺术类 教育、研究、咨询类等", "",
 ]
-const limitquestMBTI = 28
+const limitquestMBTI = 3
 export default class MBTIModule extends Component {
   constructor(props) {
     super(props);
@@ -1443,9 +1447,9 @@ export default class MBTIModule extends Component {
 
     console.log(person_ret)
     this.setState({
-      ret: "您是:" + person_ret + " " + MBTIresulttable[person_ret],
+      ret: "您是:" + person_ret + " " + TrigramsResulttable[person_ret],
       percent: "E:" + ret["e"] + " I:" + ret["i"] + " S:" + ret["s"] + " N:" + ret["n"] + " T:" + ret["t"] + " F:" + ret["f"] + " J:" + ret["j"] + " P:" + ret["p"],
-      extrainfo: MBTIresultinfo,
+      extrainfo: TrigramsResultinfo,
       retdetail: resulttabledetail[person_ret],
       closetest: true,
       pie: ret,
@@ -1455,13 +1459,27 @@ export default class MBTIModule extends Component {
   render() {
     const { Trigrams } = this.state;
     const content = Trigrams.map((item) => {
-      return (
-        <View key={item.id}>
-          <View className={'question'}><Text >第{item.index + 1}题：{item.q}</Text></View>
-          <AtRadio options={[{ label: item.a, value: item.ret_a }, { label: item.b, value: item.ret_b }]}
-            value={this.state.checked[Number(item.key)]}
-            onClick={(value) => this.updateIndex(value, item.key)} />
-        </View>)
+      if(""!=item.ret_d){
+        return (
+          <View key={item.id}>
+            <View className={'question'}><Text >第{item.index + 1}题：{item.q}</Text></View>
+            <AtRadio options={[{ label: item.a, value: item.ret_a }
+            , { label: item.b, value: item.ret_b }
+            , { label: item.c, value: item.ret_c }
+            , { label: item.d, value: item.ret_d }]}
+              value={this.state.checked[Number(item.key)]}
+              onClick={(value) => this.updateIndex(value, item.key)} />
+          </View>)
+      }else{
+        return (
+          <View key={item.id}>
+            <View className={'question'}><Text >第{item.index + 1}题：{item.q}</Text></View>
+            <AtRadio options={[{ label: item.a, value: item.ret_a }, { label: item.b, value: item.ret_b }]}
+              value={this.state.checked[Number(item.key)]}
+              onClick={(value) => this.updateIndex(value, item.key)} />
+          </View>)
+      }
+      
     })
     const { retdetail } = this.state;
     const content1 = retdetail.map((item) => {
