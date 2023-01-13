@@ -81,7 +81,11 @@ export default class UserCenter extends Component {
           <View className="imageslogan">
             <Text>扫码联系支持人员</Text>
           </View>
-
+          <Text style="opacity: 0">blockline</Text>
+          <Text style="opacity: 0">blockline</Text>
+          <View className="imageslogan">
+            <Text>乾坤爻APP亦可通过各手机市场渠道获取</Text>
+          </View>
 
          
         </ScrollView>
