@@ -19,7 +19,7 @@ var data1 =
         color: 'orange',
         value: 'podcast'
       },
-      value: '职业性格测试'
+      value: 'MBTI职业性格测试小程序版'
     },
     {
       iconInfo: {
@@ -28,7 +28,7 @@ var data1 =
         color: 'red',
         value: 'universal-access'
       },
-      value: '九型人格测试'
+      value: '九型人格测试小程序版'
     },
 
     {
@@ -256,7 +256,7 @@ export default class litekitPage extends Component {
             </AtDivider>
             <AtList hasBorder={false}>
               <AtListItem
-                title='职业性格测试'
+                title='职业性格测试小程序版'
                 iconInfo={{
                   prefixClass: 'fa',
                   size: 30,
@@ -266,7 +266,7 @@ export default class litekitPage extends Component {
                 onClick={this.GridHander.bind(this, '职业性格测试')}
               />
               <AtListItem
-                title='九型人格测试'
+                title='九型人格测试小程序版'
                 iconInfo={{
                   prefixClass: 'fa',
                   size: 30,
@@ -276,7 +276,7 @@ export default class litekitPage extends Component {
                 onClick={this.GridHander.bind(this, '九型人格测试')}
               />
               <AtListItem
-                title='霍兰德职业测试'
+                title='霍兰德职业测试小程序版'
                 //extraText='详细信息'
                 iconInfo={{
                   prefixClass: 'mdi',
