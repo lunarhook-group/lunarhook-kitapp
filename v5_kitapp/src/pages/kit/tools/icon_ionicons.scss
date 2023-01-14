@@ -1,11 +1,11 @@
 
 @font-face {
   font-family: "Ionicons";
-  src: url('./assets/fonts/ionicons.eot');
-  src: url('./assets/fonts/ionicons.eot') format("embedded-opentype");
-  src: url('./assets/fonts/ionicons.woff2') format('woff2'), 
-  url('./assets/fonts/ionicons.woff') format('woff'), 
-  url('./assets/fonts/ionicons.ttf') format('truetype');
+  //src: url('./assets/fonts/ionicons.eot');
+  //src: url('./assets/fonts/ionicons.eot') format("embedded-opentype");
+  src: url('./assets/fonts/ionicons.woff2') format('woff2');
+  //url('./assets/fonts/ionicons.woff') format('woff'), 
+  //url('./assets/fonts/ionicons.ttf') format('truetype');
   font-weight: normal;
   font-style: normal
 }

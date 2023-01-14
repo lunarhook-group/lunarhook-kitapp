@@ -29,6 +29,9 @@ const config = {
       optimizeMainPackage: {
         enable: true,
       },
+      debugReact:{
+        enable:true,
+      }
     },
     postcss: {
       pxtransform: {

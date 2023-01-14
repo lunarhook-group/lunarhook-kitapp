@@ -8,7 +8,7 @@ import '../../../theme.scss'
 import plumber from '../../plumbertracewithoutpoucdbwithwxrequest_miniv3'
 //import WXBizDataCrypt from './WXBizDataCrypt'
 import './icon_awesome.scss'
-//import './icon_ionicons.scss'
+import './icon_ionicons.scss'
 import './icon_mdi.scss'
 var data1 =
   [
