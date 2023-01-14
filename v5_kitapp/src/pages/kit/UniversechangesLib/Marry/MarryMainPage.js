@@ -708,13 +708,17 @@ export default class MarryMainPage extends React.Component {
     var housemale = EightrandomModule.gethouselocation(locationselfmale)
     var housefemale = EightrandomModule.gethouselocation(locationselffemale)
     var homemale = new Array()
+
     homemale = homemale.concat(daymale.self)
     homemale = homemale.concat(daymale.tip)
     homemale = homemale.concat(housemale)
+    homemale = homemale.concat(marryinfomale)
     var homefemale = new Array()
+
     homefemale = homefemale.concat(dayfemale.self)
     homefemale = homefemale.concat(dayfemale.tip)
     homefemale = homefemale.concat(housefemale)
+    homefemale = homefemale.concat(marryinfofemale)
     console.log("locationself", locationselfmale)
     var base = new Array()
     base.push(["命  造:","乾造","坤造"])
@@ -1176,6 +1180,17 @@ export default class MarryMainPage extends React.Component {
       }
       
     })
+
+    const homemalecontent = homemale.map((item, itemIndex) => {
+        return (
+            <Text className='at-col' style="text-align:left">{item}</Text>
+        )
+    })
+    const homefemalecontent = homefemale.map((item, itemIndex) => {
+      return (
+          <Text className='at-col' style="text-align:left">{item}</Text>
+      )
+  })
     return (
       <View  className="contain">
         <ScrollView >
@@ -1183,6 +1198,78 @@ export default class MarryMainPage extends React.Component {
             {basecontent}
          
           </View>
+<View>
+          <Text className='at-col' style="opacity: 0">blockline</Text>
+          <Text className='at-col'>乾造格局</Text>
+          </View>
+            <AtGrid className='basegrid'
+              data={testmale}
+              columnNum={7}
+               hasBorder ={true}
+              mode='rect'
+            />
+
+             <AtGrid className='basegrid'
+              data={test2male}
+              columnNum={7}
+               hasBorder ={true}
+              mode='rect'
+            />
+            <View>
+                         <Text className='at-col' style="opacity: 0">blockline</Text>
+                         <Text className='at-col'>乾造大运</Text></View>
+         
+
+            <AtGrid className='basegrid'
+              data={yearsnumbermale}
+              columnNum={8}
+               hasBorder ={false}
+              mode='rect'
+              //当选择大运的时候，相当于选择了流年小运
+              //onClick={(_el, index) => this.changeyear(Number(index % 8), "", this.state.beginlucky)}
+            />
+
+<View>
+            <Text className='at-col' style="opacity: 0">blockline</Text>
+            <Text className='at-col'>坤造格局</Text></View>
+            <AtGrid className='basegrid'
+              data={testfemale}
+              columnNum={7}
+               hasBorder ={true}
+              mode='rect'
+            />
+             <AtGrid className='basegrid'
+              data={test2female}
+              columnNum={7}
+               hasBorder ={true}
+              mode='rect'
+            />
+            <View>
+             <Text className='at-col' style="opacity: 0">blockline</Text>
+             <Text className='at-col'>坤造大运</Text></View>
+            <AtGrid className='basegrid'
+              data={yearsnumberfemale}
+              columnNum={8}
+               hasBorder ={false}
+              mode='rect'
+              //当选择大运的时候，相当于选择了流年小运
+              //onClick={(_el, index) => this.changeyear(Number(index % 8), "", this.state.beginlucky)}
+            />
+            <Text className='at-col' style="opacity: 0">blockline</Text>
+              <Text className='at-col'>乾造日柱</Text>
+              <View >
+              {homemalecontent}
+              </View>
+              <Text className='at-col'style="opacity: 0">blockline</Text>
+              <Text className='at-col'>坤造日柱</Text>
+              <View >
+                {homefemalecontent}
+                
+              </View>
+              <Text className='at-col'style="opacity: 0">blockline</Text>
+                <Text className='at-col'style="opacity: 0">blockline</Text>
+                <Text className='at-col'style="opacity: 0">blockline</Text>
+                <Text className='at-col'style="opacity: 0">blockline</Text>
         </ScrollView>
       </View>
     )
