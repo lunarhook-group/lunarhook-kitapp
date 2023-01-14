@@ -11,7 +11,7 @@ let curyearmale = 0
 let curmonthmale = 0
 let curyearfemale = 0
 let curmonthfemale = 0
-const IconMarryCheck = <AtIcon prefixClass='fa' value='diamond' size={16} color='#00C0FF'></AtIcon>
+const IconMarryCheck = <AtIcon prefixClass='ion' value='ios-heart' size={20}color='red'></AtIcon>
 const IconMarryCheckhalf = <AtIcon  prefixClass='ion' value='ios-heart-half' size={20}  color='red'></AtIcon>
 const IconMarryCheckfault = <AtIcon prefixClass='ion' value='ios-heart-empty' size={20}  color='red'></AtIcon>
 const IconMarryDiamond = <AtIcon prefixClass='fa' value='diamond' size={16} color='#00C0FF'></AtIcon>
