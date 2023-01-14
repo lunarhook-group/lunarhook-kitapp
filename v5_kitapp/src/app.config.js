@@ -60,7 +60,7 @@ export default {
         "EightrandomLib/EightrandomMainPage",
         "SixrandomLib/SixrandomNewPage",
         "SixrandomLib/SixrandomFullInfoPage",
-        //"Marry/MarryMainPage",
+        "Marry/MarryMainPage",
         "Marry/MarryNewPage"
       ]
     }, 

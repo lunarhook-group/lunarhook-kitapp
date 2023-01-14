@@ -1,0 +1,34 @@
+
+.contain {
+  flex: 0%;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.basegrid{
+.at-grid{
+  &__flex{
+    .content-inner{
+      &__text {
+        line-height: 30px;
+        text-align: center;
+      }
+    }
+    .at-grid-item{
+      &__content{
+        &-inner{
+        align-items:left;
+        justify-content:left; 
+        }
+      }
+      &--rect {
+        &::before {
+          content: " ";
+          padding-bottom: 50px;
+        }
+      }
+    }
+    }
+}
+}
+@import "~taro-ui/dist/style/components/grid.scss";
+@import "~taro-ui/dist/style/components/progress.scss";

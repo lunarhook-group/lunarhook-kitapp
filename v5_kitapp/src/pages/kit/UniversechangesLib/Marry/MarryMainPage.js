@@ -1,73 +1,13 @@
-
-
-import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Animated, ScrollView, Image, Dimensions } from 'react-native';
-import TabNavigator from 'react-native-tab-navigator';
-import Storage from 'react-native-storage';
-
-import { captureRef } from "react-native-view-shot";
-import { Grid, Accordion, WhiteSpace, WingBlank, List, Icon } from '@ant-design/react-native';
-const Item = List.Item;
-import StorageModule from '../../../config/StorageModule'
-import { SixrandomModule } from '../SixrandomLib/SixrandomModule'
+import React, { Component } from 'react'
+import { Taro, getCurrentInstance } from '@tarojs/taro'
+import { View, Text, Image, Button, ScrollView, Picker } from '@tarojs/components'
+import { AtProgress, AtDivider, AtTabBar, AtGrid, AtForm, AtSwitch, AtList, AtListItem, AtCard } from 'taro-ui'
+import SixrandomModule from '../SixrandomLib/SixrandomModule'
 import EightrandomModule from '../EightrandomLib/EightrandomModule'
-import ScreenConfig from '../../../config/ScreenConfig';
-import { StyleConfig, FontStyleConfig } from '../../../config/StyleConfig';
-import WechatShare from '../../../config/WechatShare'
-import IconConfig from '../../../config/IconConfig'
-import { VictoryPie, VictoryBar, VictoryGroup, } from 'victory-native';
-import { HistoryArrayGroup } from '../../../config/StorageModule'
-import UserModule from '../../../config/UserModule'
-import Svg, {
-  Ellipse,
-  G,
-  LinearGradient,
-  RadialGradient,
-  Line,
-  Path,
-  Polygon,
-  Polyline,
-  Rect,
-  Symbol,
-  Use,
-  Defs,
-  Stop
-} from 'react-native-svg';
-import { dateAdd } from '../solar2lunar/chinese-lunar';
-import { tapGestureHandlerProps } from 'react-native-gesture-handler/lib/typescript/handlers/TapGestureHandler';
-const { width, height } = Dimensions.get('window');
-
-var jump = false
 let curyearmale = 0
 let curmonthmale = 0
 let curyearfemale = 0
 let curmonthfemale = 0
-let MarryMainPagethis = undefined
-/*
-八字要展现的东西就比较多了
-1、公立生日
-2、生肖
-3、星座
-4、农历生日
-5、命卦
-6、姓名，性别
-7、八字盘
-8、地势
-9、纳音
-10、节气
-11、大运
-12、排大运
-13、流年小运
-14、四柱神煞
-15、五行力量分析
-16、日柱分析
-17、八字婚姻
-18、日柱分析
-19、六亲
-20、事业
-21、健康
-22、运势太岁关系
-*/
 
 /*
 
@@ -84,15 +24,13 @@ let MarryMainPagethis = undefined
 8、命卦东西配合
 */
 
-class MarryMainPage extends React.Component {
+export default class MarryMainPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       xingsumale:"",
       xingsufemale:"",
       gzxkmale: "",
-      shareimg: false,
-      fadeInOpacity: new Animated.Value(0.3),
       gzxkfemale: "",
       EightDatemale: "",
       EightDatefemale: "",
@@ -119,120 +57,33 @@ class MarryMainPage extends React.Component {
       curluckyearnumfemale: 0,
       curminiluckyearnumfemale: 0,
       beginluckyfemale: 0,
-      activeSections: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
       renderswitch: false,
     };
-
-    MarryMainPagethis = this
-    this.onChange = (activeSections: number[]) => {
-
-      var re = this.state.activeSections
-
-      if (activeSections.length > 1) {
-        this.setState({ activeSections: activeSections })
-      }
-      else {
-        re.push(activeSections[0])
-        this.setState({ activeSections: re })
-      }
-
-
-    };
   };
 
-  componentDidMount() {
+  componentWillMount() {
 
-    this.timer = setTimeout(
-      () => {
-        this.refreshlist()
-
-      },
-      200
-    );
-    this.timerinterval = setInterval(() => {
-      this.setState({ fadeInOpacity: new Animated.Value(0.3) })
-    }, 1000 * 3);
-  }
-
-  componentWillUnmount() {
-    // 如果存在this.timer，则使用clearTimeout清空。
-    // 如果你使用多个timer，那么用多个变量，或者用个数组来保存引用，然后逐个clear
-    this.timer && clearInterval(this.timer);
-    this.timerinterval && clearInterval(this.timerinterval);
-  }
-
-  static navigationOptions = ({ navigation }) => {
-    const { navigate } = navigation;
-    return {
-
-      //headerLeft:(<Button title="万年历" onPress={  () => navigate('MainPage')  }/>),
-      //headerRight:(<Button title="历史" onPress={  () => navigate('HistoryPage')  }/>),
-      title: '合盘分析',
-      headerRight: () => (
-        <TouchableOpacity
-          style={{ padding: 10, alignContent: "center", alignItems: "baseline" }}
-          //onPress={() => navigate('Search')}
-          onPress={() =>  MarryMainPagethis.deletethis()}
-        >
-          {IconConfig.IconDelete}
-        </TouchableOpacity>),
-    }
-  };
-  async deletethis()
-  {
-    var rowid = MarryMainPagethis.state.rowid 
-    console.log("rowid",rowid)
-    HistoryArrayGroup.loadid('Marry', rowid).then(async (ret) => {
-      if(undefined!=ret)
-      {
-        var Jobj = JSON.parse(ret);
-        let T = await UserModule.SyncFileServer("Marry", rowid, "")
-        if (undefined != T && 2000 == T.code) {
-          T.data.forEach(async (element) => {
-            filename = element.File
-            if (-1 != filename.indexOf(String(rowid)) && true == element.Del) {
-              await HistoryArrayGroup.remove('Marry', rowid);
-            }
-          });
-        }
-        else {
-          await HistoryArrayGroup.remove('Marry', rowid);
-        }
-      }
-      //this.props.navigation.dispatch(CommonActions.goBack());
-      this.props.navigation.goBack()
-      if(undefined!=this.props.navigation.state.params.goback)
-      {
-        this.props.navigation.state.params.goback()
-      }
-
-      //this.props.navigation.navigate("SixrandomHistoryPage",{ text: "refresh" })
-    })
-  }
-
-  refreshlist() {
-    const { navigate } = this.props.navigation;
-
-    var parameter = this.props.navigation.state.params.url
-
+    var parameter = getCurrentInstance().router.params
+    //console.log("componentWillMount", parameter)
 
     if (undefined != parameter) {
       var info = null;
+
+      var ret;
       var args = {};
       var match = null;
-      var search = decodeURIComponent(parameter.substring(1));
+      var search = decodeURIComponent(parameter);
       var reg = /(?:([^&]+)=([^&]+))/g;
       while ((match = reg.exec(search)) !== null) {
         args[match[1]] = match[2];
       }
       info = args
-      var t = info.birthmale.split(" ");
+      var t = parameter.birthmale.split(" ");
       var gzmale = new Date(t[0]);
       gzmale.setHours(t[1]);
       gzmale.setMinutes(undefined != t[2] ? t[2] : t[2] = 0)
       gzmale.setSeconds(undefined != t[3] ? t[3] : t[3] = 0)
-      info.birthmale = t[0] + " " + ("00" + t[1]).slice(-2) + ":" + ("00" + t[2]).slice(-2) + ":" + ("00" + t[3]).slice(-2)
-      console.log(gzmale);
+
       var EightDategzmale = SixrandomModule.lunar_f(gzmale)
       var gzDatemale = EightDategzmale.gzYear + " " + EightDategzmale.gzMonth + " " + EightDategzmale.gzDate + " " + EightDategzmale.gzTime;
       var gzxkmale = SixrandomModule.get_empty_sixty_cycle(EightDategzmale.gzYear) + " " + SixrandomModule.get_empty_sixty_cycle(EightDategzmale.gzMonth) + " " + SixrandomModule.get_empty_sixty_cycle(EightDategzmale.gzDate) + " " + SixrandomModule.get_empty_sixty_cycle(EightDategzmale.gzTime);
@@ -241,19 +92,19 @@ class MarryMainPage extends React.Component {
       curmonthmale = EightDategzmale.Month
 
       var rettermmale = EightrandomModule.getYearTerm(gzmale.getFullYear())
-      var beginluckymale = EightrandomModule.getbigluckyearbegin(rettermmale, gzmale, info.EightDatemale, "乾造");
+      var beginluckymale = EightrandomModule.getbigluckyearbegin(rettermmale, gzmale, parameter.EightDatemale, "乾造");
       console.log("beginlucky", Math.floor(beginluckymale), Number(gzmale.getFullYear()))
-      MarryMainPagethis.setState({
-        EightDatemale: info.EightDatemale, birthmale: info.birthmale, gzbirthmale: gzDatemale, beginluckymale: Math.floor(beginluckymale), gzxkmale: gzxkmale,xingsumale:EightDategzmale.xingsu
+      this.setState({
+        EightDatemale: parameter.EightDatemale, birthmale: parameter.birthmale, gzbirthmale: gzDatemale, beginluckymale: Math.floor(beginluckymale), gzxkmale: gzxkmale,xingsumale:EightDategzmale.xingsu
       });
-      this.buildeight("乾造");
+      parameter.EightDatemale = { ...parameter.EightDatemale, ...EightDategzmale }
+      this.buildeight("乾造",parameter)
 
-      t = info.birthfemale.split(" ");
+      t = parameter.birthfemale.split(" ");
       var gzfemale = new Date(t[0]);
       gzfemale.setHours(t[1]);
       gzfemale.setMinutes(undefined != t[2] ? t[2] : t[2] = 0)
       gzfemale.setSeconds(undefined != t[3] ? t[3] : t[3] = 0)
-      info.birthfemale = t[0] + " " + ("00" + t[1]).slice(-2) + ":" + ("00" + t[2]).slice(-2) + ":" + ("00" + t[3]).slice(-2)
       console.log(gzfemale);
       var EightDategzfemale = SixrandomModule.lunar_f(gzfemale)
       var gzDatefemale = EightDategzfemale.gzYear + " " + EightDategzfemale.gzMonth + " " + EightDategzfemale.gzDate + " " + EightDategzfemale.gzTime;
@@ -263,58 +114,61 @@ class MarryMainPage extends React.Component {
       curmonthfemale = EightDategzfemale.Month
 
       var rettermfemale = EightrandomModule.getYearTerm(gzfemale.getFullYear())
-      var beginluckyfemale = EightrandomModule.getbigluckyearbegin(rettermfemale, gzfemale, info.EightDatefemale, "坤造");
+      var beginluckyfemale = EightrandomModule.getbigluckyearbegin(rettermfemale, gzfemale, parameter.EightDatefemale, "坤造");
       console.log("beginlucky", Math.floor(beginluckyfemale), Number(gzfemale.getFullYear()))
-      MarryMainPagethis.setState({
-        EightDatefemale: info.EightDatefemale, birthfemale: info.birthfemale, gzbirthfemale: gzDatefemale, beginluckyfemale: Math.floor(beginluckyfemale), gzxkfemale: gzxkfemale,xingsufemale:EightDategzfemale.xingsu,rowid:info.rowid
+      this.setState({
+        EightDatefemale: parameter.EightDatefemale, birthfemale: parameter.birthfemale, gzbirthfemale: gzDatefemale, beginluckyfemale: Math.floor(beginluckyfemale), gzxkfemale: gzxkfemale,xingsufemale:EightDategzfemale.xingsu,
       });
-      this.buildeight("乾造");
-      this.buildeight("坤造");
+      parameter.EightDatefemale = { ...parameter.EightDatefemale, ...EightDategzfemale }
+      this.buildeight("坤造",parameter)
+      this.setState({renderswitch:true})
+    }
+    else {
 
-      this.setState({ renderswitch: true })
     }
   }
+  
 
-  buildeight(sex) {
+  buildeight(sex,parameter) {
     var buildeight = new Array()
     if ("乾造" == sex) {
-      buildeight[0] = EightrandomModule.parentday(this.state.EightDatemale[0], this.state.EightDatemale[4])
-      buildeight[2] = EightrandomModule.parentday(this.state.EightDatemale[2], this.state.EightDatemale[4])
+      buildeight[0] = EightrandomModule.parentday(parameter.EightDatemale[0], parameter.EightDatemale[4])
+      buildeight[2] = EightrandomModule.parentday(parameter.EightDatemale[2], parameter.EightDatemale[4])
       buildeight[4] = "乾造" == sex ? "元男" : "元女"
-      buildeight[6] = EightrandomModule.parentday(this.state.EightDatemale[6], this.state.EightDatemale[4])
-      buildeight[1] = EightrandomModule.parentearth(this.state.EightDatemale[1], this.state.EightDatemale[4])
-      buildeight[3] = EightrandomModule.parentearth(this.state.EightDatemale[3], this.state.EightDatemale[4])
-      buildeight[5] = EightrandomModule.parentearth(this.state.EightDatemale[5], this.state.EightDatemale[4])
-      buildeight[7] = EightrandomModule.parentearth(this.state.EightDatemale[7], this.state.EightDatemale[4])
+      buildeight[6] = EightrandomModule.parentday(parameter.EightDatemale[6], parameter.EightDatemale[4])
+      buildeight[1] = EightrandomModule.parentearth(parameter.EightDatemale[1], parameter.EightDatemale[4])
+      buildeight[3] = EightrandomModule.parentearth(parameter.EightDatemale[3], parameter.EightDatemale[4])
+      buildeight[5] = EightrandomModule.parentearth(parameter.EightDatemale[5], parameter.EightDatemale[4])
+      buildeight[7] = EightrandomModule.parentearth(parameter.EightDatemale[7], parameter.EightDatemale[4])
       var buildeightExt = new Array()
-      buildeightExt[0] = EightrandomModule.gethide(this.state.EightDatemale[1]);
-      buildeightExt[2] = EightrandomModule.gethide(this.state.EightDatemale[3]);
-      buildeightExt[4] = EightrandomModule.gethide(this.state.EightDatemale[5]);
-      buildeightExt[6] = EightrandomModule.gethide(this.state.EightDatemale[7]);
-      buildeightExt[1] = EightrandomModule.gethideshishen(buildeightExt[0], this.state.EightDatemale[4]);
-      buildeightExt[3] = EightrandomModule.gethideshishen(buildeightExt[2], this.state.EightDatemale[4]);
-      buildeightExt[5] = EightrandomModule.gethideshishen(buildeightExt[4], this.state.EightDatemale[4]);
-      buildeightExt[7] = EightrandomModule.gethideshishen(buildeightExt[6], this.state.EightDatemale[4]);
+      buildeightExt[0] = EightrandomModule.gethide(parameter.EightDatemale[1]);
+      buildeightExt[2] = EightrandomModule.gethide(parameter.EightDatemale[3]);
+      buildeightExt[4] = EightrandomModule.gethide(parameter.EightDatemale[5]);
+      buildeightExt[6] = EightrandomModule.gethide(parameter.EightDatemale[7]);
+      buildeightExt[1] = EightrandomModule.gethideshishen(buildeightExt[0], parameter.EightDatemale[4]);
+      buildeightExt[3] = EightrandomModule.gethideshishen(buildeightExt[2], parameter.EightDatemale[4]);
+      buildeightExt[5] = EightrandomModule.gethideshishen(buildeightExt[4], parameter.EightDatemale[4]);
+      buildeightExt[7] = EightrandomModule.gethideshishen(buildeightExt[6], parameter.EightDatemale[4]);
       var precent = new Array();
       var daykey = new Array();
-      var o = EightrandomModule.getfive(this.state.EightDatemale)
+      var o = EightrandomModule.getfive(parameter.EightDatemale)
       precent = o.q
       daykey = o.p
 
 
 
       var luckyyear = new Array();
-      luckyyear = EightrandomModule.getbigluckyear(this.state.EightDatemale, "乾造");
+      luckyyear = EightrandomModule.getbigluckyear(parameter.EightDatemale, "乾造");
       var luckyearrelation = new Array();
       var luckyyearposition = new Array();
       for (var i in luckyyear) {
 
         var rel = luckyyear[i].slice(0, 1);
         //console.log("luckyyear",rel, luckyyear[i]);
-        rel = EightrandomModule.parentday(rel, this.state.EightDatemale[4])
+        rel = EightrandomModule.parentday(rel, parameter.EightDatemale[4])
         //console.log(rel);
         luckyearrelation.push(rel);
-        luckyyearposition.push(EightrandomModule.gettwelfthposition(this.state.EightDatemale[4] + luckyyear[i].slice(1, 2)))
+        luckyyearposition.push(EightrandomModule.gettwelfthposition(parameter.EightDatemale[4] + luckyyear[i].slice(1, 2)))
       }
 
 
@@ -327,43 +181,43 @@ class MarryMainPage extends React.Component {
       });
       this.changeyear("", (new Date()).getFullYear(), "乾造")
     } else {
-      buildeight[0] = EightrandomModule.parentday(this.state.EightDatefemale[0], this.state.EightDatefemale[4])
-      buildeight[2] = EightrandomModule.parentday(this.state.EightDatefemale[2], this.state.EightDatefemale[4])
+      buildeight[0] = EightrandomModule.parentday(parameter.EightDatefemale[0], parameter.EightDatefemale[4])
+      buildeight[2] = EightrandomModule.parentday(parameter.EightDatefemale[2], parameter.EightDatefemale[4])
       buildeight[4] = "乾造" == sex ? "元男" : "元女"
-      buildeight[6] = EightrandomModule.parentday(this.state.EightDatefemale[6], this.state.EightDatefemale[4])
-      buildeight[1] = EightrandomModule.parentearth(this.state.EightDatefemale[1], this.state.EightDatefemale[4])
-      buildeight[3] = EightrandomModule.parentearth(this.state.EightDatefemale[3], this.state.EightDatefemale[4])
-      buildeight[5] = EightrandomModule.parentearth(this.state.EightDatefemale[5], this.state.EightDatefemale[4])
-      buildeight[7] = EightrandomModule.parentearth(this.state.EightDatefemale[7], this.state.EightDatefemale[4])
+      buildeight[6] = EightrandomModule.parentday(parameter.EightDatefemale[6], parameter.EightDatefemale[4])
+      buildeight[1] = EightrandomModule.parentearth(parameter.EightDatefemale[1], parameter.EightDatefemale[4])
+      buildeight[3] = EightrandomModule.parentearth(parameter.EightDatefemale[3], parameter.EightDatefemale[4])
+      buildeight[5] = EightrandomModule.parentearth(parameter.EightDatefemale[5], parameter.EightDatefemale[4])
+      buildeight[7] = EightrandomModule.parentearth(parameter.EightDatefemale[7], parameter.EightDatefemale[4])
       var buildeightExt = new Array()
-      buildeightExt[0] = EightrandomModule.gethide(this.state.EightDatefemale[1]);
-      buildeightExt[2] = EightrandomModule.gethide(this.state.EightDatefemale[3]);
-      buildeightExt[4] = EightrandomModule.gethide(this.state.EightDatefemale[5]);
-      buildeightExt[6] = EightrandomModule.gethide(this.state.EightDatefemale[7]);
-      buildeightExt[1] = EightrandomModule.gethideshishen(buildeightExt[0], this.state.EightDatefemale[4]);
-      buildeightExt[3] = EightrandomModule.gethideshishen(buildeightExt[2], this.state.EightDatefemale[4]);
-      buildeightExt[5] = EightrandomModule.gethideshishen(buildeightExt[4], this.state.EightDatefemale[4]);
-      buildeightExt[7] = EightrandomModule.gethideshishen(buildeightExt[6], this.state.EightDatefemale[4]);
+      buildeightExt[0] = EightrandomModule.gethide(parameter.EightDatefemale[1]);
+      buildeightExt[2] = EightrandomModule.gethide(parameter.EightDatefemale[3]);
+      buildeightExt[4] = EightrandomModule.gethide(parameter.EightDatefemale[5]);
+      buildeightExt[6] = EightrandomModule.gethide(parameter.EightDatefemale[7]);
+      buildeightExt[1] = EightrandomModule.gethideshishen(buildeightExt[0], parameter.EightDatefemale[4]);
+      buildeightExt[3] = EightrandomModule.gethideshishen(buildeightExt[2], parameter.EightDatefemale[4]);
+      buildeightExt[5] = EightrandomModule.gethideshishen(buildeightExt[4], parameter.EightDatefemale[4]);
+      buildeightExt[7] = EightrandomModule.gethideshishen(buildeightExt[6], parameter.EightDatefemale[4]);
       var precent = new Array();
       var daykey = new Array();
-      var o = EightrandomModule.getfive(this.state.EightDatefemale)
+      var o = EightrandomModule.getfive(parameter.EightDatefemale)
       precent = o.q
       daykey = o.p
 
 
 
       var luckyyear = new Array();
-      luckyyear = EightrandomModule.getbigluckyear(this.state.EightDatefemale, "坤造");
+      luckyyear = EightrandomModule.getbigluckyear(parameter.EightDatefemale, "坤造");
       var luckyearrelation = new Array();
       var luckyyearposition = new Array();
       for (var i in luckyyear) {
 
         var rel = luckyyear[i].slice(0, 1);
         //console.log("luckyyear",rel, luckyyear[i]);
-        rel = EightrandomModule.parentday(rel, this.state.EightDatefemale[4])
+        rel = EightrandomModule.parentday(rel, parameter.EightDatefemale[4])
         //console.log(rel);
         luckyearrelation.push(rel);
-        luckyyearposition.push(EightrandomModule.gettwelfthposition(this.state.EightDatefemale[4] + luckyyear[i].slice(1, 2)))
+        luckyyearposition.push(EightrandomModule.gettwelfthposition(parameter.EightDatefemale[4] + luckyyear[i].slice(1, 2)))
       }
 
 
@@ -413,22 +267,7 @@ class MarryMainPage extends React.Component {
     );
   }
 
-  renderminyearItem(item, itemIndex) {
 
-    var year = item.split(" ");
-    var yearcolor = IconConfig.colororange
-    if (year[1] == this.state.curminiluckyearnum) {
-      yearcolor = IconConfig.colorblue
-    }
-    //console.log("color",yearcolor,year[1],this.state.curminiluckyearnum)
-    return (
-      <View style={[styles.grid, { height: 25 }]}>
-        <Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, color: yearcolor }}>{year[0]}</Text>
-        <Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, color: yearcolor }}>{year[1]}</Text>
-      </View>
-
-    );
-  }
   changeyear(bigyear, miniyear, sex) {
     var by = 0
     var my = new Date()
@@ -468,100 +307,6 @@ class MarryMainPage extends React.Component {
     //console.log("changeyear",bigyear,miniyear,by,my,this.state.beginlucky)
   }
 
-
-  checksub(hide) {
-    if (undefined != hide) {
-      return (
-        <View style={styles.gridfix}>
-          <Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14 }}>{hide}</Text>
-        </View>
-      )
-    }
-  }
-  testselectyear(item, curluckyear) {
-    var yearcolor = IconConfig.colorred
-    if (this.state.curluckyearnum == curluckyear) {
-      yearcolor = IconConfig.colorgreen
-    }
-    //console.log("testselectyear",item,curluckyearmale,yearcolor)
-    return (
-      <Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, color: yearcolor }}>{item}</Text>
-    )
-  }
-
-  createpie() {
-    if (this.state.precent != "") {
-      var ret = this.state.pie
-      console.log("createpie", ret)
-      return (
-        <View style={[{ textAlign: 'center', alignItems: 'center' }]}>
-          <Svg width={300} height={300} >
-            <VictoryPie
-              colorScale={["green", "red", "#8B4513", "#DAA520", "#1E90FF"]}
-              data={[
-                { x: 1, y: this.state.precentmale[5] + 0, label: '木' },
-                { x: 2, y: this.state.precentmale[6] + 0, label: '火' },
-                { x: 3, y: this.state.precentmale[7] + 0, label: '土' },
-                { x: 4, y: this.state.precentmale[8] + 0, label: '金' },
-                { x: 5, y: this.state.precentmale[9] + 0, label: '水' },
-              ]}
-              standalone={false}
-              width={300} height={300}
-            />
-          </Svg>
-          <Svg height={300}>
-            <VictoryGroup offset={(70)} width={400} domain={{ x: [-3, 6] }}
-              colorScale={["green", "red", "#8B4513", "#DAA520", "#1E90FF"]}
-            >
-              <VictoryBar
-                barWidth={15}
-                data={[
-                  { x: "甲", y: Number(this.state.daykeymale['甲']) / 10 },
-                  { x: "乙", y: Number(this.state.daykeymale['乙']) / 10 },
-                ]}
-                labels={["甲:" + `${this.state.daykeymale['甲']}`, "乙:" + `${this.state.daykeymale['乙']}`]}
-              />
-              <VictoryBar
-                barWidth={15}
-                data={[
-                  { x: "丙", y: Number(this.state.daykeymale['丙']) / 10 },
-                  { x: "丁", y: Number(this.state.daykeymale['丁']) / 10 },
-                ]}
-                labels={["丙:" + `${this.state.daykeymale['丙']}`, "丁:" + `${this.state.daykeymale['丁']}`]}
-              />
-              <VictoryBar
-                barWidth={15}
-                data={[
-                  { x: "戊", y: Number(this.state.daykeymale['戊']) / 10 },
-                  { x: "己", y: Number(this.state.daykeymale['己']) / 10 },
-                ]}
-                labels={["戊:" + `${this.state.daykeymale['戊']}`, "己:" + `${this.state.daykeymale['己']}`]}
-              />
-              <VictoryBar
-                barWidth={15}
-                data={[
-                  { x: "庚", y: Number(this.state.daykeymale['庚']) / 10 },
-                  { x: "辛", y: Number(this.state.daykeymale['辛']) / 10 },
-                ]}
-                labels={["庚:" + `${this.state.daykeymale['庚']}`, "辛:" + `${this.state.daykeymale['辛']}`]}
-              />
-              <VictoryBar
-                barWidth={15}
-                data={[
-                  { x: "壬", y: Number(this.state.daykeymale['壬']) / 10 },
-                  { x: "癸", y: Number(this.state.daykeymale['癸']) / 10 },
-                ]}
-                labels={["壬:" + `${this.state.daykeymale['壬']}`, "癸:" + `${this.state.daykeymale['癸']}`]}
-              />
-            </VictoryGroup>
-          </Svg>
-        </View>
-      )
-    }
-  }
-
-
-
   render() {
 
 
@@ -570,7 +315,6 @@ class MarryMainPage extends React.Component {
     }
     //这里是大运确定
     var curluckyearmale = this.state.luckyyearmale[this.state.curluckyearnummale]
-
     var curluckyearfemale = this.state.luckyyearfemale[this.state.curluckyearnumfemale]
     //console.log("curluckyearnum",Number(this.state.curluckyearnum))
     //这里小运，如果选了小运，用小运去换算大运
@@ -594,14 +338,9 @@ class MarryMainPage extends React.Component {
     console.log("curluckyearmale", this.state.luckyyear, this.state.curluckyearnum)
     var rmale = EightrandomModule.getrelationship(this.state.EightDatemale, gzYear[1], curluckyearmale, "乾造")
     var rfemale = EightrandomModule.getrelationship(this.state.EightDatefemale, gzYear[1], curluckyearfemale, "坤造")
-    const { navigate } = this.props.navigation;
-
-    jump = false;
-
 
     var luckyyearpositionmale = this.state.luckyyearpositionmale;
     var luckyyearpositionfemale = this.state.luckyyearpositionfemale;
-    var minluckyyear = new Array()
     var luckyearrelationmale = this.state.luckyearrelationmale;
     var luckyearrelationfemale = this.state.luckyearrelationfemale;
     //拍出所有小运
@@ -611,92 +350,89 @@ class MarryMainPage extends React.Component {
     birthdayyear = SixrandomModule.lunar_f(birthdayyear)
     birthdayyear = birthdayyear.gzYear + birthdayyear.gzMonth + birthdayyear.gzDate + birthdayyear.gzTime;
     console.log("birthdayyear", birthdayyear, curyearmale, curmonthmale)
-    minluckyyear = EightrandomModule.getminlucky(birthdayyear, "乾造", curyearmale);
-
-
-    //console.log(minluckyyear)
+    //consol
 
     var testmale = new Array()
-    testmale.push({ info: "时辰", hide: '' })
-    testmale.push({ info: "大运", hide: '' })
-    testmale.push({ info: "流年", hide: '' })
-    testmale.push({ info: "年柱", hide: '' })
-    testmale.push({ info: "月柱", hide: '' })
-    testmale.push({ info: "日柱", hide: '' })
-    testmale.push({ info: "时柱", hide: '' })
+    testmale.push({ value: "时辰", hide: '' })
+    testmale.push({ value: "大运", hide: '' })
+    testmale.push({ value: "流年", hide: '' })
+    testmale.push({ value: "年柱", hide: '' })
+    testmale.push({ value: "月柱", hide: '' })
+    testmale.push({ value: "日柱", hide: '' })
+    testmale.push({ value: "时柱", hide: '' })
 
-    testmale.push({ info: "十神", hide: '' })
+    testmale.push({ value: "十神", hide: '' })
     //console.log(gzYear[0],this.state.EightDatemale[4])
-    testmale.push({ info: EightrandomModule.parentday(curluckyearmale[0], this.state.EightDatemale[4]), hide: '' })
-    testmale.push({ info: EightrandomModule.parentday(gzYear[0], this.state.EightDatemale[4]), hide: '' })
+    testmale.push({ value: EightrandomModule.parentday(curluckyearmale[0], this.state.EightDatemale[4]), hide: '' })
+    testmale.push({ value: EightrandomModule.parentday(gzYear[0], this.state.EightDatemale[4]), hide: '' })
     for (var i = 0; i < 4; i++) {
-      testmale.push({ info: this.state.buildeightmale[i * 2], hide: '' })
+      testmale.push({ value: this.state.buildeightmale[i * 2], hide: '' })
     }
 
-    testmale.push({ info: "天干", hide: '' })
-    testmale.push({ info: curluckyearmale[0], hide: '' })
-    testmale.push({ info: gzYear[0], hide: '' })
+    testmale.push({ value: "天干", hide: '' })
+    testmale.push({ value: curluckyearmale[0], hide: '' })
+    testmale.push({ value: gzYear[0], hide: '' })
     for (var i = 0; i < 4; i++) {
-      testmale.push({ info: this.state.EightDatemale[i * 2], hide: '' })
+      testmale.push({ value: this.state.EightDatemale[i * 2], hide: '' })
     }
 
-    testmale.push({ info: "地支", hide: '' })
-    testmale.push({ info: curluckyearmale[1], hide: "" })
-    testmale.push({ info: gzYear[1], hide: "" })
+    testmale.push({ value: "地支", hide: '' })
+    testmale.push({ value: curluckyearmale[1], hide: "" })
+    testmale.push({ value: gzYear[1], hide: "" })
     for (var i = 0; i < 4; i++) {
-      testmale.push({ info: this.state.EightDatemale[i * 2 + 1], hide: "" })
+      testmale.push({ value: this.state.EightDatemale[i * 2 + 1], hide: "" })
     }
 
-    testmale.push({ info: "十神", hide: '' })
-    testmale.push({ info: EightrandomModule.parentearth(curluckyearmale[1], this.state.EightDatemale[4]), hide: "" })
-    testmale.push({ info: EightrandomModule.parentearth(gzYear[1], this.state.EightDatemale[4]), hide: "" })
+    testmale.push({ value: "十神", hide: '' })
+    testmale.push({ value: EightrandomModule.parentearth(curluckyearmale[1], this.state.EightDatemale[4]), hide: "" })
+    testmale.push({ value: EightrandomModule.parentearth(gzYear[1], this.state.EightDatemale[4]), hide: "" })
 
     for (var i = 0; i < 4; i++) {
-      testmale.push({ info: this.state.buildeightmale[i * 2 + 1], hide: "" })
+      testmale.push({ value: this.state.buildeightmale[i * 2 + 1], hide: "" })
     }
 
     var testfemale = new Array()
-    testfemale.push({ info: "时辰", hide: '' })
-    testfemale.push({ info: "大运", hide: '' })
-    testfemale.push({ info: "流年", hide: '' })
-    testfemale.push({ info: "年柱", hide: '' })
-    testfemale.push({ info: "月柱", hide: '' })
-    testfemale.push({ info: "日柱", hide: '' })
-    testfemale.push({ info: "时柱", hide: '' })
+    testfemale.push({ value: "时辰", hide: '' })
+    testfemale.push({ value: "大运", hide: '' })
+    testfemale.push({ value: "流年", hide: '' })
+    testfemale.push({ value: "年柱", hide: '' })
+    testfemale.push({ value: "月柱", hide: '' })
+    testfemale.push({ value: "日柱", hide: '' })
+    testfemale.push({ value: "时柱", hide: '' })
 
-    testfemale.push({ info: "十神", hide: '' })
+    testfemale.push({ value: "十神", hide: '' })
     //console.log(gzYear[0],this.state.EightDatemale[4])
-    testfemale.push({ info: EightrandomModule.parentday(curluckyearfemale[0], this.state.EightDatefemale[4]), hide: '' })
-    testfemale.push({ info: EightrandomModule.parentday(gzYear[0], this.state.EightDatefemale[4]), hide: '' })
+    testfemale.push({ value: EightrandomModule.parentday(curluckyearfemale[0], this.state.EightDatefemale[4]), hide: '' })
+    testfemale.push({ value: EightrandomModule.parentday(gzYear[0], this.state.EightDatefemale[4]), hide: '' })
     for (var i = 0; i < 4; i++) {
-      testfemale.push({ info: this.state.buildeightfemale[i * 2], hide: '' })
+      testfemale.push({ value: this.state.buildeightfemale[i * 2], hide: '' })
     }
 
-    testfemale.push({ info: "天干", hide: '' })
-    testfemale.push({ info: curluckyearfemale[0], hide: '' })
-    testfemale.push({ info: gzYear[0], hide: '' })
+    testfemale.push({ value: "天干", hide: '' })
+    testfemale.push({ value: curluckyearfemale[0], hide: '' })
+    testfemale.push({ value: gzYear[0], hide: '' })
     for (var i = 0; i < 4; i++) {
-      testfemale.push({ info: this.state.EightDatefemale[i * 2], hide: '' })
+      testfemale.push({ value: this.state.EightDatefemale[i * 2], hide: '' })
     }
 
-    testfemale.push({ info: "地支", hide: '' })
-    testfemale.push({ info: curluckyearfemale[1], hide: "" })
-    testfemale.push({ info: gzYear[1], hide: "" })
+    testfemale.push({ value: "地支", hide: '' })
+    testfemale.push({ value: curluckyearfemale[1], hide: "" })
+    testfemale.push({ value: gzYear[1], hide: "" })
     for (var i = 0; i < 4; i++) {
-      testfemale.push({ info: this.state.EightDatefemale[i * 2 + 1], hide: "" })
+      testfemale.push({ value: this.state.EightDatefemale[i * 2 + 1], hide: "" })
     }
 
-    testfemale.push({ info: "十神", hide: '' })
-    testfemale.push({ info: EightrandomModule.parentearth(curluckyearfemale[1], this.state.EightDatefemale[4]), hide: "" })
-    testfemale.push({ info: EightrandomModule.parentearth(gzYear[1], this.state.EightDatefemale[4]), hide: "" })
+    testfemale.push({ value: "十神", hide: '' })
+    testfemale.push({ value: EightrandomModule.parentearth(curluckyearfemale[1], this.state.EightDatefemale[4]), hide: "" })
+    testfemale.push({ value: EightrandomModule.parentearth(gzYear[1], this.state.EightDatefemale[4]), hide: "" })
 
     for (var i = 0; i < 4; i++) {
-      testfemale.push({ info: this.state.buildeightfemale[i * 2 + 1], hide: "" })
+      testfemale.push({ value: this.state.buildeightfemale[i * 2 + 1], hide: "" })
     }
-
+  /*
     var test1male = new Array()
 
-    test1male.push({ info: ["", "藏干"], hide: '' })
+    test1male.push({ value: ["", "藏干"], hide: '' })
     var hidelist = EightrandomModule.gethide(curluckyearmale[1])
     hidelist = hidelist.split("")
     var hindinfo = new Array()
@@ -704,7 +440,7 @@ class MarryMainPage extends React.Component {
 
       hindinfo.push(element + EightrandomModule.parentday(element, this.state.EightDatemale[4]))
     });
-    test1male.push({ info: hindinfo, hide: "" })
+    test1male.push({ value: hindinfo, hide: "" })
 
     hidelist = EightrandomModule.gethide(gzYear[1])
     hidelist = hidelist.split("")
@@ -712,7 +448,7 @@ class MarryMainPage extends React.Component {
     hidelist.forEach(element => {
       hindinfo.push(element + EightrandomModule.parentday(element, this.state.EightDatemale[4]))
     });
-    test1male.push({ info: hindinfo, hide: "" })
+    test1male.push({ value: hindinfo, hide: "" })
     for (var i = 0; i < 4; i++) {
       hidelist = this.state.buildeightExtmale[i * 2]
       hidelist = hidelist.split("")
@@ -720,12 +456,12 @@ class MarryMainPage extends React.Component {
       hidelist.forEach(element => {
         hindinfo.push(element + EightrandomModule.parentday(element, this.state.EightDatemale[4]))
       });
-      test1male.push({ info: hindinfo, hide: "" })
+      test1male.push({ value: hindinfo, hide: "" })
     }
 
     var test1female = new Array()
 
-    test1female.push({ info: ["", "藏干"], hide: '' })
+    test1female.push({ value: ["", "藏干"], hide: '' })
     var hidelist = EightrandomModule.gethide(curluckyearfemale[1])
     hidelist = hidelist.split("")
     var hindinfo = new Array()
@@ -733,7 +469,7 @@ class MarryMainPage extends React.Component {
 
       hindinfo.push(element + EightrandomModule.parentday(element, this.state.EightDatefemale[4]))
     });
-    test1female.push({ info: hindinfo, hide: "" })
+    test1female.push({ value: hindinfo, hide: "" })
 
     hidelist = EightrandomModule.gethide(gzYear[1])
     hidelist = hidelist.split("")
@@ -741,7 +477,7 @@ class MarryMainPage extends React.Component {
     hidelist.forEach(element => {
       hindinfo.push(element + EightrandomModule.parentday(element, this.state.EightDatefemale[4]))
     });
-    test1female.push({ info: hindinfo, hide: "" })
+    test1female.push({ value: hindinfo, hide: "" })
     for (var i = 0; i < 4; i++) {
       hidelist = this.state.buildeightExtfemale[i * 2]
       hidelist = hidelist.split("")
@@ -749,52 +485,53 @@ class MarryMainPage extends React.Component {
       hidelist.forEach(element => {
         hindinfo.push(element + EightrandomModule.parentday(element, this.state.EightDatefemale[4]))
       });
-      test1female.push({ info: hindinfo, hide: "" })
+      test1female.push({ value: hindinfo, hide: "" })
     }
+    */
     /*
-        testmale.push({ info: "副星", hide: '' })
-        testmale.push({ info: EightrandomModule.gethide(curluckyearmale[1]) + EightrandomModule.parentearth(curluckyearmale[1], this.state.EightDatemale[4]), hide: "" })
-        testmale.push({ info: EightrandomModule.gethide(gzYear[1]) + EightrandomModule.parentearth(gzYear[1], this.state.EightDatemale[4]), hide: "" })
+        testmale.push({ value: "副星", hide: '' })
+        testmale.push({ value: EightrandomModule.gethide(curluckyearmale[1]) + EightrandomModule.parentearth(curluckyearmale[1], this.state.EightDatemale[4]), hide: "" })
+        testmale.push({ value: EightrandomModule.gethide(gzYear[1]) + EightrandomModule.parentearth(gzYear[1], this.state.EightDatemale[4]), hide: "" })
     
         for (var i = 0; i < 4; i++) {
-          testmale.push({ info: this.state.buildeightExt[i * 2] + this.state.buildeight[i * 2 + 1], hide: this.state.buildeightExt[i * 2 + 1] })
+          testmale.push({ value: this.state.buildeightExt[i * 2] + this.state.buildeight[i * 2 + 1], hide: this.state.buildeightExt[i * 2 + 1] })
         }
     */
 
     var test2male = new Array()
 
-    test2male.push({ info: "长生", hide: '' })
-    test2male.push({ info: EightrandomModule.gettwelfthposition(this.state.EightDatemale[4] + curluckyearmale[1]), hide: '' })
-    test2male.push({ info: EightrandomModule.gettwelfthposition(this.state.EightDatemale[4] + gzYear[1]), hide: '' })
+    test2male.push({ value: "长生", hide: '' })
+    test2male.push({ value: EightrandomModule.gettwelfthposition(this.state.EightDatemale[4] + curluckyearmale[1]), hide: '' })
+    test2male.push({ value: EightrandomModule.gettwelfthposition(this.state.EightDatemale[4] + gzYear[1]), hide: '' })
     for (var i = 0; i < 4; i++) {
       var x = EightrandomModule.gettwelfthposition(this.state.EightDatemale[4] + this.state.EightDatemale[i * 2 + 1])
-      test2male.push({ info: x, hide: "" })
+      test2male.push({ value: x, hide: "" })
     }
 
-    test2male.push({ info: "纳音", hide: '' })
-    test2male.push({ info: EightrandomModule.gettwelfth(curluckyearmale[0] + curluckyearmale[1]), hide: '' })
-    test2male.push({ info: EightrandomModule.gettwelfth(gzYear[0] + gzYear[1]), hide: '' })
+    test2male.push({ value: "纳音", hide: '' })
+    test2male.push({ value: EightrandomModule.gettwelfth(curluckyearmale[0] + curluckyearmale[1]), hide: '' })
+    test2male.push({ value: EightrandomModule.gettwelfth(gzYear[0] + gzYear[1]), hide: '' })
     for (var i = 0; i < 4; i++) {
       var x = EightrandomModule.gettwelfth(this.state.EightDatemale[i * 2] + this.state.EightDatemale[i * 2 + 1])
-      test2male.push({ info: x, hide: "" })
+      test2male.push({ value: x, hide: "" })
     }
 
     var test2female = new Array()
 
-    test2female.push({ info: "长生", hide: '' })
-    test2female.push({ info: EightrandomModule.gettwelfthposition(this.state.EightDatefemale[4] + curluckyearfemale[1]), hide: '' })
-    test2female.push({ info: EightrandomModule.gettwelfthposition(this.state.EightDatefemale[4] + gzYear[1]), hide: '' })
+    test2female.push({ value: "长生", hide: '' })
+    test2female.push({ value: EightrandomModule.gettwelfthposition(this.state.EightDatefemale[4] + curluckyearfemale[1]), hide: '' })
+    test2female.push({ value: EightrandomModule.gettwelfthposition(this.state.EightDatefemale[4] + gzYear[1]), hide: '' })
     for (var i = 0; i < 4; i++) {
       var x = EightrandomModule.gettwelfthposition(this.state.EightDatefemale[4] + this.state.EightDatefemale[i * 2 + 1])
-      test2female.push({ info: x, hide: "" })
+      test2female.push({ value: x, hide: "" })
     }
 
-    test2female.push({ info: "纳音", hide: '' })
-    test2female.push({ info: EightrandomModule.gettwelfth(curluckyearfemale[0] + curluckyearfemale[1]), hide: '' })
-    test2female.push({ info: EightrandomModule.gettwelfth(gzYear[0] + gzYear[1]), hide: '' })
+    test2female.push({ value: "纳音", hide: '' })
+    test2female.push({ value: EightrandomModule.gettwelfth(curluckyearfemale[0] + curluckyearfemale[1]), hide: '' })
+    test2female.push({ value: EightrandomModule.gettwelfth(gzYear[0] + gzYear[1]), hide: '' })
     for (var i = 0; i < 4; i++) {
       var x = EightrandomModule.gettwelfth(this.state.EightDatefemale[i * 2] + this.state.EightDatefemale[i * 2 + 1])
-      test2female.push({ info: x, hide: "" })
+      test2female.push({ value: x, hide: "" })
     }
 
     var yearsnumbermale = new Array()
@@ -803,7 +540,12 @@ class MarryMainPage extends React.Component {
     }
     var yearsmale = new Array()
     yearsmale = luckyearrelationmale.concat(yearsnumbermale, this.state.luckyyearmale, luckyyearpositionmale)
-
+    yearsnumbermale = new Array()
+    //console.log("years", years, luckyearrelation, this.state.luckyyear, luckyyearposition)
+    for (var i = 0; i < yearsmale.length; i++) {
+      //var x = EightrandomModule.gettwelfth(this.state.EightDate[i * 2] + this.state.EightDate[i * 2 + 1])
+      yearsnumbermale.push({ value: yearsmale[i] })
+    }
 
 
     var yearsnumberfemale = new Array()
@@ -812,14 +554,21 @@ class MarryMainPage extends React.Component {
     }
     var yearsfemale = new Array()
     yearsfemale = luckyearrelationfemale.concat(yearsnumberfemale, this.state.luckyyearfemale, luckyyearpositionfemale)
+    yearsnumberfemale = new Array()
     //console.log("years", years, luckyearrelation, this.state.luckyyear, luckyyearposition)
+    for (var i = 0; i < yearsfemale.length; i++) {
+      //var x = EightrandomModule.gettwelfth(this.state.EightDate[i * 2] + this.state.EightDate[i * 2 + 1])
+      yearsnumberfemale.push({ value: yearsfemale[i] })
+    }
 
+    /*
     var fivemale = new Array();
     fivemale.push(<Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, color: 'green' }}>木</Text>)
     fivemale.push(<Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, color: 'red' }}>火</Text>)
     fivemale.push(<Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, color: '#8B4513' }}>土</Text>)
     fivemale.push(<Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, color: '#DAA520' }}>金</Text>)
     fivemale.push(<Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, color: '#1E90FF' }}>水</Text>)
+    */
     /*
     fivemale.push(<Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, color: 'green' }}>甲:{this.state.daykeymale['甲']}</Text>)
     fivemale.push(<Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, color: 'red' }}>丙:{this.state.daykeymale['丙']}</Text>)
@@ -832,6 +581,7 @@ class MarryMainPage extends React.Component {
     fivemale.push(<Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, color: '#DAA520' }}>辛:{this.state.daykeymale['辛']}</Text>)
     fivemale.push(<Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, color: '#1E90FF' }}>癸:{this.state.daykeymale['癸']}</Text>)
     */
+   /*
     fivemale.push(<Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, color: 'green' }}>{this.state.precentmale[5]}%</Text>)
     fivemale.push(<Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, color: 'red' }}>{this.state.precentmale[6]}%</Text>)
     fivemale.push(<Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, color: '#8B4513' }}>{this.state.precentmale[7]}%</Text>)
@@ -864,6 +614,7 @@ class MarryMainPage extends React.Component {
     fivefemale.push(<Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, color: '#DAA520' }}>辛:{this.state.daykeymale['辛']}</Text>)
     fivefemale.push(<Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, color: '#1E90FF' }}>癸:{this.state.daykeymale['癸']}</Text>)
     */
+   /*
     fivefemale.push(<Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, color: 'green' }}>{this.state.precentfemale[5]}%</Text>)
     fivefemale.push(<Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, color: 'red' }}>{this.state.precentfemale[6]}%</Text>)
     fivefemale.push(<Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, color: '#8B4513' }}>{this.state.precentfemale[7]}%</Text>)
@@ -877,6 +628,7 @@ class MarryMainPage extends React.Component {
     fivefemale.push(<Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, color: '#DAA520' }}>{fivepowerfemale[3]}</Text>)
     fivefemale.push(<Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, color: '#1E90FF' }}>{fivepowerfemale[4]}</Text>)
     //console.log("five",five)
+    */
 
 
     var daymale = EightrandomModule.getselfinfo(this.state.EightDatemale[4] + this.state.EightDatemale[5])
@@ -1239,7 +991,7 @@ class MarryMainPage extends React.Component {
 
     ret_male = EightrandomModule.gettwelfth(this.state.EightDatemale[0] + this.state.EightDatemale[1])
     ret_female = EightrandomModule.gettwelfth(this.state.EightDatefemale[0] + this.state.EightDatefemale[1])
-    base.push(["纳  音:", ret_male, ret_female])
+    base.push([{value:"纳  音:"}, {value:ret_male}, {value:ret_female}])
 
     //纳音以相生为主
     female = IconConfig.IconMarryCheckfault
@@ -1397,421 +1149,20 @@ class MarryMainPage extends React.Component {
     base.push(["以元神支为两人关系重点各占20分"])
     base.push(["音年月象为双方主要的人际关系各项10分"])
     base.push(["合婚主要判断双方沟通成本和人际关系复杂程度"])
-    Animated.sequence([Animated.timing(this.state.fadeInOpacity, { toValue: 1, duration: 1000, useNativeDriver: true }), Animated.delay(1000), Animated.timing(this.state.fadeInOpacity, { toValue: 0.3, duration: 1000, useNativeDriver: true })]).start()
+
     return (
-      <View style={styles.container} >
-        <ScrollView ref="location" style={{ backgroundColor: '#ffffff' }}>
-          <View style={styles.container} >
-            <WingBlank size="lg" style={{ backgroundColor: '#ffffff' }}>
-              <Accordion onChange={this.onChange} activeSections={this.state.activeSections} styles={{ backgroundColor: '#ffffff' }}>
-                <Accordion.Panel header={"合婚排盘"} styles={{ backgroundColor: '#ffffff' }}>
-                  <View>
-                    <Grid
-                      data={base}
-                      columnNum={1}
-                      hasLine={true}
-                      itemStyle={{ height: 25, backgroundColor: '#ffffff' }}
-                      renderItem={(dataItem, index) => {
-                        if (dataItem.length >= 2) {
-                          return (
-                            <View style={[styles.container, { flexDirection: 'row', alignItems: "flex-end" }]}>
-                              <Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, width: 60, textAlign: "left" }}>{dataItem[0]}</Text>
-                              <Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, width: 150, textAlign: "center" }}>{dataItem[1]}</Text>
-                              <Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, width: 150, textAlign: "center" }}>{dataItem[2]}</Text>
-                            </View>)
-                        }
-                        else {
-                          return (
-                            <View style={[styles.container, { flexDirection: 'row', alignItems: "flex-end" }]}>
-                              <Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, width: 360, textAlign: "left" }}>{""+dataItem[0]}</Text>
-                            </View>)
-                        }
-                      }} />
-                    <WhiteSpace size="xl" styles={{ backgroundColor: '#ffffff' }} />
-                  </View>
-                </Accordion.Panel >
-                <Accordion.Panel header={"男命排盘"} styles={{ backgroundColor: '#ffffff' }}>
-                  <View>
-                    <Grid
-                      data={testmale}
-                      columnNum={7}
-                      hasLine={false}
-                      itemStyle={{ height: 25, backgroundColor: '#ffffff' }}
-                      renderItem={dataItem => {
-                        if (undefined != dataItem.info && dataItem.info.length === 3) {
-                          const a = dataItem.info.forEach(element => {
-                            <View>
-                              <Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14 }}>  {element}</Text>
-                            </View>
-                          })
-                          return (
-                            <View style={{ height: 90 }}>
-                              {a}
-                            </View>
-                          )
-                        } else {
-                          return (
-                            <View style={styles.container}>
-                              <View style={styles.grid}>
-                                <Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14 }}>  {this.getColor(dataItem.info, FontStyleConfig.getFontApplySize() + 14 + 4)}</Text>
-                              </View>
-                            </View>
-                          )
-                        }
-                      }} />
-                    <Grid
-                      data={test1male}
-                      columnNum={7}
-                      hasLine={false}
-                      itemStyle={{ alignItems: "center", textAlignVertical: "center", flex: 1, justifyContent: "flex-start", marginTop: 5, backgroundColor: '#ffffff' }}
-                      renderItem={dataItem => (
-                        dataItem.info.map((item, idx) => {
-                          if (3 === item.length) {
-                            return (
-                              <View key={idx} style={{ flexDirection: "row", textAlignVertical: "center", alignItems: "center", backgroundColor: '#ffffff' }}>
-                                {this.getColor(item[0], FontStyleConfig.getFontApplySize() + 14)}
-                                <Text style={{ justifyContent: 'space-around', fontSize: FontStyleConfig.getFontApplySize() + 14, backgroundColor: '#ffffff' }}>  {item[1] + item[2]}</Text>
-                              </View>)
-                          }
-                          return (
-                            <View key={idx} >
-                              <Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, textAlign: "center", textAlignVertical: "center", backgroundColor: '#ffffff' }}>  {item}</Text>
-                            </View>)
-                        })
-                      )} />
-                    <Grid
-                      data={test2male}
-                      columnNum={7}
-                      hasLine={false}
-                      itemStyle={{ height: 25 }}
-                      renderItem={dataItem => (
-
-                        <View style={styles.container}>
-                          <View style={styles.grid}>
-                            <Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, textAlign: "center" }}>  {dataItem.info}</Text>
-                          </View>
-                        </View>
-                      )} /><WhiteSpace size="xl" styles={{ backgroundColor: '#ffffff' }} />
-                    <Grid
-                      data={shensha}
-                      columnNum={1}
-                      hasLine={false}
-                      itemStyle={{ height: 25, alignItems: "flex-start" }}
-                      renderItem={dataItem => (
-                        <View style={styles.container}>
-                          <View style={styles.grid}>
-                            <Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14 }}>  {dataItem}</Text>
-                          </View>
-                        </View>
-                      )} />
-                    <Grid
-                      data={yearsmale}
-                      columnNum={8}
-                      hasLine={false}
-                      itemStyle={{ height: 25 }}
-                      //当选择大运的时候，相当于选择了流年小运
-                      //onPress={(_el: any, index: any) => this.changeyearmale(Number(index % 8), "")}
-                      renderItem={(dataItem, itemIndex) => (
-                        <View style={styles.container}>
-                          <View style={styles.grid}>
-                            {this.testselectyear(dataItem, itemIndex % 8)}
-                          </View>
-                        </View>
-                      )}
-                    />
-                  </View>
-                </Accordion.Panel >
-                <Accordion.Panel header={"女命排盘"} styles={{ backgroundColor: '#ffffff' }}>
-                  <View>
-
-                    <Grid
-                      data={testfemale}
-                      columnNum={7}
-                      hasLine={false}
-                      itemStyle={{ height: 25, backgroundColor: '#ffffff' }}
-                      renderItem={dataItem => {
-                        if (undefined != dataItem.info && dataItem.info.length === 3) {
-                          const a = dataItem.info.forEach(element => {
-                            <View>
-                              <Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14 }}>  {element}</Text>
-                            </View>
-                          })
-                          return (
-                            <View style={{ height: 90 }}>
-                              {a}
-                            </View>
-                          )
-                        } else {
-                          return (
-                            <View style={styles.container}>
-                              <View style={styles.grid}>
-                                <Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14 }}>  {this.getColor(dataItem.info, FontStyleConfig.getFontApplySize() + 14 + 4)}</Text>
-                              </View>
-                            </View>
-                          )
-                        }
-                      }} />
-                    <Grid
-                      data={test1female}
-                      columnNum={7}
-                      hasLine={false}
-                      itemStyle={{ alignItems: "center", textAlignVertical: "center", flex: 1, justifyContent: "flex-start", marginTop: 5, backgroundColor: '#ffffff' }}
-                      renderItem={dataItem => (
-                        dataItem.info.map((item, idx) => {
-                          if (3 === item.length) {
-                            return (
-                              <View key={idx} style={{ flexDirection: "row", textAlignVertical: "center", alignItems: "center", backgroundColor: '#ffffff' }}>
-                                {this.getColor(item[0], FontStyleConfig.getFontApplySize() + 14)}
-                                <Text style={{ justifyContent: 'space-around', fontSize: FontStyleConfig.getFontApplySize() + 14, backgroundColor: '#ffffff' }}>  {item[1] + item[2]}</Text>
-                              </View>)
-                          }
-                          return (
-                            <View key={idx} >
-                              <Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, textAlign: "center", textAlignVertical: "center", backgroundColor: '#ffffff' }}>  {item}</Text>
-                            </View>)
-                        })
-                      )} />
-                    <Grid
-                      data={test2female}
-                      columnNum={7}
-                      hasLine={false}
-                      itemStyle={{ height: 25 }}
-                      renderItem={dataItem => (
-
-                        <View style={styles.container}>
-                          <View style={styles.grid}>
-                            <Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, textAlign: "center" }}>  {dataItem.info}</Text>
-                          </View>
-                        </View>
-                      )} /><WhiteSpace size="xl" styles={{ backgroundColor: '#ffffff' }} />
-                    <Grid
-                      data={shensha}
-                      columnNum={1}
-                      hasLine={false}
-                      itemStyle={{ height: 25, alignItems: "flex-start" }}
-                      renderItem={dataItem => (
-                        <View style={styles.container}>
-                          <View style={styles.grid}>
-                            <Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14 }}>  {dataItem}</Text>
-                          </View>
-                        </View>
-                      )} />
-                    <Grid
-                      data={yearsfemale}
-                      columnNum={8}
-                      hasLine={false}
-                      itemStyle={{ height: 25 }}
-                      //当选择大运的时候，相当于选择了流年小运
-                      //onPress={(_el: any, index: any) => this.changeyearmale(Number(index % 8), "")}
-                      renderItem={(dataItem, itemIndex) => (
-                        <View style={styles.container}>
-                          <View style={styles.grid}>
-                            {this.testselectyear(dataItem, itemIndex % 8)}
-                          </View>
-                        </View>
-                      )}
-                    />
-                  </View>
-                </Accordion.Panel >
-                <Accordion.Panel header="乾造衰旺" styles={{ backgroundColor: '#ffffff' }}>
-                  <Grid
-                    data={fivemale}
-                    columnNum={5}
-                    hasLine={false}
-                    itemStyle={{ height: 25, backgroundColor: '#ffffff' }}
-                    renderItem={dataItem => (
-                      <View style={styles.container}>
-                        <View style={[styles.grid, { fontSize: FontStyleConfig.getFontApplySize() + 12 }]}>
-                          {dataItem}
-                        </View>
-                      </View>
-                    )}
-                  />
-
-                </Accordion.Panel >
-                <Accordion.Panel header="坤造衰旺" styles={{ backgroundColor: '#ffffff' }}>
-                  <Grid
-                    data={fivefemale}
-                    columnNum={5}
-                    hasLine={false}
-                    itemStyle={{ height: 25, backgroundColor: '#ffffff' }}
-                    renderItem={dataItem => (
-                      <View style={styles.container}>
-                        <View style={[styles.grid, { fontSize: FontStyleConfig.getFontApplySize() + 12 }]}>
-                          {dataItem}
-                        </View>
-                      </View>
-                    )}
-                  />
-
-                </Accordion.Panel >
-
-                <Accordion.Panel header="元男信息" styles={{ backgroundColor: '#ffffff' }}>
-                  <List>
-                    <Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, lineHeight: 25, textAlign: 'justify' }}>{homemale[0]}</Text>
-                    <Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, lineHeight: 25, textAlign: 'justify' }}>{homemale[1]}</Text>
-                    <Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, lineHeight: 25, textAlign: 'justify' }}>{homemale[2]}</Text>
-                  </List>
-                </Accordion.Panel >
-                <Accordion.Panel header="元女信息" styles={{ backgroundColor: '#ffffff' }}>
-                  <List>
-                    <Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, lineHeight: 25, textAlign: 'justify' }}>{homefemale[0]}</Text>
-                    <Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, lineHeight: 25, textAlign: 'justify' }}>{homefemale[1]}</Text>
-                    <Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, lineHeight: 25, textAlign: 'justify' }}>{homefemale[2]}</Text>
-                  </List>
-                </Accordion.Panel >
-                <Accordion.Panel header="男命婚姻" styles={{ backgroundColor: '#ffffff' }}>
-                  <List>
-                    <Animated.View style={{ opacity: this.state.fadeInOpacity }}>
-                      <View>
-                        {marryinfomale.map(item => {
-                          return (
-                            <Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, lineHeight: 25 }}>{item}{EightrandomModule.tipfire(item)}</Text>)
-                        })}
-                      </View>
-                    </Animated.View>
-                  </List>
-                </Accordion.Panel >
-                <Accordion.Panel header="女命婚姻" styles={{ backgroundColor: '#ffffff' }}>
-                  <List>
-                    <Animated.View style={{ opacity: this.state.fadeInOpacity }}>
-                      <View>
-                        {marryinfofemale.map(item => {
-                          return (
-                            <Text style={{ fontSize: FontStyleConfig.getFontApplySize() + 14, lineHeight: 25 }}>{item}{EightrandomModule.tipfire(item)}</Text>)
-                        })}
-                      </View>
-                    </Animated.View>
-                  </List>
-                </Accordion.Panel >
-
-              </Accordion>
-            </WingBlank>
-            <WhiteSpace size="xl" styles={{ backgroundColor: '#ffffff' }} />
-            {
-              (WechatShare.shareimg(this.state.shareimg))
-            }
-
-            <WhiteSpace size="xl" styles={{ backgroundColor: '#ffffff' }} />
-            <WhiteSpace size="xl" styles={{ backgroundColor: '#ffffff' }} />
-            <WhiteSpace size="xl" styles={{ backgroundColor: '#ffffff' }} />
-            <WhiteSpace size="xl" styles={{ backgroundColor: '#ffffff' }} />
-            <WhiteSpace size="xl" styles={{ backgroundColor: '#ffffff' }} />
-
+      <View  >
+        <ScrollView >
+          <View >
+          <AtGrid className='basegrid'
+              data={base}
+              columnNum={3}
+               hasBorder ={false}
+              mode='rect'
+            />
           </View>
         </ScrollView>
-        {WechatShare.shareRetBar(WechatShare, this, "八字格局")}
       </View>
-
     )
   }
-
-
 };
-
-
-
-
-
-
-
-var styles = StyleSheet.create({
-  grid: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlignVertical: "center",
-    height: 50,
-    backgroundColor: '#ffffff'
-    //alignItems: 'center',
-  },
-  gridfix:
-  {
-    //flex:1,
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-    textAlignVertical: "bottom",
-    backgroundColor: '#ffffff'
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#ffffff'
-  },
-  rowhigth: {
-    lineHeight: 25,
-  },
-  list: {
-    height: 30,
-    marginLeft: 1,
-    paddingLeft: 1,
-    borderRadius: 4,
-    justifyContent: 'center', //虽然样式中设置了 justifyContent: 'center'，但无效
-    flexWrap: 'wrap',
-    alignItems: 'flex-start',
-    flexDirection: 'row',
-    backgroundColor: '#ffffff'
-  },
-  textbutton: {
-    flex: 1,
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-    alignItems: 'stretch',
-    flexDirection: 'row', backgroundColor: '#ffffff'
-  },
-  button: {
-    height: 50,
-    backgroundColor: 'transparent',
-    justifyContent: 'center',
-    borderRadius: 4,
-    backgroundColor: '#ffffff'
-  },
-  tabBarStyle: {
-    flex: 1,
-    height: 40,
-    flex: 1
-  },
-  Eightstylewithfont: {
-    justifyContent: 'space-around', //虽然样式中设置了 justifyContent: 'center'，但无效
-    fontSize: FontStyleConfig.getFontApplySize() + 18,
-    backgroundColor: '#ffffff'
-  },
-  EightstyleSectionline: {
-    justifyContent: 'space-around', //虽然样式中设置了 justifyContent: 'center'，但无效
-    flexDirection: 'row',
-    marginLeft: 5,
-    marginRight: 5,
-    marginTop: 30,
-    backgroundColor: '#ffffff'
-  },
-  EightstyleCoreline: {
-    justifyContent: 'space-around', //虽然样式中设置了 justifyContent: 'center'，但无效
-    flexDirection: 'row',
-    marginLeft: 5,
-    marginRight: 5,
-    backgroundColor: '#ffffff'
-  },
-  Eightstylebetweenline: {
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    //flexwrap:'nowrap',
-    paddingLeft: 5
-  },
-  flatText: {
-    justifyContent: 'space-around', //虽然样式中设置了 justifyContent: 'center'，但无效
-    flexDirection: 'row',
-    alignItems: 'stretch',
-    marginLeft: 5,
-    marginRight: 5,
-    backgroundColor: '#ffffff'
-  },
-  flatTextfone: {
-    //flex:1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlignVertical: "center",
-    //justifyContent: 'space-around', //虽然样式中设置了 justifyContent: 'center'，但无效  
-    //paddingLeft:5
-    backgroundColor: '#ffffff'
-  },
-});
-module.exports = MarryMainPage;
