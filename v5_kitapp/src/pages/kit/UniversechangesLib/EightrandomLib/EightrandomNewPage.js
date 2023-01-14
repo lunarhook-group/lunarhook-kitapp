@@ -99,8 +99,6 @@ export default class EightrandomNewPage extends Component {
       console.log("dd", dd, tt, selectdd, this.state.datepicker);
       this.setState({ datepicker: selectdd.toString() })
     }
-
-
   }
   onDateChange = e => {
     this.setState({
