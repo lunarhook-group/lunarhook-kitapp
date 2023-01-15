@@ -200,7 +200,7 @@ export default class litekitPage extends Component {
             </AtDivider>
             <AtList hasBorder={false}>
               <AtListItem
-                title='乾坤九考'
+                title='乾坤九考（壬寅测试版）'
                 note='根据《三玄》《四书》《五经》中周易相关知识按难度出题，对自学周易以及相关国学知识的自我检测，分成九个难度，目前只开放最简单的'
                 iconInfo={{
                   prefixClass: 'mdi',

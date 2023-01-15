@@ -4,8 +4,8 @@ import { StyleSheet, View, PixelRatio, Alert, Text, FlatList, ScrollView, Camera
 import { AtToast, AtGrid, AtTabBar, AtCheckbox, AtRadio, AtButton, AtDivider, AtIcon } from 'taro-ui'
 import './TrigramsTestModule.scss'
 
-const  checkright=<AtIcon  value='check' size='24' color='green'></AtIcon>
-const  checkfalse=<AtIcon  value='close' size='24' color='red'></AtIcon>
+const checkright = <AtIcon value='check' size='24' color='green'></AtIcon>
+const checkfalse = <AtIcon value='close' size='24' color='red'></AtIcon>
 var Trigrams = Array();
 Trigrams[0] = {
   "key": "0",
@@ -19,7 +19,7 @@ Trigrams[0] = {
   "ret_c": "",
   "ret_d": "",
   "sel": "",
-  "rank":"3",
+  "rank": "3",
 }
 Trigrams[1] = {
   "key": "1",
@@ -33,7 +33,7 @@ Trigrams[1] = {
   "ret_c": "",
   "ret_d": "",
   "sel": "",
-  "rank":"3",
+  "rank": "3",
 }
 Trigrams[2] = {
   "key": "2",
@@ -47,7 +47,7 @@ Trigrams[2] = {
   "ret_c": "c",
   "ret_d": "d",
   "sel": "",
-  "rank":"1",
+  "rank": "1",
 }
 Trigrams[3] = {
   "key": "3",
@@ -75,202 +75,205 @@ Trigrams[4] = {
   "ret_d": "d",
   "sel": "",
 }
-/*
+
 Trigrams[5] = {
   "key": "5",
-  "q": "你是否经常让",
-  "a": "A 你的情感支配你的理智",
-  "b": "B 你的理智主宰你的情感",
+  "q": "《周易》本事是占卜用的书",
+  "a": "A 对",
+  "b": "B 错",
   "c": "",
   "d": "",
-  "ret_a": "f",
-  "ret_b": "t",
+  "ret_a": "1",
+  "ret_b": "b",
   "ret_c": "",
   "ret_d": "",
   "sel": "",
 }
 Trigrams[6] = {
   "key": "6",
-  "q": "处理许多事情上，你会喜欢",
-  "a": "A 凭兴所至行事",
-  "b": "B 按照计划行事",
-  "c": "",
-  "d": "",
-  "ret_a": "p",
-  "ret_b": "j",
-  "ret_c": "",
-  "ret_d": "",
+  "q": "凡阳爻居中位，象征“刚中”之德，如（ ）",
+  "a": "A 《坤》之六二",
+  "b": "B 《乾》之九五",
+  "c": "C 《坤》之六三",
+  "d": "D 《乾》之九四",
+  "ret_a": "a",
+  "ret_b": "1",
+  "ret_c": "c",
+  "ret_d": "d",
   "sel": "",
 }
 Trigrams[7] = {
   "key": "7",
-  "q": "你是否",
-  "a": "A 容易让人了解",
-  "b": "B 难于让人了解",
-  "c": "",
-  "d": "",
-  "ret_a": "e",
-  "ret_b": "i",
-  "ret_c": "",
-  "ret_d": "",
+  "q": "三四五爻合成上卦，谓之（ ）",
+  "a": "A. “当位”",
+  "b": "B. “不当位”",
+  "c": "C. “上互” ",
+  "d": "D. “下互”",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "1",
+  "ret_d": "d",
   "sel": "",
 }
 Trigrams[8] = {
   "key": "8",
-  "q": "你认为别人一般",
-  "a": "A 要花很长时间才认识你",
-  "b": "B 用很短的时间便认识你",
+  "q": "卦象中的六爻，应该从上往下看",
+  "a": "A 对",
+  "b": "B 错",
   "c": "",
   "d": "",
-  "ret_a": "i",
-  "ret_b": "e",
+  "ret_a": "a",
+  "ret_b": "1",
   "ret_c": "",
   "ret_d": "",
   "sel": "",
 }
 Trigrams[9] = {
   "key": "9",
-  "q": "按照程序表做事",
-  "a": "A 合你心意",
-  "b": "B 令你感到束缚",
-  "c": "",
-  "d": "",
-  "ret_a": "j",
-  "ret_b": "p",
-  "ret_c": "",
-  "ret_d": "",
+  "q": "坤卦的（ ）爻是最完美的一爻",
+  "a": "A 六五",
+  "b": "B 六四",
+  "c": "C 刘三",
+  "d": "D 六二",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "c",
+  "ret_d": "1",
   "sel": "",
 }
+
 Trigrams[10] = {
   "key": "10",
-  "q": "当你有一份特别的任务，你会喜欢",
-  "a": "A 开始前小心组织计划",
-  "b": "B 边做边找须做什么",
-  "c": "",
-  "d": "",
-  "ret_a": "j",
-  "ret_b": "p",
-  "ret_c": "",
-  "ret_d": "",
+  "q": "（ ）象征事物的发展合乎正道",
+  "a": "A “当位”",
+  "b": "B “不当位”",
+  "c": "C “应”",
+  "d": "D “无应”",
+  "ret_a": "1",
+  "ret_b": "b",
+  "ret_c": "c",
+  "ret_d": "d",
   "sel": "",
 }
 Trigrams[11] = {
   "key": "11",
-  "q": "在大多数情况下，你会选择",
-  "a": "A 顺其自然",
-  "b": "B 按程序表做事",
-  "c": "",
-  "d": "",
-  "ret_a": "p",
-  "ret_b": "j",
-  "ret_c": "",
-  "ret_d": "",
+  "q": "陇右是指",
+  "a": "A 陇东",
+  "b": "B 陇南",
+  "c": "C 陇西",
+  "d": "D 陇北",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "1",
+  "ret_d": "d",
   "sel": "",
 }
 Trigrams[12] = {
   "key": "12",
-  "q": "大多数人会说你是一个",
-  "a": "A 重视自我隐私的人",
-  "b": "B 非常坦率开放的人",
-  "c": "",
-  "d": "",
-  "ret_a": "i",
-  "ret_b": "e",
-  "ret_c": "",
-  "ret_d": "",
+  "q": "八卦中代表风的是",
+  "a": "A 离",
+  "b": "B 艮",
+  "c": "C 兑",
+  "d": "D 巽",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "c",
+  "ret_d": "1",
   "sel": "",
 }
 Trigrams[13] = {
   "key": "13",
-  "q": "你宁愿被人认为是一个",
-  "a": "A 实事求是的人",
-  "b": "B 机灵的人",
-  "c": "",
-  "d": "",
-  "ret_a": "s",
-  "ret_b": "n",
-  "ret_c": "",
-  "ret_d": "",
+  "q": "天地定位，山泽通气，雷风相薄，水火不相谢，出自",
+  "a": "A《文言》",
+  "b": "B《彖传》",
+  "c": "C《杂卦》",
+  "d": "D《说卦》",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "c",
+  "ret_d": "1",
   "sel": "",
 }
 Trigrams[14] = {
   "key": "14",
-  "q": "在一大群人当中，通常是",
-  "a": "A 你介绍大家认识",
-  "b": "B 别人介绍你",
-  "c": "",
-  "d": "",
-  "ret_a": "e",
-  "ret_b": "i",
-  "ret_c": "",
-  "ret_d": "",
+  "q": "表达止的意思的卦象是",
+  "a": "A 离",
+  "b": "B 艮",
+  "c": "C 兑",
+  "d": "D 巽",
+  "ret_a": "a",
+  "ret_b": "1",
+  "ret_c": "c",
+  "ret_d": "d",
   "sel": "",
 }
+
 Trigrams[15] = {
   "key": "15",
-  "q": "你会跟哪些人做朋友？",
-  "a": "A 常提出新注意的",
-  "b": "B 脚踏实地的",
-  "c": "",
-  "d": "",
-  "ret_a": "n",
-  "ret_b": "s",
-  "ret_c": "",
-  "ret_d": "",
+  "q": "《周易》给人提供的帮助不包括",
+  "a": "A 明机适变",
+  "b": "B 无欲无求",
+  "c": "C 执中守正",
+  "d": "D 趋吉避凶",
+  "ret_a": "a",
+  "ret_b": "1",
+  "ret_c": "c",
+  "ret_d": "d",
   "sel": "",
 }
 Trigrams[16] = {
   "key": "16",
-  "q": "你倾向",
-  "a": "A 重视感情多于逻辑",
-  "b": "B 重视逻辑多于感情",
-  "c": "",
-  "d": "",
-  "ret_a": "f",
-  "ret_b": "t",
-  "ret_c": "",
-  "ret_d": "",
+  "q": "上卦为离，下卦为乾的卦是",
+  "a": "A 大有卦",
+  "b": "B 同人卦",
+  "c": "C 小畜卦",
+  "d": "D 大畜卦",
+  "ret_a": "1",
+  "ret_b": "b",
+  "ret_c": "c",
+  "ret_d": "d",
   "sel": "",
 }
 Trigrams[17] = {
   "key": "17",
-  "q": "你比较喜欢",
-  "a": "A 坐观事情发展才作计划",
-  "b": "B 很早就作计划",
-  "c": "",
-  "d": "",
-  "ret_a": "p",
-  "ret_b": "j",
-  "ret_c": "",
-  "ret_d": "",
+  "q": "天尊地卑，乾坤定矣，卑高以岑，贵贱位矣，动静有常，刚柔断矣，出自",
+  "a": "A 《易经》",
+  "b": "B 《说卦》",
+  "c": "C 《系辞》",
+  "d": "D 《序卦》",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "1",
+  "ret_d": "d",
   "sel": "",
 }
 Trigrams[18] = {
   "key": "18",
-  "q": "你喜欢花很多的时间",
-  "a": "A 一个人独处",
-  "b": "B 合别人在一起",
-  "c": "",
-  "d": "",
-  "ret_a": "i",
-  "ret_b": "e",
-  "ret_c": "",
-  "ret_d": "",
+  "q": "《易传》成书年代",
+  "a": "A 西周初",
+  "b": "B 西周末",
+  "c": "C 春秋战国",
+  "d": "D 西汉初",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "1",
+  "ret_d": "d",
   "sel": "",
 }
 Trigrams[19] = {
   "key": "19",
-  "q": "与很多人一起会",
-  "a": "A 令你活力培增",
-  "b": "B 常常令你心力憔悴",
-  "c": "",
-  "d": "",
-  "ret_a": "e",
-  "ret_b": "i",
-  "ret_c": "",
-  "ret_d": "",
+  "q": "《周易》占噬的意思是爻",
+  "a": "A 算命",
+  "b": "B 趋吉避凶",
+  "c": "C 以鬼神迷惑人",
+  "d": "D 以术证道",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "c",
+  "ret_d": "1",
   "sel": "",
 }
+/*
 Trigrams[20] = {
   "key": "20",
   "q": "你比较喜欢",
@@ -1222,14 +1225,14 @@ Trigrams[92] = {
 }
 */
 
-const limitquestTrigrams = 3
+const limitquestTrigrams = 5
 export default class TrigramsTest extends Component {
   constructor(props) {
     super(props);
     this.state = {
       checked: [],
       Trigrams: [],
-      ret: "",
+      ret: undefined,
       percent: "",
       extrainfo: [],
       retdetail: [],
@@ -1237,7 +1240,7 @@ export default class TrigramsTest extends Component {
     }
 
   }
-  componentDidMount() { 
+  componentDidMount() {
     this.clear()
   }
 
@@ -1261,7 +1264,7 @@ export default class TrigramsTest extends Component {
     this.setState({
       checked: checked,
       Trigrams: runtimeTrigrams,
-      ret: "",
+      ret: undefined,
       percent: "",
       extrainfo: [],
       retdetail: [],
@@ -1296,58 +1299,80 @@ export default class TrigramsTest extends Component {
     }
     var ret = 0
     var testTrigrams = this.state.Trigrams
-    for(var i=0;i<testTrigrams.length;i++)
-    {
+    for (var i = 0; i < testTrigrams.length; i++) {
       var indextest = testTrigrams[i]
-      if("1"==testTrigrams[i].sel)
-      {
+      if ("1" == testTrigrams[i].sel) {
         ret++
-        testTrigrams[i].ret=true
+        testTrigrams[i].ret = true
       }
-      else{
-        testTrigrams[i].ret=false
+      else {
+        testTrigrams[i].ret = false
       }
     }
 
     this.setState({
-      Trigrams:testTrigrams,
-      ret: "",
-      extrainfo:  [],
-      retdetail:  [],
+      Trigrams: testTrigrams,
+      ret: ret,
+      extrainfo: [],
+      retdetail: [],
       closetest: true,
 
     })
   }
 
+  shworesult() {
+    if (this.state.ret == undefined) { return }
+    else {
+      var tips = "初出茅庐，砥砺前行"
+      if(this.state.ret>=5)
+      {
+        tips = "高山仰望，世外高人"
+      }
+      else if(this.state.ret>=4)
+      {
+        tips = "云游四海，路踏青云"
+      }
+      else if(this.state.ret>=3)
+      {
+        tips = "逆水行舟，尚需努力"
+      }
+      return (
+        <View className='at-row' style="flex-direction:column">
+          <Text className='at-col' style="text-align:center;font-size:24px">您的得分：{this.state.ret}</Text>
+          <Text  style="text-align:center;font-size:16px">{tips}</Text>
+        </View>)
+    }
+  }
+
   render() {
     const { Trigrams } = this.state;
     const content = Trigrams.map((item) => {
-      if(""!=item.ret_d){
+      if ("" != item.ret_d) {
         return (
           <View key={item.id}>
             <View className={'question'}>
-            
-            <Text >第{item.index + 1}题：{item.q}</Text>
-            {true==item.ret?checkright:(false==item.ret?checkfalse:"")}</View>
+
+              <Text >第{item.index + 1}题：{item.q}</Text>
+              {true == item.ret ? checkright : (false == item.ret ? checkfalse : "")}</View>
             <AtRadio options={[{ label: item.a, value: item.ret_a }
-            , { label: item.b, value: item.ret_b }
-            , { label: item.c, value: item.ret_c }
-            , { label: item.d, value: item.ret_d }]}
+              , { label: item.b, value: item.ret_b }
+              , { label: item.c, value: item.ret_c }
+              , { label: item.d, value: item.ret_d }]}
               value={this.state.checked[Number(item.key)]}
               onClick={(value) => this.updateIndex(value, item.key)} />
           </View>)
-      }else{
+      } else {
         return (
           <View key={item.id}>
             <View className={'question'}><Text >第{item.index + 1}题：{item.q}</Text>
-            {true==item.ret?checkright:(false==item.ret?checkfalse:"")}
+              {true == item.ret ? checkright : (false == item.ret ? checkfalse : "")}
             </View>
             <AtRadio options={[{ label: item.a, value: item.ret_a }, { label: item.b, value: item.ret_b }]}
               value={this.state.checked[Number(item.key)]}
               onClick={(value) => this.updateIndex(value, item.key)} />
           </View>)
       }
-      
+
     })
     const { retdetail } = this.state;
     const content1 = retdetail.map((item) => {
@@ -1366,6 +1391,7 @@ export default class TrigramsTest extends Component {
         </View>)
     })
 
+
     return (
       <View className='contain'>
         <ScrollView >
@@ -1374,11 +1400,12 @@ export default class TrigramsTest extends Component {
             <View className={'title'}>
               <Text >乾坤九考</Text>
             </View>
-              {content}
+            {content}
             <View className={'result'}>
               {content1}
               {content2}
             </View>
+            {this.shworesult()}
             <AtDivider>
               <AtIcon fontColor='#2d8cf0' lineColor='#2d8cf0' value='check-circle'></AtIcon>
             </AtDivider>
