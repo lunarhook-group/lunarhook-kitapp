@@ -3,6 +3,9 @@ import Taro from '@tarojs/taro'
 import { StyleSheet, View, PixelRatio, Alert, Text, FlatList, ScrollView, CameraRoll } from '@tarojs/components'
 import { AtToast, AtGrid, AtTabBar, AtCheckbox, AtRadio, AtButton, AtDivider, AtIcon } from 'taro-ui'
 import './TrigramsTestModule.scss'
+
+const  checkright=<AtIcon  value='check' size='24' color='green'></AtIcon>
+const  checkfalse=<AtIcon  value='close' size='24' color='red'></AtIcon>
 var Trigrams = Array();
 Trigrams[0] = {
   "key": "0",
@@ -1218,123 +1221,9 @@ Trigrams[92] = {
   "sel": "",
 }
 */
-var TrigramsResultinfo =
-  [
-    "MBTI主要指标解释", "",
-    "态度倾向　(我们与世界相互作用方式):", "外向Extraversion(E) 内向Introversion(I)", "",
-    "接受信息　(我们获取信息的主要方式):", "感觉Sensing(S) 直觉iNtuition(N)", "",
-    "处理信息　(我们的决策方式):", "思考Thinking(T) 情感Feeling(F)", "",
-    "行动方式　(我们的做事方式):", "判断Judging(J) 知觉Perceiving(P)", "", "",
-    "E 外向 关注自己如何影响外部环境:将心理能量和注意力聚集于外部世界和与他人的交往上。例如：聚会、讨论、聊天", "",
-    "I 内向 关注外部环境的变化对自己的影响：将心理能量和注意力聚集于内部世界，注重自己的内心体验。例如：独立思考，看书，避免成为注意的中心，听的比说的多", "",
-    "S 感觉 关注由感觉器官获取的具体信息：看到的、听到的、闻到的、尝到的、触摸到的事物.例如：关注细节、喜欢描述、喜欢使用和琢磨已知的技能", "",
-    "N 直觉 关注事物的整体和发展变化趋势：灵感、预测、暗示，重视推理 例如：重视想象力和独创力，喜欢学习新技能，但容易厌倦、喜欢使用比喻，跳跃性地展现事实", "",
-    "T 思考 重视事物之间的逻辑关系，喜欢通过客观分析作决定评价。例如：理智、客观、公正、认为圆通比坦率更重要", "",
-    "F 情感 以自己和他人的感受为重，将价值观作为判定标准例如：有同情心、善良、和睦、善解人意，考虑行为对他人情感的影响，认为圆通和坦率同样重要", "",
-    "J 判断 喜欢做计划和决定，愿意进行管理和控制，希望生活井然有序,例如：重视结果(重点在于完成任务)、按部就班、有条理、尊重时间期限、喜欢做决定", "",
-    "P 知觉 灵活、试图去理解、适应环境、倾向于留有余地，喜欢宽松自由的生活方式 例如：重视过程、随信息的变化不断调整目标，喜欢有多种选择", "",
-  ]
-var TrigramsResulttable = new Array();
-TrigramsResulttable["ESTJ"] = "外倾感觉思维判断 大男人型"
-TrigramsResulttable["ESTP"] = "外倾感觉思维知觉 挑战者型"
-TrigramsResulttable["ESFJ"] = "外倾感觉情感判断 主人型"
-TrigramsResulttable["ESFP"] = "外倾感觉情感知觉 表演型"
-TrigramsResulttable["ENFP"] = "外倾直觉情感知觉 记者型"
-TrigramsResulttable["ENFJ"] = "外倾直觉情感判断 教育家"
-TrigramsResulttable["ENTP"] = "外倾直觉思维知觉 发明家"
-TrigramsResulttable["ENTJ"] = "外倾直觉思维判断 将军型"
-TrigramsResulttable["ISTJ"] = "内倾感觉思维判断 公务员"
-TrigramsResulttable["ISTP"] = "内倾感觉思维知觉 冒险家"
-TrigramsResulttable["ISFJ"] = "内倾感觉情感判断 照顾者"
-TrigramsResulttable["ISFP"] = "内倾感觉情感知觉 艺术家"
-TrigramsResulttable["INTJ"] = "内倾直觉思维判断 专家型"
-TrigramsResulttable["INTP"] = "内倾直觉思维知觉 学者型"
-TrigramsResulttable["INFJ"] = "内倾直觉情感判断 作家型"
-TrigramsResulttable["INFP"] = "内倾直觉情感知觉 哲学家"
 
-var resulttabledetail = new Array();
-resulttabledetail["ESTJ"] = [
-  "理智、善分析、果断、意志坚定，以系统化的方式组织具体事实。喜欢事先组织细节和操作程序与他人一起完成任务", "",
-  "ESTJ喜欢根据相关的事实和细节进行逻辑分析，从而控制情境，为达到理想结果，会考虑更广阔的前景以及对人们和自己的影响", "",
-  "", "",
-]
-resulttabledetail["ESTP"] = [
-  "行为定向型，讲究实效、足智多谋、注重现实，以最有效的途径解决问题。喜欢事件即时发生，然后在复杂的情境中找到解决问题的方法。", "",
-  "ESTP喜欢现实、具体地评估环境，然后用逻辑分析以后采取的步骤，为获得理想结果，会考虑对人们的影响，寻找其它可选择的可能性", "",
-  "", "",
-]
-resulttabledetail["ESFJ"] = [
-  "乐于助人，机智，富有同情心，注重秩序，把与他人相处和谐看得很重要，喜欢组织人们和制定计划完成眼前的任务。", "",
-  "ESFJ喜欢考虑准则以及对人们的影响，也关注相关的事实和有用的细节，为获取理想结果，需识别其它人际关系，然后理智、冷静地分析。", "",
-  "", "",
-]
-resulttabledetail["ESFP"] = [
-  "友好、开朗，爱开玩笑，活泼，天性喜欢与他人相处。喜欢与其他活泼、快节奏的人一起工作，同时也会根据判断做出不同选择。", "",
-  "ESFP喜欢对情境进行现实和具体的评估，尤其是对于人更是如此，为获得最佳结果，需增强客观性，从长远的眼光看待不同事物。", "",
-  "", "",
-]
-resulttabledetail["ENFP"] = [
-  "热情，富有洞察力和创新性，多才多艺，不知疲倦地寻求新的希望和前景。喜欢在团队中工作，致力于从事能给人们带来更好的改变的事情。", "",
-  "ENFP喜欢根据自己的价值观和准则探索创造性发展的各种可能性和前景，为获得最佳结果，冷静理智分析，考虑相关的事实资料和各种细节", "",
-  "", "",
-]
-resulttabledetail["ENFJ"] = [
-  "关注人际关系，理解、宽容和赞赏他人，是良好沟通的促进者。喜欢与他人一起工作，致力于完成与人们的发展有关的各种任务。", "",
-  "ENFJ先判断发展计划是否考虑能取得的绩效和对人们的影响，为获得最佳结果注意更多事实资料，然后进行理智、冷静地分析。", "",
-  "", "",
-]
-resulttabledetail["ENTP"] = [
-  "富于创新，具有战略眼光，多才多艺，分析型思维，具有创业能力。喜欢与他人一起从事需要非凡智慧的创始性活动。", "",
-  "ENTP喜欢探索未来的前景和发展模式，理智地分析每一个正向和反向的结果,为获得最理想结果，关注人们的需要和相关的事实和细节。", "",
-  "", "",
-]
-resulttabledetail["ENTJ"] = [
-  "坦诚、果断，有天生的领导能力。能很快看到公司/组织程序和政策中的不合理性和低效能性，发展并实施有效和全面的系统来解决问题。善于做长期的计划和目标的设定。通常见多识广，博览群书，喜欢拓广自己的知识面 并将此分享给他人。在陈述自己的想法时非常强而有力。  ", "",
-  "ENTJ型的人是伟大的领导者和决策人。他们能轻易地看出事物具有的可能性，很高兴指导别人，使他们的想象成为现实。他们是头脑灵活的思想家和伟大的长远规划者。因为ENTJ型的人很有条理和分析能力，所以他们通常 对要求推理和才智的任何事情都很擅长。为了在完成工作中称职，他们通常会很自然地看出所处情况中可能存在的缺陷，并且立刻知道如何改进。他们力求精通整个体系，而不是简单地把它们做为现存的接受而已。 ENTJ型 的人乐于完成一些需要解决的复杂问题，他们大胆地力求掌握使他们感兴趣的任何事情。 ENTJ型的人把事实看得高于一切，只有通过逻辑的推理才会确信。 ENTJ型的人渴望不断增加自己的知识基础，他们系统地计划和研 究新情况。他们乐于钻研复杂的理论性问题，力求精通任何他们认为有趣的事物。他们对于行为的未来结果更感兴趣，而不是事物现存的状况。 ENTJ型的人是热心而真诚的天生的领导者，他们往往能够控制他们所处的任何环境。因为他们具有预见能力，并且向别人传播他们的观点，所以他们是出色的群众组织者。他们往往按照一套相当严格的规律生活，并且希望别人也是如此。因此他们往往具有挑战性，同样艰难地推动自我和他人前进。。", "",
-  "您适合的领域有：工商业、政界、金融和投资领域、管理咨询、培训、专业性领域", "",
-]
-resulttabledetail["ISTJ"] = [
-  "详尽、精确、系统、勤劳，关注细节。致力于改善组织程序与过程，无论组织处在发展的顺境还是逆境，都对组织保持忠诚。", "",
-  "ISTJ喜欢完全依据事实在逻辑框架里进行分析,为获得理想结果，需考虑对人们的影响，然后寻找更多的可能性和其它含义。", "",
-  "您适合的领域有：领域特征不明显，较相关的如：医护领域、消费类商业、服务业领域", "",
-]
-resulttabledetail["ISTP"] = [
-  "注重实用性，尊重事实，寻求有利方法，具有现实性，只信服被论证的结果。喜欢独立工作，依靠逻辑和足智多谋解决即时出现的组织问题。", "",
-  "ISTP喜欢依据具体事实以自身具有的内部逻辑构建问题和解决问题,为获得理想结果，需要考虑其它可能性和对人们的影响", "",
-  "", "",
-]
-resulttabledetail["ISFJ"] = [
-  "沉静，友善，有责任感和谨慎。能坚定不移地承担责任。做事贯彻始终、不辞劳苦和准确无误。忠诚，替人着想，细心；往往记着他所重视的人的种种微小事情，关心别人的感受。努力创造一个有秩序、和谐的工作和家居环境。", "",
-  "ISFJ型的人忠诚、有奉献精神和同情心，理解别人的感受。他们意志清醒而有责任心，乐于为人所需。 ISFJ型的人十分务实，他们喜欢平和谦逊的人。他们喜欢利用大量的事实情况，对于细节则有很强的记力。他们耐心地 对待任务的整个阶段，喜欢事情能够清晰明确。 ISFJ型的人具有强烈的职业道德，所以他们如果知道自己的行为真正有用时，会对需要完成之事承担责任。他们准确系统地完成任务。他们具有传统的价值观，十分保守。他 们利用符合实际的判断标准做决定，通过出色的注重实际的态度增加了稳定性。 ISFJ型的人平和谦虚、勤奋严肃。他们温和、圆通，支持朋友和同伴。他们乐于协助别人，喜欢实际可行地帮助他人。他们利用个人热情与人 交往，在困难中与他人和睦相处。ISFJ型的人不喜欢表达个人情感，但实际上对于大多数的情况和事件都具有强烈的个人反应。他们关心、保护朋友，愿意为朋友献身，他们有为他人服务的意识，愿意完成他们的责任和义务。", "",
-  "您适合的领域有：领域特征不明显，较相关的如：医护领域、消费类商业、服务业领域", "",
-]
-resulttabledetail["ISFP"] = [
-  "温和、体贴、灵活、具有开放性。富有同情心，尤其对那些需要帮助的人。喜欢在合作和充满和谐气氛的环境中工作，但常常是在完成他们自己任务的时候。", "",
-  "ISFP喜欢从实用的角度考虑对自己和他人真正重要的事物，为获得理想结果，需考虑其他人际关系和其它可能性，然后更客观地决定事情。 ", "",
-  "", "",
-]
-resulttabledetail["INTJ"] = [
-  "在实现自己的想法和达成自己的目标时有创新的想法和非凡的动力。能很快洞察到外界事物间的规律并形成长期的远景计划。一旦决定做一件事就会开始规划并直到完成为止。多疑、独立，对于自己和他人能力和表现的要 求都非常高。", "",
-  "INTJ型的人是完美主义者。他们强烈地要求个人自由和能力，同时在他们独创的思想中，不可动摇的信仰促使他们达到目标。 INTJ型的人思维严谨、有逻辑性、足智多谋，他们能够看到新计划实行后的结果。他们对自己和 别人都很苛求，往往几乎同样强硬地逼迫别人和自己。他们并不十分受冷漠与批评的干扰，作为所有性格类型中最独立的，INTJ型的人更喜欢以自己的方式行事。面对相反意见，他们通常持怀疑态度，十分坚定和坚决。权 威本身不能强制地们，只有他们认为这些规则对自己的更重要的目标有用时，才会去遵守。 INTJ型的人是天生的谋略家，具有独特的思想、伟大的远见和梦想。他们天生精于理论，对于复杂而综合的概念运转灵活。他们是优秀的战略思想家，通常能清楚地看到任何局势的利处和缺陷。对于感兴趣的问题，他们是出色的、具有远见和见解的组织者。如果是他们自己形成的看法和计划，他们会投入不可思议的注意力、能量和积极性。领先到达或超过自己的高标准的决心和坚忍不拔，使他们获得许多成就。", "",
-  "", "",
-]
-resulttabledetail["INTP"] = [
-  "讲究合理性，喜欢理论和抽象的事物，好奇心重，更喜欢构建思想，不太关注环境和人。喜欢单独工作，强调对自己的观点和方法拥有最大的自主权。", "",
-  "INTP在寻求各种可能的选择时，喜欢以自身内部的逻辑建构问题和解决问题，为获取最佳结果，需要同时关注现实状况和他人的需求", "",
-  "", "",
-]
-resulttabledetail["INFJ"] = [
-  "相信自己的眼光，具有同情心和洞察力，温和地运用影响力。喜欢独立工作或与那些热衷于关注人们的成长与发展问题的小群体共同工作。", "",
-  "INFJ喜欢识别自己内在观点的可能性，尤其是与人和社会准则有关的问题，为成功实现目标，对定向未来的远见卓识的客观性和现实的细枝末节的问题同样重视。", "",
-  "", "",
-]
-resulttabledetail["INFP"] = [
-  "理想主义者，忠于自己的价值观及自己所重视的人。外在的生活与内在的价值观配合，有好奇心，很快看到事情的可能与否，能够加速对理念的实践。试图了解别人、协助别人发展潜能。适应力强，有弹性；如果和他们的 价值观没有抵触，往往能包容他人。", "",
-  "INFP把内在的和谐视为高于其他一切。他们敏感、理想化、忠诚，对于个人价值具有一种强烈的荣誉感。他们个人信仰坚定，有为自认为有价值的事业献身的精神。 INFP型的人对于已知事物之外的可能性很感兴趣，精力集 中于他们的梦想和想象。他们思维开阔、有好奇心和洞察力，常常具有出色的长远眼光。在日常事务中，他们通常灵活多变、具有忍耐力和适应性，但是他们非常坚定地对待内心的忠诚，为自己设定了事实上几乎是不可能 的标准。 INFP型的人具有许多使他们忙碌的理想和忠诚。他们十分坚定地完成自己所选择的事情，他们往往承担得太多，但不管怎样总要完成每件事。虽然对外部世界他们显得冷淡缄默，但INFP型的人很关心内在。他们富 有同情心、理解力，对于别人的情感很敏感。除了他们的价值观受到威胁外，他们总是避免冲突，没有兴趣强迫或支配别人。INFP型的人常常喜欢通过书写而不是口头来表达自己的感情。当INFP型的人劝说别人相信他们的 想法的重要性时，可能是最有说服力的。 INFP很少显露强烈的感情，常常显得沉默而冷静。然而，一旦他们与你认识了，就会变得热情友好，但往往会避免浮浅的交往。他们珍视那些花费时间去思考目标与价值的人。", "",
-  "您适合的领域有：创作性、艺术类 教育、研究、咨询类等", "",
-]
-const limitquestMBTI = 3
-export default class MBTIModule extends Component {
+const limitquestTrigrams = 3
+export default class TrigramsTest extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -1345,7 +1234,6 @@ export default class MBTIModule extends Component {
       extrainfo: [],
       retdetail: [],
       closetest: false,
-      pie: "",
     }
 
   }
@@ -1357,10 +1245,9 @@ export default class MBTIModule extends Component {
 
   clear() {
     var ret = new Array();
-    ret["e"] = ret["i"] = ret["n"] = ret["s"] = ret["t"] = ret["f"] = ret["j"] = ret["p"] = ret[""] = 0
     var runtimeTrigrams = Trigrams.concat()
     var checked = new Array();
-    while (runtimeTrigrams.length > limitquestMBTI) {
+    while (runtimeTrigrams.length > limitquestTrigrams) {
       var p = Math.random() * runtimeTrigrams.length
       runtimeTrigrams.splice(p, 1)
     }
@@ -1369,6 +1256,7 @@ export default class MBTIModule extends Component {
       checked[i] = ""
       runtimeTrigrams[i].index = i
       runtimeTrigrams[i].key = i
+      runtimeTrigrams[i].ret = undefined
     }
     this.setState({
       checked: checked,
@@ -1378,7 +1266,6 @@ export default class MBTIModule extends Component {
       extrainfo: [],
       retdetail: [],
       closetest: false,
-      pie: "",
       showtip: false,
     })
   }
@@ -1395,7 +1282,7 @@ export default class MBTIModule extends Component {
     }
   }
   check() {
-    for (var i = 0; i < limitquestMBTI; i++) {
+    for (var i = 0; i < limitquestTrigrams; i++) {
       if (this.state.checked[i] == "") {
         this.setState({ showtip: true })
         return false;
@@ -1405,54 +1292,30 @@ export default class MBTIModule extends Component {
 
   result() {
     if (false == this.check()) {
-
       return
     }
+    var ret = 0
     var testTrigrams = this.state.Trigrams
-    var ret = new Array();
-    ret["e"] = ret["i"] = ret["n"] = ret["s"] = ret["t"] = ret["f"] = ret["j"] = ret["p"] = ret[""] = 0
-    for (var i = 0; i < testTrigrams.length; i++) {
-      var _p = testTrigrams[i].sel;
-      ret[_p] = ret[_p] + 1;
-    }
-    //console.log(ret);
-    var person_ret = ""
-    if (ret["e"] >= ret["i"]) {
-      person_ret = "E"
-    }
-    else {
-      person_ret = "I"
+    for(var i=0;i<testTrigrams.length;i++)
+    {
+      var indextest = testTrigrams[i]
+      if("1"==testTrigrams[i].sel)
+      {
+        ret++
+        testTrigrams[i].ret=true
+      }
+      else{
+        testTrigrams[i].ret=false
+      }
     }
 
-    if (ret["n"] >= ret["s"]) {
-      person_ret = person_ret + "N"
-    }
-    else {
-      person_ret = person_ret + "S"
-    }
-
-    if (ret["t"] >= ret["f"]) {
-      person_ret = person_ret + "T"
-    }
-    else {
-      person_ret = person_ret + "F"
-    }
-
-    if (ret["j"] >= ret["p"]) {
-      person_ret = person_ret + "J"
-    }
-    else {
-      person_ret = person_ret + "P"
-    }
-
-    console.log(person_ret)
     this.setState({
-      ret: "您是:" + person_ret + " " + TrigramsResulttable[person_ret],
-      percent: "E:" + ret["e"] + " I:" + ret["i"] + " S:" + ret["s"] + " N:" + ret["n"] + " T:" + ret["t"] + " F:" + ret["f"] + " J:" + ret["j"] + " P:" + ret["p"],
-      extrainfo: TrigramsResultinfo,
-      retdetail: resulttabledetail[person_ret],
+      Trigrams:testTrigrams,
+      ret: "",
+      extrainfo:  [],
+      retdetail:  [],
       closetest: true,
-      pie: ret,
+
     })
   }
 
@@ -1462,7 +1325,10 @@ export default class MBTIModule extends Component {
       if(""!=item.ret_d){
         return (
           <View key={item.id}>
-            <View className={'question'}><Text >第{item.index + 1}题：{item.q}</Text></View>
+            <View className={'question'}>
+            
+            <Text >第{item.index + 1}题：{item.q}</Text>
+            {true==item.ret?checkright:(false==item.ret?checkfalse:"")}</View>
             <AtRadio options={[{ label: item.a, value: item.ret_a }
             , { label: item.b, value: item.ret_b }
             , { label: item.c, value: item.ret_c }
@@ -1473,7 +1339,9 @@ export default class MBTIModule extends Component {
       }else{
         return (
           <View key={item.id}>
-            <View className={'question'}><Text >第{item.index + 1}题：{item.q}</Text></View>
+            <View className={'question'}><Text >第{item.index + 1}题：{item.q}</Text>
+            {true==item.ret?checkright:(false==item.ret?checkfalse:"")}
+            </View>
             <AtRadio options={[{ label: item.a, value: item.ret_a }, { label: item.b, value: item.ret_b }]}
               value={this.state.checked[Number(item.key)]}
               onClick={(value) => this.updateIndex(value, item.key)} />
