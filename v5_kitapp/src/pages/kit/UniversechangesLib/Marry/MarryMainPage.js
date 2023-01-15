@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Taro, getCurrentInstance } from '@tarojs/taro'
+import Taro,{  getCurrentInstance } from '@tarojs/taro'
 import { View, Text, Image, Button, ScrollView, Picker } from '@tarojs/components'
 import { AtIcon,AtGrid } from 'taro-ui'
 import SixrandomModule from '../SixrandomLib/SixrandomModule'
@@ -69,8 +69,17 @@ export default class MarryMainPage extends React.Component {
 
   componentWillMount() {
 
+    Taro.showShareMenu({
+      withShareTicket: true,
+      showShareItems:['shareAppMessage', 'shareTimeline','wechatFriends', 'wechatMoment']
+    })
     var parameter = getCurrentInstance().router.params
-    //console.log("componentWillMount", parameter)
+    parameter.EightDatemale = decodeURIComponent(parameter.EightDatemale)
+    parameter.birthmale = decodeURIComponent(parameter.birthmale)
+    parameter.Datemale = decodeURIComponent(parameter.Datemale)
+    parameter.EightDatefemale = decodeURIComponent(parameter.EightDatefemale)
+    parameter.birthfemale = decodeURIComponent(parameter.birthfemale)
+    parameter.savedatefemale = decodeURIComponent(parameter.savedatefemale)
 
     if (undefined != parameter) {
       var info = null;

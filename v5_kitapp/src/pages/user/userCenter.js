@@ -9,7 +9,10 @@ import plumber from '../plumbertracewithoutpoucdbwithwxrequest_miniv3'
 
 export default class UserCenter extends Component {
   componentDidMount() {
-
+    Taro.showShareMenu({
+      withShareTicket: true,
+      showShareItems:['shareAppMessage', 'shareTimeline','wechatFriends', 'wechatMoment']
+    })
   }
   componentDidHide() { }
   componentDidCatchError() { }

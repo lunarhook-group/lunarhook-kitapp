@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Taro,getCurrentInstance} from '@tarojs/taro'
+import Taro,{  getCurrentInstance } from '@tarojs/taro'
 import { View, Text, Image, Button, ScrollView, Picker } from '@tarojs/components'
 import { AtButton, AtDivider, AtTabBar, AtGrid, AtForm, AtSwitch, AtList, AtListItem, AtCard } from 'taro-ui'
 import SixrandomModule from './SixrandomModule'
@@ -19,9 +19,20 @@ export default class SixrandomFullinfoPage extends Component {
   config = {
     navigationBarTitleText: '卦象详解'
   }
+  onLaunch()
+  {
 
+  }
   componentWillMount() {
+    Taro.showShareMenu({
+      withShareTicket: true,
+      showShareItems:['shareAppMessage', 'shareTimeline','wechatFriends', 'wechatMoment']
+    })
     var parameter = getCurrentInstance().router.params
+    parameter.date = decodeURIComponent(parameter.date)
+    parameter.lunar = decodeURIComponent(parameter.lunar)
+    parameter.question = decodeURIComponent(parameter.question)
+
     if ("" != parameter) {
       var _ret = SixrandomModule.build(parameter);
       var __ret = SixrandomModule.get_random_draw()

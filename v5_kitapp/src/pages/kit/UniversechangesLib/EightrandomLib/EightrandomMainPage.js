@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react'
-import { Taro, getCurrentInstance } from '@tarojs/taro'
-import { View, Text, Image, Button, ScrollView, Picker } from '@tarojs/components'
+import  Taro,{ getCurrentInstance } from '@tarojs/taro'
+import { View, Text, Image, Button, ScrollView, Canvas } from '@tarojs/components'
 import { AtProgress, AtDivider, AtTabBar, AtGrid, AtForm, AtSwitch, AtList, AtListItem, AtCard } from 'taro-ui'
 import SixrandomModule from '../SixrandomLib/SixrandomModule'
 import EightrandomModule from './EightrandomModule'
@@ -83,8 +83,16 @@ export default class EightrandomMainPage extends Component {
   }
 
   componentWillMount() {
-
+    Taro.showShareMenu({
+      withShareTicket: true,
+      showShareItems:['shareAppMessage', 'shareTimeline','wechatFriends', 'wechatMoment']
+    })
+    var r = getCurrentInstance().router
     var parameter = getCurrentInstance().router.params
+    parameter.EightDate = decodeURIComponent(parameter.EightDate)
+    parameter.birth = decodeURIComponent(parameter.birth)
+    parameter.sex = decodeURIComponent(parameter.sex)
+    this.setState({tid:this.props.tid})
     //console.log("componentWillMount", parameter)
 
     if (undefined != parameter) {
@@ -571,6 +579,9 @@ export default class EightrandomMainPage extends Component {
     fiveprecent["土"] = Math.floor((display["戊"]+display["己"])*100/totalfive)
     fiveprecent["金"] = Math.floor((display["庚"]+display["辛"])*100/totalfive)
     fiveprecent["水"] = Math.floor((display["壬"]+display["癸"])*100/totalfive)
+    const systemInfo = Taro.getSystemInfoSync()
+    var w =  systemInfo.windowWidth
+    w = "width: "+w+"px; height:  1365px;"
     return (
       <View >
         <ScrollView >
@@ -697,6 +708,7 @@ export default class EightrandomMainPage extends Component {
             </View>
           </View>
         </ScrollView>
+
       </View>
     )
   }

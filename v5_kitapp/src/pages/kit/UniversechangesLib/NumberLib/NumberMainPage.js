@@ -1,5 +1,6 @@
 
 import React, { Component } from 'react'
+import Taro,{  getCurrentInstance } from '@tarojs/taro'
 import { View, Text, ScrollView, Input, Form, Switch } from '@tarojs/components'
 import { AtDivider, AtInput, AtForm, AtSwitch } from 'taro-ui'
 import './NumberMainPage.scss'
@@ -77,7 +78,15 @@ export default class NumberMainPage extends Component {
   config = {
     navigationBarTitleText: '数字八星'
   }
+  componentWillMount() {
+    setTimeout(() => {
+      Taro.showShareMenu({
+        withShareTicket: true,
+        showShareItems:['shareAppMessage', 'shareTimeline','wechatFriends', 'wechatMoment']
+      })
+    }, 1000);
 
+  }
   clear(val) {
     this.setState({ number: "", info: [], extra: [], spextra: [], switchstate: "男" == val ? true : false, selectedValue: val, selectedcoler: true })
   }

@@ -75,6 +75,10 @@ var data2 =
 let litekitPagethis = null
 export default class litekitPage extends Component {
   componentDidMount() {
+    Taro.showShareMenu({
+      withShareTicket: true,
+      showShareItems:['shareAppMessage', 'shareTimeline','wechatFriends', 'wechatMoment']
+    })
     wx.getSetting({
       success(res) {
         if (res.authSetting['scope.userInfo']) {

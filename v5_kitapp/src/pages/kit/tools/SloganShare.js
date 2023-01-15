@@ -10,6 +10,10 @@ export default class SloganShare extends Component {
   }
 
   componentDidMount() {
+    Taro.showShareMenu({
+      withShareTicket: true,
+      showShareItems:['shareAppMessage', 'shareTimeline','wechatFriends', 'wechatMoment']
+    })
     this.timer = setInterval(() => {
       var cur = Math.floor(Math.random() * sloganshow.length)
       this.setState({ cur: cur })
