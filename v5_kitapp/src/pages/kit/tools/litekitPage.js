@@ -6,7 +6,7 @@ import { AtIcon, AtDivider, AtTabBar, AtList, AtListItem } from 'taro-ui'
 import './litekitPage.scss'
 import '../../../theme.scss'
 import plumber from '../../plumbertracewithoutpoucdbwithwxrequest_miniv3'
-//import WXBizDataCrypt from './WXBizDataCrypt'
+import { handleClick } from '../../config/common'
 import './icon_awesome.scss'
 import './icon_ionicons.scss'
 import './icon_mdi.scss'
@@ -77,7 +77,7 @@ export default class litekitPage extends Component {
   componentDidMount() {
     Taro.showShareMenu({
       withShareTicket: true,
-      showShareItems:['shareAppMessage', 'shareTimeline','wechatFriends', 'wechatMoment']
+      showShareItems: ['shareAppMessage', 'shareTimeline', 'wechatFriends', 'wechatMoment']
     })
     wx.getSetting({
       success(res) {
@@ -109,21 +109,22 @@ export default class litekitPage extends Component {
     }
     litekitPagethis = this
   }
-
-  handleClick(value) {
-    this.setState({ current: value })
-    if (3 == value) {
-      Taro.navigateTo({ url: '../../../pages/user/userCenter' })
+  /*
+    handleClick(value) {
+      if (3 == value) {
+        Taro.navigateTo({ url: '../../../pages/user/userCenter' })
+      }
+      else if (2 == value) {
+        Taro.redirectTo({ url: '../../../pages/kit/tools/Psy' })
+      }
+      else if (2 == value) {
+        Taro.redirectTo({ url: '../../../pages/kit/tools/litekitPage' })
+      }
+      else if (0 == value) {
+        Taro.redirectTo({ url: '../../../pages/kit/tools/base' })
+      }
     }
-    if (2 == value) {
-      Taro.redirectTo({ url: '../../../pages/kit/tools/Psy' })
-    }
-    if (0 == value) {
-      Taro.redirectTo({ url: '../../../pages/kit/tools/base' })
-    }
-
-  }
-
+  */
   GridHander(item, index) {
     if ("职业性格测试" == item) {
       Taro.navigateTo({ url: '../../../pages/kit/LunarMotionsLib/PsychLib/MBTIModule' })
@@ -184,6 +185,9 @@ export default class litekitPage extends Component {
       }
     })
   }
+  ClickAtTabBar(value) {
+    handleClick(value)
+  }
   showlogin(login) {
     return (<View className={'contain'}>
       <button open-type="getUserInfo" onGetUserInfo={this.userInfoHandler}>获取用户信息(授权登录)</button>
@@ -196,9 +200,7 @@ export default class litekitPage extends Component {
     else {
       return (
         <View className={'contain'}>
-
           <ScrollView>
-            
             <AtDivider>
               <AtIcon prefixClass='fa' value='balance-scale' size='20' color="red"></AtIcon>
               <Text color="#FFCE00"> 婚姻测试 </Text>
@@ -284,14 +286,13 @@ export default class litekitPage extends Component {
               { title: '心  理', iconType: 'list' },
               { title: '分  享', iconType: 'tag' }
             ]}
-            onClick={this.handleClick.bind(this)}
+            onClick={this.ClickAtTabBar}
             current={1}
           >
           </AtTabBar>
         </View>
       )
     }
-
   }
 }
 

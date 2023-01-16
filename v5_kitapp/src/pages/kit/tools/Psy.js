@@ -5,6 +5,7 @@ import { View, Text, Image, CustomWrapper, ScrollView } from '@tarojs/components
 import { AtIcon, AtDivider, AtTabBar, AtList, AtListItem } from 'taro-ui'
 import './Psy.scss'
 import '../../../theme.scss'
+import { handleClick } from '../../config/common'
 import plumber from '../../plumbertracewithoutpoucdbwithwxrequest_miniv3'
 //import WXBizDataCrypt from './WXBizDataCrypt'
 import './icon_awesome.scss'
@@ -16,7 +17,7 @@ export default class Psy extends Component {
   componentDidMount() {
     Taro.showShareMenu({
       withShareTicket: true,
-      showShareItems:['shareAppMessage', 'shareTimeline','wechatFriends', 'wechatMoment']
+      showShareItems: ['shareAppMessage', 'shareTimeline', 'wechatFriends', 'wechatMoment']
     })
 
     this.setState({ current: 1 })
@@ -37,18 +38,8 @@ export default class Psy extends Component {
     Psypagethis = this
   }
 
-  handleClick(value) {
-    this.setState({ current: value })
-    if (3 == value) {
-      Taro.navigateTo({ url: '../../../pages/user/userCenter' })
-    }
-    if (1 == value) {
-      Taro.redirectTo({ url: '../../../pages/kit/tools/litekitPage' })
-    }
-    if (0 == value) {
-      Taro.redirectTo({ url: '../../../pages/kit/tools/base' })
-    }
-
+  ClickAtTabBar(value) {
+    handleClick(value)
   }
 
   GridHander(item, index) {
@@ -119,88 +110,87 @@ export default class Psy extends Component {
   render() {
 
     const { login } = this.state;
-      return (
-        <View className={'contain'}>
+    return (
+      <View className={'contain'}>
 
 
 
-          <ScrollView>
-            
-            <AtDivider >
-              <AtIcon value='heart' color='red'></AtIcon>
-              <Text> 心理测试 </Text>
-              <AtIcon value='heart' color='red'></AtIcon>
-            </AtDivider>
-            <AtList hasBorder={false}>
-              <AtListItem
-                title='职业性格测试小程序版'
-                note='迈尔斯-布里格斯类型指标MBTI'
-                iconInfo={{
-                  prefixClass: 'fa',
-                  size: 36,
-                  color: '#FFCE00',
-                  value: 'podcast',
-                }}
-                onClick={this.GridHander.bind(this, '职业性格测试')}
-              />
-              <AtListItem
-                title='九型人格测试小程序版'
-                note='九型是具有古老历史的人格心理学工具'
-                iconInfo={{
-                  prefixClass: 'fa',
-                  size: 30,
-                  color: 'red',
-                  value: 'universal-access'
-                }}
-                onClick={this.GridHander.bind(this, '九型人格测试')}
-              />
-              <AtListItem
-                title='霍兰德职业测试小程序版'
-                note='Holland认为人格可分为现实型、研究型、艺术型、社会型、企业型和常规型六种类型。'
-                iconInfo={{
-                  prefixClass: 'mdi',
-                  size: 30,
-                  color: "#1FA7DE",
-                  value: 'alert-decagram'
-                }}
-                onClick={this.GridHander.bind(this, '霍兰德职业测试')}
-              />
-            </AtList>
-            <View>
-              <Text style="opacity: 0">blockline</Text>
-            </View>
-            <View>
-              <Text style="opacity: 0">blockline</Text>
-            </View>
-            <View>
-              <Text style="opacity: 0">blockline</Text>
-            </View>
-            <View>
-              <Text style="opacity: 0">blockline</Text>
-            </View>
-            <View>
-              <Text style="opacity: 0">blockline</Text>
-            </View>
-            <View>
-              <Text style="opacity: 0">blockline</Text>
-            </View>
-          </ScrollView>
-          <AtTabBar
-            fixed
-            tabList={[
-              { title: '基  础', iconType: 'lightning-bolt' },
-              { title: '易  学', iconType: 'list' },
-              { title: '心  理', iconType: 'list' },
-              { title: '分  享', iconType: 'tag' }
-            ]}
-            onClick={this.handleClick.bind(this)}
-            current={2}
-          >
-          </AtTabBar>
-        </View>
-      )
-    }
+        <ScrollView>
 
+          <AtDivider >
+            <AtIcon value='heart' color='red'></AtIcon>
+            <Text> 心理测试 </Text>
+            <AtIcon value='heart' color='red'></AtIcon>
+          </AtDivider>
+          <AtList hasBorder={false}>
+            <AtListItem
+              title='职业性格测试小程序版'
+              note='迈尔斯-布里格斯类型指标MBTI'
+              iconInfo={{
+                prefixClass: 'fa',
+                size: 36,
+                color: '#FFCE00',
+                value: 'podcast',
+              }}
+              onClick={this.GridHander.bind(this, '职业性格测试')}
+            />
+            <AtListItem
+              title='九型人格测试小程序版'
+              note='九型是具有古老历史的人格心理学工具'
+              iconInfo={{
+                prefixClass: 'fa',
+                size: 30,
+                color: 'red',
+                value: 'universal-access'
+              }}
+              onClick={this.GridHander.bind(this, '九型人格测试')}
+            />
+            <AtListItem
+              title='霍兰德职业测试小程序版'
+              note='Holland认为人格可分为现实型、研究型、艺术型、社会型、企业型和常规型六种类型。'
+              iconInfo={{
+                prefixClass: 'mdi',
+                size: 30,
+                color: "#1FA7DE",
+                value: 'alert-decagram'
+              }}
+              onClick={this.GridHander.bind(this, '霍兰德职业测试')}
+            />
+          </AtList>
+          <View>
+            <Text style="opacity: 0">blockline</Text>
+          </View>
+          <View>
+            <Text style="opacity: 0">blockline</Text>
+          </View>
+          <View>
+            <Text style="opacity: 0">blockline</Text>
+          </View>
+          <View>
+            <Text style="opacity: 0">blockline</Text>
+          </View>
+          <View>
+            <Text style="opacity: 0">blockline</Text>
+          </View>
+          <View>
+            <Text style="opacity: 0">blockline</Text>
+          </View>
+        </ScrollView>
+        <AtTabBar
+          fixed
+          tabList={[
+            { title: '基  础', iconType: 'lightning-bolt' },
+            { title: '易  学', iconType: 'list' },
+            { title: '心  理', iconType: 'list' },
+            { title: '分  享', iconType: 'tag' }
+          ]}
+          onClick={this.ClickAtTabBar}
+          current={2}
+        >
+        </AtTabBar>
+      </View>
+    )
   }
+}
 
 

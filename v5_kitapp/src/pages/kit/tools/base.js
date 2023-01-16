@@ -5,6 +5,7 @@ import { View, Text, Image, CustomWrapper, ScrollView } from '@tarojs/components
 import { AtIcon, AtDivider, AtTabBar, AtList, AtListItem } from 'taro-ui'
 import './base.scss'
 import '../../../theme.scss'
+import {handleClick} from '../../config/common'
 import plumber from '../../plumbertracewithoutpoucdbwithwxrequest_miniv3'
 //import WXBizDataCrypt from './WXBizDataCrypt'
 import './icon_awesome.scss'
@@ -49,18 +50,9 @@ export default class litekitPage extends Component {
     Basepagethis = this
   }
 
-  handleClick(value) {
-    this.setState({ current: value })
-    if (3 == value) {
-      Taro.navigateTo({ url: '../../../pages/user/userCenter' })
-    }
-    if (2 == value) {
-      Taro.redirectTo({ url: '../../../pages/kit/tools/Psy' })
-    }
-    if (1 == value) {
-      Taro.redirectTo({ url: '../../../pages/kit/tools/litekitPage' })
-    }
-
+  ClickAtTabBar(value)
+  {
+    handleClick(value)
   }
 
   GridHander(item, index) {
@@ -184,7 +176,7 @@ export default class litekitPage extends Component {
               { title: '心  理', iconType: 'list' },
               { title: '分  享', iconType: 'tag' }
             ]}
-            onClick={this.handleClick.bind(this)}
+            onClick={this.ClickAtTabBar}
             current={0}
           >
           </AtTabBar>
