@@ -21,7 +21,7 @@ export default class Slogan extends Component {
     this.random()
    
     setTimeout(() => {
-      Taro.navigateTo({ url: '../kit/tools/litekitPage' })
+      Taro.redirectTo({ url: '../kit/tools/litekitPage' })
     }, 5000);
 
   }

@@ -1,3 +1,3 @@
 export default {
-    navigationBarTitleText: '乾坤爻小程序'
+    navigationBarTitleText: '乾坤爻欢迎你'
 }

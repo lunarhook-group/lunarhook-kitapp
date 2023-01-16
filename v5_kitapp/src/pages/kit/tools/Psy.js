@@ -43,10 +43,10 @@ export default class Psy extends Component {
       Taro.navigateTo({ url: '../../../pages/user/userCenter' })
     }
     if (1 == value) {
-      Taro.navigateTo({ url: '../../../pages/kit/tools/litekitPage' })
+      Taro.redirectTo({ url: '../../../pages/kit/tools/litekitPage' })
     }
     if (0 == value) {
-      Taro.navigateTo({ url: '../../../pages/kit/tools/base' })
+      Taro.redirectTo({ url: '../../../pages/kit/tools/base' })
     }
 
   }

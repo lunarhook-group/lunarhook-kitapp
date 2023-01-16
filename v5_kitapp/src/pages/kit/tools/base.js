@@ -55,10 +55,10 @@ export default class litekitPage extends Component {
       Taro.navigateTo({ url: '../../../pages/user/userCenter' })
     }
     if (2 == value) {
-      Taro.navigateTo({ url: '../../../pages/kit/tools/Psy' })
+      Taro.redirectTo({ url: '../../../pages/kit/tools/Psy' })
     }
     if (1 == value) {
-      Taro.navigateTo({ url: '../../../pages/kit/tools/litekitPage' })
+      Taro.redirectTo({ url: '../../../pages/kit/tools/litekitPage' })
     }
 
   }
