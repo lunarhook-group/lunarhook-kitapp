@@ -6,7 +6,7 @@ import { AtIcon, AtDivider, AtTabBar, AtList, AtListItem } from 'taro-ui'
 import './litekitPage.scss'
 import '../../../theme.scss'
 import plumber from '../../plumbertracewithoutpoucdbwithwxrequest_miniv3'
-import { handleClick } from '../../config/common'
+import { handleClick,tablist } from '../../config/common'
 import './icon_awesome.scss'
 import './icon_ionicons.scss'
 import './icon_mdi.scss'
@@ -280,12 +280,7 @@ export default class litekitPage extends Component {
           </ScrollView>
           <AtTabBar
             fixed
-            tabList={[
-              { title: '基  础', iconType: 'lightning-bolt' },
-              { title: '易  学', iconType: 'list' },
-              { title: '心  理', iconType: 'list' },
-              { title: '分  享', iconType: 'tag' }
-            ]}
+            tabList={tablist}
             onClick={this.ClickAtTabBar}
             current={1}
           >

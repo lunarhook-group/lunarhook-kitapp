@@ -5,7 +5,7 @@ import { View, Text, Image, CustomWrapper, ScrollView } from '@tarojs/components
 import { AtIcon, AtDivider, AtTabBar, AtList, AtListItem } from 'taro-ui'
 import './Psy.scss'
 import '../../../theme.scss'
-import { handleClick } from '../../config/common'
+import { handleClick,tablist } from '../../config/common'
 import plumber from '../../plumbertracewithoutpoucdbwithwxrequest_miniv3'
 //import WXBizDataCrypt from './WXBizDataCrypt'
 import './icon_awesome.scss'
@@ -178,12 +178,7 @@ export default class Psy extends Component {
         </ScrollView>
         <AtTabBar
           fixed
-          tabList={[
-            { title: '基  础', iconType: 'lightning-bolt' },
-            { title: '易  学', iconType: 'list' },
-            { title: '心  理', iconType: 'list' },
-            { title: '分  享', iconType: 'tag' }
-          ]}
+          tabList={tablist}
           onClick={this.ClickAtTabBar}
           current={2}
         >
