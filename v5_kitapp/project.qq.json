@@ -1,0 +1,9 @@
+{
+  "miniprogramRoot": "./",
+  "projectname": "v5_kitapp",
+  "appid": "1112272316",
+  "setting": {
+    "es6": false,
+    "minified": false
+  }
+}
