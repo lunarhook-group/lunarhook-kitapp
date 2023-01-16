@@ -3,76 +3,15 @@ import React, { Component } from 'react'
 import Taro from '@tarojs/taro'
 import { View, Text, Image, CustomWrapper, ScrollView } from '@tarojs/components'
 import { AtIcon, AtDivider, AtTabBar, AtList, AtListItem } from 'taro-ui'
-import './litekitPage.scss'
+import './base.scss'
 import '../../../theme.scss'
 import plumber from '../../plumbertracewithoutpoucdbwithwxrequest_miniv3'
 //import WXBizDataCrypt from './WXBizDataCrypt'
 import './icon_awesome.scss'
 import './icon_ionicons.scss'
 import './icon_mdi.scss'
-var data1 =
-  [
-    {
-      iconInfo: {
-        prefixClass: 'fa',
-        size: 30,
-        color: 'orange',
-        value: 'podcast'
-      },
-      value: 'MBTI职业性格测试小程序版'
-    },
-    {
-      iconInfo: {
-        prefixClass: 'fa',
-        size: 30,
-        color: 'red',
-        value: 'universal-access'
-      },
-      value: '九型人格测试小程序版'
-    },
 
-    {
-      iconInfo: {
-        prefixClass: 'fa',
-        size: 30,
-        color: 'blue',
-        value: 'tachometer'
-      },
-      value: '霍兰德职业测试'
-    },
-  ];
-
-var data2 =
-  [
-    {
-      iconInfo: {
-        prefixClass: 'fa',
-        size: 30,
-        color: 'darkblue',
-        value: 'moon-o'
-      },
-      value: '六爻测试'
-    },
-    {
-      iconInfo: {
-        prefixClass: 'ion',
-        size: 30,
-        color: 'orange',
-        value: 'ios-finger-print'
-      },
-      value: '八字测评'
-    },
-    {
-      iconInfo: {
-        prefixClass: 'fa',
-        size: 30,
-        color: 'green',
-        value: 'signal'
-      },
-      value: '数字八星'
-    },
-  ];
-let litekitPagethis = null
+let Basepagethis = null
 export default class litekitPage extends Component {
   componentDidMount() {
     Taro.showShareMenu({
@@ -85,8 +24,8 @@ export default class litekitPage extends Component {
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称
           wx.getUserInfo({
             success: function (res) {
-              litekitPagethis.setState({ login: true })
-              plumber.uid_uid = litekitPagethis.getweixinunionid(res.userInfo)
+              Basepagethis.setState({ login: true })
+              plumber.uid_uid = Basepagethis.getweixinunionid(res.userInfo)
             }
           })
         }
@@ -107,7 +46,7 @@ export default class litekitPage extends Component {
       open: open,
       login: false,
     }
-    litekitPagethis = this
+    Basepagethis = this
   }
 
   handleClick(value) {
@@ -118,8 +57,8 @@ export default class litekitPage extends Component {
     if (2 == value) {
       Taro.navigateTo({ url: '../../../pages/kit/tools/Psy' })
     }
-    if (0 == value) {
-      Taro.navigateTo({ url: '../../../pages/kit/tools/base' })
+    if (1 == value) {
+      Taro.navigateTo({ url: '../../../pages/kit/tools/litekitPage' })
     }
 
   }
@@ -177,7 +116,7 @@ export default class litekitPage extends Component {
               withCredentials: true,
               success: function (res) {
                 //plumber
-                litekitPagethis.setState({ login: true })
+                Basepagethis.setState({ login: true })
               }
             })
         }
@@ -191,72 +130,33 @@ export default class litekitPage extends Component {
   }
   render() {
 
-    const { login } = this.state;
-    if (false == login) { return this.showlogin(login) }
-    else {
+
       return (
         <View className={'contain'}>
 
+
+
           <ScrollView>
+            <AtDivider >
+              <AtIcon value='bell' color="#13BD7A"></AtIcon>
+              <Text> 基础测试 </Text>
+              <AtIcon value='bell' color="#13BD7A"></AtIcon>
+            </AtDivider>
+            <AtList hasBorder={false}>
+              <AtListItem
+                title='乾坤九考（壬寅测试版）'
+                note='根据《三玄》《四书》《五经》中周易相关知识按难度出题，对自学周易以及相关国学知识的自我检测，分成九个难度，目前只开放最简单的'
+                iconInfo={{
+                  prefixClass: 'mdi',
+                  size: 30,
+                  color: '#00C0FF',
+                  value: 'language-xaml',
+                }}
+                onClick={this.GridHander.bind(this, '乾坤九考')}
+              />
+
+            </AtList>
             
-            <AtDivider>
-              <AtIcon prefixClass='fa' value='balance-scale' size='20' color="red"></AtIcon>
-              <Text color="#FFCE00"> 婚姻测试 </Text>
-              <AtIcon prefixClass='fa' value='balance-scale' size='20' color="red"></AtIcon>
-            </AtDivider>
-            <AtList hasBorder={false}>
-              <AtListItem
-                title='合卺问礼'
-                note='合卺，始于周朝，为旧时汉族婚俗仪式之一'
-                iconInfo={{
-                  prefixClass: 'fa',
-                  size: 26,
-                  color: "#FFB6C1",
-                  value: 'diamond'
-                }}
-                onClick={this.GridHander.bind(this, '合卺问礼')}
-              />
-            </AtList>
-            <AtDivider>
-              <AtIcon class value='bookmark' color="#FFCE00"></AtIcon>
-              <Text color="#FFCE00"> 周易测试 </Text>
-              <AtIcon value='bookmark' color="#FFCE00"></AtIcon>
-            </AtDivider>
-            <AtList hasBorder={false}>
-              <AtListItem
-                title='六爻测试'
-                note='六爻八卦预测，是古人观察大自然运行规律总结出来的一项法则。起源于西汉京房的纳甲体系'
-                iconInfo={{
-                  prefixClass: 'mdi',
-                  size: 30,
-                  color: "#1FA7DE",
-                  value: 'yin-yang'
-                }}
-                onClick={this.GridHander.bind(this, '六爻测试')}
-              />
-              <AtListItem
-                title='八字测评'
-                note='八字即生辰八字，是一个人出生时的干支历日期,四柱加大运加流年的预测模式称之为子平术；四柱太阳律月亮律属于四柱完整的预测技术与方法'
-                iconInfo={{
-                  prefixClass: 'mdi',
-                  size: 30,
-                  color: 'red',
-                  value: 'fingerprint'
-                }}
-                onClick={this.GridHander.bind(this, '八字测评')}
-              />
-              <AtListItem
-                title='数字八星'
-                note='数字八星可以根据任意数字组合，例如身份证电话等，并将其命名为：天医，生气，延年，伏位，绝命，祸害，六煞，五鬼共分为四凶四吉'
-                iconInfo={{
-                  prefixClass: 'mdi',
-                  size: 30,
-                  color: "#13BD7A",
-                  value: 'signal'
-                }}
-                onClick={this.GridHander.bind(this, '数字八星')}
-              />
-            </AtList>
             <View>
               <Text style="opacity: 0">blockline</Text>
             </View>
@@ -285,7 +185,7 @@ export default class litekitPage extends Component {
               { title: '分  享', iconType: 'tag' }
             ]}
             onClick={this.handleClick.bind(this)}
-            current={1}
+            current={0}
           >
           </AtTabBar>
         </View>
@@ -293,5 +193,4 @@ export default class litekitPage extends Component {
     }
 
   }
-}
 

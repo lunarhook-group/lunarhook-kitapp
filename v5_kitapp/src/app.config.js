@@ -40,7 +40,9 @@ export default {
     {
       "root": "pages/kit/tools",
       "pages": [
+        "base",
         "litekitPage",
+        "Psy",
         "SloganShare",
       ]
     }, 

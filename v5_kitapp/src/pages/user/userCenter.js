@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, Image, Text, WebView, ScrollView } from '@tarojs/components';
 import Taro from '@tarojs/taro'
+import { AtIcon, AtDivider, AtTabBar, AtList, AtListItem } from 'taro-ui'
 import './userCenter.scss';
 import study from './assets/study.jpg'
 import test from './assets/test.jpg'
@@ -92,6 +93,14 @@ export default class UserCenter extends Component {
 
          
         </ScrollView>
+        <AtTabBar 
+            fixed
+            tabList={[
+              { title: '开屏语', iconType: 'lightning-bolt' },
+            ]}
+            onClick={    ()=>  Taro.navigateTo({ url: '../kit/tools/SloganShare' })}
+          >
+          </AtTabBar>
       </View>
     );
   }
