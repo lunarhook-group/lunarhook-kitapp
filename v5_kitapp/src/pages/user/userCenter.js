@@ -3,6 +3,7 @@ import { View, Image, Text, WebView, ScrollView } from '@tarojs/components';
 import Taro from '@tarojs/taro'
 import { AtIcon, AtDivider, AtTabBar, AtList, AtListItem } from 'taro-ui'
 import './userCenter.scss';
+import '../kit/tools/icon_mdi.scss'
 import study from './assets/study.jpg'
 import test from './assets/test.jpg'
 
@@ -12,7 +13,7 @@ export default class UserCenter extends Component {
   componentDidMount() {
     Taro.showShareMenu({
       withShareTicket: true,
-      showShareItems:['shareAppMessage', 'shareTimeline','wechatFriends', 'wechatMoment']
+      showShareItems: ['shareAppMessage', 'shareTimeline', 'wechatFriends', 'wechatMoment']
     })
   }
   componentDidHide() { }
@@ -39,7 +40,7 @@ export default class UserCenter extends Component {
       console.log(action)
       url = "https://www.lunarhook.com/static/img/study.jpg"
     }
-    
+
     wx.previewImage({
       urls: [url],
     })
@@ -91,16 +92,21 @@ export default class UserCenter extends Component {
             <Text>乾坤爻APP亦可通过各手机市场渠道获取</Text>
           </View>
 
-         
+
         </ScrollView>
-        <AtTabBar 
-            fixed
-            tabList={[
-              { title: '开屏语', iconType: 'lightning-bolt' },
-            ]}
-            onClick={    ()=>  Taro.navigateTo({ url: '../kit/tools/SloganShare' })}
-          >
-          </AtTabBar>
+        <AtTabBar
+          fixed
+          selectedColor="#3dd1e0"
+          tabList={[
+            {
+              title: '开屏语', iconPrefixClass: 'mdi',
+              size: 36,
+              color: "#3dd1e0", iconType: 'seed-outline'
+            },
+          ]}
+          onClick={() => Taro.navigateTo({ url: '../kit/tools/SloganShare' })}
+        >
+        </AtTabBar>
       </View>
     );
   }

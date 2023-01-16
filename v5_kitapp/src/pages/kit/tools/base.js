@@ -170,6 +170,8 @@ export default class litekitPage extends Component {
           </ScrollView>
           <AtTabBar
             fixed
+            color='#08ad0f'
+            selectedColor="#32ea38"
             tabList={tablist}
             onClick={this.ClickAtTabBar}
             current={0}

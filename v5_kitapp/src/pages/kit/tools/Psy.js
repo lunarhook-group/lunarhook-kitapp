@@ -178,6 +178,8 @@ export default class Psy extends Component {
         </ScrollView>
         <AtTabBar
           fixed
+          color='#FFB6C1'
+          selectedColor='#f57153'
           tabList={tablist}
           onClick={this.ClickAtTabBar}
           current={2}
