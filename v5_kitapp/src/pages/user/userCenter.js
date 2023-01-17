@@ -90,35 +90,40 @@ export default class UserCenter extends Component {
                 Promise.all([p1,p2,p3,p4]).then((ret)=>{
                   ctx.font="16px Georgia"
                   ctx.textAlign="center";
-                  ctx.drawImage(img2, 20, 0, 140, 140);
-                  ctx.fillText("癸卯学习服务二维码",90,155)
-                  ctx.drawImage(img1, 20, 180, 140, 140);
-                  ctx.fillText("乾坤爻服务支持QQ群",270,155)
-                  ctx.drawImage(img3, 200, 0, 140, 140);
-                  ctx.fillText("分享乾坤爻小程序",90,335)
-                  ctx.drawImage(img4, 200, 180, 140, 140);
-                  ctx.fillText("分享乾坤爻小程序",270,335)
+                  ctx.fillStyle = "#ffffff"
+                  ctx.fillRect(0,0,360,375)
+                  ctx.fillStyle = "#000000"
+                  ctx.drawImage(img2, 20, 20, 140, 140);
+                  ctx.fillText("癸卯学习服务二维码",90,175)
+                  ctx.drawImage(img1, 20, 200, 140, 140);
+                  ctx.fillText("乾坤爻服务支持QQ群",270,175)
+                  ctx.drawImage(img3, 200, 20, 140, 140);
+                  ctx.fillText("分享乾坤爻小程序",90,355)
+                  ctx.drawImage(img4, 200, 200, 140, 140);
+                  ctx.fillText("分享乾坤爻小程序",270,355)
+
+                  setTimeout(() => {
+                    Taro.canvasToTempFilePath({
+                      canvas: node,
+                      fileType: 'jpg',
+                      success(res) {
+                        setTimeout(() => {
+                          Taro.saveImageToPhotosAlbum({
+                            filePath: res.tempFilePath,
+                            success() {
+                              Taro.showToast('已保存到本地相册');
+                            }
+                          });
+                        }, 300);
+                      },
+                      fail(res) {
+                        console.log(res)
+                      }
+                    },this);
+                  }, 500)
                 })
                 return
-                    setTimeout(() => {
-                      Taro.canvasToTempFilePath({
-                        canvas: node,
-                        fileType: 'jpg',
-                        success(res) {
-                          setTimeout(() => {
-                            Taro.saveImageToPhotosAlbum({
-                              filePath: res.tempFilePath,
-                              success() {
-                                Taro.showToast('已保存到本地相册');
-                              }
-                            });
-                          }, 300);
-                        },
-                        fail(res) {
-                          console.log(res)
-                        }
-                      },this);
-                    }, 500)
+                    
                 })
         
                 //ctx.drawImage("https://www.lunarhook.com/static/img/study.jpg", 160, 0, 140, 140);
