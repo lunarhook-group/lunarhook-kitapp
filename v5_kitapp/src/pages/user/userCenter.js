@@ -54,23 +54,55 @@ export default class UserCenter extends Component {
             if (!node) return
             const ctx = node.getContext('2d')
             const dpr = Taro.getSystemInfoSync().pixelRatio
-            node.width = res[0].width * dpr
-            node.height = res[0].height * dpr
+            node.width = w * dpr
+            node.height = h * dpr
             ctx.scale(dpr, dpr)
             Taro.getImageInfo({ src: 'https://www.lunarhook.com/static/img/study.jpg' })
               .then((res) => {
-                let img =  node.createImage();
-                img.src = 'https://www.lunarhook.com/static/img/study.jpg';
-                img.onload = (e) => {
-                  ctx.drawImage(img, 0, 0, 20, 20);
-
+                var img1 =  node.createImage();
+                var img2 =  node.createImage();
+                var img3 =  node.createImage();
+                var img4 =  node.createImage();
+                let p1 = new Promise(function(resolve, reject) {
+                  img1.src = miniapp
+                  img1.onload = function() {
+                    resolve(img1)
+                  }
+                });
+                let p2 = new Promise(function(resolve, reject) {
+                  img2.src = study
+                  img2.onload = function() {
+                    resolve(img1)
+                  }
+                });
+                let p3 = new Promise(function(resolve, reject) {
+                  img3.src = test
+                  img3.onload = function() {
+                    resolve(img3)
+                  }
+                });
+                let p4 = new Promise(function(resolve, reject) {
+                  img4.src = "https://www.lunarhook.com/static/img/nav279486.jpg"
+                  img4.onload = function() {
+                    resolve(img4)
+                  }
+                });
+                Promise.all([p1,p2,p3,p4]).then((ret)=>{
+                  ctx.font="16px Georgia"
+                  ctx.textAlign="center";
+                  ctx.drawImage(img2, 20, 0, 140, 140);
+                  ctx.fillText("癸卯学习服务二维码",90,155)
+                  ctx.drawImage(img1, 20, 180, 140, 140);
+                  ctx.fillText("乾坤爻服务支持QQ群",270,155)
+                  ctx.drawImage(img3, 200, 0, 140, 140);
+                  ctx.fillText("分享乾坤爻小程序",90,335)
+                  ctx.drawImage(img4, 200, 180, 140, 140);
+                  ctx.fillText("分享乾坤爻小程序",270,335)
+                })
+                return
                     setTimeout(() => {
                       Taro.canvasToTempFilePath({
-                        x: 0,
-                        y: 0,
-                        width: w,
-                        height: h,
-                        canvasId: 'usercenter',
+                        canvas: node,
                         fileType: 'jpg',
                         success(res) {
                           setTimeout(() => {
@@ -87,7 +119,6 @@ export default class UserCenter extends Component {
                         }
                       },this);
                     }, 500)
-                }
                 })
         
                 //ctx.drawImage("https://www.lunarhook.com/static/img/study.jpg", 160, 0, 140, 140);
@@ -136,10 +167,10 @@ export default class UserCenter extends Component {
             <Text style="opacity: 0">blockline</Text>
             <Text style="opacity: 0">blockline</Text>
             <View className="imageslogan">
-              <Image style='width: 140px;height: 140px;background: #fff;' src='./assets/miniapp.jpg'>    <View style="opacity: 0;position: absolute; width: 100%; height: 100%; top: 0; transform-origin: top right;">
+              <Image style='width: 140px;height: 140px;background: #fff;' src='./assets/miniapp.jpg' showMenuByLongpress={true}>    <View style="opacity: 0;position: absolute; width: 100%; height: 100%; top: 0; transform-origin: top right;">
               </View>
               </Image>
-              <Image style='width: 140px;height: 140px;background: #fff;' src='./assets/test.jpg' showMenuByLongpress={true} onTap={() => this.clickimg("service")}></Image>
+              <Image style='width: 140px;height: 140px;background: #fff;' src='https://www.lunarhook.com/static/img/nav279486.jpg' showMenuByLongpress={true} onTap={() => this.clickimg("")}></Image>
 
             </View>
             <View className="imagecontain">
@@ -151,8 +182,6 @@ export default class UserCenter extends Component {
             <View className="imageslogan">
 
             </View>
-            <Text style="opacity: 0">blockline</Text>
-            <Text style="opacity: 0">blockline</Text>
             <View className="imageslogan">
               <Button size='default' type='primary' onClick={() => this.saveImg(w, h, qrCodeSide, qrCenter)}>制作分享海报</Button>
               <Canvas type="2d" className='imagecontain' id="usercenter" style={{ width: w, height: h }}></Canvas>
