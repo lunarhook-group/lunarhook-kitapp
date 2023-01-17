@@ -3,5 +3,6 @@
   "projectname": "v5_kitapp",
   "setting": {
     "compileHotReLoad": true
-  }
+  },
+  "libVersion": "2.29.2"
 }

@@ -66,12 +66,12 @@
 .imagecontain {
   margin:0 auto;
   display: block;
-  justify-content:space-between;
+  justify-content:space-around;
   flex-wrap: wrap;
 }
 .imageslogan {
   display: flex;
-  justify-content:space-between;
+  justify-content:space-around;
   flex-wrap: wrap;
 
   //padding-top: 50px;
