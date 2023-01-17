@@ -49,54 +49,57 @@ export default class UserCenter extends Component {
   saveImg(w, h, qrCodeSide, qrCenter) {
     setTimeout(() => {
       Taro.nextTick(() => {
-        wx.createSelectorQuery().selectAll('#usercenter').node(res => {
-            const node = res[0]
+        Taro.createSelectorQuery().selectAll('#usercenter').node(res => {
+            const node = res[0].node
             if (!node) return
-            const ctx = res[0].node.getContext('2d')
+            const ctx = node.getContext('2d')
+            const dpr = Taro.getSystemInfoSync().pixelRatio
+            node.width = res[0].width * dpr
+            node.height = res[0].height * dpr
+            ctx.scale(dpr, dpr)
             Taro.getImageInfo({ src: 'https://www.lunarhook.com/static/img/study.jpg' })
               .then((res) => {
-                ctx.drawImage(miniapp, 0, 0, 140, 140);
+                let img =  node.createImage();
+                img.src = 'https://www.lunarhook.com/static/img/study.jpg';
+                img.onload = (e) => {
+                  ctx.drawImage(img, 0, 0, 20, 20);
+
+                    setTimeout(() => {
+                      Taro.canvasToTempFilePath({
+                        x: 0,
+                        y: 0,
+                        width: w,
+                        height: h,
+                        canvasId: 'usercenter',
+                        fileType: 'jpg',
+                        success(res) {
+                          setTimeout(() => {
+                            Taro.saveImageToPhotosAlbum({
+                              filePath: res.tempFilePath,
+                              success() {
+                                Taro.showToast('已保存到本地相册');
+                              }
+                            });
+                          }, 300);
+                        },
+                        fail(res) {
+                          console.log(res)
+                        }
+                      },this);
+                    }, 500)
+                }
+                })
+        
                 //ctx.drawImage("https://www.lunarhook.com/static/img/study.jpg", 160, 0, 140, 140);
                 //ctx.drawImage("https://www.lunarhook.com/static/img/study.jpg", 0, 190, 140, 140);
                 //ctx.drawImage("https://www.lunarhook.com/static/img/study.jpg", 160, 190, 140, 140);
-                ctx.draw()
-                setTimeout(() => {
-                  Taro.canvasToTempFilePath({
-                    x: 0,
-                    y: 0,
-                    width: w,
-                    height: h,
-                    canvasId: 'usercenter',
-                    fileType: 'jpg',
-                    success(res) {
-                      setTimeout(() => {
-                        Taro.saveImageToPhotosAlbum({
-                          filePath: res.tempFilePath,
-                          success() {
-                            Taro.showToast('已保存到本地相册');
-                          }
-                        });
-                      }, 300);
-                    },
-                    fail(res) {
-                      console.log(res)
-                    }
-                  });
-                }, 500)
-              })
+                
           }).exec()
       })
 
     }, 500)
-
-
-
-
-
-
-
-
   }
+
 
   render() {
     var res = Taro.getSystemInfoSync()
