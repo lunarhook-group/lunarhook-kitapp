@@ -55,7 +55,7 @@ export default class UserCenter extends Component {
       urls: [url],
     })
   }
-  saveImg(w, h, qrCodeSide, qrCenter) {
+  saveImg(w, h) {
     this.setState({ isOpened: true })
     setTimeout(() => {
       Taro.nextTick(() => {
@@ -119,12 +119,12 @@ export default class UserCenter extends Component {
                       if (undefined !== UserCenterthis.nickName) {
                         ctx.fillText(UserCenterthis.nickName + "邀请您加入乾坤爻", 270, 355 + 70)
                       } else {
-                        ctx.fillText("欢迎您加入乾坤爻", 270, 355 + 70)
+                        ctx.fillText("欢迎您加入乾坤爻", 270, 375 + 35)
                       }
                       ctx.beginPath()
-                      ctx.arc(20 + 70, 355 + 70, 50, 0, 2 * Math.PI)
+                      ctx.arc(55 + 35, 375 + 35, 35, 0, 2 * Math.PI)
                       ctx.clip()
-                      ctx.drawImage(img5, 20, 355, 140, 140);
+                      ctx.drawImage(img5, 55, 375, 70, 70);
                       ctx.restore()
 
                     }
@@ -156,37 +156,25 @@ export default class UserCenter extends Component {
             })
         }).exec()
       })
-
     }, 500)
   }
   handleClose() {
     this.setState({ isOpened: false })
   }
-
-  render() {
-    Taro.getUserInfo({
-      success: function (res) {
-        var userInfo = res.userInfo
-        var nickName = userInfo.nickName
-        var avatarUrl = userInfo.avatarUrl
-        var gender = userInfo.gender //性别 0：未知、1：男、2：女
-        var province = userInfo.province
-        var city = userInfo.city
-        var country = userInfo.country
-        UserCenterthis.setState({ avatarUrl: userInfo.avatarUrl, nickName: userInfo.nickName })
-      }
+  onChooseAvatar(e,w,h) {
+    const { avatarUrl } = e.detail 
+    this.setState({
+      avatarUrl:avatarUrl
     })
+
+    this.saveImg(w, h)
+  }
+  render() {
     var res = Taro.getSystemInfoSync()
     var w = res.windowWidth * 0.9
     var h = res.windowHeight * 0.8
     if (w > 355) { w = 375 }
     if (h > 495) { h = 495 }
-    var qrCodeSide = 234;
-    // 二维码圆心位置
-    var qrCenter = {
-      x: 381,
-      y: 381
-    };
     return (
       <View className="container">
         <ScrollView>
@@ -228,7 +216,7 @@ export default class UserCenter extends Component {
 
             </View>
             <View className="imageslogan">
-              <Button size='default' type='primary' onClick={() => this.saveImg(w, h, qrCodeSide, qrCenter)}>制作分享海报</Button>
+              <Button size='default' type='primary' open-type="chooseAvatar" onChooseAvatar={(e)=>this.onChooseAvatar(e,w,h)}>制作分享海报</Button>
               <AtFloatLayout isOpened={this.state.isOpened} title="制作分享海报" onClose={this.handleClose.bind(this)}>
                 <Canvas type="2d" className='imagecontain' id="usercenter" style={{ width: w, height: h }}></Canvas>
               </AtFloatLayout>
