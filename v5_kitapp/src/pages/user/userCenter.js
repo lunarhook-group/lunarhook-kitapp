@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Image, Text, Canvas, ScrollView, Button } from '@tarojs/components';
 import Taro from '@tarojs/taro'
-import { AtIcon, AtDivider, AtTabBar, AtList, AtListItem } from 'taro-ui'
+import { AtFloatLayout, AtDivider, AtTabBar, AtList, AtListItem } from 'taro-ui'
 import './userCenter.scss';
 import '../kit/tools/icon_mdi.scss'
 import miniapp from './assets/miniapp.jpg'
@@ -135,7 +135,8 @@ export default class UserCenter extends Component {
 
     }, 500)
   }
-
+  handleClose()
+  {}
 
   render() {
     var res = Taro.getSystemInfoSync()
@@ -189,7 +190,10 @@ export default class UserCenter extends Component {
             </View>
             <View className="imageslogan">
               <Button size='default' type='primary' onClick={() => this.saveImg(w, h, qrCodeSide, qrCenter)}>制作分享海报</Button>
+              <AtFloatLayout isOpened title="制作分享海报" onClose={this.handleClose.bind(this)}>
               <Canvas type="2d" className='imagecontain' id="usercenter" style={{ width: w, height: h }}></Canvas>
+              </AtFloatLayout>
+
             </View>
           </View>
         </ScrollView>
