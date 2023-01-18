@@ -143,7 +143,7 @@ export default class UserCenter extends Component {
                           success() {
                             Taro.showToast('已保存到本地相册');
                             UserCenterthis.handleClose()
-                            Taro.onMenuShareTimeline({path:res.tempFilePath})
+                            Taro.showShareImageMenu({path:res.tempFilePath})
                           }
                         });
                       }, 300);
