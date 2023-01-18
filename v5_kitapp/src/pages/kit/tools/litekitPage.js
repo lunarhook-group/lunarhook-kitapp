@@ -284,7 +284,7 @@ export default class litekitPage extends Component {
             selectedColor="#3282EA"
             tabList={tablist}
             onClick={this.ClickAtTabBar}
-            current={1}
+            current={2}
           >
           </AtTabBar>
         </View>

@@ -182,7 +182,7 @@ export default class Psy extends Component {
           selectedColor='#f57153'
           tabList={tablist}
           onClick={this.ClickAtTabBar}
-          current={2}
+          current={3}
         >
         </AtTabBar>
       </View>

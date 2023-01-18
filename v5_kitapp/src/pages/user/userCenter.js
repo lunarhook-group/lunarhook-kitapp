@@ -236,19 +236,6 @@ export default class UserCenter extends Component {
             </View>
           </View>
         </ScrollView>
-        <AtTabBar
-          fixed
-          selectedColor="#3dd1e0"
-          tabList={[
-            {
-              title: '开屏语', iconPrefixClass: 'mdi',
-              size: 36,
-              color: "#3dd1e0", iconType: 'seed-outline'
-            },
-          ]}
-          onClick={() => Taro.navigateTo({ url: '../kit/tools/SloganShare' })}
-        >
-        </AtTabBar>
       </View>
     );
   }

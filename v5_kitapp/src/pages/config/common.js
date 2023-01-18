@@ -2,24 +2,31 @@
 import Taro from '@tarojs/taro'
 function handleClick(val) {
   var value = val
-  if (3 == value) {
+  if (4 == value) {
     Taro.navigateTo({ url: '../../../pages/user/userCenter' })
   }
-  else if (2 == value) {
+  else if (3== value) {
     Taro.redirectTo({ url: '../../../pages/kit/tools/Psy' })
   }
-  else if (1 == value) {
+  else if (2 == value) {
     Taro.redirectTo({ url: '../../../pages/kit/tools/litekitPage' })
   }
-  else if (0 == value) {
+  else if (1 == value) {
     Taro.redirectTo({ url: '../../../pages/kit/tools/base' })
+  }
+  else if (0 == value) {
+    Taro.navigateTo({ url: '../../../pages/kit/tools/SloganShare' })
   }
 }
 
 var tablist = [
-
   {
-    title: '基  础', iconPrefixClass: 'mdi',
+    title: '开屏语', iconPrefixClass: 'mdi',
+    size: 36,
+    color: "#3dd1e0", iconType: 'seed-outline'
+  },
+  {
+    title: '知  识', iconPrefixClass: 'mdi',
     size: 36,
     color: "#1FA7DE",
     iconType: 'head-dots-horizontal-outline'
