@@ -142,6 +142,8 @@ export default class UserCenter extends Component {
                           filePath: res.tempFilePath,
                           success() {
                             Taro.showToast('已保存到本地相册');
+                            UserCenterthis.handleClose()
+                            Taro.onMenuShareTimeline({path:res.tempFilePath})
                           }
                         });
                       }, 300);
@@ -213,7 +215,16 @@ export default class UserCenter extends Component {
               </View>
             </View>
             <View className="imageslogan">
-
+            <Text style="opacity: 0">blockline</Text>
+            </View>
+            <View className="imageslogan">
+            <Text style="opacity: 0">blockline</Text>
+            </View>
+            <View className="imageslogan">
+            <Text style="opacity: 0">blockline</Text>
+            </View>
+            <View className="imageslogan">
+            <Text style="opacity: 0">blockline</Text>
             </View>
             <View className="imageslogan">
               <Button size='default' type='primary' open-type="chooseAvatar" onChooseAvatar={(e)=>this.onChooseAvatar(e,w,h)}>制作分享海报</Button>
