@@ -6,7 +6,8 @@ import './userCenter.scss';
 import '../kit/tools/icon_mdi.scss'
 import miniapp from './assets/miniapp.jpg'
 import study from './assets/study.jpg'
-import test from './assets/test.jpg'
+import qqservice from './assets/qqservice.png'
+import app from './assets/app.png'
 
 import plumber from '../plumbertracewithoutpoucdbwithwxrequest_miniv3'
 let UserCenterthis = null
@@ -41,14 +42,14 @@ export default class UserCenter extends Component {
 
   clickimg(action) {
 
-    var url = "https://www.lunarhook.com/static/img/nav279486.jpg"
+    var url = app
     if (action == "service") {
       console.log(action)
-      url = "https://www.lunarhook.com/static/img/service.jpg"
+      url = qqservice
     }
     else if (action == "study") {
       console.log(action)
-      url = "https://www.lunarhook.com/static/img/study.jpg"
+      url = study
     }
 
     wx.previewImage({
@@ -86,13 +87,13 @@ export default class UserCenter extends Component {
                 }
               });
               let p3 = new Promise(function (resolve, reject) {
-                img3.src = test
+                img3.src = qqservice
                 img3.onload = function () {
                   resolve(img3)
                 }
               });
               let p4 = new Promise(function (resolve, reject) {
-                img4.src = "https://www.lunarhook.com/static/img/nav279486.jpg"
+                img4.src = app
                 img4.onload = function () {
                   resolve(img4)
                 }
@@ -189,7 +190,7 @@ export default class UserCenter extends Component {
                 <cell url='https://work.weixin.qq.com/gm/548967c3d68a0998980beabbc6e8be6a' />
               </View>
               </Image>
-              <Image style='width: 140px;height: 140px;background: #fff;' src='./assets/test.jpg' showMenuByLongpress={true} onTap={() => this.clickimg("service")}></Image>
+              <Image style='width: 140px;height: 140px;background: #fff;' src='./assets/qqservice.png' showMenuByLongpress={true} onTap={() => this.clickimg("service")}></Image>
 
             </View>
 
@@ -205,7 +206,7 @@ export default class UserCenter extends Component {
               <Image style='width: 140px;height: 140px;background: #fff;' src='./assets/miniapp.jpg' showMenuByLongpress={true}>    <View style="opacity: 0;position: absolute; width: 100%; height: 100%; top: 0; transform-origin: top right;">
               </View>
               </Image>
-              <Image style='width: 140px;height: 140px;background: #fff;' src='https://www.lunarhook.com/static/img/nav279486.jpg' showMenuByLongpress={true} onTap={() => this.clickimg("")}></Image>
+              <Image style='width: 140px;height: 140px;background: #fff;' src='./assets/app.png' showMenuByLongpress={true} onTap={() => this.clickimg("")}></Image>
 
             </View>
             <View className="imagecontain">
