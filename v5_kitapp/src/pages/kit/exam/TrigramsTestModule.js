@@ -1257,6 +1257,10 @@ export default class TrigramsTest extends Component {
     if (undefined != p && undefined != p.test && "easy" == p.test) {
       this.setState({ easy: true })
       limitquestTrigrams = 5
+    }else
+    {
+      this.setState({ easy: false })
+      limitquestTrigrams = 10
     }
     Taro.showShareMenu({
       withShareTicket: true,
