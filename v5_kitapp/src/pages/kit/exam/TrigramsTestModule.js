@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import  Taro,{ getCurrentInstance } from '@tarojs/taro'
+import Taro, { getCurrentInstance } from '@tarojs/taro'
 import { StyleSheet, View, PixelRatio, Alert, Text, FlatList, ScrollView, CameraRoll } from '@tarojs/components'
 import { AtToast, AtGrid, AtTabBar, AtCheckbox, AtRadio, AtButton, AtDivider, AtIcon } from 'taro-ui'
 import './TrigramsTestModule.scss'
@@ -51,7 +51,7 @@ Trigrams[2] = {
 }
 Trigrams[3] = {
   "key": "3",
-  "q": "后天八卦说的是阳气从东方运行的情况，是从四事推移和万物生长收藏得出的规律",
+  "q": "后天八卦说的是阳气从东方运行的情况，是从四时推移和万物生长收藏得出的规律",
   "a": "A 对",
   "b": "B 错",
   "c": "",
@@ -802,137 +802,138 @@ Trigrams[59] = {
   "ret_d": "d",
   "sel": "",
 }
-/*
+
 Trigrams[60] = {
   "key": "60",
-  "q": "在社交场合中，你经常会感到",
-  "a": "A 与某些人很难打开话匣儿和保持对话，或是",
-  "b": "B 与多数人都能从容地长谈",
-  "c": "",
-  "d": "",
-  "ret_a": "i",
-  "ret_b": "e",
-  "ret_c": "",
-  "ret_d": "",
+  "q": "河图有一方中，外有八个阴点和内有三个阳点代表了什么？",
+  "a": "A、中央土",
+  "b": "B、西方金",
+  "c": "C、南方火",
+  "d": "D、东方木",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "c",
+  "ret_d": "1",
   "sel": "",
 }
 Trigrams[61] = {
   "key": "61",
-  "q": "要做许多人也做的事，你比较喜欢",
-  "a": "A 按照一般认可的方法去做",
-  "b": "B 构想一个自己的想法",
-  "c": "",
-  "d": "",
-  "ret_a": "s",
-  "ret_b": "n",
-  "ret_c": "",
-  "ret_d": "",
+  "q": "河图中：外有九个阳点和内有四个阴点，代表了什么？属于哪方位？",
+  "a": "A、北方水",
+  "b": "B、东北土",
+  "c": "C、南方火",
+  "d": "D、西方金",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "c",
+  "ret_d": "1",
   "sel": "",
 }
 Trigrams[62] = {
   "key": "62",
-  "q": "你刚认识的朋友能否说出你的兴趣？",
-  "a": "A 讲授概念和原则的",
-  "b": "B 要待他们真正了解你之后才可以",
-  "c": "",
-  "d": "",
-  "ret_a": "e",
-  "ret_b": "i",
-  "ret_c": "",
-  "ret_d": "",
+  "q": "下列描述河图正确的是哪项？",
+  "a": "A、天三生金，地八成之故三八为朋，居东",
+  "b": "B、地二生火，天七成之故二七同道，居南",
+  "c": "C、天五生水，地十成之故五十同途，居中",
+  "d": "D、天一生木，地六成之故一六共宗，居北",
+  "ret_a": "a",
+  "ret_b": "1",
+  "ret_c": "c",
+  "ret_d": "d",
   "sel": "",
 }
 Trigrams[63] = {
   "key": "63",
-  "q": "你通常较喜欢的科目是",
-  "a": "A 讲授概念和原则的",
-  "b": "B 讲授事实和数据的",
-  "c": "",
-  "d": "",
-  "ret_a": "n",
-  "ret_b": "s",
-  "ret_c": "",
-  "ret_d": "",
+  "q": "洛书中有六个阴点的代表什么方位？称什么宫？ ",
+  "a": "A、南方，离九宫",
+  "b": "B、东南，巽四宫",
+  "c": "C、西北，乾六宫",
+  "d": "D、北方，坎一宫",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "1",
+  "ret_d": "d",
   "sel": "",
 }
 Trigrams[64] = {
   "key": "64",
-  "q": "哪个是较高的赞誉，或称许为？",
-  "a": "A 一贯感性的人",
-  "b": "B 一贯理性的人",
-  "c": "",
-  "d": "",
-  "ret_a": "f",
-  "ret_b": "t",
-  "ret_c": "",
-  "ret_d": "",
+  "q": "洛书中有九个阳点代表什么方位？称什么宫？",
+  "a": "A、北方，坎一宫",
+  "b": "B、南方，离九宫",
+  "c": "C、西北，兑七宫",
+  "d": "D、东方，震三宫",
+  "ret_a": "a",
+  "ret_b": "1",
+  "ret_c": "c",
+  "ret_d": "d",
   "sel": "",
 }
 Trigrams[65] = {
   "key": "65",
-  "q": "你认为按照程序表做事",
-  "a": "A 有时是需要的，但一般来说你不大喜欢这样做，或是",
-  "b": "B 大多数情况下是有帮助而且是你喜欢做的",
-  "c": "",
-  "d": "",
-  "ret_a": "p",
-  "ret_b": "j",
-  "ret_c": "",
-  "ret_d": "",
+  "q": "《易传》成书于（）时期。 ",
+  "a": "A 西周",
+  "b": "B 殷商",
+  "c": "C 战国",
+  "d": "D 秦汉",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "1",
+  "ret_d": "d",
   "sel": "",
 }
 Trigrams[66] = {
   "key": "66",
-  "q": "和一群人在一起，你通常会选",
-  "a": "A 跟你很熟悉的个别人谈话",
-  "b": "B 参与大伙的谈话",
-  "c": "",
-  "d": "",
-  "ret_a": "i",
-  "ret_b": "e",
-  "ret_c": "",
-  "ret_d": "",
+  "q": "圣人设立八卦的目的是为了（）",
+  "a": "A 占卜",
+  "b": "B 观象",
+  "c": "C 祈福",
+  "d": "D 立法",
+  "ret_a": "a",
+  "ret_b": "1",
+  "ret_c": "c",
+  "ret_d": "d",
   "sel": "",
 }
 Trigrams[67] = {
   "key": "67",
-  "q": "在社交聚会上，你会",
-  "a": "A 是说话很多的一个",
-  "b": "B 让别人多说话",
-  "c": "",
-  "d": "",
-  "ret_a": "e",
-  "ret_b": "i",
-  "ret_c": "",
-  "ret_d": "",
+  "q": "屯卦讲的是",
+  "a": "A、天",
+  "b": "B、地",
+  "c": "C、人",
+  "d": "D、风",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "1",
+  "ret_d": "d",
   "sel": "",
 }
 Trigrams[68] = {
   "key": "68",
-  "q": "把周末期间要完成的事列成清单，这个主意会",
-  "a": "A 合你意",
-  "b": "B 使你提不起劲",
-  "c": "",
-  "d": "",
-  "ret_a": "j",
-  "ret_b": "p",
-  "ret_c": "",
-  "ret_d": "",
+  "q": "“雷在地中”出自（）卦的象辞",
+  "a": "A、渐",
+  "b": "B、益",
+  "c": "C、复",
+  "d": "D、小过",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "1",
+  "ret_d": "d",
   "sel": "",
 }
 Trigrams[69] = {
   "key": "69",
-  "q": "哪个是较高的赞誉，或称许为",
-  "a": "A 能干的",
-  "b": "B 富有同情心",
-  "c": "",
-  "d": "",
-  "ret_a": "t",
-  "ret_b": "f",
-  "ret_c": "",
-  "ret_d": "",
+  "q": "“神也者，妙万物而为言者也。”出自（）",
+  "a": "A、《论语》",
+  "b": "B、《易传》",
+  "c": "C、《礼记》",
+  "d": "D、《老子》",
+  "ret_a": "a",
+  "ret_b": "1",
+  "ret_c": "c",
+  "ret_d": "d",
   "sel": "",
 }
+/*
 Trigrams[70] = {
   "key": "70",
   "q": "你通常喜欢",
@@ -1234,8 +1235,9 @@ Trigrams[92] = {
 }
 */
 
-const limitquestTrigrams = 5
+var limitquestTrigrams = 10
 export default class TrigramsTest extends Component {
+  $instance = getCurrentInstance()
   constructor(props) {
     super(props);
     this.state = {
@@ -1246,13 +1248,19 @@ export default class TrigramsTest extends Component {
       extrainfo: [],
       retdetail: [],
       closetest: false,
+      easy: false,
     }
 
   }
   componentDidMount() {
+    var p = this.$instance.router.params
+    if (undefined != p && undefined != p.test && "easy" == p.test) {
+      this.setState({ easy: true })
+      limitquestTrigrams = 5
+    }
     Taro.showShareMenu({
       withShareTicket: true,
-      showShareItems:['shareAppMessage', 'shareTimeline','wechatFriends', 'wechatMoment']
+      showShareItems: ['shareAppMessage', 'shareTimeline', 'wechatFriends', 'wechatMoment']
     })
     this.clear()
   }
@@ -1337,22 +1345,19 @@ export default class TrigramsTest extends Component {
     if (this.state.ret == undefined) { return }
     else {
       var tips = "初出茅庐，砥砺前行"
-      if(this.state.ret>=5)
-      {
+      if (this.state.ret >= limitquestTrigrams) {
         tips = "高山仰望，世外高人"
       }
-      else if(this.state.ret>=4)
-      {
+      else if (this.state.ret >= limitquestTrigrams - 2) {
         tips = "云游四海，路踏青云"
       }
-      else if(this.state.ret>=3)
-      {
+      else if (this.state.ret >= limitquestTrigrams - 4) {
         tips = "逆水行舟，尚需努力"
       }
       return (
         <View className='at-row' style="flex-direction:column">
           <Text className='at-col' style="text-align:center;font-size:24px">您的得分：{this.state.ret}</Text>
-          <Text  style="text-align:center;font-size:16px">{tips}</Text>
+          <Text style="text-align:center;font-size:16px">{tips}</Text>
         </View>)
     }
   }
@@ -1361,6 +1366,56 @@ export default class TrigramsTest extends Component {
     const { Trigrams } = this.state;
     const content = Trigrams.map((item) => {
       if ("" != item.ret_d) {
+        //　增加abcd随机洗牌位
+        for (var i = 0; i < 3 && false == this.state.easy; i++) {
+          var x = new Object()
+          var T = Math.random()
+          if (T > 0.8)//ac换位
+          {
+            x.x = item.c
+            x.ret_x = item.ret_c
+            item.c = item.a
+            item.ret_c = item.ret_a
+            item.a = x.x
+            item.ret_a = x.ret_x
+          }
+          else if (T > 0.6)//ad换位
+          {
+            x.x = item.d
+            x.ret_x = item.ret_d
+            item.d = item.a
+            item.ret_d = item.ret_a
+            item.a = x.x
+            item.ret_a = x.ret_x
+          }
+          else if (T > 0.4)//bc换位
+          {
+            x.x = item.b
+            x.ret_x = item.ret_b
+            item.b = item.c
+            item.ret_b = item.ret_c
+            item.c = x.x
+            item.ret_c = x.ret_x
+          }
+          else if (T > 0.2)//ab换位
+          {
+            x.x = item.b
+            x.ret_x = item.ret_b
+            item.b = item.a
+            item.ret_b = item.ret_a
+            item.a = x.x
+            item.ret_a = x.ret_x
+          }
+          else//cd换位
+          {
+            x.x = item.c
+            x.ret_x = item.ret_c
+            item.c = item.d
+            item.ret_c = item.ret_d
+            item.d = x.x
+            item.ret_d = x.ret_x
+          }
+        }
         return (
           <View key={item.id}>
             <View className={'question'}>
@@ -1375,6 +1430,16 @@ export default class TrigramsTest extends Component {
               onClick={(value) => this.updateIndex(value, item.key)} />
           </View>)
       } else {
+        // 增加ab随机洗拍位
+        if (Math.random() > 0.5 && false == this.state.easy) {
+          var x = new Object()
+          x.x = item.a
+          x.ret_x = item.ret_a
+          item.a = item.b
+          item.ret_a = item.ret_b
+          item.b = x.x
+          item.ret_b = x.ret_x
+        }
         return (
           <View key={item.id}>
             <View className={'question'}><Text >第{item.index + 1}题：{item.q}</Text>
