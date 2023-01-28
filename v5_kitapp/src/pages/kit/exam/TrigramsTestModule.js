@@ -3,7 +3,6 @@ import Taro, { getCurrentInstance } from '@tarojs/taro'
 import { StyleSheet, View, PixelRatio, Alert, Text, FlatList, ScrollView, CameraRoll } from '@tarojs/components'
 import { AtToast, AtGrid, AtTabBar, AtCheckbox, AtRadio, AtButton, AtDivider, AtIcon } from 'taro-ui'
 import './TrigramsTestModule.scss'
-
 const checkright = <AtIcon value='check' size='24' color='green'></AtIcon>
 const checkfalse = <AtIcon value='close' size='24' color='red'></AtIcon>
 var Trigrams = Array();
@@ -1338,6 +1337,437 @@ Trigrams[100] = {
   "ret_d": "1",
   "sel": "",
 }
+Trigrams[101] = {
+  "key": "101",
+  "q": "坤卦代表（）",
+  "a": "A、人",
+  "b": "B、山",
+  "c": "C、地",
+  "d": "D、天 ",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "1",
+  "ret_d": "d",
+  "sel": "",
+}
+Trigrams[102] = {
+  "key": "102",
+  "q": "乾卦代表",
+  "a": "A、天",
+  "b": "B、地",
+  "c": "C、风",
+  "d": "D、雷",
+  "ret_a": "1",
+  "ret_b": "b",
+  "ret_c": "c",
+  "ret_d": "d",
+  "sel": "",
+}
+Trigrams[103] = {
+  "key": "103",
+  "q": "乾卦卦辞中的“元”可比作四季中（）的德",
+  "a": "A、春",
+  "b": "B、夏",
+  "c": "C、秋",
+  "d": "D、冬 ",
+  "ret_a": "1",
+  "ret_b": "b",
+  "ret_c": "c",
+  "ret_d": "d",
+  "sel": "",
+}
+Trigrams[104] = {
+  "key": "104",
+  "q": "乾卦卦辞中的“亨”可比作四季中（）的德。",
+  "a": "A、春",
+  "b": "B、夏",
+  "c": "C、秋",
+  "d": "D、冬 ",
+  "ret_a": "a",
+  "ret_b": "1",
+  "ret_c": "c",
+  "ret_d": "d",
+  "sel": "",
+}
+Trigrams[105] = {
+  "key": "105",
+  "q": "“亢龙有悔”出自（）",
+  "a": "A、《史记》",
+  "b": "B、《周易》",
+  "c": "C、《老子》",
+  "d": "D、《尚书》",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "c",
+  "ret_d": "d",
+  "sel": "",
+}
+Trigrams[106] = {
+  "key": "106",
+  "q": "阳爻用数字（）来指代",
+  "a": "A、九",
+  "b": "B、八",
+  "c": "C、六",
+  "d": "D、四 ",
+  "ret_a": "1",
+  "ret_b": "b",
+  "ret_c": "c",
+  "ret_d": "d",
+  "sel": "",
+}
+Trigrams[107] = {
+  "key": "107",
+  "q": "“潜龙，勿用”是乾卦（）的爻辞",
+  "a": "A、上九",
+  "b": "B、九五",
+  "c": "C、九三",
+  "d": "D、初九",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "c",
+  "ret_d": "1",
+  "sel": "",
+}
+Trigrams[108] = {
+  "key": "108",
+  "q": "屯卦是（）之卦",
+  "a": "A、天子",
+  "b": "B、大夫",
+  "c": "C、自然",
+  "d": "D、诸侯",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "c",
+  "ret_d": "1",
+  "sel": "",
+}
+Trigrams[109] = {
+  "key": "109",
+  "q": "“龙战于野，其血玄黄”出自（）的爻辞",
+  "a": "A、乾卦",
+  "b": "B、坤卦",
+  "c": "C、需卦",
+  "d": "D、离卦",
+  "ret_a": "a",
+  "ret_b": "1",
+  "ret_c": "c",
+  "ret_d": "d",
+  "sel": "",
+}
+
+Trigrams[110] = {
+  "key": "110",
+  "q": "讼卦主要论述了关于（）的世相",
+  "a": "A、争讼",
+  "b": "B、自然",
+  "c": "C、天地",
+  "d": "D、君子",
+  "ret_a": "1",
+  "ret_b": "b",
+  "ret_c": "c",
+  "ret_d": "d",
+  "sel": "",
+}
+Trigrams[111] = {
+  "key": "111",
+  "q": "（）的卦辞是说踩着老虎尾巴而老虎却没咬人。",
+  "a": "A、豫卦",
+  "b": "B、小蓄卦",
+  "c": "C、旅卦",
+  "d": "D、泰卦",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "1",
+  "ret_d": "d",
+  "sel": "",
+}
+Trigrams[112] = {
+  "key": "112",
+  "q": "比卦的卦象是",
+  "a": "A、坎下艮上",
+  "b": "B、坤上坎下",
+  "c": "C、坎上乾下",
+  "d": "D、坎上坤下",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "c",
+  "ret_d": "1",
+  "sel": "",
+}
+Trigrams[113] = {
+  "key": "113",
+  "q": "“雷在地中”出自（）卦的象辞 ",
+  "a": "A、渐",
+  "b": "B、益",
+  "c": "C、复",
+  "d": "D、小过",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "1",
+  "ret_d": "d",
+  "sel": "",
+}
+Trigrams[114] = {
+  "key": "114",
+  "q": "下列选项出自节卦的是（）",
+  "a": "A、泽上有水",
+  "b": "B、泽上有雷",
+  "c": "C、木上有火",
+  "d": "D、泽中有火",
+  "ret_a": "1",
+  "ret_b": "b",
+  "ret_c": "c",
+  "ret_d": "d",
+  "sel": "",
+}
+Trigrams[115] = {
+  "key": "115",
+  "q": "“地中生木”出自（）卦的象辞。",
+  "a": "A、随",
+  "b": "B、豫",
+  "c": "C、观",
+  "d": "D、升",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "c",
+  "ret_d": "1",
+  "sel": "",
+}
+Trigrams[116] = {
+  "key": "116",
+  "q": "下列那一挂的彖辞涉及汤武革命？（）",
+  "a": "A、大壮卦",
+  "b": "B、革卦",
+  "c": "C、困卦",
+  "d": "D、鼎卦",
+  "ret_a": "a",
+  "ret_b": "1",
+  "ret_c": "c",
+  "ret_d": "d",
+  "sel": "",
+}
+Trigrams[117] = {
+  "key": "117",
+  "q": "圣人设立八卦的目的是为了（）",
+  "a": "A、占卜",
+  "b": "B、观象",
+  "c": "C、祈福",
+  "d": "D、立法",
+  "ret_a": "a",
+  "ret_b": "1",
+  "ret_c": "c",
+  "ret_d": "d",
+  "sel": "",
+}
+Trigrams[118] = {
+  "key": "118",
+  "q": "战国时的《彖》、《象》认为明夷中的明是（）",
+  "a": "A、8",
+  "b": "B、16",
+  "c": "C、32",
+  "d": "D、64 ",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "c",
+  "ret_d": "1",
+  "sel": "",
+}
+Trigrams[119] = {
+  "key": "119",
+  "q": "言、知、思、在，（）的地位是最高的",
+  "a": "A、言",
+  "b": "B、知",
+  "c": "C、思",
+  "d": "D、在 ",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "c",
+  "ret_d": "1",
+  "sel": "",
+}
+
+Trigrams[120] = {
+  "key": "120",
+  "q": "中国哲学用（）代表天人物我同一的根源。",
+  "a": "A、道",
+  "b": "B、理",
+  "c": "C、义",
+  "d": "D、仁",
+  "ret_a": "1",
+  "ret_b": "b",
+  "ret_c": "c",
+  "ret_d": "d",
+  "sel": "",
+}
+Trigrams[121] = {
+  "key": "121",
+  "q": "”乾下巽上”的卦是（）",
+  "a": "A、小畜卦",
+  "b": "B、比卦",
+  "c": "C、大有卦",
+  "d": "D、谦卦",
+  "ret_a": "1",
+  "ret_b": "b",
+  "ret_c": "c",
+  "ret_d": "d",
+  "sel": "",
+}
+
+//对于多选和单选相反，abcd有分数，数字没有分数
+Trigrams[122] = {
+  "type":"m",
+  "key": "122",
+  "q": "《周易》之爻位，有（ ）之分。",
+  "a": "A、阴位",
+  "b": "B、阳位",
+  "c": "C、上位",
+  "d": "D、下位",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "3",
+  "ret_d": "4",
+  "sel": "",
+}
+Trigrams[123] = {
+  "type":"m",
+  "key": "123",
+  "q": "《周易》卦爻象的特征是（ ）",
+  "a": "A  固定不变",
+  "b": "B  阴阳流转、变化",
+  "c": "C  “刚柔相推，变在其中矣”",
+  "d": "D “一阖一辟谓之变，往来不穷谓之通” ",
+  "ret_a": "0",
+  "ret_b": "b",
+  "ret_c": "c",
+  "ret_d": "d",
+  "sel": "",
+}
+Trigrams[124] = {
+  "type":"m",
+  "key": "124",
+  "q": "爻位处（ ），即可以称之为“中”或“得中” ",
+  "a": "A、“二” ",
+  "b": "B、“三”",
+  "c": "C、“四”",
+  "d": "D、“五”",
+  "ret_a": "a",
+  "ret_b": "1",
+  "ret_c": "2",
+  "ret_d": "d",
+  "sel": "",
+}
+Trigrams[125] = {
+  "type":"m",
+  "key": "125",
+  "q": "爻的吉与凶，取决于（ ）",
+  "a": "A、爻本身",
+  "b": "B、周围环境",
+  "c": "C、所处的位置",
+  "d": "D、和其他爻之间的关系",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "c",
+  "ret_d": "d",
+  "sel": "",
+}
+Trigrams[126] = {
+  "type":"m",
+  "key": "126",
+  "q": "“易”指“一名而四义”，（ ）",
+  "a": "A、变易",
+  "b": "B、交易",
+  "c": "C、简易",
+  "d": "D、不易",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "c",
+  "ret_d": "d",
+  "sel": "",
+}
+Trigrams[127] = {
+  "type":"m",
+  "key": "127",
+  "q": "《周易》是由哪些组合而成的？",
+  "a": "A、符号",
+  "b": "B、文字",
+  "c": "C、乾卦",
+  "d": "D、坤卦",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "2",
+  "ret_d": "3",
+  "sel": "",
+}
+Trigrams[128] = {
+  "type":"m",
+  "key": "128",
+  "q": "下列属于八卦的是（）",
+  "a": "A、大有卦",
+  "b": "B、乾卦",
+  "c": "C、坤卦",
+  "d": "D、震卦",
+  "ret_a": "0",
+  "ret_b": "b",
+  "ret_c": "c",
+  "ret_d": "d",
+  "sel": "",
+}
+Trigrams[129] = {
+  "type":"m",
+  "key": "129",
+  "q": " 下列属于乾卦卦象所象的是（）",
+  "a": "A、天",
+  "b": "B、健",
+  "c": "C、君",
+  "d": "D、首",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "c",
+  "ret_d": "d",
+  "sel": "",
+}
+Trigrams[130] = {
+  "type":"m",
+  "key": "130",
+  "q": "在对六十四卦的解读中，《易传》基本遵循了（）的认知思路。",
+  "a": "A、观卦象",
+  "b": "B、类万物",
+  "c": "C、通神明",
+  "d": "D、占卜术",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "c",
+  "ret_d": "4",
+  "sel": "",
+}
+Trigrams[131] = {
+  "type":"m",
+  "key": "131",
+  "q": "义理易学分为（）",
+  "a": "A  理学易",
+  "b": "B  儒学易",
+  "c": "C  佛学易",
+  "d": "D  道学易 ",
+  "ret_a": "0",
+  "ret_b": "b",
+  "ret_c": "c",
+  "ret_d": "d",
+  "sel": "",
+}
+Trigrams[132] = {
+  "type":"m",
+  "key": "132",
+  "q": "“三玄”是指（）三本经典。",
+  "a": "A、《老子》",
+  "b": "B、《庄子》",
+  "c": "C、《周易》",
+  "d": "D、《论语》",
+  "ret_a": "a",
+  "ret_b": "b",
+  "ret_c": "c",
+  "ret_d": "3",
+  "sel": "",
+}
 
 
 var limitquestTrigrams = 10
@@ -1381,7 +1811,9 @@ export default class TrigramsTest extends Component {
     var runtimeTrigrams = Trigrams.concat()
     var checked = new Array();
     while (runtimeTrigrams.length > limitquestTrigrams) {
-      var p = Math.random() * runtimeTrigrams.length
+      var p = Math.floor(Math.random() * runtimeTrigrams.length)
+      //if(undefined==runtimeTrigrams[p].type)
+      //{      runtimeTrigrams.splice(p, 1)}
       runtimeTrigrams.splice(p, 1)
     }
     var checked = new Array();
@@ -1390,6 +1822,7 @@ export default class TrigramsTest extends Component {
       runtimeTrigrams[i].index = i
       runtimeTrigrams[i].key = i
       runtimeTrigrams[i].ret = undefined
+      runtimeTrigrams[i].sel = ""
     }
     this.setState({
       checked: checked,
@@ -1407,7 +1840,7 @@ export default class TrigramsTest extends Component {
     console.log(key, sel)
     if (false == this.state.closetest) {
       //console.log(key,sel)
-      if ("" != sel) {
+      if ("" != sel || "m"==this.state.Trigrams[Number(key)].type) {
         this.state.Trigrams[Number(key)].sel = sel
       }
       this.state.checked[Number(key)] = sel
@@ -1431,13 +1864,42 @@ export default class TrigramsTest extends Component {
     var testTrigrams = this.state.Trigrams
     for (var i = 0; i < testTrigrams.length; i++) {
       var indextest = testTrigrams[i]
-      if ("1" == testTrigrams[i].sel) {
-        ret++
-        testTrigrams[i].ret = true
+      if(undefined==testTrigrams[i].type)
+      {
+        if ("1" == testTrigrams[i].sel) {
+          ret++
+          testTrigrams[i].ret = true
+        } else {
+          testTrigrams[i].ret = false
+        }
       }
-      else {
-        testTrigrams[i].ret = false
+      else if("m"==testTrigrams[i].type){
+        testTrigrams[i].ret = (0<testTrigrams[i].sel.length)?true:false
+        for(var x = 0;x<testTrigrams[i].sel.length;x++)
+        {
+          if (-1 == ("0123456789").indexOf(testTrigrams[i].sel[x])) {
+            testTrigrams[i].ret = testTrigrams[i].ret && true
+          } else {
+            testTrigrams[i].ret = testTrigrams[i].ret && false
+          }
+        }
+        var l=0
+        if(-1==("0123456789").indexOf(testTrigrams[i].ret_a))
+        {l++}
+        if(-1==("0123456789").indexOf(testTrigrams[i].ret_b))
+        {l++}
+        if(-1==("0123456789").indexOf(testTrigrams[i].ret_c))
+        {l++}
+        if(-1==("0123456789").indexOf(testTrigrams[i].ret_d))
+        {l++}
+        if(testTrigrams[i].ret && l==testTrigrams[i].sel.length){
+          ret++
+          testTrigrams[i].ret = testTrigrams[i].ret && true
+        }else{
+          testTrigrams[i].ret = testTrigrams[i].ret && false
+        }
       }
+
     }
 
     this.setState({
@@ -1474,7 +1936,23 @@ export default class TrigramsTest extends Component {
   render() {
     const { Trigrams } = this.state;
     const content = Trigrams.map((item) => {
-      if ("" != item.ret_d) {
+      if("m"==item.type)
+      {
+        return (
+          <View key={item.id}>
+            <View className={'question'}>
+
+              <Text >第{item.index + 1}题：{item.q}(多选)</Text>
+              {true == item.ret ? checkright : (false == item.ret ? checkfalse : "")}</View>
+            <AtCheckbox options={[{ label: item.a, value: item.ret_a }
+              , { label: item.b, value: item.ret_b }
+              , { label: item.c, value: item.ret_c }
+              , { label: item.d, value: item.ret_d }]}
+              selectedList={item.sel}
+              onChange={(value) => this.updateIndex(value, item.key)} />
+          </View>)
+      }
+      else if ("" != item.ret_d) {
         //　增加abcd随机洗牌位
         for (var i = 0; i < 3 && false == this.state.easy; i++) {
           var x = new Object()
@@ -1525,19 +2003,23 @@ export default class TrigramsTest extends Component {
             item.ret_d = x.ret_x
           }
         }
-        return (
-          <View key={item.id}>
-            <View className={'question'}>
-
-              <Text >第{item.index + 1}题：{item.q}</Text>
-              {true == item.ret ? checkright : (false == item.ret ? checkfalse : "")}</View>
-            <AtRadio options={[{ label: item.a, value: item.ret_a }
-              , { label: item.b, value: item.ret_b }
-              , { label: item.c, value: item.ret_c }
-              , { label: item.d, value: item.ret_d }]}
-              value={this.state.checked[Number(item.key)]}
-              onClick={(value) => this.updateIndex(value, item.key)} />
-          </View>)
+       
+ 
+          return (
+            <View key={item.id}>
+              <View className={'question'}>
+  
+                <Text >第{item.index + 1}题：{item.q}</Text>
+                {true == item.ret ? checkright : (false == item.ret ? checkfalse : "")}</View>
+              <AtRadio options={[{ label: item.a, value: item.ret_a }
+                , { label: item.b, value: item.ret_b }
+                , { label: item.c, value: item.ret_c }
+                , { label: item.d, value: item.ret_d }]}
+                value={this.state.checked[Number(item.key)]}
+                onClick={(value) => this.updateIndex(value, item.key)} />
+            </View>)
+        
+       
       } else {
         // 增加ab随机洗拍位
         if (Math.random() > 0.5 && false == this.state.easy) {
