@@ -10,68 +10,7 @@ import { handleClick,tablist } from '../../config/common'
 import './icon_awesome.scss'
 import './icon_ionicons.scss'
 import './icon_mdi.scss'
-var data1 =
-  [
-    {
-      iconInfo: {
-        prefixClass: 'fa',
-        size: 30,
-        color: 'orange',
-        value: 'podcast'
-      },
-      value: 'MBTI职业性格测试小程序版'
-    },
-    {
-      iconInfo: {
-        prefixClass: 'fa',
-        size: 30,
-        color: 'red',
-        value: 'universal-access'
-      },
-      value: '九型人格测试小程序版'
-    },
 
-    {
-      iconInfo: {
-        prefixClass: 'fa',
-        size: 30,
-        color: 'blue',
-        value: 'tachometer'
-      },
-      value: '霍兰德职业测试'
-    },
-  ];
-
-var data2 =
-  [
-    {
-      iconInfo: {
-        prefixClass: 'fa',
-        size: 30,
-        color: 'darkblue',
-        value: 'moon-o'
-      },
-      value: '六爻测试'
-    },
-    {
-      iconInfo: {
-        prefixClass: 'ion',
-        size: 30,
-        color: 'orange',
-        value: 'ios-finger-print'
-      },
-      value: '八字测评'
-    },
-    {
-      iconInfo: {
-        prefixClass: 'fa',
-        size: 30,
-        color: 'green',
-        value: 'signal'
-      },
-      value: '数字八星'
-    },
-  ];
 let litekitPagethis = null
 export default class litekitPage extends Component {
   componentDidMount() {
@@ -79,19 +18,8 @@ export default class litekitPage extends Component {
       withShareTicket: true,
       showShareItems: ['shareAppMessage', 'shareTimeline', 'wechatFriends', 'wechatMoment']
     })
-    wx.getSetting({
-      success(res) {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-          wx.getUserInfo({
-            success: function (res) {
-              litekitPagethis.setState({ login: true })
-              plumber.uid_uid = litekitPagethis.getweixinunionid(res.userInfo)
-            }
-          })
-        }
-      }
-    })
+    this.userInfoHandler()
+    
     this.setState({ current: 1 })
 
   }
@@ -100,12 +28,16 @@ export default class litekitPage extends Component {
   }
   constructor(props) {
     super(props)
+    var login = false
+    try {
+      login = Taro.getStorageSync('sixrandomelogin')
+    } catch (e) { }
     var open = new Array()
     open[1] = true
     open[2] = true
     this.state = {
       open: open,
-      login: false,
+      login: login,
     }
     litekitPagethis = this
   }
@@ -169,21 +101,25 @@ export default class litekitPage extends Component {
 
 
   userInfoHandler() {
-    wx.getSetting({
-      success(res) {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-          wx.getUserInfo(
-            {
-              withCredentials: true,
-              success: function (res) {
-                //plumber
-                litekitPagethis.setState({ login: true })
-              }
-            })
+    if(false==this.state.login){
+      wx.getSetting({
+        success(res) {
+          if (res.authSetting['scope.userInfo']) {
+            // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+            wx.getUserInfo(
+              {
+                withCredentials: true,
+                success: function (res) {
+                  try {
+                    Taro.setStorageSync('sixrandomelogin', true)
+                  } catch (e) { }
+                  litekitPagethis.setState({ login: true })
+                }
+              })
+          }
         }
-      }
-    })
+      })
+    }
   }
   ClickAtTabBar(value) {
     handleClick(value)

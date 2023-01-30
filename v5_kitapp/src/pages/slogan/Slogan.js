@@ -13,6 +13,11 @@ export default class Slogan extends Component {
   }
 
   componentDidMount() { 
+    try {
+      Taro.clearStorageSync()
+    } catch(e) {
+    // Do something when catch error
+    }
     this.timer = setInterval(() => {
       var cur = Math.floor(Math.random() * sloganshow.length)
       this.setState({ cur: cur })
