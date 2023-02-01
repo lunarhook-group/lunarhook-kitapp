@@ -83,6 +83,10 @@ export default class litekitPage extends Component {
     else if ("合卺问礼" == item) {
       Taro.navigateTo({ url: '../../../pages/kit/UniversechangesLib/Marry/MarryNewPage' })
     }
+    else if ("起名工具" == item) {
+      Taro.navigateTo({ url: '../../../pages/kit/exam/NamePage' })
+    }
+    
   }
   handleAccordionClick(index, value) {
     //console.log(value,index)

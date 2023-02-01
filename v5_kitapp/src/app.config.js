@@ -70,6 +70,7 @@ export default {
       "root": "pages/kit/exam",
       "pages": [
         "TrigramsTestModule",
+        "NamePage"
       ]
     }, 
 
