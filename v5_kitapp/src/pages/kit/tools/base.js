@@ -5,7 +5,7 @@ import { View, Text, Image, CustomWrapper, ScrollView } from '@tarojs/components
 import { AtIcon, AtDivider, AtTabBar, AtList, AtListItem } from 'taro-ui'
 import './base.scss'
 import '../../../theme.scss'
-import {handleClick,tablist} from '../../config/common'
+import { handleClick, tablist } from '../../config/common'
 import plumber from '../../plumbertracewithoutpoucdbwithwxrequest_miniv3'
 //import WXBizDataCrypt from './WXBizDataCrypt'
 import './icon_awesome.scss'
@@ -17,7 +17,7 @@ export default class litekitPage extends Component {
   componentDidMount() {
     Taro.showShareMenu({
       withShareTicket: true,
-      showShareItems:['shareAppMessage', 'shareTimeline','wechatFriends', 'wechatMoment']
+      showShareItems: ['shareAppMessage', 'shareTimeline', 'wechatFriends', 'wechatMoment']
     })
     wx.getSetting({
       success(res) {
@@ -50,8 +50,7 @@ export default class litekitPage extends Component {
     Basepagethis = this
   }
 
-  ClickAtTabBar(value)
-  {
+  ClickAtTabBar(value) {
     handleClick(value)
   }
 
@@ -77,7 +76,7 @@ export default class litekitPage extends Component {
     else if ("乾坤九考" == item) {
       Taro.navigateTo({ url: '../../../pages/kit/exam/TrigramsTestModule' })
     }
-    else if("乾坤九考题库版" == item) {
+    else if ("乾坤九考题库版" == item) {
       Taro.navigateTo({ url: '../../../pages/kit/exam/TrigramsTestModule?test=easy' })
 
     }
@@ -127,74 +126,93 @@ export default class litekitPage extends Component {
   render() {
 
 
-      return (
-        <View className={'contain'}>
+    return (
+      <View className={'contain'}>
 
 
 
-          <ScrollView>
-            <AtDivider >
-              <AtIcon value='bell' color="#13BD7A"></AtIcon>
-              <Text> 基础测试 </Text>
-              <AtIcon value='bell' color="#13BD7A"></AtIcon>
+        <ScrollView>
+          <AtDivider >
+            <AtIcon value='link' color="red"></AtIcon>
+            <Text> 知识工具 </Text>
+            <AtIcon value='link' color="red"></AtIcon>
             </AtDivider>
             <AtList hasBorder={false}>
               <AtListItem
-                title='乾坤九考（癸卯考试版）'
-                note='根据《三玄》《四书》《五经》中周易相关知识按难度出题，对自学周易以及相关国学知识的自我检测，分成九个难度，目前是混合测试'
+                title='起名工具'
+                note='根据汉字的五行规则，再根据唐诗宋词的引用字的频度起名'
                 iconInfo={{
                   prefixClass: 'mdi',
                   size: 30,
-                  color: '#00C0FF',
+                  color: 'red',
                   value: 'language-xaml',
                 }}
-                onClick={this.GridHander.bind(this, '乾坤九考')}
+                onClick={this.GridHander.bind(this, '起名工具')}
               />
-               <AtListItem
-                title='乾坤九考（壬寅测试版）'
-                note='根据《三玄》《四书》《五经》中周易相关知识按难度出题，对自学周易以及相关国学知识的自我检测，目前是题库测试模式'
-                iconInfo={{
-                  prefixClass: 'mdi',
-                  size: 30,
-                  color: '#EEBBFF',
-                  value: 'language-xaml',
-                }}
-                onClick={this.GridHander.bind(this, '乾坤九考题库版')}
-              />
-
             </AtList>
-            
-            <View>
-              <Text style="opacity: 0">blockline</Text>
-            </View>
-            <View>
-              <Text style="opacity: 0">blockline</Text>
-            </View>
-            <View>
-              <Text style="opacity: 0">blockline</Text>
-            </View>
-            <View>
-              <Text style="opacity: 0">blockline</Text>
-            </View>
-            <View>
-              <Text style="opacity: 0">blockline</Text>
-            </View>
-            <View>
-              <Text style="opacity: 0">blockline</Text>
-            </View>
-          </ScrollView>
-          <AtTabBar
-            fixed
-            color='#08ad0f'
-            selectedColor="#32ea38"
-            tabList={tablist}
-            onClick={this.ClickAtTabBar}
-            current={1}
-          >
-          </AtTabBar>
-        </View>
-      )
-    }
 
+          <AtDivider >
+            <AtIcon value='bell' color="#13BD7A"></AtIcon>
+            <Text> 基础测试 </Text>
+            <AtIcon value='bell' color="#13BD7A"></AtIcon>
+          </AtDivider>
+          <AtList hasBorder={false}>
+            <AtListItem
+              title='乾坤九考（癸卯考试版）'
+              note='根据《三玄》《四书》《五经》中周易相关知识按难度出题，对自学周易以及相关国学知识的自我检测，分成九个难度，目前是混合测试'
+              iconInfo={{
+                prefixClass: 'mdi',
+                size: 30,
+                color: '#00C0FF',
+                value: 'language-xaml',
+              }}
+              onClick={this.GridHander.bind(this, '乾坤九考')}
+            />
+            <AtListItem
+              title='乾坤九考（壬寅测试版）'
+              note='根据《三玄》《四书》《五经》中周易相关知识按难度出题，对自学周易以及相关国学知识的自我检测，目前是题库测试模式'
+              iconInfo={{
+                prefixClass: 'mdi',
+                size: 30,
+                color: '#EEBBFF',
+                value: 'language-xaml',
+              }}
+              onClick={this.GridHander.bind(this, '乾坤九考题库版')}
+            />
+
+          </AtList>
+
+          <View>
+            <Text style="opacity: 0">blockline</Text>
+          </View>
+          <View>
+            <Text style="opacity: 0">blockline</Text>
+          </View>
+          <View>
+            <Text style="opacity: 0">blockline</Text>
+          </View>
+          <View>
+            <Text style="opacity: 0">blockline</Text>
+          </View>
+          <View>
+            <Text style="opacity: 0">blockline</Text>
+          </View>
+          <View>
+            <Text style="opacity: 0">blockline</Text>
+          </View>
+        </ScrollView>
+        <AtTabBar
+          fixed
+          color='#08ad0f'
+          selectedColor="#32ea38"
+          tabList={tablist}
+          onClick={this.ClickAtTabBar}
+          current={1}
+        >
+        </AtTabBar>
+      </View>
+    )
   }
+
+}
 
